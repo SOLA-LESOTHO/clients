@@ -6,8 +6,8 @@
     <Name>Road</Name>
     <UserStyle>
     <!-- Styles can have names, titles and abstracts -->
-      <Title>Road newwork</Title>
-      <Abstract>A symbology defintion for SOLA cadastre map point</Abstract>
+      <Title>Road network</Title>
+      <Abstract>A symbology defintion for SOLA cadastre map road centreline</Abstract>
       <!-- FeatureTypeStyles describe how to render different features -->
       <!-- A FeatureTypeStyle for rendering lines -->
       <FeatureTypeStyle>
