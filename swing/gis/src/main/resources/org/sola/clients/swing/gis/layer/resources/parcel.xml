@@ -44,7 +44,6 @@
        <Name>Scale 50000 - 625000</Name>
        <MinScaleDenominator>50000</MinScaleDenominator>
        <MaxScaleDenominator>625000</MaxScaleDenominator>
-	   
        <PolygonSymbolizer>
          <Fill>
            <CssParameter name="fill">#FFFFFF</CssParameter>

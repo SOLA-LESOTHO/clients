@@ -6,14 +6,14 @@
     <Name>Road</Name>
     <UserStyle>
     <!-- Styles can have names, titles and abstracts -->
-      <Title>Road newwork</Title>
-      <Abstract>A symbology defintion for SOLA cadastre map point</Abstract>
+      <Title>Road network</Title>
+      <Abstract>A symbology defintion for SOLA cadastre map road centreline</Abstract>
       <!-- FeatureTypeStyles describe how to render different features -->
       <!-- A FeatureTypeStyle for rendering lines -->
       <FeatureTypeStyle>
 	  <Rule>
-       <Name>Scale &lt; 2500</Name>
-       <MaxScaleDenominator>2500</MaxScaleDenominator>
+       <Name>Scale &lt; 90000</Name>
+       <MaxScaleDenominator>90000</MaxScaleDenominator>
        <PolygonSymbolizer>
          <Stroke>
            <CssParameter name="stroke">#F88017</CssParameter>
