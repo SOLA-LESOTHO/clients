@@ -16,7 +16,7 @@
        <MaxScaleDenominator>90000</MaxScaleDenominator>
        <PolygonSymbolizer>
          <Stroke>
-           <CssParameter name="stroke">#F88017</CssParameter>
+           <CssParameter name="stroke">#000066</CssParameter>
            <CssParameter name="stroke-width">0.5</CssParameter>
          </Stroke>
        </PolygonSymbolizer>
@@ -51,7 +51,7 @@
        <MaxScaleDenominator>90000</MaxScaleDenominator>
        <PolygonSymbolizer>
          <Stroke>
-           <CssParameter name="stroke">#F88017</CssParameter>
+           <CssParameter name="stroke">#000066</CssParameter>
            <CssParameter name="stroke-width">0.5</CssParameter>
          </Stroke>
        </PolygonSymbolizer>
@@ -61,7 +61,7 @@
        <MinScaleDenominator>90000</MinScaleDenominator>
        <PolygonSymbolizer>
          <Stroke>
-           <CssParameter name="stroke">#F88017</CssParameter>
+           <CssParameter name="stroke">#000066</CssParameter>
            <CssParameter name="stroke-width">0.5</CssParameter>
          </Stroke>
        </PolygonSymbolizer>
