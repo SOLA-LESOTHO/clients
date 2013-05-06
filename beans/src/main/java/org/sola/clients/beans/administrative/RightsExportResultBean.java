@@ -16,7 +16,6 @@
 package org.sola.clients.beans.administrative;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
