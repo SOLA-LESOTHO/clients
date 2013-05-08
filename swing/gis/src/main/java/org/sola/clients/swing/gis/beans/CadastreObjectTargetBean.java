@@ -56,9 +56,11 @@ public class CadastreObjectTargetBean extends SpatialBean {
     }
 
     public void setGeomPolygonCurrent(byte[] geomPolygonCurrent) {
-        this.geomPolygonCurrent = geomPolygonCurrent.clone();
-        this.geomPolygonCurrentForFeature = 
-                GeometryUtility.getGeometryFromWkb(this.geomPolygonCurrent);
+        if(geomPolygonCurrent!=null){
+            this.geomPolygonCurrent = geomPolygonCurrent.clone();
+            this.geomPolygonCurrentForFeature = 
+                    GeometryUtility.getGeometryFromWkb(this.geomPolygonCurrent);
+        }
     }
 
     public Geometry getGeomPolygonCurrentForFeature() {

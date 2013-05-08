@@ -30,6 +30,7 @@
 package org.sola.clients.swing.gis.ui.controlsbundle;
 
 import java.util.List;
+import org.geotools.feature.SchemaException;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.swing.extended.exception.InitializeLayerException;
 import org.sola.clients.beans.application.ApplicationBean;
@@ -186,7 +187,7 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
     }
 
     @Override
-    protected void addLayers() throws InitializeLayerException {
+    protected void addLayers() throws InitializeLayerException, SchemaException {
         super.addLayers();
         this.targetParcelsLayer = new CadastreChangeTargetCadastreObjectLayer();
         this.getMap().addLayer(targetParcelsLayer);
@@ -269,10 +270,12 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
         List<CadastreObjectTO> cadastreObjects =
                 this.getPojoDataAccess().getCadastreService().getCadastreObjectsByBaUnit(baUnitId);
         for (CadastreObjectTO cadastreObjectTo : cadastreObjects) {
-            CadastreObjectTargetBean bean = new CadastreObjectTargetBean();
-            bean.setCadastreObjectId(cadastreObjectTo.getId());
-            bean.setGeomPolygonCurrent(cadastreObjectTo.getGeomPolygon());
-            this.targetParcelsLayer.getBeanList().add(bean);
+            if(cadastreObjectTo.getGeomPolygon()!=null){
+                CadastreObjectTargetBean bean = new CadastreObjectTargetBean();
+                bean.setCadastreObjectId(cadastreObjectTo.getId());
+                bean.setGeomPolygonCurrent(cadastreObjectTo.getGeomPolygon());
+                this.targetParcelsLayer.getBeanList().add(bean);
+            }
         }
     }
     

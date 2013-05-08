@@ -31,6 +31,9 @@ package org.sola.clients.swing.gis.ui.controlsbundle;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.geotools.feature.SchemaException;
 import org.geotools.geometry.jts.JTS;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.map.extended.layer.ExtendedImageLayer;
@@ -126,10 +129,10 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
     @Override
     public void Setup(PojoDataAccess pojoDataAccess) {
         super.Setup(pojoDataAccess);
-        try {
+        //try {
             
             //Adding layers
-            this.addLayers();
+            //this.addLayers();
 
             //Adding tools and commands
             this.addToolsAndCommands();
@@ -146,10 +149,10 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
                 }
             }
 
-        } catch (InitializeLayerException ex) {
-            Messaging.getInstance().show(GisMessage.CADASTRE_CHANGE_ERROR_SETUP);
-            org.sola.common.logging.LogUtility.log(GisMessage.CADASTRE_CHANGE_ERROR_SETUP, ex);
-        }
+//        } catch (InitializeLayerException ex) {
+//            Messaging.getInstance().show(GisMessage.CADASTRE_CHANGE_ERROR_SETUP);
+//            org.sola.common.logging.LogUtility.log(GisMessage.CADASTRE_CHANGE_ERROR_SETUP, ex);
+//        }
     }
 
     @Override
@@ -228,7 +231,9 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
      *
      * @throws InitializeLayerException
      */
-    protected void addLayers() throws InitializeLayerException {
+    @Override
+    protected void addLayers() throws InitializeLayerException, SchemaException {
+        super.addLayers();
         this.imageLayer = new ExtendedImageLayer(IMAGE_LAYER_NAME, 
                 ((Messaging)Messaging.getInstance()).getLayerTitle(IMAGE_LAYER_NAME));
         this.getMap().addLayer(this.imageLayer);
