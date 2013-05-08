@@ -129,30 +129,21 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
     @Override
     public void Setup(PojoDataAccess pojoDataAccess) {
         super.Setup(pojoDataAccess);
-        //try {
-            
-            //Adding layers
-            //this.addLayers();
 
-            //Adding tools and commands
-            this.addToolsAndCommands();
+        //Adding tools and commands
+        this.addToolsAndCommands();
 
-            this.addDocumentsPanel();
+        this.addDocumentsPanel();
 
-            for (ExtendedLayer solaLayer : this.getMap().getSolaLayers().values()) {
-                if (solaLayer.getClass().equals(PojoLayer.class)) {
-                    if (((PojoLayer) solaLayer).getConfig().getId().equals(
-                            PojoLayer.CONFIG_PENDING_PARCELS_LAYER_NAME)) {
-                        this.pendingLayer = (PojoLayer) solaLayer;
-                        break;
-                    }
+        for (ExtendedLayer solaLayer : this.getMap().getSolaLayers().values()) {
+            if (solaLayer.getClass().equals(PojoLayer.class)) {
+                if (((PojoLayer) solaLayer).getConfig().getId().equals(
+                        PojoLayer.CONFIG_PENDING_PARCELS_LAYER_NAME)) {
+                    this.pendingLayer = (PojoLayer) solaLayer;
+                    break;
                 }
             }
-
-//        } catch (InitializeLayerException ex) {
-//            Messaging.getInstance().show(GisMessage.CADASTRE_CHANGE_ERROR_SETUP);
-//            org.sola.common.logging.LogUtility.log(GisMessage.CADASTRE_CHANGE_ERROR_SETUP, ex);
-//        }
+        }
     }
 
     @Override
