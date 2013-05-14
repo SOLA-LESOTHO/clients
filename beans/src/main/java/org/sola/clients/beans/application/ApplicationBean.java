@@ -29,7 +29,6 @@
  */
 package org.sola.clients.beans.application;
 
-import java.util.ResourceBundle;
 import java.math.BigDecimal;
 import java.util.*;
 import javax.validation.Valid;
@@ -40,6 +39,7 @@ import org.sola.clients.beans.application.validation.ApplicationCheck;
 import org.sola.clients.beans.applicationlog.ApplicationLogBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
+import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
@@ -102,8 +102,8 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private PartySummaryBean agent;
     private String assigneeId;
     private ApplicationStatusTypeBean statusBean;
-    private SolaList<CadastreObjectBean> cadastreObjectList;
-    private transient CadastreObjectBean selectedCadastreObject;
+    private SolaList<CadastreObjectSummaryBean> cadastreObjectList;
+    private transient CadastreObjectSummaryBean selectedCadastreObject;
 
     /**
      * Default constructor to create application bean. Initializes the following
@@ -479,15 +479,15 @@ public class ApplicationBean extends ApplicationSummaryBean {
         propertySupport.firePropertyChange(RECEIPT_REF_PROPERTY, old, value);
     }
 
-    public SolaList<CadastreObjectBean> getCadastreObjectList() {
+    public SolaList<CadastreObjectSummaryBean> getCadastreObjectList() {
         return cadastreObjectList;
     }
 
-    public ObservableList<CadastreObjectBean> getCadastreObjectFilteredList() {
+    public ObservableList<CadastreObjectSummaryBean> getCadastreObjectFilteredList() {
         return cadastreObjectList.getFilteredList();
     }
 
-    public void setCadastreObjectList(SolaList<CadastreObjectBean> cadastreObjectList) {
+    public void setCadastreObjectList(SolaList<CadastreObjectSummaryBean> cadastreObjectList) {
         this.cadastreObjectList = cadastreObjectList;
     }
 
@@ -499,12 +499,12 @@ public class ApplicationBean extends ApplicationSummaryBean {
     }
 
     /** Adds new cadastre object in the list of CadastreObjects. */
-    public void addCadastreObject(CadastreObjectBean cadastreObject) {
+    public void addCadastreObject(CadastreObjectSummaryBean cadastreObject) {
         if (getCadastreObjectList() != null && cadastreObject != null
                 && cadastreObject.getEntityAction() != EntityAction.DELETE
                 && cadastreObject.getEntityAction() != EntityAction.DISASSOCIATE) {
 
-            for (CadastreObjectBean co : getCadastreObjectList()) {
+            for (CadastreObjectSummaryBean co : getCadastreObjectList()) {
                 if (co.getId() != null && cadastreObject.getId() != null && co.getId().equals(cadastreObject.getId())) {
                     if (co.getEntityAction() == EntityAction.DELETE || co.getEntityAction() == EntityAction.DISASSOCIATE) {
                         co.setEntityAction(null);
@@ -516,7 +516,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         }
     }
 
-    public CadastreObjectBean getSelectedCadastreObject() {
+    public CadastreObjectSummaryBean getSelectedCadastreObject() {
         return selectedCadastreObject;
     }
 
