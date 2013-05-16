@@ -41,6 +41,7 @@ import javax.swing.JTextField;
 import org.sola.clients.beans.administrative.DisputeBean;
 import org.sola.clients.swing.ui.party.PartyPanel;
 import org.sola.clients.swing.desktop.cadastre.CreateParcelDialog;
+import org.sola.clients.swing.desktop.cadastre.SearchParcelDialog;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
@@ -126,7 +127,7 @@ public class DisputePanelForm extends ContentPanel {
         TaskManager.getInstance().runTask(t);
     }
 
-    private void SearchPlot() {
+    private void AddPlot() {
         CreateParcelDialog form = new CreateParcelDialog(null,null,true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
@@ -134,6 +135,21 @@ public class DisputePanelForm extends ContentPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CreateParcelDialog.SELECTED_PARCEL)) {
+                    //cadastreObjectBean1.addAddress((AddressBean) evt.getNewValue());
+                }
+            }
+        });
+        form.setVisible(true);
+    }
+    
+     private void SearchPlot() {
+        SearchParcelDialog form = new SearchParcelDialog(null,true);
+        WindowUtility.centerForm(form);
+        form.addPropertyChangeListener(new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals(SearchParcelDialog.SELECTED_PARCEL)) {
                     //cadastreObjectBean1.addAddress((AddressBean) evt.getNewValue());
                 }
             }
@@ -254,8 +270,8 @@ public class DisputePanelForm extends ContentPanel {
         jPanel23 = new javax.swing.JPanel();
         lblPlotNumber = new javax.swing.JLabel();
         txtrrrId = new javax.swing.JTextField();
+        btnAddPlot = new javax.swing.JButton();
         btnSearchPlot = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblPlotLocation = new javax.swing.JLabel();
         txtplotLocation = new javax.swing.JTextField();
@@ -517,15 +533,20 @@ public class DisputePanelForm extends ContentPanel {
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${nr}"), txtrrrId, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        btnAddPlot.setText(bundle.getString("DisputePanelForm.btnAddPlot.text")); // NOI18N
+        btnAddPlot.setName(bundle.getString("DisputePanelForm.btnAddPlot.name")); // NOI18N
+        btnAddPlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPlotActionPerformed(evt);
+            }
+        });
+
         btnSearchPlot.setText(bundle.getString("DisputePanelForm.btnSearchPlot.text")); // NOI18N
-        btnSearchPlot.setName(bundle.getString("DisputePanelForm.btnSearchPlot.name")); // NOI18N
         btnSearchPlot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchPlotActionPerformed(evt);
             }
         });
-
-        jButton1.setText(bundle.getString("DisputePanelForm.jButton1.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -536,8 +557,8 @@ public class DisputePanelForm extends ContentPanel {
                 .addComponent(lblPlotNumber)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSearchPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSearchPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel23Layout.createSequentialGroup()
@@ -551,9 +572,9 @@ public class DisputePanelForm extends ContentPanel {
                 .addContainerGap()
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPlotNumber)
-                    .addComponent(jButton1))
+                    .addComponent(btnSearchPlot))
                 .addGap(3, 3, 3)
-                .addComponent(btnSearchPlot)
+                .addComponent(btnAddPlot)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel23Layout.createSequentialGroup()
@@ -1482,6 +1503,10 @@ public class DisputePanelForm extends ContentPanel {
         addRole();
     }//GEN-LAST:event_btnAddRole1ActionPerformed
 
+    private void btnAddPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPlotActionPerformed
+        AddPlot();
+    }//GEN-LAST:event_btnAddPlotActionPerformed
+
     private void btnSearchPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchPlotActionPerformed
         SearchPlot();
     }//GEN-LAST:event_btnSearchPlotActionPerformed
@@ -1489,6 +1514,7 @@ public class DisputePanelForm extends ContentPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel basicPanel1;
     private javax.swing.JButton btnAddComment1;
+    private javax.swing.JButton btnAddPlot;
     private javax.swing.JButton btnAddRole1;
     private javax.swing.JButton btnCreateDispute;
     private javax.swing.JButton btnRemoveDisputeComment1;
@@ -1523,7 +1549,6 @@ public class DisputePanelForm extends ContentPanel {
     private org.sola.clients.swing.ui.HeaderPanel headerPanel1;
     private org.sola.clients.beans.referencedata.IdTypeListBean idType;
     private javax.swing.JRadioButton individualButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
