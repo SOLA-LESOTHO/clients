@@ -138,7 +138,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="headerPanel" max="32767" attributes="0"/>
-          <Component id="jToolBar1" alignment="0" pref="737" max="32767" attributes="0"/>
+          <Component id="jToolBar1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTabbedPane1" pref="0" max="32767" attributes="0"/>
@@ -323,7 +323,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel9" pref="692" max="32767" attributes="0"/>
+                          <Component id="jPanel9" max="32767" attributes="0"/>
                           <Component id="jPanel4" max="32767" attributes="0"/>
                           <Component id="jPanel1" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -393,6 +393,9 @@
                       <BindingProperties>
                         <BindingProperty name="value" source="rrrBean" sourcePath="${registrationDate}" target="txtRegDatetime" targetPath="value" updateStrategy="0" immediately="false"/>
                       </BindingProperties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="LeasePanel_txtRegDatetime"/>
+                      </AuxValues>
                     </Component>
                   </SubComponents>
                 </Container>

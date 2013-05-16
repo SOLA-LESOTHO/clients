@@ -50,5 +50,11 @@
             <artifactId>clients-beans</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.sola.services.boundary</groupId>
+            <artifactId>sola-web-service-clients</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

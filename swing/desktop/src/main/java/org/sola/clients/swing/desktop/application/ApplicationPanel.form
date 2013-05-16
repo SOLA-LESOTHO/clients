@@ -327,7 +327,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="pnlHeader" alignment="0" pref="683" max="32767" attributes="2"/>
-          <Component id="jToolBar3" alignment="0" pref="683" max="32767" attributes="2"/>
+          <Component id="jToolBar3" alignment="0" pref="681" max="32767" attributes="2"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="tabbedControlMain" max="32767" attributes="0"/>
@@ -526,6 +526,7 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="contactPanel.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));"/>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ApplicationPanel_contactPanel"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
           <Constraints>
@@ -573,7 +574,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel6" alignment="0" pref="0" max="32767" attributes="1"/>
-                      <Component id="jPanel11" alignment="0" pref="638" max="32767" attributes="1"/>
+                      <Component id="jPanel11" alignment="0" max="32767" attributes="1"/>
                       <Component id="groupPanel1" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
@@ -995,9 +996,14 @@
                             </Property>
                           </Properties>
                           <BindingProperties>
-                            <BindingProperty name="elements" source="communicationTypes" sourcePath="${communicationTypeList}" target="cbxCommunicationWay" targetPath="elements" updateStrategy="0" immediately="false"/>
+                            <BindingProperty name="elements" source="communicationTypes" sourcePath="${communicationTypeList}" target="cbxCommunicationWay" targetPath="elements" updateStrategy="0" immediately="false">
+                              <Property name="name" type="java.lang.String" value=""/>
+                            </BindingProperty>
                             <BindingProperty name="selectedItem" source="appBean" sourcePath="${contactPerson.preferredCommunication}" target="cbxCommunicationWay" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
                           </BindingProperties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxCommunicationWayActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="cbxCommunicationWay.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));"/>
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -1346,7 +1352,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="scrollFeeDetails1" alignment="0" pref="638" max="32767" attributes="3"/>
-                          <Component id="tbServices" alignment="0" pref="638" max="32767" attributes="1"/>
+                          <Component id="tbServices" alignment="0" pref="636" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1647,7 +1653,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="scrollPropertyDetails" alignment="0" max="32767" attributes="1"/>
                           <Component id="tbPropertyDetails" alignment="0" max="32767" attributes="0"/>
-                          <Component id="propertypartPanel" alignment="0" pref="638" max="32767" attributes="2"/>
+                          <Component id="propertypartPanel" alignment="0" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1774,13 +1780,6 @@
                             <Connection code="new ExistingObjectCellRenderer()" type="code"/>
                           </Renderer>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                            <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.tabPropertyDetails.columnModel.title6_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                          </Title>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                       </TableColumnModel>
                     </Property>
                     <Property name="name" type="java.lang.String" value="tabPropertyDetails" noResource="true"/>
@@ -1791,7 +1790,7 @@
                   </Properties>
                   <BindingProperties>
                     <BindingProperty name="elements" source="appBean" sourcePath="${filteredPropertyList}" target="tabPropertyDetails" targetPath="elements" updateStrategy="0" immediately="true">
-                      <Property name="name" type="java.lang.String" value=""/>
+                      <Property name="name" type="java.lang.String" value="props"/>
                       <Subbinding sourcePath="${nameFirstpart}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
@@ -1809,9 +1808,6 @@
                       </Subbinding>
                       <Subbinding sourcePath="${verifiedExists}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
-                      </Subbinding>
-                      <Subbinding sourcePath="${landUseType.displayValue}">
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                     </BindingProperty>
                     <BindingProperty name="selectedElement" source="appBean" sourcePath="${selectedProperty}" target="tabPropertyDetails" targetPath="selectedElement" updateStrategy="0" immediately="false"/>
@@ -2091,7 +2087,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="documentsPanel" pref="392" max="32767" attributes="0"/>
+                      <Component id="documentsPanel" pref="390" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="scrollDocRequired" alignment="1" min="-2" pref="236" max="-2" attributes="1"/>
@@ -2234,7 +2230,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="658" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="656" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -2273,7 +2269,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="scrollFeeDetails" max="32767" attributes="0"/>
                       </Group>
@@ -2652,7 +2648,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="validationsPanel" pref="638" max="32767" attributes="0"/>
+                      <Component id="validationsPanel" pref="636" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -2767,7 +2763,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="actionLogPanel" pref="638" max="32767" attributes="1"/>
+                      <Component id="actionLogPanel" pref="636" max="32767" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
