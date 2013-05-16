@@ -520,7 +520,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         return selectedCadastreObject;
     }
 
-    public void setSelectedCadastreObject(CadastreObjectBean selectedCadastreObject) {
+    public void setSelectedCadastreObject(CadastreObjectSummaryBean selectedCadastreObject) {
         this.selectedCadastreObject = selectedCadastreObject;
         propertySupport.firePropertyChange(SELECTED_CADASTRE_OBJECT, null, this.selectedCadastreObject);
     }
