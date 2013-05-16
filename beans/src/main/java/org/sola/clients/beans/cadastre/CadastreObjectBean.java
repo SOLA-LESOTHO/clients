@@ -28,20 +28,15 @@
 package org.sola.clients.beans.cadastre;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Length;
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.address.AddressBean;
-import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaList;
-import org.sola.clients.beans.referencedata.CadastreObjectTypeBean;
-import org.sola.clients.beans.referencedata.LandUseTypeBean;
+import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
+import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
 import org.sola.webservices.transferobjects.EntityAction;
 
@@ -207,5 +202,15 @@ public class CadastreObjectBean extends CadastreObjectSummaryBean {
         if(selectedAddress!=null && address!=null){
             selectedAddress.setDescription(address.getDescription());
         }
+    }
+    
+    /** Returns {@link CadastreObjectBean} by ID*/
+    public static CadastreObjectBean getCadastreObject(String id){
+        if(id==null){
+            return null;
+        }
+        return TypeConverters.TransferObjectToBean(
+                WSManager.getInstance().getCadastreService().getCadastreObject(id),
+                CadastreObjectBean.class, null);
     }
 }

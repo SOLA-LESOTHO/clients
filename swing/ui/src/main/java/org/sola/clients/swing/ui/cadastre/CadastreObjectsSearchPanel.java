@@ -2,18 +2,18 @@ package org.sola.clients.swing.ui.cadastre;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javax.swing.JPanel;
 import org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean;
 import org.sola.clients.beans.referencedata.LandUseTypeListBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
-import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
 /**
  * Used for searching cadastre objects
  */
-public class CadastreObjectsSearchPanel extends ContentPanel {
+public class CadastreObjectsSearchPanel extends JPanel {
 
     public static final String SELECTED_CADASTRE_OBJECT = "selectedCadastreObject";
     private boolean readOnly = false;

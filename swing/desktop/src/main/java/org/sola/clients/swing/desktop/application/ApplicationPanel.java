@@ -92,7 +92,6 @@ import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
  */
 public class ApplicationPanel extends ContentPanel {
 
-    private ControlsBundleForApplicationLocation mapControl = null;
     public static final String APPLICATION_SAVED_PROPERTY = "applicationSaved";
     private String applicationID;
     private boolean isDashboard = false;
@@ -484,9 +483,9 @@ public class ApplicationPanel extends ContentPanel {
 
                 @Override
                 protected void taskDone() {
-                    if (!service.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
-                        ((PropertyPanel) getMainContentPanel().getPanel(MainContentPanel.CARD_PROPERTY_PANEL)).showPriorTitileMessage();
-                    }
+//                    if (!service.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
+//                        ((PropertyPanel) getMainContentPanel().getPanel(MainContentPanel.CARD_PROPERTY_PANEL)).showPriorTitileMessage();
+//                    }
                 }
             };
             TaskManager.getInstance().runTask(t);
@@ -587,6 +586,7 @@ public class ApplicationPanel extends ContentPanel {
             // Power of attorney or other type document registration
             if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_POWER_OF_ATTORNEY)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_STANDARD_DOCUMENT)
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_NEW_LEASE)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CANCEL_POWER_OF_ATTORNEY)) {
                 // Run registration/cancelation Power of attorney
                 SolaTask t = new SolaTask<Void, Void>() {
@@ -732,7 +732,7 @@ public class ApplicationPanel extends ContentPanel {
                     // Open property form for new title registration
                     if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_NEW_APARTMENT)
                             || requestType.equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)
-                            || requestType.equalsIgnoreCase(RequestTypeBean.CODE_NEW_STATE)) {
+                            || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REGISTER_LEASE)) {
                         if (!readOnly) {
                             // Open empty property form
                             openPropertyForm(service, new BaUnitBean(), readOnly);
@@ -773,7 +773,6 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     private boolean saveApplication() {
-        appBean.setLocation(this.mapControl.getApplicationLocation());
         if (applicationID != null && !applicationID.equals("")) {
             return appBean.saveApplication();
         } else {
@@ -809,7 +808,7 @@ public class ApplicationPanel extends ContentPanel {
         }
 
         String[] params = {"" + nrPropRequired};
-        if (appBean.getPropertyList().size() < nrPropRequired) {
+        if (appBean.getCadastreObjectFilteredList().size() < nrPropRequired) {
             if (MessageUtility.displayMessage(ClientMessage.APPLICATION_ATLEAST_PROPERTY_REQUIRED, params) == MessageUtility.BUTTON_TWO) {
                 return false;
             }
@@ -846,9 +845,6 @@ public class ApplicationPanel extends ContentPanel {
                     applicationID = appBean.getId();
                 }
                 firePropertyChange(APPLICATION_SAVED_PROPERTY, false, true);
-
-                refreshDashboard();
-
             }
         };
 
@@ -856,33 +852,6 @@ public class ApplicationPanel extends ContentPanel {
 
     }
 
-    @Override
-    public void refreshDashboard() {
-        PropertyChangeListener listener = new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent e) {
-                if (e.getPropertyName().equals(ApplicationPanel.APPLICATION_SAVED_PROPERTY)) {
-                    System.out.println("public void propertyChange");
-                }
-            }
-        };
-
-        if (getMainContentPanel() != null && this.isDashboard) {
-            DashBoardPanel dashBoardPanel = new DashBoardPanel();
-            dashBoardPanel.addPropertyChangeListener(ApplicationBean.ASSIGNEE_ID_PROPERTY, listener);
-
-            if (whichChangeEvent == HeaderPanel.CLOSE_BUTTON_CLICKED) {
-                getMainContentPanel().addPanel(dashBoardPanel, MainContentPanel.CARD_DASHBOARD, true);
-            } else {
-                if (MessageUtility.displayMessage(ClientMessage.GENERAL_BACK_TO_DASHBOARD)
-                        == MessageUtility.BUTTON_ONE) {
-                    getMainContentPanel().addPanel(dashBoardPanel, MainContentPanel.CARD_DASHBOARD, true);
-                }
-            }
-        }
-    }
-    
     private void removeSelectedParcel(){
         appBean.removeSelectedCadastreObject();
     }
@@ -2851,7 +2820,6 @@ public class ApplicationPanel extends ContentPanel {
                                 openValidationResultForm(result, true, message);
                             }
                             saveAppState();
-                            refreshDashboard();
                         }
                     };
             TaskManager.getInstance().runTask(t);

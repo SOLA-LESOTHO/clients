@@ -598,7 +598,6 @@ public class MainForm extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOpenMap = new javax.swing.JButton();
         btnSetPassword = new javax.swing.JButton();
-        languageCombobox = createLanguageCombobox();
         statusPanel = new javax.swing.JPanel();
         labStatus = new javax.swing.JLabel();
         taskPanel1 = new org.sola.clients.swing.common.tasks.TaskPanel();
@@ -752,15 +751,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         applicationsMain.add(btnSetPassword);
-
-        languageCombobox.setPreferredSize(new java.awt.Dimension(150, 20));
-        languageCombobox.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        languageCombobox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                languageComboboxActionPerformed(evt);
-            }
-        });
-        applicationsMain.add(languageCombobox);
 
         statusPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         statusPanel.setPreferredSize(new java.awt.Dimension(1024, 24));
@@ -1195,31 +1185,6 @@ public class MainForm extends javax.swing.JFrame {
         openSysRegManagementParamsForm("sysRegStatusBean");
     }//GEN-LAST:event_menuStatusActionPerformed
 
-    private void languageComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageComboboxActionPerformed
-
-        if (!(MessageUtility.displayMessage(ClientMessage.CONFIRM_CHANGE_LANGUAGE) == MessageUtility.BUTTON_ONE)) {
-            languageCombobox.confirmedChange = false;
-        } else {
-            languageCombobox.confirmedChange = true;
-        }
-
-
-        if (languageCombobox.confirmedChange) {
-            final MainForm mainForm = new MainForm();
-            this.dispose();
-
-            java.awt.EventQueue.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    mainForm.setVisible(true);
-                }
-            });
-        }
-
-        languageCombobox.confirmedChange = true;
-    }//GEN-LAST:event_languageComboboxActionPerformed
-
     private void menuExportRightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportRightsActionPerformed
         showRightsExportPanel();
     }//GEN-LAST:event_menuExportRightsActionPerformed
@@ -1268,7 +1233,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JMenuItem jmiContextHelp;
     private javax.swing.JLabel labStatus;
-    private org.sola.clients.swing.common.controls.LanguageCombobox languageCombobox;
     private javax.swing.JMenuItem menuAllLogLevel;
     private javax.swing.JMenu menuApplications;
     private javax.swing.JMenuItem menuBaUnitSearch;

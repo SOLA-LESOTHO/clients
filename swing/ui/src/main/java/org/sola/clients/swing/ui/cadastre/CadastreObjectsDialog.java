@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
+import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
 
 /**
  * Shows list of cadastre objects and allows to select one.
@@ -14,13 +15,13 @@ public class CadastreObjectsDialog extends javax.swing.JDialog {
     private final String SELECTED_CADASTRE_OBJECT = "selectedCadastreObject";
     public static final String SELECT_CADASTRE_OBJECT = "selectCadastreObject";
     
-    private List<CadastreObjectBean> cadastreObjects = ObservableCollections.observableList(new ArrayList<CadastreObjectBean>());
-    private CadastreObjectBean selectedCadastreObject;
+    private List<CadastreObjectSummaryBean> cadastreObjects = ObservableCollections.observableList(new ArrayList<CadastreObjectSummaryBean>());
+    private CadastreObjectSummaryBean selectedCadastreObject;
     
     /**
      * Creates new form CadastreObjectsDialog
      */
-    public CadastreObjectsDialog(List<CadastreObjectBean> cadastreObjects, 
+    public CadastreObjectsDialog(List<CadastreObjectSummaryBean> cadastreObjects, 
             java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.cadastreObjects = cadastreObjects;
@@ -47,15 +48,15 @@ public class CadastreObjectsDialog extends javax.swing.JDialog {
         menuSelect1.setEnabled(btnSelect.isEnabled());
     }
     
-    public List<CadastreObjectBean> getCadastreObjects() {
+    public List<CadastreObjectSummaryBean> getCadastreObjects() {
         return cadastreObjects;
     }
 
-    public CadastreObjectBean getSelectedCadastreObject() {
+    public CadastreObjectSummaryBean getSelectedCadastreObject() {
         return selectedCadastreObject;
     }
 
-    public void setSelectedCadastreObject(CadastreObjectBean selectedCadastreObject) {
+    public void setSelectedCadastreObject(CadastreObjectSummaryBean selectedCadastreObject) {
         this.selectedCadastreObject = selectedCadastreObject;
         firePropertyChange(SELECTED_CADASTRE_OBJECT, null, this.selectedCadastreObject);
     }
@@ -84,7 +85,6 @@ public class CadastreObjectsDialog extends javax.swing.JDialog {
                 menuSelect1ActionPerformed(evt);
             }
         });
-
         popupCadastreObjects.add(menuSelect1);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/cadastre/Bundle"); // NOI18N

@@ -158,17 +158,8 @@ public class RrrReportBean extends AbstractBindingBean {
      */
     public String getParcelsCodes() {
         String codes = "";
-        if (baUnitHasParcels()) {
-            for (CadastreObjectBean cadastreObject : getBaUnit().getCadastreObjectFilteredList()) {
-                String code = cadastreObject.toString();
-                if (!code.isEmpty()) {
-                    if (codes.isEmpty()) {
-                        codes = code;
-                    } else {
-                        codes = codes + "; " + code;
-                    }
-                }
-            }
+        if (getBaUnit().getCadastreObject()!=null) {
+            codes = getBaUnit().getCadastreObject().toString();
         }
         return codes;
     }
@@ -177,8 +168,8 @@ public class RrrReportBean extends AbstractBindingBean {
      * Shortcut for the first parcel first/last name part.
      */
     public String getFirstParcelCode() {
-        if (baUnitHasParcels()) {
-            return getBaUnit().getCadastreObjectFilteredList().get(0).toString();
+        if (getBaUnit().getCadastreObject()!=null) {
+            return getBaUnit().getCadastreObject().toString();
         }
         return "";
     }
@@ -187,9 +178,9 @@ public class RrrReportBean extends AbstractBindingBean {
      * Shortcut for the first parcel type.
      */
     public String getFirstParcelType() {
-        if (baUnitHasParcels()) {
-            if (getBaUnit().getCadastreObjectFilteredList().get(0).getCadastreObjectType() != null) {
-                return getBaUnit().getCadastreObjectFilteredList().get(0).getCadastreObjectType().toString();
+        if (getBaUnit().getCadastreObject()!=null) {
+            if (getBaUnit().getCadastreObject().getCadastreObjectType() != null) {
+                return getBaUnit().getCadastreObject().getCadastreObjectType().toString();
             }
         }
         return "";
@@ -199,9 +190,9 @@ public class RrrReportBean extends AbstractBindingBean {
      * Shortcut for the first parcel official area.
      */
     public String getFirstParcelOfficialArea() {
-        if (baUnitHasParcels()) {
-            if (getBaUnit().getCadastreObjectFilteredList().get(0).getOfficialAreaSize() != null) {
-                return getBaUnit().getCadastreObjectFilteredList().get(0).getOfficialAreaSize().toPlainString() + " m2";
+        if (getBaUnit().getCadastreObject()!=null) {
+            if (getBaUnit().getCadastreObject().getOfficialAreaSize() != null) {
+                return getBaUnit().getCadastreObject().getOfficialAreaSize().toPlainString() + " m2";
             }
         }
         return "";
@@ -211,9 +202,9 @@ public class RrrReportBean extends AbstractBindingBean {
      * Shortcut for the first parcel land use.
      */
     public String getFirstParcelLandUse() {
-        if (baUnitHasParcels()) {
-            if (getBaUnit().getCadastreObjectFilteredList().get(0).getLandUseType() != null) {
-                return getBaUnit().getCadastreObjectFilteredList().get(0).getLandUseType().toString();
+        if (getBaUnit().getCadastreObject()!=null) {
+            if (getBaUnit().getCadastreObject().getLandUseType() != null) {
+                return getBaUnit().getCadastreObject().getLandUseType().toString();
             }
         }
         return "";
@@ -223,8 +214,8 @@ public class RrrReportBean extends AbstractBindingBean {
      * Shortcut for the first parcel address.
      */
     public String getFirstParcelAddress() {
-        if (baUnitHasParcels()) {
-            return getBaUnit().getCadastreObjectFilteredList().get(0).getAddressString();
+        if (getBaUnit().getCadastreObject()!=null) {
+            return getBaUnit().getCadastreObject().getAddressString();
         }
         return "";
     }
@@ -233,8 +224,8 @@ public class RrrReportBean extends AbstractBindingBean {
      * Shortcut for the first parcel map reference number.
      */
     public String getFirstParcelMapRef() {
-        if (baUnitHasParcels() && getBaUnit().getCadastreObjectFilteredList().get(0).getSourceReference() != null) {
-            return getBaUnit().getCadastreObjectFilteredList().get(0).getSourceReference();
+        if (getBaUnit().getCadastreObject()!=null && getBaUnit().getCadastreObject().getSourceReference() != null) {
+            return getBaUnit().getCadastreObject().getSourceReference();
         }
         return "";
     }
@@ -323,17 +314,5 @@ public class RrrReportBean extends AbstractBindingBean {
      */
     public String getRrrDueDate() {
         return DateUtility.getMediumDateString(getRrr().getDueDate(), false);
-    }
-    
-    /**
-     * Returns true if there are parcels on the BaUnit.
-     */
-    public boolean baUnitHasParcels() {
-        if (getBaUnit().getCadastreObjectFilteredList() != null
-                && getBaUnit().getCadastreObjectFilteredList().size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
