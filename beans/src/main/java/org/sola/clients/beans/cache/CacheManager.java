@@ -56,7 +56,12 @@ public final class CacheManager {
      */
     public static final String REQUEST_TYPES_KEY = RequestTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the code/displayValue map based on {@link RequestTypeBean} collection.
+     * Cache key of the {@link ApplicationFormBean} collection.
+     */
+    public static final String APPLICATION_FORM_KEY = ApplicationFormBean.class.getName() + LIST_POSTFIX;
+    /**
+     * Cache key of the code/displayValue map based on {@link RequestTypeBean}
+     * collection.
      */
     public static final String REQUEST_TYPES_MAP_KEY = RequestTypeBean.class.getName() + MAP_POSTFIX;
     /**
@@ -64,7 +69,8 @@ public final class CacheManager {
      */
     public static final String COMMUNICATION_TYPES_KEY = CommunicationTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the code/displayValue map based on {@link CommunicationTypeBean} collection.
+     * Cache key of the code/displayValue map based on {@link CommunicationTypeBean}
+     * collection.
      */
     public static final String COMMUNICATION_TYPES_MAP_KEY = CommunicationTypeBean.class.getName() + MAP_POSTFIX;
     /**
@@ -72,7 +78,8 @@ public final class CacheManager {
      */
     public static final String GENDER_TYPES_KEY = GenderTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the code/displayValue map based on {@link GenderTypeBean} collection.
+     * Cache key of the code/displayValue map based on {@link GenderTypeBean}
+     * collection.
      */
     public static final String GENDER_TYPES_MAP_KEY = GenderTypeBean.class.getName() + MAP_POSTFIX;
     /**
@@ -80,7 +87,8 @@ public final class CacheManager {
      */
     public static final String SOURCE_TYPES_KEY = SourceTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the code/displayValue map based on {@link SourceTypeBean} collection.
+     * Cache key of the code/displayValue map based on {@link SourceTypeBean}
+     * collection.
      */
     public static final String SOURCE_TYPES_MAP_KEY = SourceTypeBean.class.getName() + MAP_POSTFIX;
     /**
@@ -88,7 +96,8 @@ public final class CacheManager {
      */
     public static final String APP_STATUS_TYPE_CODES_KEY = ApplicationStatusTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the code/displayValue map based on {@link ApplicationStatusTypeBean} collection.
+     * Cache key of the code/displayValue map based on {@link ApplicationStatusTypeBean}
+     * collection.
      */
     public static final String APP_STATUS_TYPE_CODES_MAP_KEY = ApplicationStatusTypeBean.class.getName() + MAP_POSTFIX;
     /**
@@ -191,7 +200,6 @@ public final class CacheManager {
      * Cache key of the {@link LeaseConditionBean} collection.
      */
     public static final String LEASE_CONDITION_CODES_KEY = LeaseConditionBean.class.getName() + LIST_POSTFIX;
-    
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
@@ -221,11 +229,20 @@ public final class CacheManager {
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
     private static final String GET_LEASE_CONDITIONS = "getLeaseConditions";
-            
+    private static final String GET_APPLICATION_FORMS = "getApplicationForms";
+
+
+
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_BR_VALIDATION_TARGET_TYPES, BR_VALIDATION_TARGET_TYPE_KEY);
+    }
+    
+    public static List<ApplicationFormBean> getApplicationForms() {
+	return getCachedBeanList(ApplicationFormBean.class,
+			WSManager.getInstance().getReferenceDataService(),
+			GET_APPLICATION_FORMS, APPLICATION_FORM_KEY);
     }
 
     public static List<BaUnitRelTypeBean> getBaUnitRelTypes() {
@@ -335,7 +352,7 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_LEASE_CONDITIONS, LEASE_CONDITION_CODES_KEY);
     }
-    
+
     public static List<PartyTypeBean> getPartyTypes() {
         return getCachedBeanList(PartyTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
