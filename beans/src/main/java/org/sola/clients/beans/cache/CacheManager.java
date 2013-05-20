@@ -192,6 +192,8 @@ public final class CacheManager {
      */
     public static final String LEASE_CONDITION_CODES_KEY = LeaseConditionBean.class.getName() + LIST_POSTFIX;
     
+    public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
+    
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
@@ -221,6 +223,7 @@ public final class CacheManager {
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
     private static final String GET_LEASE_CONDITIONS = "getLeaseConditions";
+    private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
             
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
@@ -434,6 +437,12 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_REQUEST_TYPES, REQUEST_TYPES_KEY),
                 REQUEST_TYPES_MAP_KEY);
+    }
+    
+    public static List<LandGradeTypeBean> getLandGradeTypes() {
+        return getCachedBeanList(LandGradeTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_LAND_GRADE_TYPES, LAND_GRADE_TYPE_CODES_KEY);
     }
 
     /**

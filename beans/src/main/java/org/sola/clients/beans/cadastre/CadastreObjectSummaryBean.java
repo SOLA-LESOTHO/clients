@@ -23,6 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.CadastreObjectTypeBean;
+import org.sola.clients.beans.referencedata.LandGradeTypeBean;
 import org.sola.clients.beans.referencedata.LandUseTypeBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
@@ -45,6 +46,8 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     public static final String SURVEY_DATE_PROPERTY = "surveyDate";
     public static final String REMARKS_PROPERTY = "remarks";
     public static final String SURVEY_FEE_PROPERTY = "surveyFee";
+    public static final String LAND_GRADE_TYPE_PROPERTY = "landGradeType";
+    public static final String LAND_GRADE_CODE_PROPERTY = "landGradeCode";
     
     private Date approvalDatetime;
     private Date historicDatetime;
@@ -63,6 +66,7 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     private String surveyor;
     private String remarks;
     private LandUseTypeBean landUseType;
+    private LandGradeTypeBean landGradeType;
     private BigDecimal surveyFee;
     
     public CadastreObjectSummaryBean(){
@@ -228,6 +232,35 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
         BigDecimal oldValue = this.surveyFee;
         this.surveyFee = surveyFee;
         propertySupport.firePropertyChange(SURVEY_FEE_PROPERTY, oldValue, this.surveyFee);
+    }
+    
+    public LandGradeTypeBean getLandGradeType() {
+        return landGradeType;
+    }
+
+    public void setLandGradeType(LandGradeTypeBean landGradeType) {
+        if (this.landGradeType == null) {
+            this.landGradeType = new LandGradeTypeBean();
+        }
+        this.setJointRefDataBean(this.landGradeType, landGradeType, LAND_GRADE_TYPE_PROPERTY);
+    }
+
+    public String getLandGradeCode() {
+        if (landGradeType != null) {
+            return landGradeType.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public void setLandGradeCode(String landGradeCode) {
+        String oldValue = null;
+        if (landGradeType != null) {
+            oldValue = landGradeType.getCode();
+        }
+        setLandGradeType(CacheManager.getBeanByCode(
+                CacheManager.getLandGradeTypes(), landGradeCode));
+        propertySupport.firePropertyChange(LAND_GRADE_CODE_PROPERTY, oldValue, landGradeCode);
     }
     
     @Override
