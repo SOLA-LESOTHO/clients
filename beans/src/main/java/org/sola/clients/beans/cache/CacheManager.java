@@ -200,12 +200,10 @@ public final class CacheManager {
      * Cache key of the {@link LeaseConditionBean} collection.
      */
     public static final String LEASE_CONDITION_CODES_KEY = LeaseConditionBean.class.getName() + LIST_POSTFIX;
-<<<<<<< HEAD
-=======
+
     
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
     
->>>>>>> pomomo
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
@@ -235,15 +233,14 @@ public final class CacheManager {
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
     private static final String GET_LEASE_CONDITIONS = "getLeaseConditions";
-<<<<<<< HEAD
     private static final String GET_APPLICATION_FORMS = "getApplicationForms";
 
 
 
-=======
+
     private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
             
->>>>>>> pomomo
+
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
