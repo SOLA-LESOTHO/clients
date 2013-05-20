@@ -143,7 +143,6 @@ public class CadastreObjectsSearchPanel extends JPanel {
                 menuSelectActionPerformed(evt);
             }
         });
-
         popupSearchResults.add(menuSelect);
 
         jPanel7.setLayout(new java.awt.GridLayout(1, 4, 15, 0));
@@ -305,6 +304,10 @@ public class CadastreObjectsSearchPanel extends JPanel {
         columnBinding.setColumnName("Land Use Type.display Value");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${landGradeType.displayValue}"));
+        columnBinding.setColumnName("Land Grade Type.display Value");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${area}"));
         columnBinding.setColumnName("Area");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
@@ -316,6 +319,7 @@ public class CadastreObjectsSearchPanel extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${address}"));
         columnBinding.setColumnName("Address");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"));
         columnBinding.setColumnName("Status.display Value");
         columnBinding.setColumnClass(String.class);
@@ -328,10 +332,11 @@ public class CadastreObjectsSearchPanel extends JPanel {
         tableCadastreObjects.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title0_1")); // NOI18N
         tableCadastreObjects.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title1_1")); // NOI18N
         tableCadastreObjects.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title2_1")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title3_1")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title6")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title4")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title5")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title7")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title3_1")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title6")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title4")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title5")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

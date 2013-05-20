@@ -21,6 +21,7 @@ import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.search.CadastreObjectSearchParamsTO;
+import org.sola.webservices.transferobjects.search.CadastreObjectSearchResultTO;
 
 /**
  * List of cadastre objects
@@ -52,10 +53,11 @@ public class CadastreObjectSearchResultListBean extends AbstractBindingBean {
     public void search(CadastreObjectSearchParamsBean params){
         if(params == null)
             return;
-        TypeConverters.TransferObjectListToBeanList(
-                WSManager.getInstance().getSearchService()
+        List<CadastreObjectSearchResultTO> result = WSManager.getInstance().getSearchService()
                 .searchCadastreObjects(TypeConverters.BeanToTrasferObject(params, 
-                CadastreObjectSearchParamsTO.class)), CadastreObjectSearchResultBean.class, 
+                CadastreObjectSearchParamsTO.class));
+        
+        TypeConverters.TransferObjectListToBeanList(result, CadastreObjectSearchResultBean.class, 
                 (List)getCadastreObjects());
     }
 }
