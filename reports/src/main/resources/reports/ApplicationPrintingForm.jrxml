@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Application printing form" pageWidth="595" pageHeight="842" columnWidth="548" leftMargin="27" rightMargin="20" topMargin="24" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.LodgementReport" uuid="51dd7421-4983-421f-8b54-6200db545dd1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="442"/>
+	<property name="ireport.y" value="298"/>
 	<subDataset name="dataset2" uuid="5cf8b6fe-e677-4c23-9432-ed6170816206">
 		<field name="serviceName" class="java.lang.String">
 			<fieldDescription><![CDATA[requestType.displayValue]]></fieldDescription>
@@ -87,6 +87,9 @@
 	</field>
 	<field name="stampDuty" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[stampDuty]]></fieldDescription>
+	</field>
+	<field name="groundRent" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[groundRent]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -363,7 +366,7 @@ Fax: +266 2231 0905
 				<reportElement uuid="fcf85536-f2b4-4a78-bf30-e7b0f55c3657" positionType="Float" x="11" y="363" width="529" height="1"/>
 			</line>
 			<textField>
-				<reportElement uuid="e77c0547-3c20-47d0-8736-9732acac4e06" positionType="Float" mode="Transparent" x="11" y="532" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<reportElement uuid="e77c0547-3c20-47d0-8736-9732acac4e06" positionType="Float" mode="Transparent" x="11" y="556" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{WHICH_CALLER}.equals( "R" )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
@@ -373,26 +376,26 @@ Fax: +266 2231 0905
 				<textFieldExpression><![CDATA[$R{receipt}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement uuid="0b40f108-e8ea-4537-b85b-3822f0ef3916" positionType="Float" x="111" y="506" width="429" height="56">
+				<reportElement uuid="0b40f108-e8ea-4537-b85b-3822f0ef3916" positionType="Float" x="111" y="530" width="429" height="56">
 					<printWhenExpression><![CDATA[$P{WHICH_CALLER}.equals( "R" )]]></printWhenExpression>
 				</reportElement>
 			</rectangle>
 			<textField>
-				<reportElement uuid="8eae7d60-d35f-469c-8a56-569972a3a1cc" positionType="FixRelativeToBottom" x="2" y="579" width="85" height="20"/>
+				<reportElement uuid="8eae7d60-d35f-469c-8a56-569972a3a1cc" positionType="FixRelativeToBottom" x="2" y="603" width="85" height="20"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{operator}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="cef6c097-d301-462f-8fb5-27e9b290b4d9" positionType="FixRelativeToBottom" x="100" y="579" width="197" height="20"/>
+				<reportElement uuid="cef6c097-d301-462f-8fb5-27e9b290b4d9" positionType="FixRelativeToBottom" x="100" y="603" width="197" height="20"/>
 				<textElement>
 					<font fontName="SansSerif" size="12" isBold="false" isItalic="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{USER_NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7ce1e288-7af2-41ae-86c4-2f1f17689222" positionType="FixRelativeToBottom" x="1" y="617" width="86" height="20">
+				<reportElement uuid="7ce1e288-7af2-41ae-86c4-2f1f17689222" positionType="FixRelativeToBottom" x="1" y="641" width="86" height="20">
 					<printWhenExpression><![CDATA[$P{WHICH_CALLER}.equals( "R" )]]></printWhenExpression>
 				</reportElement>
 				<textElement markup="none">
@@ -442,14 +445,14 @@ Fax: +266 2231 0905
 					<textElement textAlignment="Right">
 						<font fontName="SansSerif" size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{totalFee}.toPlainString()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{groundRent}.toPlainString()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement uuid="6dcc5a99-5f50-48a4-a7e9-8878e50a3e05" positionType="Float" x="11" y="474" width="138" height="20"/>
 					<textElement markup="none">
 						<font fontName="SansSerif" size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$R{total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$R{groundRent}]]></textFieldExpression>
 				</textField>
 			</elementGroup>
 			<componentElement>
@@ -486,7 +489,7 @@ Fax: +266 2231 0905
 				<textFieldExpression><![CDATA[$R{propertylist}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="068d7592-f324-4807-abed-24cbe59c3681" positionType="FixRelativeToBottom" x="87" y="636" width="285" height="1">
+				<reportElement uuid="068d7592-f324-4807-abed-24cbe59c3681" positionType="FixRelativeToBottom" x="87" y="660" width="285" height="1">
 					<printWhenExpression><![CDATA[$P{WHICH_CALLER}.equals( "R" )]]></printWhenExpression>
 				</reportElement>
 			</line>
@@ -531,6 +534,20 @@ Fax: +266 2231 0905
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{stampDuty}.toPlainString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6dcc5a99-5f50-48a4-a7e9-8878e50a3e05" positionType="Float" x="11" y="501" width="138" height="20"/>
+				<textElement markup="none">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="172" y="500" width="125" height="21"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalFee}.toPlainString()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
