@@ -25,7 +25,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="headerPanel1" pref="400" max="32767" attributes="0"/>
+          <Component id="headerPanel1" pref="425" max="32767" attributes="0"/>
           <Component id="toolbarAppForm" alignment="0" max="32767" attributes="0"/>
           <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
       </Group>
@@ -37,7 +37,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="toolbarAppForm" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="286" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="296" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,21 +56,21 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
-        <Component class="org.sola.clients.swing.common.buttons.BtnAttach" name="btnAttach1">
+        <Component class="org.sola.clients.swing.common.buttons.BtnAttach" name="btnAttach">
           <Properties>
-            <Property name="horizontalTextPosition" type="int" value="2"/>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
         </Component>
-        <Component class="org.sola.clients.swing.common.buttons.BtnEdit" name="btnEdit1">
+        <Component class="org.sola.clients.swing.common.buttons.BtnEdit" name="btnEdit">
           <Properties>
-            <Property name="horizontalTextPosition" type="int" value="2"/>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
         </Component>
-        <Component class="org.sola.clients.swing.common.buttons.BtnRemove" name="btnRemove1">
+        <Component class="org.sola.clients.swing.common.buttons.BtnRemove" name="btnRemove">
           <Properties>
-            <Property name="horizontalTextPosition" type="int" value="2"/>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
         </Component>
@@ -138,10 +138,12 @@
               <Subbinding sourcePath="${translatedDescription}">
                 <BindingParameter name="NAME" value="Description"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${content}">
                 <BindingParameter name="NAME" value="Content"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Byte[].class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
             </BindingProperty>
           </BindingProperties>

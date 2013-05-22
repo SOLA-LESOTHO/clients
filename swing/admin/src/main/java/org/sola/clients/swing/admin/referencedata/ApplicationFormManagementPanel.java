@@ -15,7 +15,15 @@
  */
 package org.sola.clients.swing.admin.referencedata;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import org.sola.clients.beans.referencedata.ApplicationFormBean;
+import org.sola.clients.beans.referencedata.ApplicationFormListBean;
+import org.sola.clients.beans.security.RoleBean;
+import org.sola.clients.beans.security.RoleListBean;
+import org.sola.clients.swing.admin.security.RolePanelForm;
 import org.sola.clients.swing.ui.ContentPanel;
+import org.sola.clients.swing.ui.MainContentPanel;
 
 /**
  *
@@ -28,6 +36,22 @@ public class ApplicationFormManagementPanel extends ContentPanel {
      */
     public ApplicationFormManagementPanel() {
         initComponents();
+        applicationFormListBean.loadList(true);
+        applicationFormListBean.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals(ApplicationFormListBean.SELECTED_APPLICATION_FORM_PROPERTY)) {
+                    customizeRoleButtons((ApplicationFormBean) evt.getNewValue());
+                }
+            }
+        });
+        customizeRoleButtons(null);
+    }
+    
+    private void customizeRoleButtons(ApplicationFormBean role) {
+        btnAttach.setEnabled(true);
+        btnEdit.setEnabled(true);
+        btnRemove.setEnabled(true);
     }
 
     /**
@@ -43,9 +67,9 @@ public class ApplicationFormManagementPanel extends ContentPanel {
         applicationFormListBean = new org.sola.clients.beans.referencedata.ApplicationFormListBean();
         headerPanel1 = new org.sola.clients.swing.ui.HeaderPanel();
         toolbarAppForm = new javax.swing.JToolBar();
-        btnAttach1 = new org.sola.clients.swing.common.buttons.BtnAttach();
-        btnEdit1 = new org.sola.clients.swing.common.buttons.BtnEdit();
-        btnRemove1 = new org.sola.clients.swing.common.buttons.BtnRemove();
+        btnAttach = new org.sola.clients.swing.common.buttons.BtnAttach();
+        btnEdit = new org.sola.clients.swing.common.buttons.BtnEdit();
+        btnRemove = new org.sola.clients.swing.common.buttons.BtnRemove();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableAppForm = new javax.swing.JTable();
 
@@ -56,17 +80,17 @@ public class ApplicationFormManagementPanel extends ContentPanel {
         toolbarAppForm.setFloatable(false);
         toolbarAppForm.setRollover(true);
 
-        btnAttach1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnAttach1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolbarAppForm.add(btnAttach1);
+        btnAttach.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAttach.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbarAppForm.add(btnAttach);
 
-        btnEdit1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnEdit1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolbarAppForm.add(btnEdit1);
+        btnEdit.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnEdit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbarAppForm.add(btnEdit);
 
-        btnRemove1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnRemove1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolbarAppForm.add(btnRemove1);
+        btnRemove.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbarAppForm.add(btnRemove);
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${applicationForms}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, applicationFormListBean, eLProperty, tableAppForm);
@@ -85,9 +109,11 @@ public class ApplicationFormManagementPanel extends ContentPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${translatedDescription}"));
         columnBinding.setColumnName("Description");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${content}"));
         columnBinding.setColumnName("Content");
         columnBinding.setColumnClass(Byte[].class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableAppForm);
@@ -96,7 +122,7 @@ public class ApplicationFormManagementPanel extends ContentPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
             .addComponent(toolbarAppForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
@@ -107,16 +133,16 @@ public class ApplicationFormManagementPanel extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toolbarAppForm, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.beans.referencedata.ApplicationFormListBean applicationFormListBean;
-    private org.sola.clients.swing.common.buttons.BtnAttach btnAttach1;
-    private org.sola.clients.swing.common.buttons.BtnEdit btnEdit1;
-    private org.sola.clients.swing.common.buttons.BtnRemove btnRemove1;
+    private org.sola.clients.swing.common.buttons.BtnAttach btnAttach;
+    private org.sola.clients.swing.common.buttons.BtnEdit btnEdit;
+    private org.sola.clients.swing.common.buttons.BtnRemove btnRemove;
     private org.sola.clients.swing.ui.HeaderPanel headerPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableAppForm;
