@@ -9,7 +9,7 @@
             <FeatureTypeStyle>
                 <Rule>
                     <Name></Name>
-                    <MaxScaleDenominator>5000</MaxScaleDenominator>
+                    <MaxScaleDenominator>3000</MaxScaleDenominator>
                     <PointSymbolizer>
                         <Graphic>
                             <Mark>
