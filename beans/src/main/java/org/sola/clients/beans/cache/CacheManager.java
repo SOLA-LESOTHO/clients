@@ -56,6 +56,13 @@ public final class CacheManager {
      */
     public static final String REQUEST_TYPES_KEY = RequestTypeBean.class.getName() + LIST_POSTFIX;
     /**
+<<<<<<< HEAD
+=======
+     * Cache key of the {@link ApplicationFormBean} collection.
+     */
+    public static final String APPLICATION_FORM_KEY = ApplicationFormBean.class.getName() + LIST_POSTFIX;
+    /**
+>>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
      * Cache key of the code/displayValue map based on {@link RequestTypeBean}
      * collection.
      */
@@ -219,9 +226,10 @@ public final class CacheManager {
      * Cache key of the {@link OtherAuthoritiesBean} collection.
      */
     public static final String OTHER_AUTHORITIES_CODES_KEY = OtherAuthoritiesBean.class.getName() + LIST_POSTFIX;
+
     
-    
-    
+    public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
+
     
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
@@ -257,11 +265,20 @@ public final class CacheManager {
     private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
+    private static final String GET_APPLICATION_FORMS = "getApplicationForms";
+    private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
+           
 
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_BR_VALIDATION_TARGET_TYPES, BR_VALIDATION_TARGET_TYPE_KEY);
+    }
+    
+    public static List<ApplicationFormBean> getApplicationForms() {
+	return getCachedBeanList(ApplicationFormBean.class,
+			WSManager.getInstance().getReferenceDataService(),
+			GET_APPLICATION_FORMS, APPLICATION_FORM_KEY);
     }
 
     public static List<BaUnitRelTypeBean> getBaUnitRelTypes() {
@@ -470,6 +487,12 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_REQUEST_TYPES, REQUEST_TYPES_KEY),
                 REQUEST_TYPES_MAP_KEY);
+    }
+    
+    public static List<LandGradeTypeBean> getLandGradeTypes() {
+        return getCachedBeanList(LandGradeTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_LAND_GRADE_TYPES, LAND_GRADE_TYPE_CODES_KEY);
     }
 
     /*

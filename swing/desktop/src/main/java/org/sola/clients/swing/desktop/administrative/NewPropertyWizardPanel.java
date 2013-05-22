@@ -620,31 +620,15 @@ public class NewPropertyWizardPanel extends ContentPanel {
     }//GEN-LAST:event_btnBackToSelectionActionPerformed
 
     private void btnFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinishActionPerformed
-        if (getBaUnitBean().getSelectedCadastreObjects().size() < 1
-                && getBaUnitBean().getSelectedNewCadastreObjects().size() < 1
-                && getBaUnitBean().getSelectedRrrs(false).size() < 1) {
-            if(allowSelection && MessageUtility.displayMessage(ClientMessage.BAUNIT_NOTHING_SELECTED)
-                    != MessageUtility.BUTTON_ONE){
-                return;
-            }
-        }
-
         if(baUnitRelTypeListBean.getSelectedBaUnitRelType() == null){
             MessageUtility.displayMessage(ClientMessage.BAUNIT_SELECT_RELATION_TYPE);
             return;
         }
         
-        if (getBaUnitBean().getSelectedCadastreObjects().size() > 0) {
-            MessageUtility.displayMessage(ClientMessage.BAUNIT_EXISTING_PARCELS_SELECTED);
-        }
-
         BaUnitBean selectedBaUnit = getBaUnitBean().copy();
         selectedBaUnit.getRrrList().clear();
         selectedBaUnit.getRrrList().addAll(getBaUnitBean().getSelectedRrrs(true));
-        selectedBaUnit.getCadastreObjectList().clear();
-        selectedBaUnit.getCadastreObjectList().addAll(getBaUnitBean().getSelectedCadastreObjects());
-        selectedBaUnit.getCadastreObjectList().addAll(getBaUnitBean().getSelectedNewCadastreObjects());
-        
+       
         for (RrrBean rrrBean : selectedBaUnit.getRrrList()) {
             rrrBean.setStatusCode(StatusConstants.PENDING);
         }

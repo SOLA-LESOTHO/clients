@@ -602,20 +602,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSetPasswordActionPerformed"/>
           </Events>
         </Component>
-        <Component class="org.sola.clients.swing.common.controls.LanguageCombobox" name="languageCombobox">
-          <Properties>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[150, 20]"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="languageComboboxActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createLanguageCombobox()"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="languageCombobox.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));"/>
-          </AuxValues>
-        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="statusPanel">

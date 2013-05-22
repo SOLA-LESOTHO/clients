@@ -83,15 +83,11 @@ public final class ControlsBundleForBaUnit extends SolaControlsBundle {
      * Sets the cadastre objects to be marked in the map.
      * These cadastre objects are retrieved from the current baUnitBean
      * 
-     * @param cadastreObjectBeanList 
+     * @param cadastreObjectBean
      */
-    public void setCadastreObjects(SolaList<CadastreObjectBean> cadastreObjectBeanList) {
-        List<CadastreObjectTO> cadastreObjects = new ArrayList<CadastreObjectTO>();
-        for (CadastreObjectBean coBean : cadastreObjectBeanList) {
-           cadastreObjects.add(TypeConverters.BeanToTrasferObject(coBean, CadastreObjectTO.class));
-        }
+    public void setCadastreObject(CadastreObjectBean cadastreObjectBean) {
         layerForCadastreObjects.removeFeatures(false);
-        this.addCadastreObjectsInLayer(layerForCadastreObjects, cadastreObjects);
+        this.addCadastreObjectsInLayer(layerForCadastreObjects, TypeConverters.BeanToTrasferObject(cadastreObjectBean, CadastreObjectTO.class));
     }
 
     /**
@@ -101,26 +97,20 @@ public final class ControlsBundleForBaUnit extends SolaControlsBundle {
      * @param cadastreObjects
      */
     private void addCadastreObjectsInLayer(
-            ExtendedLayerGraphics inLayer, List<CadastreObjectTO> cadastreObjects) {
-        if (cadastreObjects == null || cadastreObjects.isEmpty()) {
+            ExtendedLayerGraphics inLayer, CadastreObjectTO cadastreObject) {
+        if (cadastreObject == null) {
             return;
         }
 
         try {
-            boolean featureAdded = false;
-            for (CadastreObjectTO cadastreObject : cadastreObjects) {
-                if (cadastreObject.getGeomPolygon() == null){
-                    continue;
-                }
-                inLayer.addFeature(cadastreObject.getId(),
-                        cadastreObject.getGeomPolygon(), null, false);
-                featureAdded = true;
+            if (cadastreObject.getGeomPolygon() == null){
+                return;
             }
-            if (featureAdded) {
-                ReferencedEnvelope envelope = inLayer.getFeatureCollection().getBounds();
-                envelope.expandBy(10);
-                this.getMap().setDisplayArea(envelope);
-            }
+            inLayer.addFeature(cadastreObject.getId(),cadastreObject.getGeomPolygon(), null, false);
+            
+            ReferencedEnvelope envelope = inLayer.getFeatureCollection().getBounds();
+            envelope.expandBy(10);
+            this.getMap().setDisplayArea(envelope);
         } catch (ParseException ex) {
             Messaging.getInstance().show(GisMessage.CADASTRE_CHANGE_ERROR_ADD_CO);
             org.sola.common.logging.LogUtility.log(

@@ -36,6 +36,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
@@ -106,6 +107,8 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String SELECTED_RIGHTHOLDER_PROPERTY = "selectedRightHolder";
     public static final String DUE_DATE_PROPERTY = "dueDate";
     public static final String SELECTED_LEASE_CONDITION_PROPERTY = "selectedLeaseCondition";
+    public static final String REGISTRATION_NUMBER_PROPERTY = "registrationNumber";
+    public static final String STATUS_CHANGE_DATE_PROPERTY = "statusChangeDate";
     
     private String baUnitId;
     private String nr;
@@ -140,7 +143,10 @@ public class RrrBean extends AbstractTransactionedBean {
     private transient PartySummaryBean selectedRightholder;
     private transient LeaseConditionForRrrBean selectedLeaseCondition;
     private String concatenatedName;
-
+    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_REGNUMBER, payload = Localized.class)
+    private String registrationNumber;
+    private Date statusChangeDate;
+    
     public String getConcatenatedName() {
         return concatenatedName;
     }
@@ -322,6 +328,26 @@ public class RrrBean extends AbstractTransactionedBean {
         this.registrationDate = registrationDate;
     }
 
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        String oldValue = this.registrationNumber;
+        this.registrationNumber = registrationNumber;
+        propertySupport.firePropertyChange(REGISTRATION_NUMBER_PROPERTY, oldValue, this.registrationNumber);
+    }
+
+    public Date getStatusChangeDate() {
+        return statusChangeDate;
+    }
+
+    public void setStatusChangeDate(Date statusChangeDate) {
+        Date oldValue = this.statusChangeDate;
+        this.statusChangeDate = statusChangeDate;
+        propertySupport.firePropertyChange(STATUS_CHANGE_DATE_PROPERTY, oldValue, this.statusChangeDate);
+    }
+
     public Double getShare() {
         return share;
     }
@@ -417,8 +443,6 @@ public class RrrBean extends AbstractTransactionedBean {
         return leaseConditionList;
     }
 
-    @Size(min = 1, groups = {SimpleOwnershipValidationGroup.class, LeaseValidationGroup.class}, 
-            message = ClientMessage.CHECK_SIZE_LEASE_CONDITIONS_LIST, payload = Localized.class)
     public ObservableList<LeaseConditionForRrrBean> getLeaseConditionFilteredList() {
         return leaseConditionList.getFilteredList();
     }

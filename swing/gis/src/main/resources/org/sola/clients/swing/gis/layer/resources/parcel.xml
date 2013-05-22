@@ -14,7 +14,7 @@
        <PolygonSymbolizer>
          <Stroke>
            <CssParameter name="stroke">#026602</CssParameter>
-           <CssParameter name="stroke-width">2</CssParameter>
+           <CssParameter name="stroke-width">1</CssParameter>
          </Stroke>
        </PolygonSymbolizer>
        <TextSymbolizer>
@@ -23,7 +23,7 @@
          </Label>
          <Font>
            <CssParameter name="font-family">Arial</CssParameter>
-           <CssParameter name="font-size">13</CssParameter>
+           <CssParameter name="font-size">10</CssParameter>
            <CssParameter name="font-style">normal</CssParameter>
            <CssParameter name="font-weight">normal</CssParameter>
          </Font>
@@ -36,7 +36,7 @@
            </PointPlacement>
          </LabelPlacement>
          <Fill>
-           <CssParameter name="fill">#000000</CssParameter>
+           <CssParameter name="fill">#222222</CssParameter>
          </Fill>
        </TextSymbolizer>
      </Rule>
@@ -45,9 +45,6 @@
        <MinScaleDenominator>50000</MinScaleDenominator>
        <MaxScaleDenominator>625000</MaxScaleDenominator>
        <PolygonSymbolizer>
-         <Fill>
-           <CssParameter name="fill">#FFFFFF</CssParameter>
-         </Fill>
          <Stroke>
            <CssParameter name="stroke">#026602</CssParameter>
            <CssParameter name="stroke-width">1</CssParameter>
@@ -58,9 +55,6 @@
        <Name>Scale &gt; 625000</Name>
        <MinScaleDenominator>625000</MinScaleDenominator>
        <PolygonSymbolizer>
-         <Fill>
-           <CssParameter name="fill">#FFFFFF</CssParameter>
-         </Fill>
          <Stroke>
            <CssParameter name="stroke">#026602</CssParameter>
            <CssParameter name="stroke-width">0.2</CssParameter>

@@ -21,16 +21,18 @@ import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.search.CadastreObjectSearchParamsTO;
+import org.sola.webservices.transferobjects.search.CadastreObjectSearchResultTO;
 
 /**
  * List of cadastre objects
  */
 public class CadastreObjectSearchResultListBean extends AbstractBindingBean {
+
     public static final String SELECTED_CADASTRE_OBJECT = "selectedCadastreObject";
     SolaObservableList<CadastreObjectSearchResultBean> cadastreObjects;
     CadastreObjectSearchResultBean selectedCadastreObject;
-    
-    public CadastreObjectSearchResultListBean(){
+
+    public CadastreObjectSearchResultListBean() {
         super();
         cadastreObjects = new SolaObservableList<CadastreObjectSearchResultBean>();
     }
@@ -47,15 +49,22 @@ public class CadastreObjectSearchResultListBean extends AbstractBindingBean {
         this.selectedCadastreObject = selectedCadastreObject;
         propertySupport.firePropertyChange(SELECTED_CADASTRE_OBJECT, null, this.selectedCadastreObject);
     }
-    
-    /** Searches cadastre objects with the given parameters. */
-    public void search(CadastreObjectSearchParamsBean params){
-        if(params == null)
+
+    /**
+     * Searches cadastre objects with the given parameters.
+     */
+    public void search(CadastreObjectSearchParamsBean params) {
+        if (params == null) {
             return;
+        }
+
         TypeConverters.TransferObjectListToBeanList(
-                WSManager.getInstance().getSearchService()
-                .searchCadastreObjects(TypeConverters.BeanToTrasferObject(params, 
-                CadastreObjectSearchParamsTO.class)), CadastreObjectSearchResultBean.class, 
-                (List)getCadastreObjects());
+                WSManager.getInstance().getSearchService().searchCadastreObjects(TypeConverters.BeanToTrasferObject(params,
+                CadastreObjectSearchParamsTO.class)), CadastreObjectSearchResultBean.class,
+                List < CadastreObjectSearchResultTO > result = WSManager.getInstance().getSearchService().searchCadastreObjects(TypeConverters.BeanToTrasferObject(params,
+                CadastreObjectSearchParamsTO.class)));
+
+        TypeConverters.TransferObjectListToBeanList(result, CadastreObjectSearchResultBean.class,
+                (List) getCadastreObjects());
     }
 }

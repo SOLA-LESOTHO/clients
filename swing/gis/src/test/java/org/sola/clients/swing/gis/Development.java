@@ -98,7 +98,7 @@ public class Development {
         TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, baUnitBean);
 
         ControlsBundleForBaUnit ctrl = new ControlsBundleForBaUnit();
-        ctrl.setCadastreObjects(baUnitBean.getCadastreObjectList());
+        ctrl.setCadastreObject(baUnitBean.getCadastreObject());
         this.displayControlsBundleForm(ctrl);
     }
 

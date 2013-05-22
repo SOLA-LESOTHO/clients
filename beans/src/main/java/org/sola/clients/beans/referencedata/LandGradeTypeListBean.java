@@ -30,68 +30,39 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingListBean;
+import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
  * Holds the list of {@link RrrTypeBean} objects.
  */
-public class LandUseTypeListBean extends AbstractBindingListBean {
+public class LandGradeTypeListBean extends AbstractBindingBean {
 
-    public static final String SELECTED_LAND_USE_TYPE_PROPERTY = "selectedLandUseType";
-    private SolaCodeList<LandUseTypeBean> landUseTypeList;
-    private LandUseTypeBean selectedLandUseType;
+    public static final String SELECTED_LAND_GRADE_TYPE_PROPERTY = "selectedLandGradeType";
+    private SolaCodeList<LandGradeTypeBean> landGradeTypeList;
+    private LandGradeTypeBean selectedLandGradeType;
 
     /**
      * Initializes object's instance and populates {@link ObservableList}&lt;
-     * {@link LandUseTypeBean} &gt; with values from the cache.
+     * {@link LandGradeTypeBean} &gt; with values from the cache.
      */
-    public LandUseTypeListBean() {
-        this(false);
+    public LandGradeTypeListBean() {
+        // Load from cache by default
+        landGradeTypeList = new SolaCodeList<LandGradeTypeBean>(CacheManager.getLandGradeTypes());
     }
 
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public LandUseTypeListBean(boolean createDummy) {
-        this(createDummy, (String) null);
-    }
-    
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     * @param excludedCodes Codes, which should be skipped while filtering.
-     */
-    public LandUseTypeListBean(boolean createDummy, String ... excludedCodes) {
-        super();
-        landUseTypeList = new SolaCodeList<LandUseTypeBean>(excludedCodes);
-        loadList(createDummy);
-    }
-    
-    /** 
-     * Loads list of {@link IdTypeBean}.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public final void loadList(boolean createDummy) {
-        loadCodeList(LandUseTypeBean.class, landUseTypeList, CacheManager.getLandUseTypes(), createDummy);
-    }
-    
-    public void setExcludedCodes(String ... codes){
-        landUseTypeList.setExcludedCodes(codes);
-    }
-    
-    public ObservableList<LandUseTypeBean> getLandUseTypeList() {
-        return landUseTypeList.getFilteredList();
+    public ObservableList<LandGradeTypeBean> getLandGradeTypeList() {
+        return landGradeTypeList.getFilteredList();
     }
 
-    public LandUseTypeBean getSelectedLandUseType() {
-        return selectedLandUseType;
+    public LandGradeTypeBean getSelectedLandGradeType() {
+        return selectedLandGradeType;
     }
 
-    public void setSelectedLandUseType(LandUseTypeBean selectedLandUseType) {
-        this.selectedLandUseType = selectedLandUseType;
-        propertySupport.firePropertyChange(SELECTED_LAND_USE_TYPE_PROPERTY, null, selectedLandUseType);
+    public void setSelectedLandGradeType(LandGradeTypeBean selectedLandGradeType) {
+        this.selectedLandGradeType = selectedLandGradeType;
+        propertySupport.firePropertyChange(SELECTED_LAND_GRADE_TYPE_PROPERTY,
+                null, selectedLandGradeType);
     }
 }

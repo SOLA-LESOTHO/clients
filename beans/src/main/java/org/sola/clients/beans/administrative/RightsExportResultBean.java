@@ -16,7 +16,6 @@
 package org.sola.clients.beans.administrative;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
@@ -30,25 +29,30 @@ public class RightsExportResultBean extends AbstractBindingBean {
     
     private boolean checked;
     private String baUnitId;
-    private String nameFirstPart;
-    private String nameLastPart;
-    private BigDecimal area;
+    private String rightStatus;
+    private Date rightStatusDate;
+    private BigDecimal parcelArea;
     private String rightId;
     private String rightType;
-    private Date registrationDate;
-    private Date expirationDate;
-    private BigDecimal amount;
-    private String owners;
-    private String applicantId;
-    private String applicantName;
-    private String applicantLastName;
-    private String applicantAddress;
-    private String applicantPhone;
-    private String applicantMobile;
-    private String applicantEmail;
-    private String applicantIdNumber;
-    private String applicantIdTypeCode;
-    
+    private Date rightRegistrationDate;
+    private Date rightExpirationDate;
+    private BigDecimal paymentAmount;
+    private String rightRegistrationNumber;
+    private String rightTrackingNumber;
+    private String rightHolders;
+    private String payeeId;
+    private String payeeName;
+    private String payeeLastName;
+    private String payeeGender;
+    private String payeeAddress;
+    private String payeePhone;
+    private String payeeMobile;
+    private String payeeEmail;
+    private String payeeIdNumber;
+    private String payeeIdTypeCode;
+    private Date payeeBirthDate;
+    private String parcelNumber;
+       
     public RightsExportResultBean(){
         super();
     }
@@ -63,132 +67,44 @@ public class RightsExportResultBean extends AbstractBindingBean {
         propertySupport.firePropertyChange(IS_CHECKED_PROPERTY, oldValue, this.checked);
     }
 
-    public BigDecimal getAmount() {
-        if(amount == null){
-            return new BigDecimal(0);
-        } else {
-            return amount;
-        }
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public String getApplicantAddress() {
-        return applicantAddress;
-    }
-
-    public void setApplicantAddress(String applicantAddress) {
-        this.applicantAddress = applicantAddress;
-    }
-
-    public String getApplicantEmail() {
-        return applicantEmail;
-    }
-
-    public void setApplicantEmail(String applicantEmail) {
-        this.applicantEmail = applicantEmail;
-    }
-
-    public String getApplicantId() {
-        return applicantId;
-    }
-
-    public void setApplicantId(String applicantId) {
-        this.applicantId = applicantId;
-    }
-
-    public String getApplicantIdNumber() {
-        return applicantIdNumber;
-    }
-
-    public void setApplicantIdNumber(String applicantIdNumber) {
-        this.applicantIdNumber = applicantIdNumber;
-    }
-
-    public String getApplicantIdTypeName() {
+    public String getPayeeIdTypeName() {
         String idTypeName = "";
-        if(getApplicantIdTypeCode()!=null){
-            IdTypeBean idBean = CacheManager.getBeanByCode(CacheManager.getIdTypes(), getApplicantIdTypeCode());
+        if(getPayeeIdTypeCode()!=null){
+            IdTypeBean idBean = CacheManager.getBeanByCode(CacheManager.getIdTypes(), getPayeeIdTypeCode());
             if(idBean!=null){
                 idTypeName = idBean.getDisplayValue();
             }
         }
         return idTypeName;
     }
-    
-    public String getApplicantIdTypeCode() {
-        return applicantIdTypeCode;
-    }
 
-    public void setApplicantIdTypeCode(String applicantIdTypeCode) {
-        this.applicantIdTypeCode = applicantIdTypeCode;
-    }
-
-    public String getApplicantLastName() {
-        return applicantLastName;
-    }
-
-    public void setApplicantLastName(String applicantLastName) {
-        this.applicantLastName = applicantLastName;
-    }
-
-    public String getApplicantMobile() {
-        return applicantMobile;
-    }
-
-    public void setApplicantMobile(String applicantMobile) {
-        this.applicantMobile = applicantMobile;
-    }
-
-    public String getApplicantFullName() {
+    public String getPayeeFullName() {
         String fullName = "";
-        if(getApplicantName()!=null){
-            fullName = getApplicantName();
+        if(getPayeeName()!=null){
+            fullName = getPayeeName();
         }
-        if(getApplicantLastName()!=null && !getApplicantLastName().isEmpty()){
-            fullName = fullName + " " + getApplicantLastName();
+        if(getPayeeLastName()!=null && !getPayeeLastName().isEmpty()){
+            fullName = fullName + " " + getPayeeLastName();
         }
         return fullName;
     }
     
-    public String getApplicantName() {
-        return applicantName;
-    }
-
-    public void setApplicantName(String applicantName) {
-        this.applicantName = applicantName;
-    }
-
-    public String getApplicantPhone() {
-        return applicantPhone;
-    }
-
-    public void setApplicantPhone(String applicantPhone) {
-        this.applicantPhone = applicantPhone;
-    }
-    
-    public String getAreaFormatted(){
+    public String getParcelAreaFormatted(){
         String areaFormatted = "";
-        if(getArea()!=null){
-            areaFormatted = "with an area of " + getArea().toPlainString() + " m2";
+        if(getParcelArea()!=null){
+            areaFormatted = "with an area of " + getParcelArea().toPlainString() + " m2";
         }
         return areaFormatted;
     }
-    
-    public BigDecimal getArea() {
-        if(area == null){
-            return new BigDecimal(0);
-        } else {
-            return area;
-        }
+
+    public BigDecimal getParcelArea() {
+        return parcelArea;
     }
 
-    public void setArea(BigDecimal area) {
-        this.area = area;
+    public void setParcelArea(BigDecimal parcelArea) {
+        this.parcelArea = parcelArea;
     }
-
+  
     public String getBaUnitId() {
         return baUnitId;
     }
@@ -196,44 +112,9 @@ public class RightsExportResultBean extends AbstractBindingBean {
     public void setBaUnitId(String baUnitId) {
         this.baUnitId = baUnitId;
     }
-
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public String getPropCode(){
-        String propCode ="";
-        if(getNameFirstPart()!=null){
-            propCode = getNameFirstPart();
-        }
-        if(getNameLastPart()!=null && !getNameLastPart().isEmpty()){
-            propCode = propCode + "/" + getNameLastPart();
-        }
-        return propCode;
-    }
     
-    public String getNameFirstPart() {
-        return nameFirstPart;
-    }
-
-    public void setNameFirstPart(String nameFirstPart) {
-        this.nameFirstPart = nameFirstPart;
-    }
-
-    public String getNameLastPart() {
-        return nameLastPart;
-    }
-
-    public void setNameLastPart(String nameLastPart) {
-        this.nameLastPart = nameLastPart;
-    }
-
-    public String getOwnersFormatted(){
-        String formattedOwners = getOwners();
+    public String getRightholdersFormatted(){
+        String formattedOwners = getRightHolders();
 
         if(formattedOwners!=null){
             String[] tmpOwners = formattedOwners.split(",");
@@ -256,23 +137,143 @@ public class RightsExportResultBean extends AbstractBindingBean {
         }
         return formattedOwners;
     }
+
+    public String getParcelNumber() {
+        return parcelNumber;
+    }
+
+    public void setParcelNumber(String parcelNumber) {
+        this.parcelNumber = parcelNumber;
+    }
+
+    public String getPayeeAddress() {
+        return payeeAddress;
+    }
+
+    public void setPayeeAddress(String payeeAddress) {
+        this.payeeAddress = payeeAddress;
+    }
+
+    public String getPayeeEmail() {
+        return payeeEmail;
+    }
+
+    public void setPayeeEmail(String payeeEmail) {
+        this.payeeEmail = payeeEmail;
+    }
+
+    public String getPayeeGender() {
+        return payeeGender;
+    }
+
+    public void setPayeeGender(String payeeGender) {
+        this.payeeGender = payeeGender;
+    }
+
+    public String getPayeeId() {
+        return payeeId;
+    }
+
+    public void setPayeeId(String payeeId) {
+        this.payeeId = payeeId;
+    }
+
+    public String getPayeeIdTypeCode() {
+        return payeeIdTypeCode;
+    }
+
+    public void setPayeeIdTypeCode(String payeeIdTypeCode) {
+        this.payeeIdTypeCode = payeeIdTypeCode;
+    }
+
+    public String getPayeeLastName() {
+        return payeeLastName;
+    }
+
+    public void setPayeeLastName(String payeeLastName) {
+        this.payeeLastName = payeeLastName;
+    }
+
+    public String getPayeeMobile() {
+        return payeeMobile;
+    }
+
+    public void setPayeeMobile(String payeeMobile) {
+        this.payeeMobile = payeeMobile;
+    }
+
+    public String getPayeeName() {
+        return payeeName;
+    }
+
+    public void setPayeeName(String payeeName) {
+        this.payeeName = payeeName;
+    }
+
+    public String getPayeePhone() {
+        return payeePhone;
+    }
+
+    public void setPayeePhone(String payeePhone) {
+        this.payeePhone = payeePhone;
+    }
+
+    public BigDecimal getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(BigDecimal paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public Date getRightExpirationDate() {
+        return rightExpirationDate;
+    }
+
+    public void setRightExpirationDate(Date rightExpirationDate) {
+        this.rightExpirationDate = rightExpirationDate;
+    }
+
+    public String getRightHolders() {
+        return rightHolders;
+    }
+
+    public void setRightHolders(String rightHolders) {
+        this.rightHolders = rightHolders;
+    }
+
+    public Date getRightRegistrationDate() {
+        return rightRegistrationDate;
+    }
+
+    public void setRightRegistrationDate(Date rightRegistrationDate) {
+        this.rightRegistrationDate = rightRegistrationDate;
+    }
+
+    public String getRightRegistrationNumber() {
+        return rightRegistrationNumber;
+    }
+
+    public void setRightRegistrationNumber(String rightRegistrationNumber) {
+        this.rightRegistrationNumber = rightRegistrationNumber;
+    }
+
+    public String getRightStatus() {
+        return rightStatus;
+    }
+
+    public void setRightStatus(String rightStatus) {
+        this.rightStatus = rightStatus;
+    }
+
+    public String getRightTrackingNumber() {
+        return rightTrackingNumber;
+    }
+
+    public void setRightTrackingNumber(String rightTrackingNumber) {
+        this.rightTrackingNumber = rightTrackingNumber;
+    }
     
-    public String getOwners() {
-        return owners;
-    }
-
-    public void setOwners(String owners) {
-        this.owners = owners;
-    }
-
-    public Date getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
     public String getRightType() {
         return rightType;
     }
@@ -287,5 +288,29 @@ public class RightsExportResultBean extends AbstractBindingBean {
 
     public void setRightId(String rightId) {
         this.rightId = rightId;
+    }
+
+    public Date getRightStatusDate() {
+        return rightStatusDate;
+    }
+
+    public void setRightStatusDate(Date rightStatusDate) {
+        this.rightStatusDate = rightStatusDate;
+    }
+
+    public Date getPayeeBirthDate() {
+        return payeeBirthDate;
+    }
+
+    public void setPayeeBirthDate(Date payeeBirthDate) {
+        this.payeeBirthDate = payeeBirthDate;
+    }
+
+    public String getPayeeIdNumber() {
+        return payeeIdNumber;
+    }
+
+    public void setPayeeIdNumber(String payeeIdNumber) {
+        this.payeeIdNumber = payeeIdNumber;
     }
 }

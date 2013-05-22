@@ -71,8 +71,7 @@ public class IdTypeListBean extends AbstractBindingListBean {
      * @param createDummy Indicates whether to add empty object on the list.
      */
     public final void loadList(boolean createDummy) {
-        loadCodeList(IdTypeBean.class, idTypeListBean, 
-                CacheManager.getIdTypes(), createDummy);
+        loadCodeList(IdTypeBean.class, idTypeListBean, CacheManager.getIdTypes(), createDummy);
     }
     
     public ObservableList<IdTypeBean> getIdTypeList() {

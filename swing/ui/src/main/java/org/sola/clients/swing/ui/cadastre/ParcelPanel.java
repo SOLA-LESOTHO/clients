@@ -31,6 +31,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
+import org.sola.clients.swing.common.converters.BigDecimalMoneyConverter;
 import org.sola.clients.swing.ui.address.AddressDialog;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
@@ -41,25 +42,50 @@ import org.sola.common.WindowUtility;
  */
 public class ParcelPanel extends javax.swing.JPanel {
 
-    private CadastreObjectBean createCadastreBean(){
-        if(cadastreObjectBean1==null){
-            cadastreObjectBean1 = new CadastreObjectBean();
-        }
-        return cadastreObjectBean1;
-    }
+    private CadastreObjectBean cadastreObjectBean;
+    private boolean readOnly = false;
     
     public ParcelPanel() {
-        this(null);
+        this(null, true);
     }
     
-    public ParcelPanel(CadastreObjectBean cadastreObject) {
-        cadastreObjectBean1 = cadastreObject;
+    public ParcelPanel(CadastreObjectBean cadastreObject, boolean readOnly) {
+        this.readOnly = readOnly;
+        if(cadastreObject==null){
+            this.cadastreObjectBean = new CadastreObjectBean();
+        } else {
+            this.cadastreObjectBean = cadastreObject;
+        }
         initComponents();
         postInit();
     }
+
+     public CadastreObjectBean getCadastreObjectBean() {
+        return cadastreObjectBean;
+    }
+
+    public void setCadastreObjectBean(CadastreObjectBean cadastreObjectBean) {
+        CadastreObjectBean oldValue = this.cadastreObjectBean;
+        if (cadastreObjectBean == null) {
+            this.cadastreObjectBean = new CadastreObjectBean();
+        } else {
+            this.cadastreObjectBean = cadastreObjectBean;
+        }
+        firePropertyChange("cadastreObjectBean", oldValue, this.cadastreObjectBean);
+        postInit();
+    }
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+        customizeForm();
+    }
     
     private void postInit(){
-        cadastreObjectBean1.addPropertyChangeListener(new PropertyChangeListener() {
+        cadastreObjectBean.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -69,18 +95,32 @@ public class ParcelPanel extends javax.swing.JPanel {
             }
         });
         customizeAddressButtons();
+        customizeForm();
     }
  
-    private void customizeAddressButtons(){
-        boolean enabled = cadastreObjectBean1.getSelectedAddress()!=null;
-        btnEdit1.setEnabled(enabled);
-        btnRemove1.setEnabled(enabled);
-        menuAdd1.setEnabled(enabled);
-        menuRemove1.setEnabled(enabled);
+    private void customizeForm(){
+        boolean enabled = !readOnly;
+        txtFirstPart.setEnabled(enabled);
+        txtLastPart.setEnabled(enabled);
+        txtArea.setEnabled(enabled);
+        cbxEstateType.setEnabled(enabled);
+        cbxLandUse.setEnabled(enabled);
+        txtSurveyDate.setEnabled(enabled);
+        txtSurveyFee.setEnabled(enabled);
+        txtSurveyor.setEnabled(enabled);
+        txtParcelSurveyRef.setEnabled(enabled);
+        txtValuationAmount.setEnabled(enabled);
+        txtRemarks.setEnabled(enabled);
+        customizeAddressButtons();
     }
     
-    public CadastreObjectBean getCadastreObject(){
-        return cadastreObjectBean1;
+    private void customizeAddressButtons(){
+        boolean enabled = cadastreObjectBean.getSelectedAddress()!=null && !readOnly;
+        btnAdd1.setEnabled(!readOnly);
+        btnEdit1.setEnabled(enabled);
+        btnRemove1.setEnabled(enabled);
+        menuAdd1.setEnabled(btnAdd1.isEnabled());
+        menuRemove1.setEnabled(enabled);
     }
     
     private void addAddress(){
@@ -91,7 +131,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if(evt.getPropertyName().equals(AddressDialog.ADDRESS_SAVED)){
-                    cadastreObjectBean1.addAddress((AddressBean)evt.getNewValue());
+                    cadastreObjectBean.addAddress((AddressBean)evt.getNewValue());
                 }
             }
         });
@@ -99,12 +139,12 @@ public class ParcelPanel extends javax.swing.JPanel {
     }
     
     private void editAddress(){
-        if(cadastreObjectBean1.getSelectedAddress()==null){
+        if(cadastreObjectBean.getSelectedAddress()==null){
             return;
         }
         
         AddressDialog form = new AddressDialog(
-                (AddressBean)cadastreObjectBean1.getSelectedAddress().copy(), 
+                (AddressBean)cadastreObjectBean.getSelectedAddress().copy(), 
                 null, true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
@@ -112,7 +152,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if(evt.getPropertyName().equals(AddressDialog.ADDRESS_SAVED)){
-                    cadastreObjectBean1.getSelectedAddress().copyFromObject((AddressBean)evt.getNewValue());
+                    cadastreObjectBean.getSelectedAddress().copyFromObject((AddressBean)evt.getNewValue());
                 }
             }
         });
@@ -120,7 +160,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     }
     
     private void removeAddress(){
-        cadastreObjectBean1.removeSelectedAddress();
+        cadastreObjectBean.removeSelectedAddress();
     }
     
     @SuppressWarnings("unchecked")
@@ -128,7 +168,6 @@ public class ParcelPanel extends javax.swing.JPanel {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        cadastreObjectBean1 = createCadastreBean();
         cadastreObjectTypeListBean1 = new org.sola.clients.beans.referencedata.CadastreObjectTypeListBean();
         landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         popUpAddresses = new javax.swing.JPopupMenu();
@@ -138,29 +177,46 @@ public class ParcelPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        txtParcelFirstPart = new javax.swing.JTextField();
+        txtFirstPart = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        txtParcelLastPart = new javax.swing.JTextField();
+        txtLastPart = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        cbxParcelEstateType = new javax.swing.JComboBox();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        txtParcelSurveyRef = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        labLandUse = new javax.swing.JLabel();
-        cbxLandUse = new javax.swing.JComboBox();
+        cbxEstateType = new javax.swing.JComboBox();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtArea = new javax.swing.JFormattedTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        txtParcelSurveyRef = new javax.swing.JTextField();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtSurveyor = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txtSurveyDate = new javax.swing.JFormattedTextField();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        txtSurveyFee = new javax.swing.JFormattedTextField();
+        jPanel6 = new javax.swing.JPanel();
+        labLandUse = new javax.swing.JLabel();
+        cbxLandUse = new javax.swing.JComboBox();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtValuationAmount = new javax.swing.JFormattedTextField();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtRemarks = new javax.swing.JTextArea();
+        jPanel13 = new javax.swing.JPanel();
+        groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnAdd1 = new org.sola.clients.swing.common.buttons.BtnAdd();
         btnEdit1 = new org.sola.clients.swing.common.buttons.BtnEdit();
         btnRemove1 = new org.sola.clients.swing.common.buttons.BtnRemove();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableWithDefaultStyles1 = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
-        groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/cadastre/Bundle"); // NOI18N
         popUpAddresses.setName(bundle.getString("ParcelPanel.popUpAddresses.name")); // NOI18N
@@ -171,7 +227,6 @@ public class ParcelPanel extends javax.swing.JPanel {
                 menuAdd1ActionPerformed(evt);
             }
         });
-
         popUpAddresses.add(menuAdd1);
 
         menuEdit1.setName(bundle.getString("ParcelPanel.menuEdit1.name")); // NOI18N
@@ -180,7 +235,6 @@ public class ParcelPanel extends javax.swing.JPanel {
                 menuEdit1ActionPerformed(evt);
             }
         });
-
         popUpAddresses.add(menuEdit1);
 
         menuRemove1.setName(bundle.getString("ParcelPanel.menuRemove1.name")); // NOI18N
@@ -189,13 +243,12 @@ public class ParcelPanel extends javax.swing.JPanel {
                 menuRemove1ActionPerformed(evt);
             }
         });
-
         popUpAddresses.add(menuRemove1);
 
         setName("Form"); // NOI18N
 
         jPanel1.setName(bundle.getString("ParcelPanel.jPanel1.name")); // NOI18N
-        jPanel1.setLayout(new java.awt.GridLayout(2, 3, 15, 15));
+        jPanel1.setLayout(new java.awt.GridLayout(3, 4, 15, 15));
 
         jPanel2.setName(bundle.getString("ParcelPanel.jPanel2.name")); // NOI18N
 
@@ -203,9 +256,9 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel17.setText(bundle.getString("ParcelPanel.jLabel17.text")); // NOI18N
         jLabel17.setName("jLabel17"); // NOI18N
 
-        txtParcelFirstPart.setName("txtParcelFirstPart"); // NOI18N
+        txtFirstPart.setName("txtFirstPart"); // NOI18N
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"), txtParcelFirstPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.nameFirstpart}"), txtFirstPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
@@ -214,15 +267,15 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jLabel17)
-                .add(0, 62, Short.MAX_VALUE))
-            .add(txtParcelFirstPart)
+                .add(0, 68, Short.MAX_VALUE))
+            .add(txtFirstPart)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jLabel17)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtParcelFirstPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(txtFirstPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(0, 0, Short.MAX_VALUE))
         );
 
@@ -234,9 +287,9 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel7.setText(bundle.getString("ParcelPanel.jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
 
-        txtParcelLastPart.setName("txtParcelLastPart"); // NOI18N
+        txtLastPart.setName("txtLastPart"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, org.jdesktop.beansbinding.ELProperty.create("${nameLastpart}"), txtParcelLastPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.nameLastpart}"), txtLastPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
@@ -245,15 +298,15 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jLabel7)
-                .add(0, 63, Short.MAX_VALUE))
-            .add(txtParcelLastPart)
+                .add(0, 69, Short.MAX_VALUE))
+            .add(txtLastPart)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jLabel7)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtParcelLastPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(txtLastPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(0, 0, Short.MAX_VALUE))
         );
 
@@ -265,13 +318,13 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel10.setText(bundle.getString("ParcelPanel.jLabel10.text")); // NOI18N
         jLabel10.setName("jLabel10"); // NOI18N
 
-        cbxParcelEstateType.setName("cbxParcelEstateType"); // NOI18N
-        cbxParcelEstateType.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
+        cbxEstateType.setName("cbxEstateType"); // NOI18N
+        cbxEstateType.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectTypeList}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectTypeListBean1, eLProperty, cbxParcelEstateType);
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectTypeListBean1, eLProperty, cbxEstateType);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectType}"), cbxParcelEstateType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.cadastreObjectType}"), cbxEstateType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
@@ -280,19 +333,51 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(jLabel10)
-                .add(0, 82, Short.MAX_VALUE))
-            .add(cbxParcelEstateType, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(0, 88, Short.MAX_VALUE))
+            .add(cbxEstateType, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(jLabel10)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cbxParcelEstateType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(cbxEstateType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4);
+
+        jPanel7.setName(bundle.getString("ParcelPanel.jPanel7.name")); // NOI18N
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
+        jLabel1.setText(bundle.getString("ParcelPanel.jLabel1.text")); // NOI18N
+        jLabel1.setName(bundle.getString("ParcelPanel.jLabel1.name")); // NOI18N
+
+        txtArea.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
+        txtArea.setText(bundle.getString("ParcelPanel.txtArea.text")); // NOI18N
+        txtArea.setName(bundle.getString("ParcelPanel.txtArea.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.officialAreaSize}"), txtArea, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel7Layout.createSequentialGroup()
+                .add(jLabel1)
+                .addContainerGap(64, Short.MAX_VALUE))
+            .add(txtArea)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel7Layout.createSequentialGroup()
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel7);
 
         jPanel5.setName(bundle.getString("ParcelPanel.jPanel5.name")); // NOI18N
 
@@ -301,7 +386,7 @@ public class ParcelPanel extends javax.swing.JPanel {
 
         txtParcelSurveyRef.setName("txtParcelSurveyRef"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, org.jdesktop.beansbinding.ELProperty.create("${sourceReference}"), txtParcelSurveyRef, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.sourceReference}"), txtParcelSurveyRef, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
@@ -310,7 +395,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
                 .add(jLabel9)
-                .add(0, 39, Short.MAX_VALUE))
+                .add(0, 73, Short.MAX_VALUE))
             .add(txtParcelSurveyRef)
         );
         jPanel5Layout.setVerticalGroup(
@@ -323,6 +408,96 @@ public class ParcelPanel extends javax.swing.JPanel {
 
         jPanel1.add(jPanel5);
 
+        jPanel9.setName(bundle.getString("ParcelPanel.jPanel9.name")); // NOI18N
+
+        jLabel3.setText(bundle.getString("ParcelPanel.jLabel3.text")); // NOI18N
+        jLabel3.setName(bundle.getString("ParcelPanel.jLabel3.name")); // NOI18N
+
+        txtSurveyor.setName(bundle.getString("ParcelPanel.txtSurveyor.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.surveyor}"), txtSurveyor, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel9Layout = new org.jdesktop.layout.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel9Layout.createSequentialGroup()
+                .add(jLabel3)
+                .add(0, 82, Short.MAX_VALUE))
+            .add(txtSurveyor)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel9Layout.createSequentialGroup()
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtSurveyor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel9);
+
+        jPanel10.setName(bundle.getString("ParcelPanel.jPanel10.name")); // NOI18N
+
+        jLabel4.setText(bundle.getString("ParcelPanel.jLabel4.text")); // NOI18N
+        jLabel4.setName(bundle.getString("ParcelPanel.jLabel4.name")); // NOI18N
+
+        txtSurveyDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        txtSurveyDate.setName(bundle.getString("ParcelPanel.txtSurveyDate.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.surveyDate}"), txtSurveyDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel10Layout = new org.jdesktop.layout.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel10Layout.createSequentialGroup()
+                .add(jLabel4)
+                .add(0, 66, Short.MAX_VALUE))
+            .add(txtSurveyDate)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel10Layout.createSequentialGroup()
+                .add(jLabel4)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtSurveyDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel10);
+
+        jPanel11.setName(bundle.getString("ParcelPanel.jPanel11.name")); // NOI18N
+
+        jLabel5.setText(bundle.getString("ParcelPanel.jLabel5.text")); // NOI18N
+        jLabel5.setName(bundle.getString("ParcelPanel.jLabel5.name")); // NOI18N
+
+        txtSurveyFee.setFormatterFactory(BigDecimalMoneyConverter.getEditFormatterFactory());
+        txtSurveyFee.setText(bundle.getString("ParcelPanel.txtSurveyFee.text")); // NOI18N
+        txtSurveyFee.setName(bundle.getString("ParcelPanel.txtSurveyFee.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.surveyFee}"), txtSurveyFee, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel11Layout = new org.jdesktop.layout.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel11Layout.createSequentialGroup()
+                .add(jLabel5)
+                .add(0, 71, Short.MAX_VALUE))
+            .add(txtSurveyFee)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel11Layout.createSequentialGroup()
+                .add(jLabel5)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtSurveyFee, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel11);
+
         jPanel6.setName(bundle.getString("ParcelPanel.jPanel6.name")); // NOI18N
 
         labLandUse.setText(bundle.getString("ParcelPanel.labLandUse.text")); // NOI18N
@@ -333,7 +508,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${landUseTypeList}");
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, landUseTypeListBean1, eLProperty, cbxLandUse);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, org.jdesktop.beansbinding.ELProperty.create("${landUseType}"), cbxLandUse, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.landUseType}"), cbxLandUse, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
@@ -342,7 +517,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel6Layout.createSequentialGroup()
                 .add(labLandUse)
-                .add(0, 76, Short.MAX_VALUE))
+                .add(0, 82, Short.MAX_VALUE))
             .add(cbxLandUse, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
@@ -356,37 +531,74 @@ public class ParcelPanel extends javax.swing.JPanel {
 
         jPanel1.add(jPanel6);
 
-        jPanel7.setName(bundle.getString("ParcelPanel.jPanel7.name")); // NOI18N
+        jPanel8.setName(bundle.getString("ParcelPanel.jPanel8.name")); // NOI18N
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
-        jLabel1.setText(bundle.getString("ParcelPanel.jLabel1.text")); // NOI18N
-        jLabel1.setName(bundle.getString("ParcelPanel.jLabel1.name")); // NOI18N
+        jLabel2.setText(bundle.getString("ParcelPanel.jLabel2.text")); // NOI18N
+        jLabel2.setName(bundle.getString("ParcelPanel.jLabel2.name")); // NOI18N
 
-        txtArea.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
-        txtArea.setText(bundle.getString("ParcelPanel.txtArea.text")); // NOI18N
-        txtArea.setName(bundle.getString("ParcelPanel.txtArea.name")); // NOI18N
+        txtValuationAmount.setFormatterFactory(BigDecimalMoneyConverter.getEditFormatterFactory());
+        txtValuationAmount.setText(bundle.getString("ParcelPanel.txtValuationAmount.text")); // NOI18N
+        txtValuationAmount.setName(bundle.getString("ParcelPanel.txtValuationAmount.name")); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, org.jdesktop.beansbinding.ELProperty.create("${officialAreaSize}"), txtArea, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.valuationAmount}"), txtValuationAmount, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
-        org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel7Layout.createSequentialGroup()
-                .add(jLabel1)
-                .addContainerGap(58, Short.MAX_VALUE))
-            .add(txtArea)
+        org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel8Layout.createSequentialGroup()
+                .add(jLabel2)
+                .add(0, 42, Short.MAX_VALUE))
+            .add(txtValuationAmount)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel7Layout.createSequentialGroup()
-                .add(jLabel1)
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel8Layout.createSequentialGroup()
+                .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(txtValuationAmount, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel7);
+        jPanel1.add(jPanel8);
+
+        jPanel12.setName(bundle.getString("ParcelPanel.jPanel12.name")); // NOI18N
+
+        jLabel6.setText(bundle.getString("ParcelPanel.jLabel6.text")); // NOI18N
+        jLabel6.setName(bundle.getString("ParcelPanel.jLabel6.name")); // NOI18N
+
+        jScrollPane2.setName(bundle.getString("ParcelPanel.jScrollPane2.name")); // NOI18N
+
+        txtRemarks.setColumns(20);
+        txtRemarks.setRows(5);
+        txtRemarks.setName(bundle.getString("ParcelPanel.txtRemarks.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.remarks}"), txtRemarks, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane2.setViewportView(txtRemarks);
+
+        org.jdesktop.layout.GroupLayout jPanel12Layout = new org.jdesktop.layout.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel12Layout.createSequentialGroup()
+                .add(jLabel6)
+                .add(0, 0, Short.MAX_VALUE))
+            .add(jScrollPane2)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel12Layout.createSequentialGroup()
+                .add(jLabel6)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+        );
+
+        jPanel13.setName(bundle.getString("ParcelPanel.jPanel13.name")); // NOI18N
+
+        groupPanel1.setName(bundle.getString("ParcelPanel.groupPanel1.name")); // NOI18N
+        groupPanel1.setTitleText(bundle.getString("ParcelPanel.groupPanel1.titleText")); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -420,42 +632,54 @@ public class ParcelPanel extends javax.swing.JPanel {
 
         jTableWithDefaultStyles1.setName(bundle.getString("ParcelPanel.jTableWithDefaultStyles1.name")); // NOI18N
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${addressFilteredList}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, eLProperty, jTableWithDefaultStyles1);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.addressFilteredList}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTableWithDefaultStyles1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${description}"));
         columnBinding.setColumnName("Description");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, org.jdesktop.beansbinding.ELProperty.create("${selectedAddress}"), jTableWithDefaultStyles1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new org.sola.clients.beans.cadastre.CadastreObjectBean(), org.jdesktop.beansbinding.ELProperty.create("${selectedAddress}"), jTableWithDefaultStyles1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         jScrollPane1.setViewportView(jTableWithDefaultStyles1);
         jTableWithDefaultStyles1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ParcelPanel.jTableWithDefaultStyles1.columnModel.title0_1")); // NOI18N
         jTableWithDefaultStyles1.getColumnModel().getColumn(0).setCellRenderer(new org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer());
 
-        groupPanel1.setName(bundle.getString("ParcelPanel.groupPanel1.name")); // NOI18N
-        groupPanel1.setTitleText(bundle.getString("ParcelPanel.groupPanel1.titleText")); // NOI18N
+        org.jdesktop.layout.GroupLayout jPanel13Layout = new org.jdesktop.layout.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(groupPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel13Layout.createSequentialGroup()
+                .add(groupPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+        );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .add(groupPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+            .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jPanel13, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
-                .add(groupPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         bindingGroup.bind();
@@ -489,24 +713,35 @@ public class ParcelPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.common.buttons.BtnAdd btnAdd1;
     private org.sola.clients.swing.common.buttons.BtnEdit btnEdit1;
     private org.sola.clients.swing.common.buttons.BtnRemove btnRemove1;
-    private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean1;
     private org.sola.clients.beans.referencedata.CadastreObjectTypeListBean cadastreObjectTypeListBean1;
+    private javax.swing.JComboBox cbxEstateType;
     private javax.swing.JComboBox cbxLandUse;
-    private javax.swing.JComboBox cbxParcelEstateType;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles jTableWithDefaultStyles1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labLandUse;
@@ -516,9 +751,14 @@ public class ParcelPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.common.menuitems.MenuRemove menuRemove1;
     private javax.swing.JPopupMenu popUpAddresses;
     private javax.swing.JFormattedTextField txtArea;
-    private javax.swing.JTextField txtParcelFirstPart;
-    private javax.swing.JTextField txtParcelLastPart;
+    private javax.swing.JTextField txtFirstPart;
+    private javax.swing.JTextField txtLastPart;
     private javax.swing.JTextField txtParcelSurveyRef;
+    private javax.swing.JTextArea txtRemarks;
+    private javax.swing.JFormattedTextField txtSurveyDate;
+    private javax.swing.JFormattedTextField txtSurveyFee;
+    private javax.swing.JTextField txtSurveyor;
+    private javax.swing.JFormattedTextField txtValuationAmount;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

@@ -186,62 +186,80 @@ public class RightsExportResultListBean extends AbstractBindingBean {
             int i = list.size();
             
             // Add header
-            out.write("ApplicantID;"
-                        + "ApplicantName;"
-                        + "ApplicantLastName;"
-                        + "ApplicantFullName;"
-                        + "ApplicantAddress;"
-                        + "ApplicantPhone;"
-                        + "ApplicantMobile;"
-                        + "ApplicantEmail;"
-                        + "ApplicantIdTypeName;"
-                        + "ApplicantIdNumber;"
+            out.write("PayeeID;"
+                        + "PayeeName;"
+                        + "PayeeLastName;"
+                        + "PayeeFullName;"
+                        + "PayeeGender;"
+                        + "PayeeBirthday;"
+                        + "PayeeAddress;"
+                        + "PayeePhone;"
+                        + "PayeeMobile;"
+                        + "PayeeEmail;"
+                        + "PayeeIdTypeName;"
+                        + "PayeeIdNumber;"
                         + "BaUnitId;"
-                        + "NameFirstPart;"
-                        + "NameLastPart;"
-                        + "PropCode;"
-                        + "Area;"
-                        + "AreaFormatted;"
-                        + "RightId;"
+                        + "ParcelNumber;"
+                        + "ParcelArea;"
+                        + "ParcelAreaFormatted;"
+                        + "RightID;"
                         + "RightType;"
-                        + "OwnersFormatted;"
-                        + "RegistrationDate;"
-                        + "ExpirationDate;"
-                        + "Amount;");
+                        + "RightRegistrationNumber;"
+                        + "RightTrackingNumber;"
+                        + "RightholdersFormatted;"
+                        + "PaymentAmount;"
+                        + "RightRegistrationDate;"
+                        + "RightExpirationDate;"
+                        + "RightStatusDate;"
+                        + "RightStatus;");
             out.newLine();
             
             for (RightsExportResultBean right : list) {
                 i = i - 1;
-                String regDate = "";
-                String expDate = "";
-                if (right.getRegistrationDate() != null) {
-                    regDate = DateUtility.simpleFormat(right.getRegistrationDate(), "yyyy-MM-dd");
+                String rightRegDate = "";
+                String rightExpDate = "";
+                String payeeBirthDate = "";
+                String rightStatusDate = "";
+                
+                if (right.getRightRegistrationDate() != null) {
+                    rightRegDate = DateUtility.simpleFormat(right.getRightRegistrationDate(), "yyyy-MM-dd");
                 }
-                if (right.getExpirationDate() != null) {
-                    expDate = DateUtility.simpleFormat(right.getExpirationDate(), "yyyy-MM-dd");
+                if (right.getRightExpirationDate() != null) {
+                    rightExpDate = DateUtility.simpleFormat(right.getRightExpirationDate(), "yyyy-MM-dd");
                 }
-                out.write(formatString(right.getApplicantId()) + ";"
-                        + formatString(right.getApplicantName()) + ";"
-                        + formatString(right.getApplicantLastName()) + ";"
-                        + formatString(right.getApplicantFullName()) + ";"
-                        + formatString(right.getApplicantAddress()) + ";"
-                        + formatString(right.getApplicantPhone()) + ";"
-                        + formatString(right.getApplicantMobile()) + ";"
-                        + formatString(right.getApplicantEmail()) + ";"
-                        + formatString(right.getApplicantIdTypeName()) + ";"
-                        + formatString(right.getApplicantIdNumber()) + ";"
+                if (right.getPayeeBirthDate() != null) {
+                    payeeBirthDate = DateUtility.simpleFormat(right.getPayeeBirthDate(), "yyyy-MM-dd");
+                }
+                if (right.getRightStatusDate() != null) {
+                    rightStatusDate = DateUtility.simpleFormat(right.getRightStatusDate(), "yyyy-MM-dd");
+                }
+                
+                out.write(formatString(right.getPayeeId()) + ";"
+                        + formatString(right.getPayeeName()) + ";"
+                        + formatString(right.getPayeeLastName()) + ";"
+                        + formatString(right.getPayeeFullName()) + ";"
+                        + formatString(right.getPayeeGender()) + ";"
+                        + formatString(payeeBirthDate) + ";"
+                        + formatString(right.getPayeeAddress()) + ";"
+                        + formatString(right.getPayeePhone()) + ";"
+                        + formatString(right.getPayeeMobile()) + ";"
+                        + formatString(right.getPayeeEmail()) + ";"
+                        + formatString(right.getPayeeIdTypeName()) + ";"
+                        + formatString(right.getPayeeIdNumber()) + ";"
                         + formatString(right.getBaUnitId()) + ";"
-                        + formatString(right.getNameFirstPart()) + ";"
-                        + formatString(right.getNameLastPart()) + ";"
-                        + formatString(right.getPropCode()) + ";"
-                        + formatString(right.getArea().toPlainString()) + ";"
-                        + formatString(right.getAreaFormatted()) + ";"
+                        + formatString(right.getParcelNumber()) + ";"
+                        + formatString(right.getParcelArea().toPlainString()) + ";"
+                        + formatString(right.getParcelAreaFormatted()) + ";"
                         + formatString(right.getRightId()) + ";"
                         + formatString(right.getRightType()) + ";"
-                        + formatString(right.getOwnersFormatted()) + ";"
-                        + formatString(regDate) + ";"
-                        + formatString(expDate) + ";"
-                        + formatString(right.getAmount().toPlainString()) + ";");
+                        + formatString(right.getRightRegistrationNumber()) + ";"
+                        + formatString(right.getRightTrackingNumber()) + ";"
+                        + formatString(right.getRightholdersFormatted()) + ";"
+                        + formatString(right.getPaymentAmount().toPlainString()) + ";"
+                        + formatString(rightRegDate) + ";"
+                        + formatString(rightExpDate) + ";"
+                        + formatString(rightStatusDate) + ";"
+                        + formatString(right.getRightStatus()) + ";");
                 if (i > 0) {
                     out.newLine();
                 }

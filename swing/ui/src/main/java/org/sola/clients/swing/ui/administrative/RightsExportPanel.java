@@ -313,10 +313,8 @@ public class RightsExportPanel extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addGap(0, 15, Short.MAX_VALUE))
-            .addComponent(txtDateFrom)
+            .addComponent(txtDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,7 +340,7 @@ public class RightsExportPanel extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addGap(0, 27, Short.MAX_VALUE))
+                .addGap(0, 29, Short.MAX_VALUE))
             .addComponent(txtDateTo)
         );
         jPanel5Layout.setVerticalGroup(
@@ -362,10 +360,10 @@ public class RightsExportPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,29 +380,41 @@ public class RightsExportPanel extends javax.swing.JPanel {
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${checked}"));
         columnBinding.setColumnName("Checked");
         columnBinding.setColumnClass(Boolean.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${propCode}"));
-        columnBinding.setColumnName("Prop Code");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${parcelNumber}"));
+        columnBinding.setColumnName("Parcel Number");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${applicantFullName}"));
-        columnBinding.setColumnName("Applicant Full Name");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${area}"));
-        columnBinding.setColumnName("Area");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${parcelArea}"));
+        columnBinding.setColumnName("Parcel Area");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${ownersFormatted}"));
-        columnBinding.setColumnName("Owners Formatted");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${payeeFullName}"));
+        columnBinding.setColumnName("Payee Full Name");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${registrationDate}"));
-        columnBinding.setColumnName("Registration Date");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightRegistrationDate}"));
+        columnBinding.setColumnName("Right Registration Date");
         columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${expirationDate}"));
-        columnBinding.setColumnName("Expiration Date");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightRegistrationNumber}"));
+        columnBinding.setColumnName("Right Registration Number");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightExpirationDate}"));
+        columnBinding.setColumnName("Right Expiration Date");
         columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightHolders}"));
+        columnBinding.setColumnName("Right Holders");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightStatusDate}"));
+        columnBinding.setColumnName("Right Status Date");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightStatus}"));
+        columnBinding.setColumnName("Right Status");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rightsExportResults, org.jdesktop.beansbinding.ELProperty.create("${selectedRight}"), tableRightResults, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
@@ -416,17 +426,20 @@ public class RightsExportPanel extends javax.swing.JPanel {
         tableRightResults.getColumnModel().getColumn(1).setPreferredWidth(100);
         tableRightResults.getColumnModel().getColumn(1).setMaxWidth(200);
         tableRightResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title4")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title1_1")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tableRightResults.getColumnModel().getColumn(3).setMaxWidth(150);
-        tableRightResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title2_1")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title3_1")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tableRightResults.getColumnModel().getColumn(5).setMaxWidth(120);
-        tableRightResults.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title6")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tableRightResults.getColumnModel().getColumn(2).setMaxWidth(150);
+        tableRightResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title2_1")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title1_1")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tableRightResults.getColumnModel().getColumn(4).setMaxWidth(120);
+        tableRightResults.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title6")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title9")); // NOI18N
         tableRightResults.getColumnModel().getColumn(6).setPreferredWidth(100);
         tableRightResults.getColumnModel().getColumn(6).setMaxWidth(120);
         tableRightResults.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title5")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title3_1")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title7")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title8")); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
