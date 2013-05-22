@@ -28,65 +28,37 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingListBean;
+import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.controls.SolaCodeList;
+import org.sola.clients.beans.controls.SolaObservableList;
 
 /**
  * Holds the list of {@link DisputeCategoryBean} objects and used to bound the
  * data in the combobox on the forms.
  */
-public class DisputeCategoryListBean extends AbstractBindingListBean {
+public class DisputeCategoryListBean extends AbstractBindingBean {
     public static final String SELECTED_DISPUTECATEGORY_PROPERTY = "selectedDisputeCategory";
-    private SolaCodeList<DisputeCategoryBean> disputeCategoryListBean;
-    private DisputeCategoryBean selectedDisputeCategoryBean;
+    private SolaObservableList<DisputeCategoryBean> disputeCategoryListBean;
+    private DisputeCategoryBean selectedDisputeCategory;
     
     public DisputeCategoryListBean() {
-        this(false);
+       disputeCategoryListBean = new SolaObservableList(CacheManager.getDisputeCategory());
+    }
+     
+    public ObservableList<DisputeCategoryBean> getDisputeCategoryListBean() {
+        return disputeCategoryListBean;
     }
     
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public DisputeCategoryListBean(boolean createDummy) {
-        this(createDummy, (String) null);
-    }
-    
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     * @param excludedCodes Codes, which should be skipped while filtering.
-     */
-    public DisputeCategoryListBean(boolean createDummy, String ... excludedCodes) {
-        super();
-        disputeCategoryListBean = new SolaCodeList<DisputeCategoryBean>(excludedCodes);
-        loadList(createDummy);
-    }
-    
-     /** 
-     * Loads list of {@link DisputeCategoryBean}.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public final void loadList(boolean createDummy) {
-        loadCodeList(DisputeCategoryBean.class, disputeCategoryListBean, 
-                CacheManager.getDisputeCategory(), createDummy);
-    }
-    
-    public ObservableList<DisputeCategoryBean> getDisputeCategoryList() {
-        return disputeCategoryListBean.getFilteredList();
-    }
-    
-    public void setExcludedCodes(String ... codes){
-        disputeCategoryListBean.setExcludedCodes(codes);
+    public void setDisputeCategoryListBean(SolaObservableList<DisputeCategoryBean> disputeCategoryListBean) {
+        this.disputeCategoryListBean = disputeCategoryListBean;
     }
     
      public DisputeCategoryBean getSelectedDisputeCategory() {
-        return selectedDisputeCategoryBean;
+        return selectedDisputeCategory;
     }
 
-    public void setSelectedDisputeCategory(DisputeCategoryBean value) {
-        selectedDisputeCategoryBean = value;
-        propertySupport.firePropertyChange(SELECTED_DISPUTECATEGORY_PROPERTY, null, value);
+    public void setSelectedDisputeCategory(DisputeCategoryBean selectedDisputeCategory) {
+        this.selectedDisputeCategory = selectedDisputeCategory;
+        propertySupport.firePropertyChange(SELECTED_DISPUTECATEGORY_PROPERTY, null, selectedDisputeCategory);
     }
 }

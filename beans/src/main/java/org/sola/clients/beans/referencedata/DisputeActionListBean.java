@@ -30,69 +30,38 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingListBean;
+import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.controls.SolaCodeList;
+import org.sola.clients.beans.controls.SolaObservableList;
 
 /**
  * Holds the list of {@link DisputeActionBean} objects and used to bound the
  * data in the combobox on the forms.
  */
-public class DisputeActionListBean extends AbstractBindingListBean {
+public class DisputeActionListBean extends AbstractBindingBean {
 
     public static final String SELECTED_DISPUTEACTION_PROPERTY = "selectedDisputeAction";
-    private SolaCodeList<DisputeActionBean> disputeActionListBean;
-    private DisputeActionBean selectedDisputeActionBean;
+    private SolaObservableList<DisputeActionBean> disputeActionListBean;
+    private DisputeActionBean selectedDisputeAction;
 
     public DisputeActionListBean() {
-        this(false);
-    }
-
-    /**
-     * Creates object instance.
-     *
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public DisputeActionListBean(boolean createDummy) {
-        this(createDummy, (String) null);
-    }
-
-    /**
-     * Creates object instance.
-     *
-     * @param createDummy Indicates whether to add empty object on the list.
-     * @param excludedCodes Codes, which should be skipped while filtering.
-     */
-    public DisputeActionListBean(boolean createDummy, String... excludedCodes) {
-        super();
-        disputeActionListBean = new SolaCodeList<DisputeActionBean>(excludedCodes);
-        loadList(createDummy);
-    }
-
-    /**
-     * Loads list of {@link CommunicationTypeBean}.
-     *
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public final void loadList(boolean createDummy) {
-        loadCodeList(DisputeActionBean.class, disputeActionListBean,
-                CacheManager.getDisputeAction(), createDummy);
+       disputeActionListBean = new SolaObservableList(CacheManager.getDisputeAction());
     }
     
-     public ObservableList<DisputeActionBean> getDisputeActionList() {
-        return disputeActionListBean.getFilteredList();
+     public ObservableList<DisputeActionBean> getDisputeActionListBean() {
+        return disputeActionListBean;
     }
     
-    public void setExcludedCodes(String ... codes){
-        disputeActionListBean.setExcludedCodes(codes);
+    public void setDisputeActionListBean(SolaObservableList<DisputeActionBean> disputeActionListBean) {
+        this.disputeActionListBean = disputeActionListBean;
     }
     
     public DisputeActionBean getSelectedDisputeAction() {
-        return selectedDisputeActionBean;
+        return selectedDisputeAction;
     }
 
-    public void setSelectedDisputeAction(DisputeActionBean value) {
-        selectedDisputeActionBean = value;
-        propertySupport.firePropertyChange(SELECTED_DISPUTEACTION_PROPERTY, null, value);
+    public void setSelectedDisputeAction(DisputeActionBean selectedDisputeAction) {
+        this.selectedDisputeAction = selectedDisputeAction;
+        propertySupport.firePropertyChange(SELECTED_DISPUTEACTION_PROPERTY, null, selectedDisputeAction);
     }
 }

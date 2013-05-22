@@ -34,13 +34,13 @@
 package org.sola.clients.beans.administrative;
 
 import java.util.Date;
-import java.util.UUID;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.converters.TypeConverters;
-import org.sola.clients.beans.referencedata.TypeActionBean;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.DisputeTO;
+import org.sola.clients.beans.referencedata.DisputeCategoryBean;
+import org.sola.clients.beans.referencedata.DisputeTypeBean;
 
 /**
  *
@@ -53,30 +53,25 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String COMPLETION_DATE_PROPERTY = "completiondate";
     public static final String DISPUTE_CATEGORY_PROPERTY = "disputeCategory";
     public static final String DISPUTE_TYPE_PROPERTY = "disputeType";
-    public static final String DISPUTE_STATUS_CODE_PROPERTY = "disputeStatusCode";
-    public static final String APPLICATION_ID_PROPERTY = "applicationId";
+    public static final String STATUS_CODE_PROPERTY = "statusCode";
     public static final String RRR_ID_PROPERTY = "rrrId";
     public static final String PLOT_LOCATION_PROPERTY = "plotLocation";
     public static final String CADASTRE_OBJECT_ID_PROPERTY = "cadastreObjectId";
-    public static final String PENDING_ACTION_CODE_PROPERTY = "pendingActionCode";
-    public static final String PENDING_ACTION_PROPERTY = "pendingTypeAction";
     public static final String SELECTED_CATEGORY_PROPERTY = "selectedCategory";
     public static final String SELECTED_TYPE_PROPERTY = "selectedType";
-    public static final String SELECTED_ACTION_PROPERTY = "selectedAction";
-    public static final String SELECTED_AUTHORITY_PROPERTY = "selectedAuthority";
+
     public static final String USER_ID_PROPERTY = "userid";
+    
     
     private String nr;
     private Date lodgementDate;
     private Date completiondate;
-    private String disputeCategory;
-    private String disputeType;
-    private String disputeStatusCode;
-    private String applicationId;
+    private DisputeCategoryBean disputeCategory;
+    private DisputeTypeBean disputeType;
+    private String statusCode;
     private String rrrId;
     private String plotLocation;
     private String cadastreObjectId;
-    private TypeActionBean pendingTypeAction;
     private String userId;
 
     public DisputeBean() {
@@ -84,28 +79,16 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public void clean() {
-        //this.setId(UUID.randomUUID().toString());
-        this.setApplicationId(null);
         this.setCadastreObjectId(null);
         this.setLodgementDate(null);
         this.setCompletiondate(null);
         this.setDisputeCategory(null);
         this.setDisputeType(null);
-        this.setDisputeStatusCode(null);
+        this.setStatusCode(null);
         this.setNr(null);
         this.setRrrId(null);
         this.setPlotLocation(null);
 
-    }
-
-    public String getApplicationId() {
-        return applicationId;
-    }
-
-    public void setApplicationId(String value) {
-        String old = applicationId;
-        applicationId = value;
-        propertySupport.firePropertyChange(APPLICATION_ID_PROPERTY, old, applicationId);
     }
 
     public String getCadastreObjectId() {
@@ -129,10 +112,42 @@ public class DisputeBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(COMPLETION_DATE_PROPERTY, old, completiondate);
     }
 
-    public String getDisputeCategory() {
+    public String getDisputeCategoryCode() {
+        if (disputeCategory != null) {
+            return disputeCategory.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public void setDisputeCategoryCode(String disputeCategoryCode) {
+        String oldValue = null;
+        if (disputeCategory != null) {
+            oldValue = disputeCategory.getCode();
+
+            return;
+
+        }
+        setDisputeCategory(CacheManager.getBeanByCode(
+                CacheManager.getDisputeCategory(), disputeCategoryCode));
+
+        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY,
+                oldValue, disputeCategoryCode);
+    }
+
+    public DisputeCategoryBean getDisputeCategory() {
         return disputeCategory;
     }
 
+    public void setDisputeCategory(DisputeCategoryBean disputeCategory) {
+        if (this.disputeCategory == null) {
+            this.disputeCategory = new DisputeCategoryBean();
+        }
+        this.setJointRefDataBean(this.disputeCategory, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+    }
+
+   
+    
     public String getUserId() {
         return userId;
     }
@@ -143,20 +158,36 @@ public class DisputeBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(USER_ID_PROPERTY, oldValue, this.userId);
     }
 
-    public void setDisputeCategory(String value) {
-        String old = disputeCategory;
-        disputeCategory = value;
-        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY, old, disputeCategory);
+    
+    public String getDisputeTypeCode() {
+        if (disputeType != null) {
+            return disputeType.getCode();
+        } else {
+            return null;
+        }
     }
-
-    public String getDisputeType() {
+    
+    public void setDisputeTypeCode(String disputeTypeCode) {
+        String oldValue = null;
+        if (disputeType !=null) {
+            oldValue = disputeType.getCode();
+            return;
+        }
+        
+        setDisputeType(CacheManager.getBeanByCode(
+                CacheManager.getDisputeType(), disputeTypeCode));
+        propertySupport.firePropertyChange(DISPUTE_TYPE_PROPERTY, oldValue, disputeTypeCode);
+    }
+    
+     public DisputeTypeBean getDisputeType() {
         return disputeType;
     }
 
-    public void setDisputeType(String value) {
-        String old = disputeType;
-        disputeType = value;
-        propertySupport.firePropertyChange(DISPUTE_TYPE_PROPERTY, old, disputeType);
+     public void setDisputeType(DisputeTypeBean disputeType) {
+        if (this.disputeType == null) {
+            this.disputeType = new DisputeTypeBean();
+        }
+         this.setJointRefDataBean(this.disputeType, disputeType, DISPUTE_TYPE_PROPERTY);
     }
 
     public Date getLodgementDate() {
@@ -199,45 +230,16 @@ public class DisputeBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(RRR_ID_PROPERTY, old, rrrId);
     }
 
-    public String getDisputeStatusCode() {
-        return disputeStatusCode;
+    public String getStatusCode() {
+        return statusCode;
     }
 
-    public void setDisputeStatusCode(String value) {
-        String old = disputeStatusCode;
-        disputeStatusCode = value;
-        propertySupport.firePropertyChange(DISPUTE_STATUS_CODE_PROPERTY, old, disputeStatusCode);
+    public void setStatusCode(String value) {
+        String old = statusCode;
+        statusCode = value;
+        propertySupport.firePropertyChange(STATUS_CODE_PROPERTY, old, statusCode);
     }
-/*
-    public String getPendingActionCode() {
-        return getPendingTypeAction().getCode();
-    }
-
-    public void setPendingActionCode(String pendingActionCode) {
-        String oldValue = null;
-        if (getPendingTypeAction() != null) {
-            oldValue = getPendingTypeAction().getCode();
-        }
-        setPendingTypeAction(CacheManager.getBeanByCode(
-                CacheManager.getTypeActions(), pendingActionCode));
-        propertySupport.firePropertyChange(PENDING_ACTION_CODE_PROPERTY, oldValue, pendingActionCode);
-    }
-
-    public TypeActionBean getPendingTypeAction() {
-        if (this.pendingTypeAction == null) {
-            this.pendingTypeAction = new TypeActionBean();
-        }
-        return pendingTypeAction;
-    }
-
-    public void setPendingTypeAction(TypeActionBean pendingTypeAction) {
-        this.pendingTypeAction = pendingTypeAction;
-        if (this.pendingTypeAction == null) {
-            this.pendingTypeAction = new TypeActionBean();
-        }
-        this.setJointRefDataBean(this.pendingTypeAction, pendingTypeAction, PENDING_ACTION_PROPERTY);
-    }
-*/
+    
     public boolean createDispute() {
         DisputeTO dispute = TypeConverters.BeanToTrasferObject(this, DisputeTO.class);
         dispute = WSManager.getInstance().getAdministrative().createDispute(dispute);

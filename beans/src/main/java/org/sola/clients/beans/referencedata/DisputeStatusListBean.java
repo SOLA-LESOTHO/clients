@@ -28,68 +28,39 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingListBean;
+import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.controls.SolaCodeList;
+import org.sola.clients.beans.controls.SolaObservableList;
 
 /**
  * Holds the list of {@link DisputeStatusBean} objects and used to bound the
  * data in the combobox on the forms.
  */
 
-public class DisputeStatusListBean extends AbstractBindingListBean{
+public class DisputeStatusListBean extends AbstractBindingBean{
     
     public static final String SELECTED_DISPUTESTATUS_PROPERTY = "selectedDisputeStatus";
-    private SolaCodeList<DisputeStatusBean> disputeStatusListBean;
-    private DisputeStatusBean selectedDisputeStatusBean;
+    private SolaObservableList<DisputeStatusBean> disputeStatusListBean;
+    private DisputeStatusBean selectedDisputeStatus;
     
      public DisputeStatusListBean() {
-        this(false);
+        disputeStatusListBean = new SolaObservableList(CacheManager.getDisputeStatus());
     }
-
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public DisputeStatusListBean(boolean createDummy) {
-        this(createDummy, (String) null);
+     public ObservableList<DisputeStatusBean> getDisputeStatusListBean() {
+        return disputeStatusListBean;
     }
     
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     * @param excludedCodes Codes, which should be skipped while filtering.
-     */
-    public DisputeStatusListBean(boolean createDummy, String ... excludedCodes) {
-        super();
-        disputeStatusListBean = new SolaCodeList<DisputeStatusBean>(excludedCodes);
-        loadList(createDummy);
-    }
-    
-    /** 
-     * Loads list of {@link DisputeStatusBean}.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public final void loadList(boolean createDummy) {
-        loadCodeList(DisputeStatusBean.class, disputeStatusListBean, 
-                CacheManager.getDisputeStatus(), createDummy);
-    }
-    
-    public ObservableList<DisputeStatusBean> getDisputeStatusList() {
-        return disputeStatusListBean.getFilteredList();
-    }
-    
-    public void setExcludedCodes(String ... codes){
-        disputeStatusListBean.setExcludedCodes(codes);
+   public void setDisputeStatusListBean(SolaObservableList<DisputeStatusBean> disputeStatusListBean) {
+        this.disputeStatusListBean = disputeStatusListBean;
     }
     
     public DisputeStatusBean getSelectedDisputeStatus() {
-        return selectedDisputeStatusBean;
+        return selectedDisputeStatus;
     }
 
-    public void setSelectedDisputeStatus(DisputeStatusBean value) {
-        selectedDisputeStatusBean = value;
-        propertySupport.firePropertyChange(SELECTED_DISPUTESTATUS_PROPERTY, null, value);
+    public void setSelectedDisputeStatus(DisputeStatusBean selectedDisputeStatus) {
+        this.selectedDisputeStatus = selectedDisputeStatus;
+        propertySupport.firePropertyChange(SELECTED_DISPUTESTATUS_PROPERTY, null, selectedDisputeStatus);
     }
 
     

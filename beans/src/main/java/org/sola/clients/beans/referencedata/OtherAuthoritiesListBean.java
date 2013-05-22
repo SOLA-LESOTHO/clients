@@ -28,67 +28,37 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingListBean;
+import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.controls.SolaCodeList;
+import org.sola.clients.beans.controls.SolaObservableList;
 
 /**
  * Holds the list of {@link OtherAuthoritiesBean} objects and used to bound the
  * data in the combobox on the forms.
  */
-public class OtherAuthoritiesListBean extends AbstractBindingListBean {
+public class OtherAuthoritiesListBean extends AbstractBindingBean {
     
    public static final String SELECTED_OTHERAUTHORITIES_PROPERTY = "selectedOtherAuthorities";
-    private SolaCodeList<OtherAuthoritiesBean> otherAuthoritiesListBean;
-    private OtherAuthoritiesBean selectedOtherAuthoritiesBean;
+    private SolaObservableList<OtherAuthoritiesBean> otherAuthoritiesListBean;
+    private OtherAuthoritiesBean selectedOtherAuthorities;
     
     public OtherAuthoritiesListBean() {
-        this(false);
-    }
-
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public OtherAuthoritiesListBean(boolean createDummy) {
-        this(createDummy, (String) null);
+        otherAuthoritiesListBean = new SolaObservableList(CacheManager.getOtherAuthorities());
+    } 
+    public ObservableList<OtherAuthoritiesBean> getOtherAuthoritiesListBean() {
+        return otherAuthoritiesListBean;
     }
     
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     * @param excludedCodes Codes, which should be skipped while filtering.
-     */
-    public OtherAuthoritiesListBean(boolean createDummy, String ... excludedCodes) {
-        super();
-        otherAuthoritiesListBean = new SolaCodeList<OtherAuthoritiesBean>(excludedCodes);
-        loadList(createDummy);
-    }
-    
-    /** 
-     * Loads list of {@link OtherAuthoritiesBean}.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public final void loadList(boolean createDummy) {
-        loadCodeList(OtherAuthoritiesBean.class, otherAuthoritiesListBean, 
-                CacheManager.getOtherAuthorities(), createDummy);
-    }
-    
-    public ObservableList<OtherAuthoritiesBean> getOtherAuthoritiesList() {
-        return otherAuthoritiesListBean.getFilteredList();
-    }
-    
-    public void setExcludedCodes(String ... codes){
-        otherAuthoritiesListBean.setExcludedCodes(codes);
+    public void setOtherAuthoritiesListBean(SolaObservableList<OtherAuthoritiesBean> otherAuthoritiesListBean) {
+        this.otherAuthoritiesListBean = otherAuthoritiesListBean;
     }
     
     public OtherAuthoritiesBean getSelectedOtherAuthorities() {
-        return selectedOtherAuthoritiesBean;
+        return selectedOtherAuthorities;
     }
 
-    public void setSelectedOtherAuthorities(OtherAuthoritiesBean value) {
-        selectedOtherAuthoritiesBean = value;
-        propertySupport.firePropertyChange(SELECTED_OTHERAUTHORITIES_PROPERTY, null, value);
-    }
-    
+    public void setSelectedOtherAuthorities(OtherAuthoritiesBean selectedOtherAuthorities) {
+        this.selectedOtherAuthorities = selectedOtherAuthorities;
+        propertySupport.firePropertyChange(SELECTED_OTHERAUTHORITIES_PROPERTY, null, selectedOtherAuthorities);
+    }    
 }
