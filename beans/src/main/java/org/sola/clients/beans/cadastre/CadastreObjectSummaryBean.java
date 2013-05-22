@@ -48,6 +48,7 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     public static final String SURVEY_FEE_PROPERTY = "surveyFee";
     public static final String LAND_GRADE_TYPE_PROPERTY = "landGradeType";
     public static final String LAND_GRADE_CODE_PROPERTY = "landGradeCode";
+    public static final String VALUATION_ZONE_PROPERTY = "valuationZone";
     
     private Date approvalDatetime;
     private Date historicDatetime;
@@ -68,6 +69,7 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     private LandUseTypeBean landUseType;
     private LandGradeTypeBean landGradeType;
     private BigDecimal surveyFee;
+    private String valuationZone;
     
     public CadastreObjectSummaryBean(){
         super();
@@ -262,6 +264,18 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
                 CacheManager.getLandGradeTypes(), landGradeCode));
         propertySupport.firePropertyChange(LAND_GRADE_CODE_PROPERTY, oldValue, landGradeCode);
     }
+
+    public String getValuationZone() {
+        return valuationZone;
+    }
+
+    public void setValuationZone(String valuationZone) {
+        String oldValue = this.valuationZone;
+        this.valuationZone = valuationZone;
+        propertySupport.firePropertyChange(VALUATION_ZONE_PROPERTY, oldValue, this.valuationZone);
+    }
+    
+    
     
     @Override
     public String toString() {
