@@ -737,7 +737,7 @@ public class ApplicationPanel extends ContentPanel {
                     } else {
 
                         // Open property form for existing title changes
-                        if (appBean.getPropertyList().getFilteredList().size() == 1) {
+                        if (appBean.getCadastreObjectFilteredList().size() == 1) {
                             openPropertyForm(service, appBean.getPropertyList().getFilteredList().get(0), readOnly);
                         } else if (appBean.getPropertyList().getFilteredList().size() > 1) {
                             PropertiesList propertyListForm = new PropertiesList(appBean.getPropertyList());
@@ -758,7 +758,7 @@ public class ApplicationPanel extends ContentPanel {
 
                             propertyListForm.setVisible(true);
                         } else {
-                            MessageUtility.displayMessage(ClientMessage.APPLICATION_PROPERTY_LIST_EMPTY);
+                            MessageUtility.displayMessage(ClientMessage.APPLICATION_PARCELS_LIST_EMPTY);
                         }
                     }
                 }
