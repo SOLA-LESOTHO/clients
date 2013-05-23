@@ -1568,11 +1568,6 @@ public class ApplicationPanel extends ContentPanel {
         bindingGroup.addBinding(binding);
 
         cbxCommunicationWay.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        cbxCommunicationWay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxCommunicationWayActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -2002,13 +1997,8 @@ public class ApplicationPanel extends ContentPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, servicesPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(servicesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-<<<<<<< HEAD
-                    .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
-                    .addComponent(tbServices, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
-=======
                     .addComponent(scrollFeeDetails1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
                     .addComponent(tbServices, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE))
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
                 .addContainerGap())
         );
         servicesPanelLayout.setVerticalGroup(
@@ -2023,258 +2013,6 @@ public class ApplicationPanel extends ContentPanel {
 
         tabbedControlMain.addTab(bundle.getString("ApplicationPanel.servicesPanel.TabConstraints.tabTitle"), servicesPanel); // NOI18N
 
-<<<<<<< HEAD
-        propertyPanel.setName("propertyPanel"); // NOI18N
-        propertyPanel.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        propertyPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                propertyPanelMouseClicked(evt);
-            }
-        });
-
-        tbPropertyDetails.setFloatable(false);
-        tbPropertyDetails.setRollover(true);
-        tbPropertyDetails.setToolTipText(bundle.getString("ApplicationPanel.tbPropertyDetails.toolTipText")); // NOI18N
-        tbPropertyDetails.setName("tbPropertyDetails"); // NOI18N
-
-        btnRemoveProperty.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/remove.png"))); // NOI18N
-        btnRemoveProperty.setText(bundle.getString("ApplicationPanel.btnRemoveProperty.text")); // NOI18N
-        btnRemoveProperty.setName("btnRemoveProperty"); // NOI18N
-        btnRemoveProperty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemovePropertyActionPerformed(evt);
-            }
-        });
-        tbPropertyDetails.add(btnRemoveProperty);
-
-        btnVerifyProperty.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-task.png"))); // NOI18N
-        btnVerifyProperty.setText(bundle.getString("ApplicationPanel.btnVerifyProperty.text")); // NOI18N
-        btnVerifyProperty.setName("btnVerifyProperty"); // NOI18N
-        btnVerifyProperty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerifyPropertyActionPerformed(evt);
-            }
-        });
-        tbPropertyDetails.add(btnVerifyProperty);
-
-        scrollPropertyDetails.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        scrollPropertyDetails.setName("scrollPropertyDetails"); // NOI18N
-        scrollPropertyDetails.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-
-        tabPropertyDetails.setName("tabPropertyDetails"); // NOI18N
-        tabPropertyDetails.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${filteredPropertyList}");
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, eLProperty, tabPropertyDetails, "props");
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"));
-        columnBinding.setColumnName("Name Firstpart");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameLastpart}"));
-        columnBinding.setColumnName("Name Lastpart");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${area}"));
-        columnBinding.setColumnName("Area");
-        columnBinding.setColumnClass(java.math.BigDecimal.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${totalValue}"));
-        columnBinding.setColumnName("Total Value");
-        columnBinding.setColumnClass(java.math.BigDecimal.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${verifiedLocation}"));
-        columnBinding.setColumnName("Verified Location");
-        columnBinding.setColumnClass(Boolean.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${verifiedExists}"));
-        columnBinding.setColumnName("Verified Exists");
-        columnBinding.setColumnClass(Boolean.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${selectedProperty}"), tabPropertyDetails, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
-        bindingGroup.addBinding(binding);
-
-        scrollPropertyDetails.setViewportView(tabPropertyDetails);
-        tabPropertyDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title0")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title1")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title2")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title3")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title6")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(4).setCellRenderer(new ExistingObjectCellRenderer());
-        tabPropertyDetails.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("ApplicationPanel.tabPropertyDetails.columnModel.title4")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(5).setCellRenderer(new ExistingObjectCellRenderer());
-
-        propertypartPanel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        propertypartPanel.setName("propertypartPanel"); // NOI18N
-        propertypartPanel.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        propertypartPanel.setLayout(new java.awt.GridLayout(1, 4, 15, 0));
-
-        jPanel16.setName("jPanel16"); // NOI18N
-
-        LafManager.getInstance().setLabProperties(labFirstPart);
-        labFirstPart.setText(bundle.getString("ApplicationPanel.labFirstPart.text")); // NOI18N
-        labFirstPart.setName("labFirstPart"); // NOI18N
-
-        LafManager.getInstance().setTxtProperties(txtFirstPart);
-        txtFirstPart.setText(bundle.getString("ApplicationPanel.txtFirstPart.text")); // NOI18N
-        txtFirstPart.setName("txtFirstPart"); // NOI18N
-        txtFirstPart.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        txtFirstPart.setHorizontalAlignment(JTextField.LEADING);
-
-        LafManager.getInstance().setLabProperties(labArea);
-        labArea.setText(bundle.getString("ApplicationPanel.labArea.text")); // NOI18N
-        labArea.setName("labArea"); // NOI18N
-
-        txtArea.setText(bundle.getString("ApplicationPanel.txtArea.text")); // NOI18N
-        txtArea.setName("txtArea"); // NOI18N
-        txtArea.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        txtArea.setHorizontalAlignment(JTextField.LEADING);
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(labFirstPart)
-                .addContainerGap(158, Short.MAX_VALUE))
-            .addComponent(txtFirstPart, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(labArea)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(txtArea)
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(labFirstPart)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFirstPart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labArea)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        propertypartPanel.add(jPanel16);
-
-        jPanel17.setName("jPanel17"); // NOI18N
-
-        txtLastPart.setText(bundle.getString("ApplicationPanel.txtLastPart.text")); // NOI18N
-        txtLastPart.setName("txtLastPart"); // NOI18N
-        txtLastPart.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        txtLastPart.setHorizontalAlignment(JTextField.LEADING);
-
-        LafManager.getInstance().setLabProperties(labLastPart);
-        labLastPart.setText(bundle.getString("ApplicationPanel.labLastPart.text")); // NOI18N
-        labLastPart.setName("labLastPart"); // NOI18N
-
-        LafManager.getInstance().setLabProperties(labValue);
-        labValue.setText(bundle.getString("ApplicationPanel.labValue.text")); // NOI18N
-        labValue.setName("labValue"); // NOI18N
-
-        txtValue.setText(bundle.getString("ApplicationPanel.txtValue.text")); // NOI18N
-        txtValue.setName("txtValue"); // NOI18N
-        txtValue.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        txtValue.setHorizontalAlignment(JTextField.LEADING);
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtLastPart, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addComponent(labLastPart)
-                .addContainerGap(159, Short.MAX_VALUE))
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addComponent(labValue)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(txtValue, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addComponent(labLastPart)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtLastPart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labValue)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        propertypartPanel.add(jPanel17);
-
-        jPanel18.setName("jPanel18"); // NOI18N
-
-        labLandUse.setText(bundle.getString("ApplicationPanel.labLandUse.text")); // NOI18N
-        labLandUse.setName(bundle.getString("ApplicationPanel.labLandUse.name")); // NOI18N
-
-        cbxLandUse.setName(bundle.getString("ApplicationPanel.cbxLandUse.name")); // NOI18N
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${landUseTypeList}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, landUseTypeListBean1, eLProperty, cbxLandUse);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${property.landUseType}"), cbxLandUse, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        LafManager.getInstance().setBtnProperties(btnAddProperty);
-        btnAddProperty.setText(bundle.getString("ApplicationPanel.btnAddProperty.text")); // NOI18N
-        btnAddProperty.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAddProperty.setName("btnAddProperty"); // NOI18N
-        btnAddProperty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddPropertyActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cbxLandUse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labLandUse, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddProperty))
-                .addGap(0, 105, Short.MAX_VALUE))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addComponent(labLandUse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxLandUse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnAddProperty)
-                .addContainerGap())
-        );
-
-        propertypartPanel.add(jPanel18);
-
-        javax.swing.GroupLayout propertyPanelLayout = new javax.swing.GroupLayout(propertyPanel);
-        propertyPanel.setLayout(propertyPanelLayout);
-        propertyPanelLayout.setHorizontalGroup(
-            propertyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(propertyPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(propertyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPropertyDetails)
-                    .addComponent(tbPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(propertypartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        propertyPanelLayout.setVerticalGroup(
-            propertyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(propertyPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(propertypartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbPropertyDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPropertyDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        tabbedControlMain.addTab(bundle.getString("ApplicationPanel.propertyPanel.TabConstraints.tabTitle"), propertyPanel); // NOI18N
-
-=======
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
         documentPanel.setName("documentPanel"); // NOI18N
         documentPanel.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         documentPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2330,11 +2068,7 @@ public class ApplicationPanel extends ContentPanel {
             documentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(documentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-<<<<<<< HEAD
-                .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-=======
                 .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(documentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollDocRequired, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2364,13 +2098,6 @@ public class ApplicationPanel extends ContentPanel {
             }
         });
 
-<<<<<<< HEAD
-        javax.swing.GroupLayout mapPanelLayout = new javax.swing.GroupLayout(mapPanel);
-        mapPanel.setLayout(mapPanelLayout);
-        mapPanelLayout.setHorizontalGroup(
-            mapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 656, Short.MAX_VALUE)
-=======
         jPanel27.setName(bundle.getString("ApplicationPanel.jPanel27.name")); // NOI18N
 
         jScrollPane1.setName(bundle.getString("ApplicationPanel.jScrollPane1.name")); // NOI18N
@@ -2434,7 +2161,6 @@ public class ApplicationPanel extends ContentPanel {
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2725,11 +2451,7 @@ public class ApplicationPanel extends ContentPanel {
             validationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(validationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-<<<<<<< HEAD
-                .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
-=======
                 .addComponent(validationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
                 .addContainerGap())
         );
         validationPanelLayout.setVerticalGroup(
@@ -2791,11 +2513,7 @@ public class ApplicationPanel extends ContentPanel {
             historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(historyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-<<<<<<< HEAD
-                .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
-=======
                 .addComponent(actionLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
                 .addContainerGap())
         );
         historyPanelLayout.setVerticalGroup(
@@ -2812,13 +2530,8 @@ public class ApplicationPanel extends ContentPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
-            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
-=======
             .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
             .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tabbedControlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -3018,11 +2731,6 @@ public class ApplicationPanel extends ContentPanel {
         openSysRegCertParamsForm(appBean.getNr());
     }//GEN-LAST:event_btnCertificateActionPerformed
 
-<<<<<<< HEAD
-    private void cbxCommunicationWayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCommunicationWayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxCommunicationWayActionPerformed
-=======
     private void btnRemoveParcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveParcelActionPerformed
         removeSelectedParcel();
     }//GEN-LAST:event_btnRemoveParcelActionPerformed
@@ -3030,7 +2738,6 @@ public class ApplicationPanel extends ContentPanel {
     private void menuRemoveParcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveParcelActionPerformed
         removeSelectedParcel();
     }//GEN-LAST:event_menuRemoveParcelActionPerformed
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
 
     private void openSysRegCertParamsForm(String nr) {
         SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr, null);
