@@ -546,7 +546,6 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="contactPanel.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));"/>
-            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ApplicationPanel_contactPanel"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
           <Constraints>
@@ -1016,9 +1015,7 @@
                             </Property>
                           </Properties>
                           <BindingProperties>
-                            <BindingProperty name="elements" source="communicationTypes" sourcePath="${communicationTypeList}" target="cbxCommunicationWay" targetPath="elements" updateStrategy="0" immediately="false">
-                              <Property name="name" type="java.lang.String" value=""/>
-                            </BindingProperty>
+                            <BindingProperty name="elements" source="communicationTypes" sourcePath="${communicationTypeList}" target="cbxCommunicationWay" targetPath="elements" updateStrategy="0" immediately="false"/>
                             <BindingProperty name="selectedItem" source="appBean" sourcePath="${contactPerson.preferredCommunication}" target="cbxCommunicationWay" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
                           </BindingProperties>
                           <AuxValues>

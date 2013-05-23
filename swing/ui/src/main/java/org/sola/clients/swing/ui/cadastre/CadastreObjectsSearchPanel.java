@@ -143,7 +143,6 @@ public class CadastreObjectsSearchPanel extends JPanel {
                 menuSelectActionPerformed(evt);
             }
         });
-
         popupSearchResults.add(menuSelect);
 
         jPanel7.setLayout(new java.awt.GridLayout(1, 4, 15, 0));
