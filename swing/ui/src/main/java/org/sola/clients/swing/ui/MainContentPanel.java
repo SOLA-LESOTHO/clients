@@ -49,6 +49,7 @@ import javax.swing.JPanel;
 public class MainContentPanel extends javax.swing.JPanel {
 
     public final static String CARD_DASHBOARD = "dashboard";
+    public final static String CARD_BLANK_FORM = "blankforms";
     public final static String CARD_SEARCH_PERSONS = "searchPersons";
     public final static String CARD_PERSON = "person";
     public final static String CARD_APPSEARCH = "appsearch";
@@ -57,6 +58,7 @@ public class MainContentPanel extends javax.swing.JPanel {
     public final static String CARD_APPASSIGNMENT = "appassignment";
     public final static String CARD_MAP = "map";
     public final static String CARD_APPLICATION = "application";
+    public final static String CARD_APP_FORM_PANEL = "applicationforms";
     public final static String CARD_NEW_PROPERTY_WIZARD = "newPropertyWizard";
     public final static String CARD_BAUNIT_SELECT_PANEL = "baUnitSelectPanel";
     public final static String CARD_PROPERTY_PANEL = "propertyPanel";
@@ -86,6 +88,7 @@ public class MainContentPanel extends javax.swing.JPanel {
     public final static String CARD_VIEW_POWER_OF_ATTORNEY = "viewPowerOfAttorneyPanel";
     public final static String CARD_USER_PROFILE = "userProfile";
     public final static String CARD_RIGHT_EXPORT = "rightsExportPanel";
+    public final static String CARD_DISPUTE = "dispute";
     public final static String CARD_PARCEL_SEARCH = "parcelSearchPanel";
     
     private HashMap<String, Component> cards;

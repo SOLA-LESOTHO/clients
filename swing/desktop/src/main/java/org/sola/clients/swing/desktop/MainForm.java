@@ -55,6 +55,7 @@ import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.administrative.BaUnitSearchPanel;
 import org.sola.clients.swing.desktop.administrative.RightsExportForm;
+import org.sola.clients.swing.desktop.application.ApplicationFormPanel;
 import org.sola.clients.swing.desktop.application.ApplicationPanel;
 import org.sola.clients.swing.desktop.application.ApplicationSearchPanel;
 import org.sola.clients.swing.desktop.cadastre.MapPanelForm;
@@ -159,6 +160,22 @@ public class MainForm extends javax.swing.JFrame {
 
     public void setSearchPartyPanel(PartySearchPanelForm searchPartyPanel) {
         this.searchPartyPanel = searchPartyPanel;
+    }
+
+    /* Bulara; Open Blank application forms*/
+   /** Opens Application form to create new application. */
+    public void openBlankForm() {
+        SolaTask t = new SolaTask<Void, Void>() {
+
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_APPFORM));
+                ApplicationFormPanel applicationFormPanel = new ApplicationFormPanel();
+                getMainContentPanel().addPanel(applicationFormPanel, MainContentPanel.CARD_BLANK_FORM, true);
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);
     }
 
     /**
@@ -589,6 +606,7 @@ public class MainForm extends javax.swing.JFrame {
         btnShowDashboard = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnNewApplication = new javax.swing.JButton();
+        btnAppForms = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnSearchApplications = new javax.swing.JButton();
         btnOpenBaUnitSearch = new javax.swing.JButton();
@@ -676,6 +694,20 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         applicationsMain.add(btnNewApplication);
+
+        btnAppForms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/folder-open-document.png"))); // NOI18N
+        btnAppForms.setText(bundle.getString("MainForm.btnAppForms.text_1")); // NOI18N
+        btnAppForms.setToolTipText(bundle.getString("MainForm.btnAppForms.toolTipText")); // NOI18N
+        btnAppForms.setFocusable(false);
+        btnAppForms.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAppForms.setName(bundle.getString("MainForm.btnAppForms.name")); // NOI18N
+        btnAppForms.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAppForms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppFormsActionPerformed(evt);
+            }
+        });
+        applicationsMain.add(btnAppForms);
         applicationsMain.add(jSeparator4);
 
         btnSearchApplications.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/search.png"))); // NOI18N
@@ -1193,6 +1225,10 @@ public class MainForm extends javax.swing.JFrame {
         openSysRegManagementParamsForm("sysRegProgressBean");
     }//GEN-LAST:event_menuProgressActionPerformed
 
+    private void btnAppFormsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppFormsActionPerformed
+        openBlankForm();
+    }//GEN-LAST:event_btnAppFormsActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1218,6 +1254,7 @@ public class MainForm extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar applicationsMain;
+    private javax.swing.JButton btnAppForms;
     private javax.swing.JButton btnDocumentSearch;
     private javax.swing.JButton btnManageParties;
     private javax.swing.JButton btnNewApplication;

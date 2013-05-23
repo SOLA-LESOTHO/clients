@@ -35,6 +35,7 @@ import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.reports.ReportManager;
+import org.sola.clients.swing.admin.referencedata.ApplicationFormManagementPanel;
 import org.sola.clients.swing.admin.referencedata.ReferenceDataManagementPanel;
 import org.sola.clients.swing.admin.security.GroupsManagementPanel;
 import org.sola.clients.swing.admin.security.RolesManagementPanel;
@@ -123,6 +124,7 @@ public class MainForm extends javax.swing.JFrame {
         menuTypeActions = new javax.swing.JMenuItem();
         menuServiceActionTypes = new javax.swing.JMenuItem();
         menuServiceStatusTypes = new javax.swing.JMenuItem();
+        menuAppForm = new javax.swing.JMenuItem();
         menuAdministrative = new javax.swing.JMenu();
         menuBaUnitType = new javax.swing.JMenuItem();
         menuBaUnitRelationTypes = new javax.swing.JMenuItem();
@@ -403,6 +405,16 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         menuApplications.add(menuServiceStatusTypes);
+
+        menuAppForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-view.png"))); // NOI18N
+        menuAppForm.setText(bundle.getString("MainForm.menuAppForm.text")); // NOI18N
+        menuAppForm.setName(bundle.getString("MainForm.menuAppForm.name")); // NOI18N
+        menuAppForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAppFormActionPerformed(evt);
+            }
+        });
+        menuApplications.add(menuAppForm);
 
         menuRefData.add(menuApplications);
 
@@ -769,6 +781,19 @@ public class MainForm extends javax.swing.JFrame {
         manageRegistrationStatusTypes();
     }//GEN-LAST:event_menuRegistrationStatusTypeActionPerformed
 
+    private void menuAppFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAppFormActionPerformed
+        manageApplicationForms();
+    }//GEN-LAST:event_menuAppFormActionPerformed
+
+    /** Opens application form management panel. */
+    private void manageApplicationForms() {
+        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_APP_FORM_PANEL)){
+            mainContentPanel.showPanel(MainContentPanel.CARD_APP_FORM_PANEL);
+        }else{
+            ApplicationFormManagementPanel panel = new ApplicationFormManagementPanel();
+            mainContentPanel.addPanel(panel, MainContentPanel.CARD_APP_FORM_PANEL, true);
+        }
+    }
     /** Opens roles management panel. */
     private void manageRoles() {
         if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_ROLES_MANAGE)){
@@ -915,6 +940,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar mainMenu;
     private javax.swing.JToolBar mainToolbar;
     private javax.swing.JMenu menuAdministrative;
+    private javax.swing.JMenuItem menuAppForm;
     private javax.swing.JMenu menuApplications;
     private javax.swing.JMenuItem menuBRSeverityType;
     private javax.swing.JMenuItem menuBRTechnicalType;
@@ -954,4 +980,5 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel statusPanel;
     private org.sola.clients.swing.common.tasks.TaskPanel taskPanel1;
     // End of variables declaration//GEN-END:variables
+
 }

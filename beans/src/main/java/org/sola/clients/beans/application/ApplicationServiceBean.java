@@ -57,6 +57,10 @@ public class ApplicationServiceBean extends ApplicationServiceSummaryBean {
     public static final String STATUS_CODE_PROPERTY = "statusCode";
     public static final String STATUS_PROPERTY = "status";
     public static final String VALUE_FEE_PROPERTY = "valueFee";
+    public static final String GROUND_RENT_PROPERTY = "groundRent";
+    public static final String SERVICE_FEE_PROPERTY = "serviceFee";
+    public static final String STAMP_DUTY_PROPERTY = "stampDuty";
+    public static final String TRANSFER_DUTY_PROPERTY = "transferDuty";
     
     private ServiceActionTypeBean actionBean;
     private ServiceStatusTypeBean statusBean;
@@ -67,6 +71,10 @@ public class ApplicationServiceBean extends ApplicationServiceSummaryBean {
     private Date lodgingDatetime;
     private BigDecimal valueFee;
     private String concatenatedName;
+    private BigDecimal groundRent;
+    private BigDecimal serviceFee;
+    private BigDecimal stampDuty;
+    private BigDecimal transferDuty;
 
     /** 
      * Creates object's instance and initializes the following beans, which are 
@@ -196,6 +204,49 @@ public class ApplicationServiceBean extends ApplicationServiceSummaryBean {
         BigDecimal old = valueFee;
         valueFee = value;
         propertySupport.firePropertyChange(VALUE_FEE_PROPERTY, old, value);
+    }
+    
+    public BigDecimal getGroundRent() {
+        return groundRent;
+    }
+	
+    public void setGroundRent(BigDecimal value) {
+        BigDecimal old = groundRent;
+        groundRent = value;
+        propertySupport.firePropertyChange(GROUND_RENT_PROPERTY, old, value);
+    }
+	
+	
+    public BigDecimal getServiceFee() {
+        return serviceFee;
+    }
+
+    public void setServiceFee(BigDecimal value) {
+        BigDecimal old = serviceFee;
+        serviceFee = value;
+        propertySupport.firePropertyChange(SERVICE_FEE_PROPERTY, old, value);
+    }
+	
+
+    public BigDecimal getStampDuty() {
+        return stampDuty;
+    }
+	
+    public void setStampDuty(BigDecimal value) {
+        BigDecimal old = stampDuty;
+        stampDuty = value;
+        propertySupport.firePropertyChange(STAMP_DUTY_PROPERTY, old, value);
+    }
+	
+
+    public BigDecimal getTransferDuty() {
+        return transferDuty;
+    }
+	
+    public void setTransferDuty(BigDecimal value) {
+        BigDecimal old = transferDuty;
+        transferDuty = value;
+        propertySupport.firePropertyChange(TRANSFER_DUTY_PROPERTY, old, value);
     }
 
     /** Cancels service */

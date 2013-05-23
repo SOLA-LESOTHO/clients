@@ -82,6 +82,10 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public static final String STATUS_TYPE_PROPERTY = "statusType";
     public static final String APPLICATION_PROPERTY = "application";
     public static final String SELECTED_CADASTRE_OBJECT = "selectedCadastreObject";
+    public static final String GROUND_RENT_PROPERTY = "groundRent";
+    public static final String REGISTRATION_FEE_PROPERTY = "registrationFee";
+    public static final String STAMP_DUTY_PROPERTY = "stampDuty";
+    public static final String TRANSFER_DUTY_PROPERTY = "transferDuty";
     private ApplicationActionTypeBean actionBean;
     private String actionNotes;
     private SolaList<ApplicationPropertyBean> propertyList;
@@ -91,6 +95,10 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private BigDecimal tax;
     private BigDecimal totalAmountPaid;
     private BigDecimal totalFee;
+    private BigDecimal groundRent;
+    private BigDecimal registrationFee;
+    private BigDecimal stampDuty;
+    private BigDecimal transferDuty;
     private String receiptRef;
     @Size(min = 1, message = ClientMessage.CHECK_APP_SERVICES_NOT_EMPTY, payload = Localized.class)
     private SolaObservableList<ApplicationServiceBean> serviceList;
@@ -478,6 +486,46 @@ public class ApplicationBean extends ApplicationSummaryBean {
         this.receiptRef = value;
         propertySupport.firePropertyChange(RECEIPT_REF_PROPERTY, old, value);
     }
+    
+    public BigDecimal getGroundRent() {
+        return groundRent;
+    }
+
+    public void setGroundRent(BigDecimal value) {
+        BigDecimal old = groundRent;
+        groundRent = value;
+        propertySupport.firePropertyChange(GROUND_RENT_PROPERTY, old, value);
+    }
+
+    public BigDecimal getRegistrationFee() {
+        return registrationFee;
+    }
+
+    public void setRegistrationFee(BigDecimal value) {
+        BigDecimal old = registrationFee;
+        registrationFee = value;
+        propertySupport.firePropertyChange(REGISTRATION_FEE_PROPERTY, old, value);
+    }
+
+    public BigDecimal getStampDuty() {
+        return stampDuty;
+    }
+
+    public void setStampDuty(BigDecimal value) {
+        BigDecimal old = stampDuty;
+        stampDuty = value;
+        propertySupport.firePropertyChange(STAMP_DUTY_PROPERTY, old, value);
+    }
+
+    public BigDecimal getTransferDuty() {
+        return transferDuty;
+    }
+
+    public void setTransferDuty(BigDecimal value) {
+        BigDecimal old = transferDuty;
+        transferDuty = value;
+        propertySupport.firePropertyChange(TRANSFER_DUTY_PROPERTY, old, value);
+    }
 
     public SolaList<CadastreObjectSummaryBean> getCadastreObjectList() {
         return cadastreObjectList;
@@ -520,7 +568,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         return selectedCadastreObject;
     }
 
-    public void setSelectedCadastreObject(CadastreObjectBean selectedCadastreObject) {
+    public void setSelectedCadastreObject(CadastreObjectSummaryBean selectedCadastreObject) {
         this.selectedCadastreObject = selectedCadastreObject;
         propertySupport.firePropertyChange(SELECTED_CADASTRE_OBJECT, null, this.selectedCadastreObject);
     }

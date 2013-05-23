@@ -95,6 +95,12 @@
             <artifactId>ognl</artifactId>
             <version>3.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.sola.clients.swing</groupId>
+            <artifactId>sola-desktop</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
