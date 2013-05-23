@@ -123,7 +123,7 @@
                       <Component id="jLabel17" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtFirstPart" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -175,7 +175,7 @@
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtLastPart" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -658,7 +658,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="23" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="92" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -825,9 +825,6 @@
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
-                </BindingProperty>
-                <BindingProperty name="selectedElement" source="cadastreObjectBean1" sourcePath="${selectedAddress}" target="jTableWithDefaultStyles1" targetPath="selectedElement" updateStrategy="0" immediately="false">
-                  <BindingParameter name="IGNORE_ADJUSTING" value="N"/>
                 </BindingProperty>
               </BindingProperties>
             </Component>

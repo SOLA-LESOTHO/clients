@@ -276,7 +276,7 @@ public class ParcelPanel extends javax.swing.JPanel {
                 .add(jLabel17)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtFirstPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+                .add(0, 2, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2);
@@ -307,7 +307,7 @@ public class ParcelPanel extends javax.swing.JPanel {
                 .add(jLabel7)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtLastPart, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+                .add(0, 2, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3);
@@ -592,7 +592,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             .add(jPanel12Layout.createSequentialGroup()
                 .add(jLabel6)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
         );
 
         jPanel13.setName(bundle.getString("ParcelPanel.jPanel13.name")); // NOI18N
@@ -639,9 +639,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new org.sola.clients.beans.cadastre.CadastreObjectBean(), org.jdesktop.beansbinding.ELProperty.create("${selectedAddress}"), jTableWithDefaultStyles1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
-        bindingGroup.addBinding(binding);
-
+        jTableBinding.bind();
         jScrollPane1.setViewportView(jTableWithDefaultStyles1);
         jTableWithDefaultStyles1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ParcelPanel.jTableWithDefaultStyles1.columnModel.title0_1")); // NOI18N
         jTableWithDefaultStyles1.getColumnModel().getColumn(0).setCellRenderer(new org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer());
