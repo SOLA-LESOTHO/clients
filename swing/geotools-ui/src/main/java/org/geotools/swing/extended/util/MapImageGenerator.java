@@ -42,6 +42,7 @@ import javax.imageio.ImageIO;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.map.MapContent;
 import org.geotools.map.MapViewport;
+import org.geotools.renderer.lite.RendererUtilities;
 import org.geotools.renderer.lite.StreamingRenderer;
 
 /**
@@ -53,25 +54,28 @@ import org.geotools.renderer.lite.StreamingRenderer;
  */
 public class MapImageGenerator {
 
+    public final static String IMAGE_FORMAT_PNG = "png";
+    public final static String IMAGE_FORMAT_BMP = "bmp";
+    public final static String IMAGE_FORMAT_JPG = "jpg";
     private final static String TEMPORARY_IMAGE_FILE_LOCATION =
             System.getProperty("user.home") + File.separator + "sola";
     private final static String TEMPORARY_IMAGE_FILE = "map";
     private MapContent mapContent;
     private Color textColor = Color.RED;
     private Font textFont = new Font(Font.SANS_SERIF, Font.BOLD, 10);
+    private boolean drawFrame = true;
+    private boolean drawText = true;
 
     /**
      * Constructor of the generator.
      *
-     * @param mapContent The map content used as a source for generating the image
+     * @param mapContent The map content used as a source for generating the
+     * image
      */
     public MapImageGenerator(MapContent mapContent) {
         this.mapContent = mapContent;
-//        this.mapContent = new MapContent();
-//        this.mapContent.addLayers(mapContent.layers());
-//        this.mapContent.setViewport(new MapViewport(mapContent.getViewport()));
     }
-    
+
     /**
      * Gets the color of the text used in the image
      *
@@ -106,6 +110,42 @@ public class MapImageGenerator {
      */
     public void setTextFont(Font textFont) {
         this.textFont = textFont;
+    }
+
+    /**
+     * Indicates if the image will be framed with coordinates
+     */
+    public boolean isDrawFrame() {
+        return drawFrame;
+    }
+
+    /**
+     * When true, a frame will be drawn around the image with coordinates. If
+     * false, the frame will be omitted. Default true.
+     *
+     * @param drawFrame
+     */
+    public void setDrawFrame(boolean drawFrame) {
+        this.drawFrame = drawFrame;
+    }
+
+    /**
+     * Indicates if the image will have the coordinate text drawn on the image.
+     * Only applicable if isDrawFrame = true;
+     */
+    public boolean isDrawText() {
+        return drawText;
+    }
+
+    /**
+     * When true, the coordinate text will be drawn on the image. If false,
+     * coordinate text will be omitted. Default true. Only applicable when
+     * isDrawFrame = true;
+     *
+     * @param drawText
+     */
+    public void setDrawText(boolean drawText) {
+        this.drawText = drawText;
     }
 
     /**
@@ -147,40 +187,55 @@ public class MapImageGenerator {
         StreamingRenderer renderer = new StreamingRenderer();
         renderer.setMapContent(this.mapContent);
         Rectangle rectangle = new Rectangle(imageWidth, imageHeight);
-        
+
         //Save the current viewport
         MapViewport mapViewportOriginal = this.mapContent.getViewport();
-        
+
         //Define a new viewport 
         MapViewport mapViewport = new MapViewport(extent, true);
         mapViewport.setScreenArea(rectangle);
-        
+
         //Set the new viewport
         renderer.getMapContent().setViewport(mapViewport);
-        
         //Render map according to the new viewport
-        renderer.paint(graphics, rectangle, extent);
+
+        // Render the map onto the image. Use the viewport worldToScreen 
+        // transformation to ensure the image is rendered with the same 
+        // orientation as the map. 
+        renderer.paint(graphics, rectangle, extent, mapViewport.getWorldToScreen());
         //Set the previous viewport back
         this.mapContent.setViewport(mapViewportOriginal);
-        graphics.setColor(Color.BLACK);
-        graphics.drawRect(0, 0, imageWidth - 1, imageHeight - 1);
-        graphics.setFont(this.textFont);
-        graphics.setColor(this.textColor);
-
-        this.drawText(graphics, String.format("%s N", (int) extent.getMaxY()),
-                imageWidth / 2, 10, true);
-        this.drawText(graphics, String.format("%s N", (int) extent.getMinY()),
-                imageWidth / 2, imageHeight - 3, true);
-        AffineTransform originalTransform = graphics.getTransform();
-        graphics.rotate(-Math.PI / 2, 10, imageHeight / 2);
-        this.drawText(graphics, String.format("%s E", (int) extent.getMinX()),
-                10, imageHeight / 2, false);
-        graphics.setTransform(originalTransform);
-        graphics.rotate(Math.PI / 2, imageWidth - 10, imageHeight / 2);
-        this.drawText(graphics, String.format("%s E", (int) extent.getMaxX()),
-                imageWidth - 100, imageHeight / 2, false);
-        graphics.setTransform(originalTransform);
         
+        if (isDrawFrame()) {
+            graphics.setColor(Color.BLACK);
+            graphics.drawRect(0, 0, imageWidth - 1, imageHeight - 1);
+            if (isDrawText()) {
+                graphics.setFont(this.textFont);
+                graphics.setColor(this.textColor);
+
+                this.drawText(graphics, String.format("%s N", (int) extent.getMaxY()),
+                        imageWidth / 2, 10, true);
+                this.drawText(graphics, String.format("%s N", (int) extent.getMinY()),
+                        imageWidth / 2, imageHeight - 3, true);
+                AffineTransform originalTransform = graphics.getTransform();
+                graphics.rotate(-Math.PI / 2, 10, imageHeight / 2);
+                this.drawText(graphics, String.format("%s E", (int) extent.getMinX()),
+                        10, imageHeight / 2, false);
+                graphics.setTransform(originalTransform);
+                graphics.rotate(Math.PI / 2, imageWidth - 10, imageHeight / 2);
+                this.drawText(graphics, String.format("%s E", (int) extent.getMaxX()),
+                        imageWidth - 100, imageHeight / 2, false);
+                graphics.setTransform(originalTransform);
+
+            } else {
+                // Calculate the scale and draw it to the image
+                Double scale = RendererUtilities.calculateOGCScale(extent, imageWidth, null);
+                graphics.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+                this.drawText(graphics, String.format("Scale 1:%s", scale.intValue()),
+                        10, imageHeight - 10, false);
+            }
+        }
+
         return bi;
     }
 
@@ -207,6 +262,31 @@ public class MapImageGenerator {
                 + TEMPORARY_IMAGE_FILE + "." + imageFormat;
         File outputFile = new File(pathToResult);
         BufferedImage bufferedImage = this.getImage(imageWidth, imageHeight, scale, dpi);
+        ImageIO.write(bufferedImage, imageFormat, outputFile);
+        return pathToResult;
+    }
+
+    /**
+     * Generates an image using the specified extent and saves the image to an
+     * image file.
+     *
+     * @param imageWidth The width of the image in pixels
+     * @param extent The extent of the map window to use for the image
+     * @param imageFormat The format of the image. Potential values can be jpg,
+     * png, bmp
+     * @return The path and file name of the image file
+     * @throws IOException
+     */
+    public String getImageAsFileLocation(int imageWidth, ReferencedEnvelope extent,
+            String imageFormat) throws IOException {
+        File location = new File(TEMPORARY_IMAGE_FILE_LOCATION);
+        if (!location.exists()) {
+            location.mkdirs();
+        }
+        String pathToResult = TEMPORARY_IMAGE_FILE_LOCATION + File.separator
+                + TEMPORARY_IMAGE_FILE + "." + imageFormat;
+        File outputFile = new File(pathToResult);
+        BufferedImage bufferedImage = this.getImage(imageWidth, extent);
         ImageIO.write(bufferedImage, imageFormat, outputFile);
         return pathToResult;
     }

@@ -58,12 +58,10 @@ public class CadastreObjectSearchResultListBean extends AbstractBindingBean {
             return;
         }
 
-        TypeConverters.TransferObjectListToBeanList(
-                WSManager.getInstance().getSearchService().searchCadastreObjects(TypeConverters.BeanToTrasferObject(params,
-                CadastreObjectSearchParamsTO.class)), CadastreObjectSearchResultBean.class,
-                List < CadastreObjectSearchResultTO > result = WSManager.getInstance().getSearchService().searchCadastreObjects(TypeConverters.BeanToTrasferObject(params,
-                CadastreObjectSearchParamsTO.class)));
-
+        List< CadastreObjectSearchResultTO> result = WSManager.getInstance().getSearchService()
+                .searchCadastreObjects(TypeConverters.BeanToTrasferObject(params,
+                CadastreObjectSearchParamsTO.class));
+ 
         TypeConverters.TransferObjectListToBeanList(result, CadastreObjectSearchResultBean.class,
                 (List) getCadastreObjects());
     }

@@ -1040,8 +1040,8 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jToolBar4" alignment="0" min="-2" pref="697" max="-2" attributes="0"/>
-                                      <Component id="roleTableScrollPanel1" alignment="1" pref="737" max="32767" attributes="1"/>
+                                      <Component id="roleTableScrollPanel1" alignment="1" pref="736" max="32767" attributes="1"/>
+                                      <Component id="jToolBar4" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
