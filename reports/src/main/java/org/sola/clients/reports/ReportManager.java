@@ -183,11 +183,13 @@ public class ReportManager {
      *
      * @param reportBean RRR report bean containing all required information to build the report.
      */
-    public static JasperPrint getLeaseReport(RrrReportBean reportBean, boolean isDraft) {
+    public static JasperPrint getLeaseReport(RrrReportBean reportBean, 
+            String mapImageFileName, boolean isDraft) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("IS_DRAFT", isDraft);
+        inputParameters.put("MAP_IMAGE", mapImageFileName);
         RrrReportBean[] beans = new RrrReportBean[1];
         beans[0] = reportBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
