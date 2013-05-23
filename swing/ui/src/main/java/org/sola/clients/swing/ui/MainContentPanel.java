@@ -87,11 +87,8 @@ public class MainContentPanel extends javax.swing.JPanel {
     public final static String CARD_VIEW_POWER_OF_ATTORNEY = "viewPowerOfAttorneyPanel";
     public final static String CARD_USER_PROFILE = "userProfile";
     public final static String CARD_RIGHT_EXPORT = "rightsExportPanel";
-<<<<<<< HEAD
     public final static String CARD_DISPUTE = "dispute";
-=======
     public final static String CARD_PARCEL_SEARCH = "parcelSearchPanel";
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
     
     private HashMap<String, Component> cards;
     private ArrayList<String> cardsIndex;
