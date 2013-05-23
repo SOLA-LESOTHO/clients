@@ -723,7 +723,8 @@ public class PropertyPanel extends ContentPanel {
             panel = new MortgagePanel(rrrBean, applicationBean, applicationService, action);
             cardName = MainContentPanel.CARD_MORTGAGE;
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_LEASE)){
-            panel = new LeasePanel(baUnitBean1, rrrBean, applicationBean, applicationService, action);
+            panel = new LeasePanel(baUnitBean1, rrrBean, applicationBean, applicationService, action,
+                    mapControl);
             cardName = MainContentPanel.CARD_LEASE;
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_AGRI_ACTIVITY)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_COMMON_OWNERSHIP)
