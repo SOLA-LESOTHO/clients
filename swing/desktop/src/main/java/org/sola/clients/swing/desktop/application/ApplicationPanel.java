@@ -576,7 +576,7 @@ public class ApplicationPanel extends ContentPanel {
 
     private void launchService(final ApplicationServiceBean service, final boolean readOnly) {
         if (service != null) {
-
+                      
             String requestType = service.getRequestTypeCode();
 
             // Determine what form to start for selected service
