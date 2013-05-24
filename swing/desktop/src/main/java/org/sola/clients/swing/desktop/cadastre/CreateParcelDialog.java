@@ -110,7 +110,7 @@ public class CreateParcelDialog extends javax.swing.JDialog {
 
 private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
     
-    String parcelName = parcelPanel.getCadastreObjectBean().getNameFirstpart()+' ' +parcelPanel.getCadastreObjectBean().getNameLastpart();
+    String parcelName = parcelPanel.getCadastreObjectBean().getNameFirstpart()+ '-' +parcelPanel.getCadastreObjectBean().getNameLastpart();
     final List<CadastreObjectBean> searchResult = new LinkedList<CadastreObjectBean>();
      TypeConverters.TransferObjectListToBeanList(
                         WSManager.getInstance().getCadastreService().getCadastreObjectByAllParts(parcelName),

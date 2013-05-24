@@ -25,6 +25,7 @@
  */
 package org.sola.clients.swing.desktop.cadastre;
 
+
 import java.awt.BorderLayout;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationPropertyBean;
@@ -37,6 +38,8 @@ import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.BaUnitTO;
 
+
+
 /**
  * Used to produce cadastre changes.
  */
@@ -47,7 +50,7 @@ public class CadastreTransactionMapPanel extends ContentPanel {
     private ApplicationPropertyBean applicationProperty;
     private ControlsBundleForTransaction mapControl = null;
     private String targetCadastreObjectType = CadastreObjectTypeBean.CODE_PARCEL;
-
+   
     /**
      * It initiates the panel with the target cadastre object type as being parcel.
      * 
@@ -88,6 +91,7 @@ public class CadastreTransactionMapPanel extends ContentPanel {
         customizeForm();
         this.addMapToForm();
         saveTransactionState();
+       
     }
 
     private void initializeMap() {
@@ -148,6 +152,7 @@ public class CadastreTransactionMapPanel extends ContentPanel {
     private boolean saveTransaction() {
        SaveTransaction actionSave = new SaveTransaction(this.mapControl);
        actionSave.onClick();
+
        close();
         saveTransactionState();
         return true;
