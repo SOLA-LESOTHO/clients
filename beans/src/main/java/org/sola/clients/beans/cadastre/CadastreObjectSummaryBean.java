@@ -48,7 +48,11 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     public static final String SURVEY_FEE_PROPERTY = "surveyFee";
     public static final String LAND_GRADE_TYPE_PROPERTY = "landGradeType";
     public static final String LAND_GRADE_CODE_PROPERTY = "landGradeCode";
+<<<<<<< HEAD
     public static final String VALUATION_ZONE_PROPERTY = "valuationZone";
+=======
+
+>>>>>>> 587f1622221110d454087957baa2f84beced9132
     
     private Date approvalDatetime;
     private Date historicDatetime;

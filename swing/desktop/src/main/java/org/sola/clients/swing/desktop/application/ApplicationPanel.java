@@ -79,6 +79,7 @@ import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
+import org.sola.clients.swing.desktop.administrative.DisputePanelForm;
 
 /**
  * This form is used to create new application or edit existing one. <p>The
@@ -613,7 +614,23 @@ public class ApplicationPanel extends ContentPanel {
                     }
                 };
                 TaskManager.getInstance().runTask(t);
-            } // Cadastre print
+            } //Disputes
+            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DISPUTE)) {
+                SolaTask t = new SolaTask<Void, Void>() {
+
+                    @Override
+                    public Void doTask() {
+                        //setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCUMENTSEARCH));
+                        if (!getMainContentPanel().isPanelOpened(MainContentPanel.CARD_DISPUTE)) {
+                            DisputePanelForm disputePanel = new DisputePanelForm();
+                            getMainContentPanel().addPanel(disputePanel, MainContentPanel.CARD_DISPUTE);
+                        }
+                        getMainContentPanel().showPanel(MainContentPanel.CARD_DISPUTE);
+                        return null;
+                    }
+                };
+                TaskManager.getInstance().runTask(t);
+            }// Cadastre print
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_PRINT)) {
                 SolaTask t = new SolaTask<Void, Void>() {
 

@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SurveyFormS10" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="677"/>
-	<property name="ireport.y" value="528"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="CADASTRAL_PLAN_PLOT_NUMBER" class="java.lang.String"/>
-	<parameter name="FEES" class="java.lang.String"/>
-	<parameter name="REMARKS" class="java.lang.String"/>
-	<parameter name="COMMENT" class="java.lang.String"/>
-	<parameter name="SURVEYOR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="historicDatetime" class="java.util.Date">
-		<fieldDescription><![CDATA[historicDatetime]]></fieldDescription>
-	</field>
 	<field name="id" class="java.lang.String">
 		<fieldDescription><![CDATA[id]]></fieldDescription>
 	</field>
 	<field name="sourceReference" class="java.lang.String">
 		<fieldDescription><![CDATA[sourceReference]]></fieldDescription>
+	</field>
+	<field name="nameFirstpart" class="java.lang.String">
+		<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
 	</field>
 	<field name="nameLastpart" class="java.lang.String">
 		<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
@@ -26,11 +22,17 @@
 	<field name="officialAreaSize" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[officialAreaSize]]></fieldDescription>
 	</field>
-	<field name="nameFirstpart" class="java.lang.String">
-		<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
+	<field name="surveyFee" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[surveyFee]]></fieldDescription>
 	</field>
-	<field name="approvalDatetime" class="java.util.Date">
-		<fieldDescription><![CDATA[approvalDatetime]]></fieldDescription>
+	<field name="remarks" class="java.lang.String">
+		<fieldDescription><![CDATA[remarks]]></fieldDescription>
+	</field>
+	<field name="surveyor" class="java.lang.String">
+		<fieldDescription><![CDATA[surveyor]]></fieldDescription>
+	</field>
+	<field name="historicDatetime" class="java.util.Date">
+		<fieldDescription><![CDATA[historicDatetime]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -126,13 +128,6 @@
 				<text><![CDATA[REMARKS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="178" width="89" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[COMMENT]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="12" y="352" width="89" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
@@ -224,11 +219,11 @@
 				<textFieldExpression><![CDATA[$F{sourceReference}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="243" y="54" width="100" height="20"/>
+				<reportElement x="243" y="54" width="293" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nameFirstpart}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nameFirstpart} +"-"+ $F{nameLastpart}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="243" y="74" width="293" height="20"/>
@@ -249,43 +244,22 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{FEES}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{surveyFee}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="117" y="135" width="419" height="20"/>
+				<reportElement x="117" y="135" width="419" height="91"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{REMARKS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="117" y="178" width="419" height="48"/>
+				<reportElement x="101" y="352" width="419" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{COMMENT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{surveyor}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="103" y="352" width="419" height="20"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{SURVEYOR}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="358" y="54" width="107" height="20"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nameLastpart}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="343" y="54" width="15" height="20"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="false"/>
-				</textElement>
-				<text><![CDATA[_]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<columnFooter>

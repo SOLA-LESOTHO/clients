@@ -9,9 +9,13 @@
                 <Rule>
                     <PolygonSymbolizer>
                         <Stroke>
-                            <CssParameter name="stroke">#ff3300</CssParameter>
-                            <CssParameter name="stroke-width">0.5</CssParameter>
+                            <CssParameter name="stroke">#EBC232</CssParameter>
+                            <CssParameter name="stroke-width">0.5</CssParameter>                            
+                            
                         </Stroke>
+                        <fill>
+                            <CssParameter name="fill">#EBC232</CssParameter>
+                        </fill>
                     </PolygonSymbolizer>
 
                     <TextSymbolizer>
@@ -20,10 +24,17 @@
                         </Label>
                         <Font>
                             <CssParameter name="font-family">Arial</CssParameter>
-                            <CssParameter name="font-size">13</CssParameter>
+                            <CssParameter name="font-size">12</CssParameter>
                             <CssParameter name="font-style">normal</CssParameter>
-                            <CssParameter name="font-weight">normal</CssParameter>
+                            <CssParameter name="font-weight">bold</CssParameter>
                         </Font>
+                        <Halo>
+                            <Radius>0.1</Radius>
+                            <fill>                                
+                                <CssParameter name="fill">#AAAAAA</CssParameter>
+                                <CssParameter name="fill-opacity">0.2</CssParameter>
+                            </fill>
+                        </Halo>                        
                         <LabelPlacement>
                             <PointPlacement>
                                 <AnchorPoint>
@@ -37,11 +48,106 @@
                             </PointPlacement>
                         </LabelPlacement> 		 
                         <Fill>
-                            <CssParameter name="fill">#ff3300</CssParameter>
+                            <CssParameter name="fill">#5A4E43</CssParameter>                            
                         </Fill>
+
                     </TextSymbolizer>
                 </Rule>
             </FeatureTypeStyle>
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Commercial 1</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Commercial 1</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+
+                    <PolygonSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#F28038</CssParameter>
+                            <CssParameter name="stroke-width">0.5</CssParameter>                            
+                            
+                        </Stroke>
+                        <fill>
+                            <CssParameter name="fill">#F28038</CssParameter>                            
+                        </fill>
+                    </PolygonSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Industrial 1</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Industrial 1</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+
+                    <PolygonSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#ff3300</CssParameter>                            
+                            
+                        </Stroke>
+                        <fill>
+                            <CssParameter name="fill">#ff3300</CssParameter>
+
+                        </fill>
+                    </PolygonSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Residential 1</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Residential 1</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+
+                    <PolygonSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#61B551</CssParameter>                            
+                            
+                        </Stroke>
+                        <fill>
+                            <CssParameter name="fill">#61B551</CssParameter>
+
+                        </fill>
+                    </PolygonSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+            
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Residential 2</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Residential 2</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+
+                    <PolygonSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#3ABCED</CssParameter>                            
+                            
+                        </Stroke>
+                        <fill>
+                            <CssParameter name="fill">#3ABCED</CssParameter>
+
+                        </fill>
+                    </PolygonSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+            
         </UserStyle>
     </NamedLayer>
 </StyledLayerDescriptor>

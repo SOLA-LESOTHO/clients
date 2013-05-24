@@ -1,72 +1,194 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <StyledLayerDescriptor version="1.0.0" xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc"
-  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
-   <NamedLayer>
-    <Name>Road</Name>
-    <UserStyle>
+                       xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
+    <NamedLayer>
+        <Name>Road</Name>
+        <UserStyle>
     <!-- Styles can have names, titles and abstracts -->
-      <Title>Road network</Title>
-      <Abstract>A symbology defintion for SOLA cadastre map road centreline</Abstract>
+            <Title>Road network</Title>
+            <Abstract>A symbology defintion for SOLA cadastre map road centreline</Abstract>
       <!-- FeatureTypeStyles describe how to render different features -->
       <!-- A FeatureTypeStyle for rendering lines -->
-      <FeatureTypeStyle>
-	  <Rule>
-       <Name>Scale &lt; 90000</Name>
-       <MaxScaleDenominator>90000</MaxScaleDenominator>
-       <PolygonSymbolizer>
-         <Stroke>
-           <CssParameter name="stroke">#000066</CssParameter>
-           <CssParameter name="stroke-width">0.5</CssParameter>
-         </Stroke>
-       </PolygonSymbolizer>
-	   <TextSymbolizer>
-         <Label>
-           <ogc:PropertyName>label</ogc:PropertyName>
-         </Label>
-         <Font>
-           <CssParameter name="font-family">Arial</CssParameter>
-           <CssParameter name="font-size">13</CssParameter>
-           <CssParameter name="font-style">normal</CssParameter>
-           <CssParameter name="font-weight">normal</CssParameter>
-         </Font>         
-         <Fill>
-           <CssParameter name="fill">#151B8D</CssParameter>
-         </Fill>
-         <VendorOption name="followLine">true</VendorOption>
-         <VendorOption name="maxAngleDelta">90</VendorOption>
-         <VendorOption name="maxDisplacement">10</VendorOption>
-         <VendorOption name="repeat">150</VendorOption>
-         <VendorOption name="labelAllGroup">true</VendorOption>
-         <LabelPlacement>
-           <LinePlacement >
- 		<PerpendicularOffset>5</PerpendicularOffset> 
-		</LinePlacement>         
-          </LabelPlacement>
-       </TextSymbolizer>  	   
-     </Rule>
-     <Rule>
-       <Name>Scale 2500 - 90000</Name>
-       <MinScaleDenominator>2500</MinScaleDenominator>
-       <MaxScaleDenominator>90000</MaxScaleDenominator>
-       <PolygonSymbolizer>
-         <Stroke>
-           <CssParameter name="stroke">#000066</CssParameter>
-           <CssParameter name="stroke-width">0.5</CssParameter>
-         </Stroke>
-       </PolygonSymbolizer>
-     </Rule>	  
-	 <Rule>
-       <Name>Scale &gt; 90000</Name>
-       <MinScaleDenominator>90000</MinScaleDenominator>
-       <PolygonSymbolizer>
-         <Stroke>
-           <CssParameter name="stroke">#000066</CssParameter>
-           <CssParameter name="stroke-width">0.5</CssParameter>
-         </Stroke>
-       </PolygonSymbolizer>
-     </Rule>	  
- </FeatureTypeStyle>	  	  
-    </UserStyle>
-  </NamedLayer>
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Access Road Scale &lt; 2000</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Access Road</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>4000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#F37635</CssParameter>
+                            <CssParameter name="stroke-width">2</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                </Rule>
+                <Rule>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Major Road</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>15000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#0C6F90</CssParameter>
+                            <CssParameter name="stroke-width">1.5</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                </Rule>
+                <Rule>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Highway</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>20000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#DE3B38</CssParameter>
+                            <CssParameter name="stroke-width">2.5</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>All Roads</Name>
+                    <MaxScaleDenominator>90000</MaxScaleDenominator>
+                    <PolygonSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#D7CC75</CssParameter>
+                            <CssParameter name="stroke-width">1</CssParameter>
+                        </Stroke>
+                    </PolygonSymbolizer>
+                    <!--
+                    <TextSymbolizer>
+                        <Label>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                        </Label>
+                        <Font>
+                            <CssParameter name="font-family">Arial</CssParameter>
+                            <CssParameter name="font-size">14</CssParameter>
+                            <CssParameter name="font-style">normal</CssParameter>
+                            <CssParameter name="font-weight">normal</CssParameter>
+                        </Font>         
+                        <Fill>
+                            <CssParameter name="fill">#151B8D</CssParameter>
+                        </Fill>
+                        
+                        <VendorOption name="followLine">true</VendorOption>
+                        <VendorOption name="maxAngleDelta">90</VendorOption>
+                        <VendorOption name="maxDisplacement">10</VendorOption>
+                        <VendorOption name="repeat">150</VendorOption>
+                        <VendorOption name="labelAllGroup">true</VendorOption>
+                        
+                        <LabelPlacement>
+                            <LinePlacement >
+                                <PerpendicularOffset>5</PerpendicularOffset> 
+                            </LinePlacement>         
+                        </LabelPlacement>
+                    </TextSymbolizer>  	  
+                    -->
+                </Rule>
+            </FeatureTypeStyle>
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Access Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Access Road</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>50000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#F37635</CssParameter>
+                            <CssParameter name="stroke-width">1</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Highway</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Highway</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>90000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#DE3B38</CssParameter>
+                            <CssParameter name="stroke-width">2</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Major Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Major Road</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>60000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#0C6F90</CssParameter>
+                            <CssParameter name="stroke-width">1</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+            
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Railway</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Railway</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>60000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#304E34</CssParameter>
+                            <CssParameter name="stroke-width">1.5</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+            
+        </UserStyle>
+    </NamedLayer>
 </StyledLayerDescriptor>
