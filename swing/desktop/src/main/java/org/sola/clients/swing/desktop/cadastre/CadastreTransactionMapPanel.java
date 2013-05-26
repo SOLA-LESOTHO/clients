@@ -27,6 +27,7 @@ package org.sola.clients.swing.desktop.cadastre;
 
 
 import java.awt.BorderLayout;
+import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationPropertyBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
@@ -47,7 +48,7 @@ public class CadastreTransactionMapPanel extends ContentPanel {
 
     private ApplicationBean applicationBean;
     private ApplicationServiceBean applicationService;
-    private ApplicationPropertyBean applicationProperty;
+    private BaUnitSearchResultBean applicationProperty;
     private ControlsBundleForTransaction mapControl = null;
     private String targetCadastreObjectType = CadastreObjectTypeBean.CODE_PARCEL;
    
@@ -61,7 +62,7 @@ public class CadastreTransactionMapPanel extends ContentPanel {
     public CadastreTransactionMapPanel(
             ApplicationBean applicationBean,
             ApplicationServiceBean applicationService,
-            ApplicationPropertyBean applicationProperty) {
+            BaUnitSearchResultBean applicationProperty) {
         this(applicationBean, applicationService, 
                 applicationProperty, CadastreObjectTypeBean.CODE_PARCEL);
         saveTransactionState();
@@ -78,7 +79,7 @@ public class CadastreTransactionMapPanel extends ContentPanel {
     public CadastreTransactionMapPanel(
             ApplicationBean applicationBean,
             ApplicationServiceBean applicationService,
-            ApplicationPropertyBean applicationProperty,
+            BaUnitSearchResultBean applicationProperty,
             String targetCadastreObjectType) {
 
         this.applicationBean = applicationBean;
@@ -119,8 +120,8 @@ public class CadastreTransactionMapPanel extends ContentPanel {
                 title = String.format(
                         bundle.getString("CadastreTransactionMapPanel.headerPanel.titleText.ApplicationAndProperty"),
                         applicationService.getRequestType().getDisplayValue(),
-                        applicationProperty.getNameFirstpart(),
-                        applicationProperty.getNameLastpart(),
+                        applicationProperty.getNameFirstPart(),
+                        applicationProperty.getNameLastPart(),
                         applicationBean.getNr());
             } else {
                 title = String.format(
@@ -136,7 +137,7 @@ public class CadastreTransactionMapPanel extends ContentPanel {
         String baUnitId = null;
         if (applicationProperty != null) {
             BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative().getBaUnitById(
-                    applicationProperty.getBaUnitId());
+                    applicationProperty.getId());
             if (baUnitTO != null) {
                 baUnitId = baUnitTO.getId();
             }

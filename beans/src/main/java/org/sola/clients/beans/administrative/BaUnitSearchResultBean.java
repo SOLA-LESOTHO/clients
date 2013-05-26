@@ -27,28 +27,32 @@
  */
 package org.sola.clients.beans.administrative;
 
+import java.util.Date;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.RegistrationStatusTypeBean;
+import org.sola.common.StringUtility;
 
 /**
  * Represents BA unit search result.
  */
 public class BaUnitSearchResultBean extends AbstractBindingBean {
     public static final String ID_PROPERTY = "id";
-    public static final String NAME_PROPERTY = "name";
     public static final String NAME_FIRST_PART_PROPERTY = "nameFirstPart";
     public static final String NAME_LAST_PART_PROPERTY = "nameLastPart";
     public static final String STATUS_CODE_PROPERTY = "statusCode";
     public static final String REGISTRATION_STATUS_PROPERTY = "registrationStatus";
     public static final String RIGHTHOLDERS_PROPERTY = "rightholders";
+    public static final String REGISTRATION_NUMBER_PROPERTY = "registrationNumber";
+    public static final String REGISTRATION_DATE_PROPERTY = "registrationDate";
     
     private String id;
-    private String name;
     private String nameFirstPart;
     private String nameLastPart;
     private RegistrationStatusTypeBean registrationStatus;
     private String rightholders;
+    private String registrationNumber;
+    private Date registrationDate;
     
     public BaUnitSearchResultBean(){
         super();
@@ -62,16 +66,6 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
         String oldValue = this.id;
         this.id = id;
         propertySupport.firePropertyChange(ID_PROPERTY, oldValue, this.id);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        String oldValue = this.name;
-        this.name = name;
-        propertySupport.firePropertyChange(NAME_PROPERTY, oldValue, this.name);
     }
 
     public String getNameFirstPart() {
@@ -123,5 +117,35 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
 
     public void setRegistrationStatus(RegistrationStatusTypeBean registrationStatus) {
         this.setJointRefDataBean(getRegistrationStatus(), registrationStatus, REGISTRATION_STATUS_PROPERTY);
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        Date oldValue = this.registrationDate;
+        this.registrationDate = registrationDate;
+        propertySupport.firePropertyChange(REGISTRATION_DATE_PROPERTY, oldValue, this.registrationDate);
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        String oldValue = this.registrationNumber;
+        this.registrationNumber = registrationNumber;
+        propertySupport.firePropertyChange(REGISTRATION_NUMBER_PROPERTY, oldValue, this.registrationNumber);
+    }
+    
+    public String getBaUnitNumber(){
+        String number = getNameFirstPart();
+        if(StringUtility.isEmpty(number)){
+            number = getNameLastPart();
+        } else if(!StringUtility.isEmpty(getNameLastPart())) {
+            number = number + " - " + getNameLastPart();
+        }
+        return number;
     }
 }

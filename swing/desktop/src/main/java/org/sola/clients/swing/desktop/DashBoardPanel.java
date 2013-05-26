@@ -242,7 +242,7 @@ public class DashBoardPanel extends ContentPanel {
                 };
 
                 if (getMainContentPanel() != null) {
-                    ApplicationPanel applicationPanel = new ApplicationPanel(appBean.getId(), true);
+                    ApplicationPanel applicationPanel = new ApplicationPanel(appBean.getId());
                     applicationPanel.addPropertyChangeListener(ApplicationBean.APPLICATION_PROPERTY, listener);
                     getMainContentPanel().addPanel(applicationPanel, MainContentPanel.CARD_APPLICATION, true);
                 }

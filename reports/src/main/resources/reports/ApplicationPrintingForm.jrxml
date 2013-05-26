@@ -9,8 +9,9 @@
 		</field>
 	</subDataset>
 	<subDataset name="dataset3" uuid="3bbe74ef-18f3-408e-b251-1240019b9fe1">
-		<field name="nameFirstpart" class="java.lang.String"/>
-		<field name="nameLastpart" class="java.lang.String"/>
+		<field name="nameFirstPart" class="java.lang.String"/>
+		<field name="nameLastPart" class="java.lang.String"/>
+		<field name="baUnitNumber" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="dataset1" uuid="0499e252-7cc8-42a4-990d-d73adbbdea16">
 		<queryString>
@@ -468,7 +469,7 @@ Fax: +266 2231 0905
 								<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 								<paragraph lineSpacing="Single"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{nameFirstpart}+" "+$F{nameLastpart}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{baUnitNumber}]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement uuid="4dbb30eb-45e1-476d-add4-31fef43db370" positionType="Float" x="0" y="0" width="23" height="20"/>

@@ -32,8 +32,9 @@ import java.awt.Frame;
 import java.util.Locale;
 import javax.swing.ImageIcon;
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.application.ApplicationPropertyBean;
+import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
 import org.sola.clients.beans.controls.SolaList;
+import org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer;
 
 /**
  * Popup window to select property object from the list.
@@ -43,29 +44,29 @@ public class PropertiesList extends javax.swing.JDialog {
     public static final String SELECTED_PROPERTY = "selectedProperty";
     
     private SolaList propertyList;
-    private ApplicationPropertyBean selectedProperty;
+    private BaUnitSearchResultBean selectedProperty;
     
     /** Creates new form PropertiesList */
     public PropertiesList() {
         this(new SolaList());
     }
 
-    public PropertiesList(SolaList<ApplicationPropertyBean> propertyList) {
+    public PropertiesList(SolaList<BaUnitSearchResultBean> propertyList) {
         super((Frame)null, true);
         this.propertyList = propertyList;
         initComponents();
         this.setIconImage(new ImageIcon(PropertiesList.class.getResource("/images/sola/logo_icon.jpg")).getImage());
     }
     
-    public ObservableList<ApplicationPropertyBean> getPropertyList() {
+    public ObservableList<BaUnitSearchResultBean> getPropertyList() {
         return propertyList.getFilteredList();
     }
 
-    public ApplicationPropertyBean getSelectedProperty() {
+    public BaUnitSearchResultBean getSelectedProperty() {
         return selectedProperty;
     }
 
-    public void setSelectedProperty(ApplicationPropertyBean selectedProperty) {
+    public void setSelectedProperty(BaUnitSearchResultBean selectedProperty) {
         this.selectedProperty = selectedProperty;
     }
 
@@ -91,21 +92,21 @@ public class PropertiesList extends javax.swing.JDialog {
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${propertyList}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tabPropertyDetails);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"));
-        columnBinding.setColumnName("Name Firstpart");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${baUnitNumber}"));
+        columnBinding.setColumnName("Ba Unit Number");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameLastpart}"));
-        columnBinding.setColumnName("Name Lastpart");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${registrationNumber}"));
+        columnBinding.setColumnName("Registration Number");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${area}"));
-        columnBinding.setColumnName("Area");
-        columnBinding.setColumnClass(java.math.BigDecimal.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${registrationDate}"));
+        columnBinding.setColumnName("Registration Date");
+        columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${totalValue}"));
-        columnBinding.setColumnName("Total Value");
-        columnBinding.setColumnClass(java.math.BigDecimal.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightholders}"));
+        columnBinding.setColumnName("Rightholders");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedProperty}"), tabPropertyDetails, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
@@ -119,9 +120,10 @@ public class PropertiesList extends javax.swing.JDialog {
         });
         scrollPropertyDetails.setViewportView(tabPropertyDetails);
         tabPropertyDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PropertiesList.tabPropertyDetails.columnModel.title0")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertiesList.tabPropertyDetails.columnModel.title1")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertiesList.tabPropertyDetails.columnModel.title2")); // NOI18N
-        tabPropertyDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertiesList.tabPropertyDetails.columnModel.title3")); // NOI18N
+        tabPropertyDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertiesList.tabPropertyDetails.columnModel.title2")); // NOI18N
+        tabPropertyDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertiesList.tabPropertyDetails.columnModel.title3")); // NOI18N
+        tabPropertyDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertiesList.tabPropertyDetails.columnModel.title1_1")); // NOI18N
+        tabPropertyDetails.getColumnModel().getColumn(3).setCellRenderer(new TableCellTextAreaRenderer());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

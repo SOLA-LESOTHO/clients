@@ -35,6 +35,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
 import org.sola.clients.beans.application.validation.ApplicationCheck;
 import org.sola.clients.beans.applicationlog.ApplicationLogBean;
 import org.sola.clients.beans.cache.CacheManager;
@@ -88,7 +89,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public static final String TRANSFER_DUTY_PROPERTY = "transferDuty";
     private ApplicationActionTypeBean actionBean;
     private String actionNotes;
-    private SolaList<ApplicationPropertyBean> propertyList;
+    private SolaList<BaUnitSearchResultBean> propertyList;
     private PartyBean contactPerson;
     private byte[] location;
     private BigDecimal servicesFee;
@@ -105,7 +106,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private SolaList<SourceBean> sourceList;
     private SolaObservableList<ApplicationLogBean> appLogList;
     private transient ApplicationServiceBean selectedService;
-    private transient ApplicationPropertyBean selectedProperty;
+    private transient BaUnitSearchResultBean selectedProperty;
     private transient SourceBean selectedSource;
     private PartySummaryBean agent;
     private String assigneeId;
@@ -344,12 +345,12 @@ public class ApplicationBean extends ApplicationSummaryBean {
         propertySupport.firePropertyChange(ACTION_NOTES_PROPERTY, old, value);
     }
 
-    public SolaList<ApplicationPropertyBean> getPropertyList() {
+    public SolaList<BaUnitSearchResultBean> getPropertyList() {
         return propertyList;
     }
 
     @Valid
-    public ObservableList<ApplicationPropertyBean> getFilteredPropertyList() {
+    public ObservableList<BaUnitSearchResultBean> getFilteredPropertyList() {
         return propertyList.getFilteredList();
     }
 
@@ -373,15 +374,15 @@ public class ApplicationBean extends ApplicationSummaryBean {
         propertySupport.firePropertyChange(LOCATION_PROPERTY, old, value);
     }
 
-    public ApplicationPropertyBean getSelectedProperty() {
+    public BaUnitSearchResultBean getSelectedProperty() {
         if (getPropertyList().size() == 1) {
-            ApplicationPropertyBean onlyOneProperty = getPropertyList().get(0);
+            BaUnitSearchResultBean onlyOneProperty = getPropertyList().get(0);
             selectedProperty = onlyOneProperty;
         }
         return selectedProperty;
     }
 
-    public void setSelectedProperty(ApplicationPropertyBean value) {
+    public void setSelectedProperty(BaUnitSearchResultBean value) {
         selectedProperty = value;
         propertySupport.firePropertyChange(SELECTED_PROPPERTY_PROPERTY, null, value);
     }
@@ -394,7 +395,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         this.appLogList = appLogList;
     }
 
-    public void setPropertyList(SolaList<ApplicationPropertyBean> propertyList) {
+    public void setPropertyList(SolaList<BaUnitSearchResultBean> propertyList) {
         this.propertyList = propertyList;
     }
 
@@ -486,7 +487,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         this.receiptRef = value;
         propertySupport.firePropertyChange(RECEIPT_REF_PROPERTY, old, value);
     }
-    
+
     public BigDecimal getGroundRent() {
         return groundRent;
     }
@@ -539,14 +540,18 @@ public class ApplicationBean extends ApplicationSummaryBean {
         this.cadastreObjectList = cadastreObjectList;
     }
 
-    /** Removes selected cadastre object from the list of CadastreObjects. */
+    /**
+     * Removes selected cadastre object from the list of CadastreObjects.
+     */
     public void removeSelectedCadastreObject() {
         if (selectedCadastreObject != null && cadastreObjectList != null) {
             cadastreObjectList.safeRemove(selectedCadastreObject, EntityAction.DISASSOCIATE);
         }
     }
 
-    /** Adds new cadastre object in the list of CadastreObjects. */
+    /**
+     * Adds new cadastre object in the list of CadastreObjects.
+     */
     public void addCadastreObject(CadastreObjectSummaryBean cadastreObject) {
         if (getCadastreObjectList() != null && cadastreObject != null
                 && cadastreObject.getEntityAction() != EntityAction.DELETE
@@ -683,49 +688,21 @@ public class ApplicationBean extends ApplicationSummaryBean {
     }
 
     /**
-     * Adds new property object ({@link ApplicationPropertyBean}) into the list
+     * Adds new property object ({@link BaUnitSearchResultBean}) into the list
      * of application properties.
      *
-     * @param firstPart First part of the property's identification code.
-     * @param lastPart Second part of the property's identification code.
-     * @param area The area of parcel.
-     * @param value The value of parcel.
+     * @param newProperty Property object to add on the list.
      */
-    public void addProperty(String firstPart, String lastPart, BigDecimal area, BigDecimal value) {
-
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle");
-
-        if (propertyList != null) {
-            // property firstpart lastpart validation
-            if (firstPart == null || (firstPart != null && firstPart.trim().isEmpty())) {
-                MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_FIRSTPART);
+    public void addProperty(BaUnitSearchResultBean newProperty) {
+        for(BaUnitSearchResultBean baUnit : propertyList){
+            if(baUnit.getId().equals(newProperty.getId())){
+                baUnit.setEntityAction(null);
+                propertyList.filter();
                 return;
             }
-
-            if (lastPart == null || (lastPart != null && lastPart.trim().isEmpty())) {
-                MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_LASTPART);
-                return;
-            }
-
-            if (firstPart.length() > 20) {
-                MessageUtility.displayMessage(ClientMessage.CHECK_FIELD_INVALID_LENGTH_PAR,
-                        new Object[]{bundle.getString("ApplicationPanel.labFirstPart.text")});
-                return;
-            }
-            if (lastPart.length() > 50) {
-                MessageUtility.displayMessage(ClientMessage.CHECK_FIELD_INVALID_LENGTH_PAR,
-                        new Object[]{bundle.getString("ApplicationPanel.labLastPart.text")});
-                return;
-            }
-
-            ApplicationPropertyBean newProperty = new ApplicationPropertyBean();
-            newProperty.setArea(area);
-            newProperty.setNameFirstpart(firstPart);
-            newProperty.setNameLastpart(lastPart);
-            newProperty.setTotalValue(value);
-            propertyList.addAsNew(newProperty);
-            selectedProperty = newProperty;
         }
+        propertyList.addAsNew(newProperty);
+        selectedProperty = newProperty;
     }
 
     /**
@@ -733,45 +710,8 @@ public class ApplicationBean extends ApplicationSummaryBean {
      */
     public void removeSelectedProperty() {
         if (selectedProperty != null && propertyList != null) {
-            propertyList.safeRemove(selectedProperty, EntityAction.DELETE);
+            propertyList.safeRemove(selectedProperty, EntityAction.DISASSOCIATE);
         }
-    }
-
-    /**
-     * Verifies selected property object. Checks if object exists in the
-     * database and on the map. Checks for the list of incomplete applications,
-     * related to the selected property object.
-     */
-    public boolean verifyProperty() {
-        if (selectedProperty != null) {
-            PropertyVerifierTO verifier = WSManager.getInstance().getSearchService().verifyApplicationProperty(
-                    this.getNr(), selectedProperty.getNameFirstpart(), selectedProperty.getNameLastpart());
-            if (verifier != null) {
-                selectedProperty.setBaUnitId(verifier.getId());
-                selectedProperty.setVerifiedLocation(verifier.isHasLocation());
-
-                if (verifier.getId() != null && !verifier.getId().equals("")) {
-                    selectedProperty.setVerifiedExists(true);
-                } else {
-                    selectedProperty.setVerifiedExists(false);
-                }
-
-                selectedProperty.setVerifiedApplications(true);
-
-                if (verifier.getApplicationsWhereFound() != null
-                        && !verifier.getApplicationsWhereFound().equals("")) {
-                    MessageUtility.displayMessage(ClientMessage.APPLICATION_PROPERTY_HAS_INCOMPLETE_APPLICATIONS,
-                            new Object[]{selectedProperty.getNameFirstpart() + selectedProperty.getNameLastpart(),
-                                verifier.getApplicationsWhereFound()});
-                }
-            } else {
-                selectedProperty.setVerifiedExists(false);
-                selectedProperty.setVerifiedApplications(false);
-                selectedProperty.setVerifiedLocation(false);
-            }
-            return true;
-        }
-        return false;
     }
 
     /**

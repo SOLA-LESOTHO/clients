@@ -46,14 +46,13 @@ import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.PowerOfAttorneyBean;
-import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.swing.common.DefaultExceptionHandler;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
 import org.sola.clients.swing.common.controls.LanguageCombobox;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
-import org.sola.clients.swing.desktop.administrative.BaUnitSearchPanel;
+import org.sola.clients.swing.desktop.administrative.BaUnitSearchForm;
 import org.sola.clients.swing.desktop.administrative.RightsExportForm;
 import org.sola.clients.swing.desktop.application.ApplicationFormPanel;
 import org.sola.clients.swing.desktop.application.ApplicationPanel;
@@ -82,7 +81,7 @@ public class MainForm extends javax.swing.JFrame {
     private ApplicationSearchPanel searchApplicationPanel;
     private DocumentSearchForm searchDocPanel;
     private PartySearchPanelForm searchPartyPanel;
-    private BaUnitSearchPanel searchBaUnitPanel;
+    private BaUnitSearchForm searchBaUnitPanel;
     
     // Create a variable holding the listener
     KeyAdapter keyAdapterAppSearch = new KeyAdapter() {
@@ -138,11 +137,11 @@ public class MainForm extends javax.swing.JFrame {
         this.searchApplicationPanel = searchApplicationPanel;
     }
 
-    public BaUnitSearchPanel getSearchBaUnitPanel() {
+    public BaUnitSearchForm getSearchBaUnitPanel() {
         return searchBaUnitPanel;
     }
 
-    public void setSearchBaUnitPanel(BaUnitSearchPanel searchBaUnitPanel) {
+    public void setSearchBaUnitPanel(BaUnitSearchForm searchBaUnitPanel) {
         this.searchBaUnitPanel = searchBaUnitPanel;
     }
 
@@ -278,23 +277,6 @@ public class MainForm extends javax.swing.JFrame {
         TaskManager.getInstance().runTask(t);
     }
 
-    private void openMapPublicDisplay() {
-        SolaTask t = new SolaTask<Void, Void>() {
-
-            @Override
-            public Void doTask() {
-                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_MAP));
-                if (!pnlContent.isPanelOpened(MapPublicDisplayPanel.PANEL_NAME)) {
-                    MapPublicDisplayPanel mapPanel = new MapPublicDisplayPanel();
-                    pnlContent.addPanel(mapPanel, MapPublicDisplayPanel.PANEL_NAME);
-                }
-                pnlContent.showPanel(MapPublicDisplayPanel.PANEL_NAME);
-                return null;
-            }
-        };
-        TaskManager.getInstance().runTask(t);
-    }
-
     private void searchApplications() {
         SolaTask t = new SolaTask<Void, Void>() {
 
@@ -329,7 +311,7 @@ public class MainForm extends javax.swing.JFrame {
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTYSEARCH));
                 if (!pnlContent.isPanelOpened(MainContentPanel.CARD_BAUNIT_SEARCH)) {
-                    BaUnitSearchPanel baUnitSearchPanel = new BaUnitSearchPanel();
+                    BaUnitSearchForm baUnitSearchPanel = new BaUnitSearchForm();
                     setSearchBaUnitPanel(baUnitSearchPanel);
                     pnlContent.addPanel(baUnitSearchPanel, MainContentPanel.CARD_BAUNIT_SEARCH);
                 }
@@ -433,7 +415,7 @@ public class MainForm extends javax.swing.JFrame {
         panel.clickFind();
     }
 
-    public void launchBaUnitSearchMethod(BaUnitSearchPanel panel) {
+    public void launchBaUnitSearchMethod(BaUnitSearchForm panel) {
         panel.clickFind();
     }
 
@@ -644,16 +626,6 @@ public class MainForm extends javax.swing.JFrame {
         menuShowMap = new javax.swing.JMenuItem();
         menuReportsDesktop = new javax.swing.JMenu();
         menuLodgementReport = new javax.swing.JMenuItem();
-        menuSystematic = new javax.swing.JMenu();
-        menuPublicDisplay = new javax.swing.JMenu();
-        menuPublicNotification = new javax.swing.JMenuItem();
-        menuOwnerName = new javax.swing.JMenuItem();
-        menuStateLand = new javax.swing.JMenuItem();
-        menuItemMapPublicDisplay = new javax.swing.JMenuItem();
-        menuCertificates = new javax.swing.JMenuItem();
-        menuReports = new javax.swing.JMenu();
-        menuStatus = new javax.swing.JMenuItem();
-        menuProgress = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         jmiContextHelp = new javax.swing.JMenuItem();
@@ -970,74 +942,6 @@ public class MainForm extends javax.swing.JFrame {
 
         menuBar.add(menuReportsDesktop);
 
-        menuSystematic.setText(bundle.getString("MainForm.menuSystematic.text")); // NOI18N
-
-        menuPublicDisplay.setText(bundle.getString("MainForm.menuPublicDisplay.text")); // NOI18N
-
-        menuPublicNotification.setText(bundle.getString("MainForm.menuPublicNotification.text")); // NOI18N
-        menuPublicNotification.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuPublicNotificationActionPerformed(evt);
-            }
-        });
-        menuPublicDisplay.add(menuPublicNotification);
-
-        menuOwnerName.setText(bundle.getString("MainForm.menuOwnerName.text")); // NOI18N
-        menuOwnerName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuOwnerNameActionPerformed(evt);
-            }
-        });
-        menuPublicDisplay.add(menuOwnerName);
-
-        menuStateLand.setText(bundle.getString("MainForm.menuStateLand.text")); // NOI18N
-        menuStateLand.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuStateLandActionPerformed(evt);
-            }
-        });
-        menuPublicDisplay.add(menuStateLand);
-
-        menuSystematic.add(menuPublicDisplay);
-
-        menuItemMapPublicDisplay.setText(bundle.getString("MainForm.menuItemMapPublicDisplay.text")); // NOI18N
-        menuItemMapPublicDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemMapPublicDisplayActionPerformed(evt);
-            }
-        });
-        menuSystematic.add(menuItemMapPublicDisplay);
-
-        menuCertificates.setText(bundle.getString("MainForm.menuCertificates.text")); // NOI18N
-        menuCertificates.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuCertificatesActionPerformed(evt);
-            }
-        });
-        menuSystematic.add(menuCertificates);
-
-        menuReports.setText(bundle.getString("MainForm.menuReports.text")); // NOI18N
-
-        menuStatus.setText(bundle.getString("MainForm.menuStatus.text")); // NOI18N
-        menuStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuStatusActionPerformed(evt);
-            }
-        });
-        menuReports.add(menuStatus);
-
-        menuProgress.setText(bundle.getString("MainForm.menuProgress.text")); // NOI18N
-        menuProgress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuProgressActionPerformed(evt);
-            }
-        });
-        menuReports.add(menuProgress);
-
-        menuSystematic.add(menuReports);
-
-        menuBar.add(menuSystematic);
-
         helpMenu.setText(bundle.getString("MainForm.helpMenu.text")); // NOI18N
 
         aboutMenuItem.setText(bundle.getString("MainForm.aboutMenuItem.text")); // NOI18N
@@ -1158,29 +1062,6 @@ public class MainForm extends javax.swing.JFrame {
         reportDateChooser.setVisible(true);
     }
 
-    private void openSysRegListingParamsForm(String report) {
-        SysRegListingParamsForm reportDateChooser = new SysRegListingParamsForm(this, true, report);
-        reportDateChooser.setVisible(true);
-    }
-
-    private void openSysRegCertificatesParamsForm() {
-        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true);
-        certificateGenerator.setVisible(true);
-    }
-
-    private void openSysRegManagementParamsForm(String whichReport) {
-        SysRegManagementParamsForm managementGenerator = new SysRegManagementParamsForm(this, true, whichReport);
-        managementGenerator.setVisible(true);
-    }
-
-    /**
-     * Opens {@link ReportViewerForm} to display report.
-     */
-    private void showReport(JasperPrint report) {
-        ReportViewerForm form = new ReportViewerForm(report);
-        form.setVisible(true);
-    }
-
     private void menuLodgementReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLodgementReportActionPerformed
         openLodgementReportParamsForm();
     }//GEN-LAST:event_menuLodgementReportActionPerformed
@@ -1193,37 +1074,9 @@ public class MainForm extends javax.swing.JFrame {
         editPassword();
     }//GEN-LAST:event_btnSetPasswordActionPerformed
 
-    private void menuPublicNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPublicNotificationActionPerformed
-        openSysRegListingParamsForm("ParcelNumber");
-    }//GEN-LAST:event_menuPublicNotificationActionPerformed
-
-    private void menuOwnerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOwnerNameActionPerformed
-        openSysRegListingParamsForm("Owners");
-    }//GEN-LAST:event_menuOwnerNameActionPerformed
-
-    private void menuStateLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStateLandActionPerformed
-        openSysRegListingParamsForm("StateLand");
-    }//GEN-LAST:event_menuStateLandActionPerformed
-
-    private void menuCertificatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCertificatesActionPerformed
-        openSysRegCertificatesParamsForm();
-    }//GEN-LAST:event_menuCertificatesActionPerformed
-
-    private void menuItemMapPublicDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMapPublicDisplayActionPerformed
-        openMapPublicDisplay();
-    }//GEN-LAST:event_menuItemMapPublicDisplayActionPerformed
-
-    private void menuStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStatusActionPerformed
-        openSysRegManagementParamsForm("sysRegStatusBean");
-    }//GEN-LAST:event_menuStatusActionPerformed
-
     private void menuExportRightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportRightsActionPerformed
         showRightsExportPanel();
     }//GEN-LAST:event_menuExportRightsActionPerformed
-
-    private void menuProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProgressActionPerformed
-        openSysRegManagementParamsForm("sysRegProgressBean");
-    }//GEN-LAST:event_menuProgressActionPerformed
 
     private void btnAppFormsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppFormsActionPerformed
         openBlankForm();
@@ -1274,11 +1127,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuApplications;
     private javax.swing.JMenuItem menuBaUnitSearch;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem menuCertificates;
     private javax.swing.JMenuItem menuDefaultLogLevel;
     private javax.swing.JMenuItem menuDocumentSearch;
     private javax.swing.JMenuItem menuExportRights;
-    private javax.swing.JMenuItem menuItemMapPublicDisplay;
     private javax.swing.JMenuItem menuLangEN;
     private javax.swing.JMenuItem menuLangIT;
     private javax.swing.JMenu menuLanguage;
@@ -1287,19 +1138,11 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuMap;
     private javax.swing.JMenuItem menuNewApplication;
     private javax.swing.JMenuItem menuOffLogLevel;
-    private javax.swing.JMenuItem menuOwnerName;
     private javax.swing.JMenuItem menuPersons;
-    private javax.swing.JMenuItem menuProgress;
-    private javax.swing.JMenu menuPublicDisplay;
-    private javax.swing.JMenuItem menuPublicNotification;
-    private javax.swing.JMenu menuReports;
     private javax.swing.JMenu menuReportsDesktop;
     private javax.swing.JMenu menuSearch;
     private javax.swing.JMenuItem menuSearchApplication;
     private javax.swing.JMenuItem menuShowMap;
-    private javax.swing.JMenuItem menuStateLand;
-    private javax.swing.JMenuItem menuStatus;
-    private javax.swing.JMenu menuSystematic;
     private javax.swing.JMenu menuView;
     private org.sola.clients.swing.ui.MainContentPanel pnlContent;
     private javax.swing.JPanel statusPanel;

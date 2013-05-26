@@ -34,7 +34,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.sola.clients.beans.AbstractIdBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
-import org.sola.webservices.transferobjects.casemanagement.ApplicationPropertyTO;
 
 /**
  * Represents application property object. Could be populated from the
