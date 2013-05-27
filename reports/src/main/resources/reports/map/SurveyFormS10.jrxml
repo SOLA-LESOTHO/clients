@@ -2,7 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SurveyFormS10" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="OWNER" class="java.lang.String"/>
 	<parameter name="CADASTRAL_PLAN_PLOT_NUMBER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
@@ -121,7 +122,7 @@
 				<text><![CDATA[SURVEY FEES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="135" width="89" height="20"/>
+				<reportElement x="14" y="188" width="89" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -247,7 +248,7 @@
 				<textFieldExpression><![CDATA[$F{surveyFee}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="117" y="135" width="419" height="91"/>
+				<reportElement x="117" y="188" width="419" height="38"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -260,6 +261,20 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyor}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="14" y="114" width="203" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OWNER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="134" width="203" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLOT LOCATION]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>

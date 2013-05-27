@@ -13,13 +13,11 @@
                     <MaxScaleDenominator>50000</MaxScaleDenominator>
                     <PolygonSymbolizer>
                         <Stroke>
-                            <CssParameter name="stroke">#ABA994</CssParameter>
+                            <CssParameter name="stroke">#ABABBA</CssParameter>
                             <CssParameter name="stroke-width">0.2</CssParameter>
                             <CssParameter name="stroke-dasharray">5 5 5 5</CssParameter>
                         </Stroke>
-                        <fill>
-                            <CssParameter name="fill">#FFFFFF</CssParameter>
-                        </fill>
+
                     </PolygonSymbolizer>
                     <TextSymbolizer>
                         <Label>
@@ -40,7 +38,7 @@
                             </PointPlacement>
                         </LabelPlacement>
                         <Fill>
-                            <CssParameter name="fill">#605F54</CssParameter>
+                            <CssParameter name="fill">#605F54</CssParameter>                            
                         </Fill>
                         <Halo>
                             <Radius>0.2</Radius>
@@ -55,11 +53,8 @@
                     <MinScaleDenominator>50000</MinScaleDenominator>
                     <MaxScaleDenominator>625000</MaxScaleDenominator>
                     <PolygonSymbolizer>
-                        <Fill>
-                            <CssParameter name="fill">#FFFFFF</CssParameter>
-                        </Fill>
                         <Stroke>
-                            <CssParameter name="stroke">#ABA994</CssParameter>
+                            <CssParameter name="stroke">#CCCCCC</CssParameter>
                             <CssParameter name="stroke-width">0.2</CssParameter>
                             <CssParameter name="stroke-dasharray">5 5 5 5</CssParameter>
                         </Stroke>
