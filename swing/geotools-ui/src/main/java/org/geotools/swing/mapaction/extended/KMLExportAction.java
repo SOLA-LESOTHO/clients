@@ -30,6 +30,7 @@
 package org.geotools.swing.mapaction.extended;
 
 import com.vividsolutions.jts.geom.Geometry;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -40,6 +41,7 @@ import org.geotools.geometry.jts.JTS;
 import org.geotools.kml.KML;
 import org.geotools.kml.KMLConfiguration;
 import org.geotools.referencing.CRS;
+import org.geotools.referencing.operation.transform.AffineTransform2D;
 import org.geotools.swing.extended.Map;
 import org.geotools.swing.extended.util.Messaging;
 import org.geotools.xml.Encoder;
@@ -98,6 +100,12 @@ public class KMLExportAction extends ExtendedAction {
                 CoordinateReferenceSystem mapCRS = mapControl.getMapContent().getCoordinateReferenceSystem();
                 CoordinateReferenceSystem googleCRS = CRS.decode("EPSG:4326");
                 MathTransform transform = CRS.findMathTransform(mapCRS, googleCRS, true);
+                
+                // Lesotho Extension
+                // The Lesotho geometries need to be scaled before being transfromed to Lat Long
+                // due to the south orientation of the coorinates. 
+                AffineTransform affineTransform = AffineTransform.getScaleInstance(-1, -1);
+                MathTransform scaleTransfom = new AffineTransform2D(affineTransform);
 
                 // Loop through each selected feature and transform the coordinates to lat long
                 GraphicsFeatureCollection newFeatures = new GraphicsFeatureCollection(Geometries.GEOMETRY);
@@ -107,7 +115,9 @@ public class KMLExportAction extends ExtendedAction {
                     while (iterator.hasNext()) {
                         SimpleFeature feature = iterator.next();
                         Geometry geom = (Geometry) feature.getDefaultGeometry();
-                        Geometry transformedGeom = JTS.transform(geom, transform);
+                        // Lesotho Extension - apply the scaling transform first
+                        Geometry scaledGeom = JTS.transform(geom, scaleTransfom);
+                        Geometry transformedGeom = JTS.transform(scaledGeom, transform);
                         newFeatures.addFeature(x.toString(), transformedGeom, null);
                         x++;
                     }
