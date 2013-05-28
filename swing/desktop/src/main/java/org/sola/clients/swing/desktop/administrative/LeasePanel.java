@@ -34,6 +34,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JOptionPane;
 import javax.validation.groups.Default;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.geotools.map.extended.layer.ExtendedLayer;
 import org.geotools.swing.extended.exception.InitializeMapException;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.LeaseConditionForRrrBean;
@@ -53,14 +54,12 @@ import org.sola.clients.swing.desktop.ReportViewerForm;
 import org.sola.clients.swing.desktop.party.PartyPanelForm;
 import org.sola.clients.swing.desktop.party.PartySearchPanelForm;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
-import org.sola.clients.swing.gis.data.PojoDataAccess;
 import org.sola.clients.swing.gis.ui.control.MapFeatureImageGenerator;
 import org.sola.clients.swing.gis.ui.controlsbundle.ControlsBundleForBaUnit;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.reports.FreeTextDialog;
-import org.sola.common.NumberUtility;
 import org.sola.common.WindowUtility;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
@@ -430,17 +429,27 @@ public class LeasePanel extends ContentPanel {
         String result = null;
         if (baUnit.getCadastreObject() != null && mapControl != null && mapControl.getMap() != null) {
             try {
-                // Remove any temporary objects from the map
+                // Remove any temporary objects from the map and turn off any layers
+                // that should not be displayed on the Location diagram such as the parcel nodes layer
+                // and the grid layer
                 mapControl.setCadastreObject(null);
+                ExtendedLayer nodesLayer = mapControl.getMap().getSolaLayers().get("parcel-nodes");
+                if (nodesLayer != null) {
+                    nodesLayer.setVisible(false);
+                }
+                ExtendedLayer gridLayer = mapControl.getMap().getSolaLayers().get("grid");
+                if (gridLayer != null) {
+                    gridLayer.setVisible(false);
+                }
 
                 MapFeatureImageGenerator generator = new MapFeatureImageGenerator(mapControl.getMap());
 
                 String parcelLabel = baUnit.getCadastreObject().toString();
-                String areaLabel = NumberUtility.formatAreaMetric(baUnit.getCadastreObject().getOfficialAreaSize());
+                //String areaLabel = NumberUtility.formatAreaMetric(baUnit.getCadastreObject().getOfficialAreaSize());
 
                 result = generator.getFeatureImage(
                         baUnit.getCadastreObject().getGeomPolygon(),
-                        parcelLabel, areaLabel,
+                        parcelLabel, null,
                         MapFeatureImageGenerator.IMAGE_FORMAT_PNG);
 
             } catch (InitializeMapException mapEx) {
