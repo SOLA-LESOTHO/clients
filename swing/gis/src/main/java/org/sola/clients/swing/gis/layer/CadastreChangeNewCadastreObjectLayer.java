@@ -80,7 +80,7 @@ public class CadastreChangeNewCadastreObjectLayer
             throws InitializeLayerException {
         super(LAYER_NAME, Geometries.POLYGON,
                 LAYER_STYLE_RESOURCE, LAYER_ATTRIBUTE_DEFINITION, CadastreObjectBean.class);
-        this.lastPart = applicationNumber;
+        this.lastPart = "tmp";
         this.listBean = new CadastreObjectListBean();
         //This is called after the listBean is initialized
         initializeListBeanEvents();
@@ -171,7 +171,7 @@ public class CadastreChangeNewCadastreObjectLayer
      *
      * @return A unique number
      */
-    protected String getNameFirstPart() {
+    public String getNameFirstPart() {
         if (this.firstPartGenerator == null) {
             this.firstPartGenerator = 0;
             for (CadastreObjectBean bean : this.getBeanList()) {
@@ -187,5 +187,9 @@ public class CadastreChangeNewCadastreObjectLayer
         }
         this.firstPartGenerator++;
         return this.firstPartGenerator.toString();
+    }
+
+    public String getLastPart() {
+        return lastPart;
     }
 }

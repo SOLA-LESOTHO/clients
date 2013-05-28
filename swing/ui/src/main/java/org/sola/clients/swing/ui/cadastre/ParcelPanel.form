@@ -142,6 +142,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtFirstPart">
               <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="txtFirstPart" noResource="true"/>
               </Properties>
               <BindingProperties>
@@ -194,6 +195,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtLastPart">
               <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="txtLastPart" noResource="true"/>
               </Properties>
               <BindingProperties>
@@ -227,7 +229,7 @@
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cbxEstateType" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -511,7 +513,7 @@
             <Component class="javax.swing.JFormattedTextField" name="txtSurveyFee">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="BigDecimalMoneyConverter.getEditFormatterFactory()" type="code"/>
+                  <Connection code="FormattersFactory.getInstance().getDecimalFormatterFactory()" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/ui/cadastre/Bundle.properties" key="ParcelPanel.txtSurveyFee.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
@@ -549,7 +551,7 @@
                       <Component id="labLandUse" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cbxLandUse" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -619,7 +621,7 @@
             <Component class="javax.swing.JFormattedTextField" name="txtValuationAmount">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="BigDecimalMoneyConverter.getEditFormatterFactory()" type="code"/>
+                  <Connection code="FormattersFactory.getInstance().getDecimalFormatterFactory()" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/ui/cadastre/Bundle.properties" key="ParcelPanel.txtValuationAmount.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>

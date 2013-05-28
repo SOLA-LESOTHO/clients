@@ -39,7 +39,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Locale;
 import javax.swing.JTextField;
 import org.sola.clients.beans.administrative.DisputeBean;
-import org.sola.clients.swing.desktop.cadastre.CreateParcelDialog;
+import org.sola.clients.swing.ui.cadastre.ParcelDialog;
 import org.sola.clients.swing.desktop.cadastre.SearchParcelDialog;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.party.PartyBean;
@@ -154,13 +154,13 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void AddPlot() {
-        CreateParcelDialog form = new CreateParcelDialog(null, null, true);
+        ParcelDialog form = new ParcelDialog(null, true, null, true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(CreateParcelDialog.SELECTED_PARCEL)) {
+                if (evt.getPropertyName().equals(ParcelDialog.SELECTED_PARCEL)) {
                     //cadastreObjectBean1.addAddress((AddressBean) evt.getNewValue());
                 }
             }

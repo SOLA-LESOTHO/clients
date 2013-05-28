@@ -183,8 +183,10 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     public void setLandUseType(LandUseTypeBean landUseType) {
         if(this.landUseType==null){
             this.landUseType = new LandUseTypeBean();
+        }else{
+            this.landUseType = landUseType;
         }
-        this.setJointRefDataBean(this.landUseType, landUseType, LAND_USE_TYPE_PROPERTY);
+        propertySupport.firePropertyChange(LAND_USE_TYPE_PROPERTY, null, this.landUseType);
     }
 
     public String getRemarks() {

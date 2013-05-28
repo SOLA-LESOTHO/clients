@@ -63,7 +63,7 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
     private String lastPartEntry = "";
     private CadastreChangeSelectCadastreObjectTool selectTargetCadastreObjectTool;
     private CadastreChangeNewCadastreObjectTool newCadastreObjectTool;
-    private String lastPartTemplate = "SP %s";
+    private String lastPartTemplate = "%s";
 
     /**
      * Constructor. It sets up the bundle by adding layers and tools that are relevant. Finally, it
@@ -83,7 +83,7 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
             String baUnitId,
             String targetCadastreObjectType) {
         super(applicationBean, transactionStarterId);
-        this.lastPartEntry = applicationBean.getNr();
+        this.lastPartEntry = "tmp";//applicationBean.getNr();
         this.Setup(PojoDataAccess.getInstance());
         this.setTargetCadastreObjectTypeConfiguration(targetCadastreObjectType);
         this.refreshTransactionFromServer();

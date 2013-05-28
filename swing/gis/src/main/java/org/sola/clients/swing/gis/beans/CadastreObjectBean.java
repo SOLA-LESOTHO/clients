@@ -30,10 +30,22 @@ package org.sola.clients.swing.gis.beans;
 
 import com.vividsolutions.jts.geom.Geometry;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.UUID;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.geotools.swing.extended.util.GeometryUtility;
+import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.beans.address.AddressBean;
+import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.cadastre.SpatialValueAreaBean;
+import org.sola.clients.beans.controls.SolaList;
+import org.sola.clients.beans.referencedata.CadastreObjectTypeBean;
+import org.sola.clients.beans.referencedata.LandGradeTypeBean;
+import org.sola.clients.beans.referencedata.LandUseTypeBean;
+import org.sola.clients.beans.validation.Localized;
+import org.sola.common.messaging.ClientMessage;
+import org.sola.webservices.transferobjects.EntityAction;
 
 /**
  * Defines a cadastre object bean.
@@ -43,20 +55,56 @@ import org.geotools.swing.extended.util.GeometryUtility;
 public class CadastreObjectBean extends SpatialBean {
     
     public static String NAME_FIRST_PART_PROPERTY = "nameFirstpart";
+    public static final String ADDRESS_LIST_PROPERTY = "addressList";
+    public static final String SELECTED_ADDRESS_PROPERTY = "selectedAddress";
+    public static final String OFFICIAL_AREA_SIZE_PROPERTY = "officialAreaSize";
+    public static final String NAME_LAST_PART_PROPERTY = "nameLastpart";
+    public static final String TYPE_CODE_PROPERTY = "typeCode";
+    public static final String APPROVAL_DATETIME_PROPERTY = "approvalDatetime";
+    public static final String HISTORIC_DATETIME_PROPERTY = "historicDatetime";
+    public static final String SOURCE_REFERENCE_PROPERTY = "sourceReference";
+    public static final String NAME_FIRSTPART_PROPERTY = "nameFirstpart";
+    public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
+    public static final String CADASTRE_OBJECT_TYPE_PROPERTY = "cadastreObjectType";
+    public static final String LAND_USE_TYPE_PROPERTY = "landUseType";
+    public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
+    public static final String VALUATION_AMOUNT_PROPERTY = "valuationAmount";
+    public static final String SURVEYOR_PROPERTY = "surveyor";
+    public static final String SURVEY_DATE_PROPERTY = "surveyDate";
+    public static final String REMARKS_PROPERTY = "remarks";
+    public static final String SURVEY_FEE_PROPERTY = "surveyFee";
+    public static final String LAND_GRADE_TYPE_PROPERTY = "landGradeType";
+    public static final String LAND_GRADE_CODE_PROPERTY = "landGradeCode";
+    public static final String VALUATION_ZONE_PROPERTY = "valuationZone";
     
     private String id;
-    private String nameFirstpart = "";
-    private String nameLastpart = "";
-    private String typeCode = "parcel";
     private byte[] geomPolygon;
-    private List<SpatialValueAreaBean> spatialValueAreaList = new ArrayList<SpatialValueAreaBean>();
-
+    private SolaList<SpatialValueAreaBean> spatialValueAreaList;
+    private SolaList<AddressBean> addressList;
+    private transient AddressBean selectedAddress;
+    private Date approvalDatetime;
+    private Date historicDatetime;
+    private String sourceReference;
+    private BigDecimal valuationAmount;
+    private String nameFirstpart;
+    private String nameLastpart;
+    private CadastreObjectTypeBean cadastreObjectType;
+    private Date surveyDate;
+    private String surveyor;
+    private String remarks;
+    private LandUseTypeBean landUseType;
+    private LandGradeTypeBean landGradeType;
+    private BigDecimal surveyFee;
+    private String valuationZone;
+    
     /**
      * Creates a cadastre object bean
      */
     public CadastreObjectBean(){
         super();
         generateId();
+        addressList = new SolaList<AddressBean>();
+        spatialValueAreaList = new SolaList<SpatialValueAreaBean>();
     }
 
     /** 
@@ -93,7 +141,7 @@ public class CadastreObjectBean extends SpatialBean {
     public void setNameFirstpart(String nameFirstpart) {
         String oldValue = this.nameFirstpart;
         this.nameFirstpart = nameFirstpart;
-        propertySupport.firePropertyChange(NAME_FIRST_PART_PROPERTY, oldValue, nameFirstpart);
+        propertySupport.firePropertyChange(NAME_FIRST_PART_PROPERTY, oldValue, this.nameFirstpart);
     }
 
     public String getNameLastpart() {
@@ -101,7 +149,9 @@ public class CadastreObjectBean extends SpatialBean {
     }
 
     public void setNameLastpart(String nameLastpart) {
+        String oldValue = this.nameLastpart;
         this.nameLastpart = nameLastpart;
+        propertySupport.firePropertyChange(NAME_LAST_PART_PROPERTY, oldValue, this.nameLastpart);
     }
 
     public byte[] getGeomPolygon() {
@@ -121,102 +171,299 @@ public class CadastreObjectBean extends SpatialBean {
         }
     }
    
-    public List<SpatialValueAreaBean> getSpatialValueAreaList() {
+    /** Looks for officialArea code in the list of areas. */
+    @NotNull(message=ClientMessage.CHECK_NOTNULL_AREA, payload=Localized.class)
+    public BigDecimal getOfficialAreaSize(){
+        if(getSpatialValueAreaFiletredList()==null || getSpatialValueAreaFiletredList().size() < 1){
+            return null;
+        }
+        for(SpatialValueAreaBean areaBean : getSpatialValueAreaFiletredList()){
+            if(areaBean.getTypeCode()!=null && areaBean.getTypeCode().equals(SpatialValueAreaBean.CODE_OFFICIAL_AREA)){
+                return areaBean.getSize();
+            }
+        }
+        return null;
+    }
+
+    /** Sets officialArea code. */
+    public void setOfficialAreaSize(BigDecimal area){
+        for(SpatialValueAreaBean areaBean : getSpatialValueAreaFiletredList()){
+            if(areaBean.getTypeCode()!=null && areaBean.getTypeCode().equals(SpatialValueAreaBean.CODE_OFFICIAL_AREA)){
+                // Delete area if provided value is null
+                if(area == null){
+                    areaBean.setEntityAction(EntityAction.DELETE);
+                } else {
+                    areaBean.setSize(area);
+                }
+                propertySupport.firePropertyChange(OFFICIAL_AREA_SIZE_PROPERTY, null, area);
+                return;
+            }
+        }
+        
+        // Official area not found, add new if provided area not null
+        if(area!=null){
+            SpatialValueAreaBean areaBean = new SpatialValueAreaBean();
+            areaBean.setSize(area);
+            areaBean.setTypeCode(SpatialValueAreaBean.CODE_OFFICIAL_AREA);
+            areaBean.setSpatialUnitId(this.getId());
+            getSpatialValueAreaList().addAsNew(areaBean);
+        }
+        propertySupport.firePropertyChange(OFFICIAL_AREA_SIZE_PROPERTY, null, area);
+    }
+    
+    /** Synonym method for <code>getOfficialAreaSize()</code> */
+    public BigDecimal getOfficialArea(){
+        return getOfficialAreaSize();
+    }
+    
+    /** Synonym method for <code>setOfficialAreaSize(BigDecimal area)</code> */
+    public void setOfficialArea(BigDecimal area){
+        setOfficialAreaSize(area);
+    }
+    
+    /** Returns calculated area based on feature geometry. </code> */
+    public BigDecimal getCalculatedArea(){
+        return new BigDecimal(getFeatureGeom().getArea());
+    }
+    
+    /** Synonym method for <code>setOfficialAreaSize(BigDecimal area)</code> */
+    public void setCalculatedArea(BigDecimal area){
+        setOfficialAreaSize(area);
+    }
+        
+    @Valid
+    public ObservableList<AddressBean> getAddressFilteredList() {
+        return addressList.getFilteredList();
+    }
+    
+    public SolaList<AddressBean> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(SolaList<AddressBean> addressList) {
+        this.addressList = addressList;
+    }
+
+    /** Returns merged string of addresses. */
+    public String getAddressString(){
+        String address = "";
+        if(getAddressFilteredList()!=null){
+            for (AddressBean addressBean : getAddressFilteredList()){
+                if(addressBean.getDescription()!=null && !addressBean.getDescription().isEmpty()){
+                    if(address.isEmpty()){
+                        address = addressBean.getDescription();
+                    } else {
+                        address = address + "; " + addressBean.getDescription();
+                    }
+                }
+            }
+        }
+        return address;
+    }
+    
+    public AddressBean getSelectedAddress() {
+        return selectedAddress;
+    }
+
+    public void setSelectedAddress(AddressBean selectedAddress) {
+        AddressBean oldValue = this.selectedAddress;
+        this.selectedAddress = selectedAddress;
+        propertySupport.firePropertyChange(SELECTED_ADDRESS_PROPERTY, oldValue, this.selectedAddress);
+    }
+
+    public SolaList<SpatialValueAreaBean> getSpatialValueAreaList() {
         return spatialValueAreaList;
     }
 
-    public void setSpatialValueAreaList(List<SpatialValueAreaBean> spatialValueAreaList) {
+    @Valid
+    public ObservableList<SpatialValueAreaBean> getSpatialValueAreaFiletredList() {
+        return spatialValueAreaList.getFilteredList();
+    }
+    
+    public void setSpatialValueAreaList(SolaList<SpatialValueAreaBean> spatialValueAreaList) {
         this.spatialValueAreaList = spatialValueAreaList;
     }
 
+    public Date getApprovalDatetime() {
+        return approvalDatetime;
+    }
+
+    public void setApprovalDatetime(Date approvalDatetime) {
+        Date oldValue = approvalDatetime;
+        this.approvalDatetime = approvalDatetime;
+        propertySupport.firePropertyChange(APPROVAL_DATETIME_PROPERTY,
+                oldValue, approvalDatetime);
+    }
+
+    public Date getHistoricDatetime() {
+        return historicDatetime;
+    }
+
+    public void setHistoricDatetime(Date historicDatetime) {
+        Date oldValue = historicDatetime;
+        this.historicDatetime = historicDatetime;
+        propertySupport.firePropertyChange(HISTORIC_DATETIME_PROPERTY,
+                oldValue, historicDatetime);
+    }
+    
+    public String getSourceReference() {
+        return sourceReference;
+    }
+
+    public void setSourceReference(String sourceReference) {
+        String oldValue = sourceReference;
+        this.sourceReference = sourceReference;
+        propertySupport.firePropertyChange(SOURCE_REFERENCE_PROPERTY,
+                oldValue, sourceReference);
+    }
+
     public String getTypeCode() {
-        return typeCode;
+        if (cadastreObjectType != null) {
+            return cadastreObjectType.getCode();
+        } else {
+            return null;
+        }
     }
 
     public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
-    }
-
-    /**
-     * Gets the calculated area of the cadastre object. The calculated area is the 
-     * area value found in the {@see SpatialValueAreaBean.TYPE_CALCULATED} of the
-     * {@see spatialValueAreaList} property.
-     * 
-     * @return 
-     */
-    public Double getCalculatedArea() {
-        for(SpatialValueAreaBean valueAreaBean: this.getSpatialValueAreaList()){
-            if (valueAreaBean.getTypeCode().equals(SpatialValueAreaBean.TYPE_OFFICIAL)){
-                return valueAreaBean.getSize().doubleValue();
-            }
+        String oldValue = null;
+        if (cadastreObjectType != null) {
+            oldValue = cadastreObjectType.getCode();
         }
-        return null;
+        setCadastreObjectType(CacheManager.getBeanByCode(
+                CacheManager.getCadastreObjectTypes(), typeCode));
+        propertySupport.firePropertyChange(TYPE_CODE_PROPERTY, oldValue, typeCode);
     }
-
-    /**
-     * Sets the calculated area of the cadastre object. The calculated area is set in the 
-     * {@see SpatialValueAreaBean} of type {@see SpatialValueAreaBean.TYPE_CALCULATED} found
-     * in the {@see spatialValueAreaList} property.
-     * 
-     * @param calculatedArea 
-     */
-    public void setCalculatedArea(Double calculatedArea) {
-        this.setArea(calculatedArea, SpatialValueAreaBean.TYPE_CALCULATED);
-    }
-
-    /**
-     * Gets the official area of the cadastre object. The official area is the 
-     * area value found in the {@see SpatialValueAreaBean.TYPE_OFFICIAL} of the
-     * {@see spatialValueAreaList} property.
-     * 
-     * @return 
-     */
-    public Double getOfficialArea() {
-        for(SpatialValueAreaBean valueAreaBean: this.getSpatialValueAreaList()){
-            if (valueAreaBean.getTypeCode().equals(SpatialValueAreaBean.TYPE_OFFICIAL)){
-                return valueAreaBean.getSize().doubleValue();
-            }
+    public String getLandUseCode() {
+        if (landUseType != null) {
+            return landUseType.getCode();
+        } else {
+            return null;
         }
-        return null;
     }
 
-    /**
-     * Sets the official area of the cadastre object. The official area is set in the 
-     * {@see SpatialValueAreaBean} of type {@see SpatialValueAreaBean.TYPE_OFFICIAL} found
-     * in the {@see spatialValueAreaList} property.
-     * 
-     * @param officialArea 
-     */
-    public void setOfficialArea(Double officialArea) {
-        this.setArea(officialArea, SpatialValueAreaBean.TYPE_OFFICIAL);
+    public void setLandUseCode(String landUseCode) {
+        String oldValue = null;
+        if (landUseType != null) {
+            oldValue = landUseType.getCode();
+        }
+        setLandUseType(CacheManager.getBeanByCode(
+                CacheManager.getLandUseTypes(), landUseCode));
+        propertySupport.firePropertyChange(LAND_USE_CODE_PROPERTY, oldValue, landUseCode);
     }
 
-    /**
-     * It sets the area for the cadastre object. The area is stored in the SpatialValueAreaBeans
-     * attached to this bean. So for changing the area, first it is located the appropriate
-     * SpatialValueAreaBean. if not found it is added one.
-     * 
-     * @param areaSize The size
-     * @param areaType The area type
-     */
-    private void setArea(Double areaSize, String areaType) {
-        SpatialValueAreaBean valueAreaBeanFound = null;
-        for(SpatialValueAreaBean valueAreaBean: this.getSpatialValueAreaList()){
-            if (valueAreaBean.getTypeCode().equals(areaType)){
-                valueAreaBeanFound = valueAreaBean;
-                break;
-            }
+    public CadastreObjectTypeBean getCadastreObjectType() {
+        return cadastreObjectType;
+    }
+
+    public void setCadastreObjectType(CadastreObjectTypeBean cadastreObjectType) {
+        if(this.cadastreObjectType==null){
+            this.cadastreObjectType = new CadastreObjectTypeBean();
         }
-        if (valueAreaBeanFound == null){
-            valueAreaBeanFound = new SpatialValueAreaBean();
-            valueAreaBeanFound.setTypeCode(areaType);
-            this.getSpatialValueAreaList().add(valueAreaBeanFound);
+        this.setJointRefDataBean(this.cadastreObjectType, cadastreObjectType, CADASTRE_OBJECT_TYPE_PROPERTY);
+    }
+     public LandUseTypeBean getLandUseType() {
+        return landUseType;
+    }
+
+    public void setLandUseType(LandUseTypeBean landUseType) {
+        if(this.landUseType==null){
+            this.landUseType = new LandUseTypeBean();
         }
-        valueAreaBeanFound.setSize(BigDecimal.valueOf(areaSize));
+        this.setJointRefDataBean(this.landUseType, landUseType, LAND_USE_TYPE_PROPERTY);
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        String oldValue = this.remarks;
+        this.remarks = remarks;
+        propertySupport.firePropertyChange(REMARKS_PROPERTY, oldValue, this.remarks);
+    }
+
+    public Date getSurveyDate() {
+        return surveyDate;
+    }
+
+    public void setSurveyDate(Date surveyDate) {
+        Date oldValue = this.surveyDate;
+        this.surveyDate = surveyDate;
+        propertySupport.firePropertyChange(SURVEY_DATE_PROPERTY, oldValue, this.surveyDate);
+    }
+
+    public String getSurveyor() {
+        return surveyor;
+    }
+
+    public void setSurveyor(String surveyor) {
+        String oldValue = this.surveyor;
+        this.surveyor = surveyor;
+        propertySupport.firePropertyChange(SURVEYOR_PROPERTY, oldValue, this.surveyor);
+    }
+
+    public BigDecimal getValuationAmount() {
+        return valuationAmount;
+    }
+
+    public void setValuationAmount(BigDecimal valuationAmount) {
+        BigDecimal oldValue = this.valuationAmount;
+        this.valuationAmount = valuationAmount;
+        propertySupport.firePropertyChange(VALUATION_AMOUNT_PROPERTY, oldValue, this.valuationAmount);
+    }
+
+    public BigDecimal getSurveyFee() {
+        return surveyFee;
+    }
+
+    public void setSurveyFee(BigDecimal surveyFee) {
+        BigDecimal oldValue = this.surveyFee;
+        this.surveyFee = surveyFee;
+        propertySupport.firePropertyChange(SURVEY_FEE_PROPERTY, oldValue, this.surveyFee);
+    }
+    
+    public LandGradeTypeBean getLandGradeType() {
+        return landGradeType;
+    }
+
+    public void setLandGradeType(LandGradeTypeBean landGradeType) {
+        if (this.landGradeType == null) {
+            this.landGradeType = new LandGradeTypeBean();
+        }
+        this.setJointRefDataBean(this.landGradeType, landGradeType, LAND_GRADE_TYPE_PROPERTY);
+    }
+
+    public String getLandGradeCode() {
+        if (landGradeType != null) {
+            return landGradeType.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public void setLandGradeCode(String landGradeCode) {
+        String oldValue = null;
+        if (landGradeType != null) {
+            oldValue = landGradeType.getCode();
+        }
+        setLandGradeType(CacheManager.getBeanByCode(
+                CacheManager.getLandGradeTypes(), landGradeCode));
+        propertySupport.firePropertyChange(LAND_GRADE_CODE_PROPERTY, oldValue, landGradeCode);
+    }
+
+    public String getValuationZone() {
+        return valuationZone;
+    }
+
+    public void setValuationZone(String valuationZone) {
+        String oldValue = this.valuationZone;
+        this.valuationZone = valuationZone;
+        propertySupport.firePropertyChange(VALUATION_ZONE_PROPERTY, oldValue, this.valuationZone);
     }
     
     @Override
     public String toString() {
-        return String.format("%s / %s",this.nameFirstpart, this.nameLastpart);
+        return String.format("%s-%s",this.nameFirstpart, this.nameLastpart);
     }    
 }

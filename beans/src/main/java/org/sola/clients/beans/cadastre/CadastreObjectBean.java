@@ -111,7 +111,8 @@ public class CadastreObjectBean extends CadastreObjectSummaryBean {
                 } else {
                     areaBean.setSize(area);
                 }
-                break;
+                propertySupport.firePropertyChange(OFFICIAL_AREA_SIZE_PROPERTY, null, area);
+                return;
             }
         }
         

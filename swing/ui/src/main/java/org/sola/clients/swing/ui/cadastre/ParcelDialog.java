@@ -25,7 +25,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
-package org.sola.clients.swing.desktop.cadastre;
+package org.sola.clients.swing.ui.cadastre;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -39,21 +39,23 @@ import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 
 /** Dialog form to create new parcel or search existing one. */
-public class CreateParcelDialog extends javax.swing.JDialog {
+public class ParcelDialog extends javax.swing.JDialog {
 
     public final static String SELECTED_PARCEL = "selectedParcel";
     private CadastreObjectBean cadastreObject;
+    private boolean readOnly = false;
     
     private ParcelPanel createParcelPanel(){
-        return new ParcelPanel(cadastreObject, true);
+        return new ParcelPanel(cadastreObject, readOnly);
     }
             
     /** Form constructor. */
-    public CreateParcelDialog(CadastreObjectBean cadastreObject, java.awt.Frame parent, boolean modal) {
+    public ParcelDialog(CadastreObjectBean cadastreObject, boolean readOnly, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.readOnly = readOnly;
         this.cadastreObject = cadastreObject;
         initComponents();
-        this.setIconImage(new ImageIcon(CreateParcelDialog.class.getResource("/images/sola/logo_icon.jpg")).getImage());
+        this.setIconImage(new ImageIcon(ParcelDialog.class.getResource("/images/sola/logo_icon.jpg")).getImage());
     }
 
     @SuppressWarnings("unchecked")
@@ -65,19 +67,20 @@ public class CreateParcelDialog extends javax.swing.JDialog {
         btnCreate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
-        setTitle(bundle.getString("CreateParcelDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/cadastre/Bundle"); // NOI18N
+        setTitle(bundle.getString("ParcelDialog.title")); // NOI18N
+        setMinimumSize(new java.awt.Dimension(612, 446));
         setName("Form"); // NOI18N
 
         parcelPanel.setName("parcelPanel"); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/cadastre/Bundle"); // NOI18N
-        jToolBar1.setName(bundle1.getString("CreateParcelDialog.jToolBar1.name")); // NOI18N
+        jToolBar1.setName(bundle.getString("ParcelDialog.jToolBar1.name")); // NOI18N
 
         btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
-        btnCreate.setText(bundle1.getString("CreateParcelDialog.btnCreate.text")); // NOI18N
+        btnCreate.setText(bundle.getString("ParcelDialog.btnCreate.text")); // NOI18N
+        btnCreate.setActionCommand(bundle.getString("ParcelDialog.btnCreate.actionCommand")); // NOI18N
         btnCreate.setName("btnCreate"); // NOI18N
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,19 +93,19 @@ public class CreateParcelDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                .addGap(24, 24, 24))
+                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();

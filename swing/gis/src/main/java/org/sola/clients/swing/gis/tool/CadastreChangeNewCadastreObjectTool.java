@@ -1,38 +1,49 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO). All rights
- * reserved.
+ * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
+ * (FAO). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification, are permitted
- * provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this list of conditions
- * and the following disclaimer. 2. Redistributions in binary form must reproduce the above
- * copyright notice,this list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this software without
- * specific prior written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the name of FAO nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
- * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.gis.tool;
 
 import com.vividsolutions.jts.geom.Geometry;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
 import org.geotools.geometry.DirectPosition2D;
 import org.geotools.geometry.jts.Geometries;
 import org.geotools.swing.event.MapMouseEvent;
 import org.geotools.swing.extended.util.Messaging;
 import org.opengis.feature.simple.SimpleFeature;
+import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.swing.gis.beans.CadastreObjectBean;
 import org.sola.clients.swing.gis.layer.CadastreChangeNewCadastreObjectLayer;
+import org.sola.clients.swing.ui.cadastre.ParcelDialog;
+import org.sola.clients.swing.ui.cadastre.ParcelPanel;
+import org.sola.common.mapping.MappingManager;
 import org.sola.common.messaging.GisMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -52,7 +63,8 @@ public class CadastreChangeNewCadastreObjectTool
     /**
      * Constructor
      *
-     * @param newCadastreObjectLayer The layer where the new cadastre objects are maintained
+     * @param newCadastreObjectLayer The layer where the new cadastre objects
+     * are maintained
      */
     public CadastreChangeNewCadastreObjectTool(
             CadastreChangeNewCadastreObjectLayer newCadastreObjectLayer) {
@@ -69,9 +81,9 @@ public class CadastreChangeNewCadastreObjectTool
     }
 
     /**
-     * If a new click is done while creating a cadastre object, it has to snap to a point. Because
-     * the only layer used as snaptarget is the NewSurveyPointLayer the only points are the survey
-     * points.
+     * If a new click is done while creating a cadastre object, it has to snap
+     * to a point. Because the only layer used as snaptarget is the
+     * NewSurveyPointLayer the only points are the survey points.
      *
      * @param ev
      */
@@ -86,8 +98,8 @@ public class CadastreChangeNewCadastreObjectTool
     }
 
     /**
-     * It means a vertex of a cadastre object cannot be changed from this tool. It must be changed
-     * by changing the vertices in the NewSurveyPointLayer.
+     * It means a vertex of a cadastre object cannot be changed from this tool.
+     * It must be changed by changing the vertices in the NewSurveyPointLayer.
      *
      * @param mousePositionInMap
      * @return
@@ -98,15 +110,38 @@ public class CadastreChangeNewCadastreObjectTool
     }
 
     @Override
-    public SimpleFeature addFeature(Geometry geometry) {
-        SimpleFeature feature = super.addFeature(geometry);
-        if (feature != null) {
-            CadastreObjectBean bean = getLayer().getBean(feature);
-            if (bean != null) {
-                bean.setTypeCode(this.cadastreObjectType);
-            }
+    public SimpleFeature addFeature(final Geometry geometry) {
+        org.sola.clients.beans.cadastre.CadastreObjectBean formBean = new org.sola.clients.beans.cadastre.CadastreObjectBean();
+        formBean.setNameFirstpart(getLayer().getLastPart());
+        formBean.setNameLastpart(getLayer().getNameFirstPart());
+        if(geometry!=null){
+            formBean.setOfficialAreaSize(new BigDecimal(geometry.getArea()));
         }
-        return feature;
+        ParcelDialog form = new ParcelDialog(formBean, false, null, true);
+        
+        final CadastreObjectBean[] beans = new CadastreObjectBean[1];
+
+        form.addPropertyChangeListener(new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals(ParcelDialog.SELECTED_PARCEL)) {
+                    // Convert between CadastreObject in the GIS project and CadastreObject in the Clients Beans
+                    org.sola.clients.beans.cadastre.CadastreObjectBean bean =
+                            (org.sola.clients.beans.cadastre.CadastreObjectBean) evt.getNewValue();
+                    CadastreObjectBean bean2 = MappingManager.getMapper().map(bean, CadastreObjectBean.class);
+                    bean2.setFeatureGeom(geometry);
+                    getLayer().getBeanList().add(bean2);
+                    beans[0] = bean2;
+                }
+            }
+        });
+        
+        form.setVisible(true);
+        if (beans[0] != null) {
+            return getLayer().getFeatureByCadastreObjectId(beans[0].getId());
+        }
+        return null;
     }
 
     /**

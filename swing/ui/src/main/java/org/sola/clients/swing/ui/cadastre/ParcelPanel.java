@@ -100,8 +100,8 @@ public class ParcelPanel extends javax.swing.JPanel {
  
     private void customizeForm(){
         boolean enabled = !readOnly;
-        txtFirstPart.setEnabled(enabled);
-        txtLastPart.setEnabled(enabled);
+        //txtFirstPart.setEnabled(enabled);
+        //txtLastPart.setEnabled(enabled);
         txtArea.setEnabled(enabled);
         cbxEstateType.setEnabled(enabled);
         cbxLandUse.setEnabled(enabled);
@@ -256,6 +256,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel17.setText(bundle.getString("ParcelPanel.jLabel17.text")); // NOI18N
         jLabel17.setName("jLabel17"); // NOI18N
 
+        txtFirstPart.setEnabled(false);
         txtFirstPart.setName("txtFirstPart"); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.nameFirstpart}"), txtFirstPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -287,6 +288,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel7.setText(bundle.getString("ParcelPanel.jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
 
+        txtLastPart.setEnabled(false);
         txtLastPart.setName("txtLastPart"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.nameLastpart}"), txtLastPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -342,7 +344,7 @@ public class ParcelPanel extends javax.swing.JPanel {
                 .add(jLabel10)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(cbxEstateType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+                .add(0, 2, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4);
@@ -472,7 +474,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel5.setText(bundle.getString("ParcelPanel.jLabel5.text")); // NOI18N
         jLabel5.setName(bundle.getString("ParcelPanel.jLabel5.name")); // NOI18N
 
-        txtSurveyFee.setFormatterFactory(BigDecimalMoneyConverter.getEditFormatterFactory());
+        txtSurveyFee.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
         txtSurveyFee.setText(bundle.getString("ParcelPanel.txtSurveyFee.text")); // NOI18N
         txtSurveyFee.setName(bundle.getString("ParcelPanel.txtSurveyFee.name")); // NOI18N
 
@@ -526,7 +528,7 @@ public class ParcelPanel extends javax.swing.JPanel {
                 .add(labLandUse)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(cbxLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+                .add(0, 2, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel6);
@@ -536,7 +538,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel2.setText(bundle.getString("ParcelPanel.jLabel2.text")); // NOI18N
         jLabel2.setName(bundle.getString("ParcelPanel.jLabel2.name")); // NOI18N
 
-        txtValuationAmount.setFormatterFactory(BigDecimalMoneyConverter.getEditFormatterFactory());
+        txtValuationAmount.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
         txtValuationAmount.setText(bundle.getString("ParcelPanel.txtValuationAmount.text")); // NOI18N
         txtValuationAmount.setName(bundle.getString("ParcelPanel.txtValuationAmount.name")); // NOI18N
 
