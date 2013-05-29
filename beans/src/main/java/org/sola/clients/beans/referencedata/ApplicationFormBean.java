@@ -8,19 +8,7 @@ import org.sola.webservices.transferobjects.referencedata.ApplicationFormTO;
  * populated from the {@link ApplicationFormTO} object.<br /> 
  */
 public class ApplicationFormBean extends AbstractCodeBean {
-    
-    public static final String CONTENT_PROPERTY = "content";
-    
-    private byte[] content;
-
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
-    
+        
     public ApplicationFormBean() {
         super();
     }  

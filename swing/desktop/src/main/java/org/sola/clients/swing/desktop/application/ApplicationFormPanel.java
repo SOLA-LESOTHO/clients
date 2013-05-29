@@ -61,14 +61,11 @@ public class ApplicationFormPanel extends ContentPanel{
         columnBinding.setColumnName("Display Value");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status}"));
-        columnBinding.setColumnName("Extension");
+        columnBinding.setColumnName("Status");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${translatedDescription}"));
         columnBinding.setColumnName("Description");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${content}"));
-        columnBinding.setColumnName("Content");
-        columnBinding.setColumnClass(Byte[].class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableAppForms);
