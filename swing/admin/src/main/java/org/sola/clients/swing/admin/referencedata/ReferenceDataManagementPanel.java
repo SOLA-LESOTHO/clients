@@ -193,7 +193,13 @@ public class ReferenceDataManagementPanel extends ContentPanel {
                     IdTypeBean.class, (List) refDataList);
             CacheManager.remove(CacheManager.ID_TYPE_CODES_KEY);
             refDataTOClass = IdTypeTO.class;
-        } else if (refDataClass == GenderTypeBean.class) {
+        } else if (refDataClass == ApplicationFormBean.class) {
+            TypeConverters.TransferObjectListToBeanList(WSManager.getInstance().getReferenceDataService().getApplicationForms(null),
+                    ApplicationFormBean.class, (List) refDataList);
+            CacheManager.remove(CacheManager.APPLICATION_FORM_KEY);
+            refDataTOClass = ApplicationFormTO.class;
+        }  
+        else if (refDataClass == GenderTypeBean.class) {
             TypeConverters.TransferObjectListToBeanList(WSManager.getInstance().getReferenceDataService().getGenderTypes(null),
                     GenderTypeBean.class, (List) refDataList);
             CacheManager.remove(CacheManager.GENDER_TYPES_KEY);

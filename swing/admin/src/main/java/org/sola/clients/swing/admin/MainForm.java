@@ -787,12 +787,7 @@ public class MainForm extends javax.swing.JFrame {
 
     /** Opens application form management panel. */
     private void manageApplicationForms() {
-        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_APP_FORM_PANEL)){
-            mainContentPanel.showPanel(MainContentPanel.CARD_APP_FORM_PANEL);
-        }else{
-            ApplicationFormManagementPanel panel = new ApplicationFormManagementPanel();
-            mainContentPanel.addPanel(panel, MainContentPanel.CARD_APP_FORM_PANEL, true);
-        }
+        openReferenceDataPanel(ApplicationFormBean.class, menuAppForm.getText());
     }
     /** Opens roles management panel. */
     private void manageRoles() {
