@@ -26,7 +26,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel8" pref="467" max="32767" attributes="0"/>
+          <Component id="jPanel8" max="32767" attributes="0"/>
           <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -65,7 +65,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="121" max="32767" attributes="0"/>
+                      <EmptySpace pref="139" max="32767" attributes="0"/>
                   </Group>
                   <Component id="cbxDocType" alignment="0" max="32767" attributes="1"/>
               </Group>
@@ -124,17 +124,25 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="122" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="txtDocRecordDate" max="32767" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="txtDocRecordDate" pref="140" max="32767" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnSubmissionDateFrom" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnSubmissionDateFrom" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDocRecordDate" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtDocRecordDate" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -145,6 +153,9 @@
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="FormattersFactory.getInstance().getDateFormatterFactory()" type="code"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/ui/source/Bundle.properties" key="DocumentPanel.txtDocRecordDate.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="txtDocRecordDate" noResource="true"/>
                 <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                   <ComponentRef name="txtDocRefNumber"/>
@@ -153,6 +164,9 @@
               <BindingProperties>
                 <BindingProperty name="value" source="Form" sourcePath="${document.recordation}" target="txtDocRecordDate" targetPath="value" updateStrategy="0" immediately="false"/>
               </BindingProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDocRecordDateActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtDocRecordDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));&#xa;txtDocRecordDate.setHorizontalAlignment(JTextField.LEADING);"/>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDocRecordDate.setFont(new java.awt.Font(&quot;Thaoma&quot;, 0, 12));"/>
@@ -164,8 +178,30 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/ui/source/Bundle.properties" key="DocumentPanel.jLabel3.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/ui/source/Bundle.properties" key="DocumentPanel.jLabel3.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnSubmissionDateFrom">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/common/calendar.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/ui/source/Bundle.properties" key="DocumentPanel.btnSubmissionDateFrom.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/ui/source/Bundle.properties" key="DocumentPanel.btnSubmissionDateFrom.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmissionDateFromActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -181,7 +217,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="113" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtDocRefNumber" max="32767" attributes="1"/>
               </Group>
@@ -236,7 +272,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="76" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="94" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtLaNumber" max="32767" attributes="0"/>
               </Group>
@@ -290,7 +326,7 @@
                   <Component id="txtOwnerName" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="73" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="91" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -342,7 +378,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="85" max="32767" attributes="0"/>
+                      <EmptySpace pref="103" max="32767" attributes="0"/>
                   </Group>
                   <Component id="browseAttachment" alignment="0" pref="0" max="32767" attributes="2"/>
               </Group>
@@ -396,7 +432,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="67" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="85" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtSubmissionDate" alignment="0" max="32767" attributes="1"/>
               </Group>
@@ -458,7 +494,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="63" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="81" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtDocAcceptanceDate" max="32767" attributes="1"/>
               </Group>
@@ -519,7 +555,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="71" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="89" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtExpiration" alignment="0" max="32767" attributes="1"/>
               </Group>
@@ -580,7 +616,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="114" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="132" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtStatus" max="32767" attributes="0"/>
               </Group>
@@ -631,19 +667,27 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="85" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="103" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="txtSigningDate" alignment="0" max="32767" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="txtSigningDate" max="32767" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnSubmissionDateFrom1" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnSubmissionDateFrom1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSigningDate" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtSigningDate" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -680,6 +724,25 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
+            <Component class="javax.swing.JButton" name="btnSubmissionDateFrom1">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/common/calendar.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/ui/source/Bundle.properties" key="DocumentPanel.btnSubmissionDateFrom1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/ui/source/Bundle.properties" key="DocumentPanel.btnSubmissionDateFrom1.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmissionDateFrom1ActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel9">
@@ -694,7 +757,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="110" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="128" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtVersion" max="32767" attributes="0"/>
               </Group>
