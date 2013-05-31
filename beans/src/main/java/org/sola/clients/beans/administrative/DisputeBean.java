@@ -41,6 +41,7 @@ import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.DisputeTO;
 import org.sola.clients.beans.referencedata.DisputeCategoryBean;
 import org.sola.clients.beans.referencedata.DisputeTypeBean;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
 
 /**
  *
@@ -59,8 +60,8 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String CADASTRE_OBJECT_ID_PROPERTY = "cadastreObjectId";
     public static final String SELECTED_CATEGORY_PROPERTY = "selectedCategory";
     public static final String SELECTED_TYPE_PROPERTY = "selectedType";
-
     public static final String USER_ID_PROPERTY = "userid";
+    public static final String BEAN_PROPERTY = "bean";
     
     
     private String nr;
@@ -73,6 +74,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     private String plotLocation;
     private String cadastreObjectId;
     private String userId;
+    private DisputeBean bean;
 
     public DisputeBean() {
         super();
@@ -146,8 +148,6 @@ public class DisputeBean extends AbstractTransactionedBean {
         this.setJointRefDataBean(this.disputeCategory, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
     }
 
-   
-    
     public String getUserId() {
         return userId;
     }
@@ -158,7 +158,6 @@ public class DisputeBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(USER_ID_PROPERTY, oldValue, this.userId);
     }
 
-    
     public String getDisputeTypeCode() {
         if (disputeType != null) {
             return disputeType.getCode();
@@ -166,28 +165,28 @@ public class DisputeBean extends AbstractTransactionedBean {
             return null;
         }
     }
-    
+
     public void setDisputeTypeCode(String disputeTypeCode) {
         String oldValue = null;
-        if (disputeType !=null) {
+        if (disputeType != null) {
             oldValue = disputeType.getCode();
             return;
         }
-        
+
         setDisputeType(CacheManager.getBeanByCode(
                 CacheManager.getDisputeType(), disputeTypeCode));
         propertySupport.firePropertyChange(DISPUTE_TYPE_PROPERTY, oldValue, disputeTypeCode);
     }
-    
-     public DisputeTypeBean getDisputeType() {
+
+    public DisputeTypeBean getDisputeType() {
         return disputeType;
     }
 
-     public void setDisputeType(DisputeTypeBean disputeType) {
+    public void setDisputeType(DisputeTypeBean disputeType) {
         if (this.disputeType == null) {
             this.disputeType = new DisputeTypeBean();
         }
-         this.setJointRefDataBean(this.disputeType, disputeType, DISPUTE_TYPE_PROPERTY);
+        this.setJointRefDataBean(this.disputeType, disputeType, DISPUTE_TYPE_PROPERTY);
     }
 
     public Date getLodgementDate() {
@@ -239,7 +238,28 @@ public class DisputeBean extends AbstractTransactionedBean {
         statusCode = value;
         propertySupport.firePropertyChange(STATUS_CODE_PROPERTY, old, statusCode);
     }
+
+    public void addChosenPlot(CadastreObjectBean cadastreObjectBean) {
+        if (cadastreObjectBean != null) {
+            setCadastreObjectId(cadastreObjectBean.getNameFirstpart()+ "-" +cadastreObjectBean.getNameLastpart());
+        }
+    }
     
+    public void assignDispute(DisputeSearchResultBean disputeSearchResultBean){
+        if (disputeSearchResultBean !=null ) {
+            setBean(getDisputeByNr(disputeSearchResultBean.getNr()));  
+        }
+    }
+    
+     public DisputeBean getBean() {
+        return bean;
+    }
+
+    public void setBean(DisputeBean value) {
+        bean = value;
+        propertySupport.firePropertyChange(BEAN_PROPERTY, null, value);
+    }
+
     public boolean createDispute() {
         DisputeTO dispute = TypeConverters.BeanToTrasferObject(this, DisputeTO.class);
         dispute = WSManager.getInstance().getAdministrative().createDispute(dispute);
@@ -294,4 +314,6 @@ public class DisputeBean extends AbstractTransactionedBean {
         DisputeTO disputeTO = WSManager.getInstance().getAdministrative().getDispute();
         return TypeConverters.TransferObjectToBean(disputeTO, DisputeBean.class, null);
     }
+    
+    
 }

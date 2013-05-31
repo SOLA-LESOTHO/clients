@@ -179,6 +179,7 @@ public class PartySearchPanelForm extends ContentPanel {
         headerPanel.setTitleText(bundle.getString("PartySearchPanelForm.headerPanel.titleText")); // NOI18N
 
         partySearchPanel.setName("partySearchPanel"); // NOI18N
+        partySearchPanel.setNextFocusableComponent(partySearchPanel);
         partySearchPanel.setShowSelectButton(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

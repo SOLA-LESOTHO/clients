@@ -35,18 +35,18 @@ package org.sola.clients.beans.administrative;
 
 import java.util.Date;
 import org.sola.clients.beans.AbstractBindingBean;
-import org.sola.clients.beans.cache.CacheManager;
-import org.sola.webservices.transferobjects.search.DisputeSearchResultTO;
 
 public class DisputeSearchResultBean extends AbstractBindingBean {
 
     public static final String DISP_NR_PROPERTY = "nr";
-    public static final String LEASE_NR_PROPERTY = "leaseNr";
-    public static final String PLOT_NR_PROPERTY = "plotNr";
-    public static final String LODGEMENT_DATE_FROM_PROPERTY = "lodgeDateFrom";
+    public static final String LEASE_NR_PROPERTY = "leaseNumber";
+    public static final String PLOT_NR_PROPERTY = "plotNumber";
+    public static final String LODGEMENT_DATE_FROM_PROPERTY = "lodgementDateFrom";
     public static final String LODGEMENT_DATE_TO_PROPERTY = "lodgementDateTo";
     public static final String COMPLETION_DATE_FROM_PROPERTY = "completionDateFrom";
     public static final String COMPLETION_DATE_TO_PROPERTY = "completionDateTo";
+    
+    
     private String nr;
     private Date lodgementDateFrom;
     private Date lodgementDateTo;
@@ -129,4 +129,5 @@ public class DisputeSearchResultBean extends AbstractBindingBean {
         this.plotNumber = plotNumber;
         propertySupport.firePropertyChange(PLOT_NR_PROPERTY, oldValue, this.plotNumber);
     }
+ 
 }
