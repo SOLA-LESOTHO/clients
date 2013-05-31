@@ -36,6 +36,7 @@ import org.sola.common.messaging.MessageUtility;
 public class SearchParcelDialog extends javax.swing.JDialog {
 
     public final static String SELECTED_PARCEL = "selectedParcel";
+   
     
     /** Form constructor. */
     public SearchParcelDialog(java.awt.Frame parent, boolean modal) {
@@ -73,7 +74,7 @@ public class SearchParcelDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cadastreObjectSearch1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(cadastreObjectSearch1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

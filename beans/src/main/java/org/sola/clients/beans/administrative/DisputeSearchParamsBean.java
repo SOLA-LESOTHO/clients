@@ -1,3 +1,4 @@
+package org.sola.clients.beans.administrative;
 
 /**
  * ******************************************************************************************
@@ -39,8 +40,8 @@ import org.sola.clients.beans.AbstractBindingBean;
 public class DisputeSearchParamsBean extends AbstractBindingBean {
 
     public static final String DISP_NR_PROPERTY = "nr";
-    public static final String LEASE_NR_PROPERTY = "leaseNr";
-    public static final String PLOT_NR_PROPERTY = "plotNr";
+    public static final String LEASE_NR_PROPERTY = "leaseNumber";
+    public static final String PLOT_NR_PROPERTY = "plotNumber";
     public static final String LODGEMENT_DATE_FROM_PROPERTY = "lodgeDateFrom";
     public static final String LODGEMENT_DATE_TO_PROPERTY = "lodgementDateTo";
     public static final String COMPLETION_DATE_FROM_PROPERTY = "completionDateFrom";
@@ -54,17 +55,17 @@ public class DisputeSearchParamsBean extends AbstractBindingBean {
     private Date completionDateTo;
     private String leaseNumber;
     private String plotNumber;
+    
+    
+    
+    public DisputeSearchParamsBean(){
+        super();
+    }
 
     public Date getCompletionDateFrom() {
         return completionDateFrom;
     }
-
-    /*
-     * Date old = this.fromRecordationDate; this.fromRecordationDate =
-     * fromRecordationDate;
-     * propertySupport.firePropertyChange(FROM_RECORDATION_DATE_PROPERTY, old,
-     * this.fromRecordationDate)
-     */
+    
     public void setCompletionDateFrom(Date completionDateFrom) {
         Date old = this.completionDateFrom;
         this.completionDateFrom = completionDateFrom;

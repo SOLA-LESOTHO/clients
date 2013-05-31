@@ -55,6 +55,9 @@
     <Component class="org.sola.clients.swing.ui.party.PartySearchPanel" name="partySearchPanel">
       <Properties>
         <Property name="name" type="java.lang.String" value="partySearchPanel" noResource="true"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="partySearchPanel"/>
+        </Property>
         <Property name="showSelectButton" type="boolean" value="false"/>
       </Properties>
     </Component>

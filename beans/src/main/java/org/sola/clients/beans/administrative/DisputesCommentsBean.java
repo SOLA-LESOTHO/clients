@@ -51,6 +51,8 @@ public class DisputesCommentsBean extends DisputeBean {
     public static final String COMMENTS = "commnets";
     public static final String UPDATED_BY = "updatedBy";
     public static final String SELECTED_AUTHORITY_PROPERTY = "selectedAuthority";
+    
+    
     private String disputeNr;
     private Date updateDate;
     private DisputeActionBean disputeAction;
