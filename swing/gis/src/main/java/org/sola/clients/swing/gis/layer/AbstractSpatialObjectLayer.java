@@ -261,6 +261,10 @@ public abstract class AbstractSpatialObjectLayer extends ExtendedLayerEditor {
     protected void initializeFormHosting(String title, JPanel hostPanel) {
         this.setHostForm(UiUtil.getInstance().getDialog(title, hostPanel));
     }
+    
+    protected void initializeFormHosting(JDialog dialog) {
+        this.setHostForm(dialog);
+    }
 
     /**
      * Gets the form that is responsible showing/editing the attributes in the beans

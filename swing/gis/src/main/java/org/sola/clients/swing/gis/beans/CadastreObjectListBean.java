@@ -25,10 +25,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.sola.clients.swing.gis.beans;
 
 import org.sola.clients.beans.controls.SolaObservableList;
@@ -40,7 +36,8 @@ import org.sola.clients.beans.controls.SolaObservableList;
  * @author Elton Manoku
  */
 public class CadastreObjectListBean extends AbstractListSpatialBean{
-
+    public static final String BEANS_LIST_PROPERTY = "beanList";
+    
     public CadastreObjectListBean() {
         super();
     }
@@ -48,5 +45,18 @@ public class CadastreObjectListBean extends AbstractListSpatialBean{
     @Override
     protected SolaObservableList initializeBeanList() {
         return new SolaObservableList<CadastreObjectBean>();
+    }
+    
+    /**
+     * Overrides <code>getBeanList()</code> method to return list with {@link CadastreObjectBean} objects.
+     * @return 
+     */
+    @Override
+    public SolaObservableList<CadastreObjectBean> getBeanList() {
+        return super.getBeanList();
+    }
+    
+    public void fireListUpdate(){
+        propertySupport.firePropertyChange(BEANS_LIST_PROPERTY, null, getBeanList());
     }
 }

@@ -86,9 +86,11 @@ public abstract class AbstractTransactionedBean extends AbstractIdBean {
     }
 
     public void setStatus(RegistrationStatusTypeBean status) {
-        if (this.status == null) {
+        if (status == null) {
             this.status = new RegistrationStatusTypeBean();
+        } else {
+            this.status = status;
         }
-        this.setJointRefDataBean(this.status, status, STATUS_PROPERTY);
+        propertySupport.firePropertyChange(STATUS_PROPERTY, null, this.status);
     }
 }

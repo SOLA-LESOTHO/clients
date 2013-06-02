@@ -53,7 +53,8 @@ public class CadastreObjectBean extends CadastreObjectSummaryBean {
     public static final String ADDRESS_LIST_PROPERTY = "addressList";
     public static final String SELECTED_ADDRESS_PROPERTY = "selectedAddress";
     public static final String OFFICIAL_AREA_SIZE_PROPERTY = "officialAreaSize";
-
+    public static final String CALCULATED_AREA_SIZE_PROPERTY = "calculatedArea";
+    
     private byte[] geomPolygon;
     private transient boolean selected;
     
@@ -90,28 +91,46 @@ public class CadastreObjectBean extends CadastreObjectSummaryBean {
     /** Looks for officialArea code in the list of areas. */
     @NotNull(message=ClientMessage.CHECK_NOTNULL_AREA, payload=Localized.class)
     public BigDecimal getOfficialAreaSize(){
+        return getArea(SpatialValueAreaBean.CODE_OFFICIAL_AREA);
+    }
+
+    /** Sets officialArea code. */
+    public void setOfficialAreaSize(BigDecimal area){
+        setArea(area, SpatialValueAreaBean.CODE_OFFICIAL_AREA, OFFICIAL_AREA_SIZE_PROPERTY);
+    }
+    
+    /** Returns calculated area based on feature geometry. </code> */
+    public BigDecimal getCalculatedArea(){
+        return getArea(SpatialValueAreaBean.CODE_CALCULATED_AREA);
+    }
+    
+    /** Synonym method for <code>setOfficialAreaSize(BigDecimal area)</code> */
+    public void setCalculatedArea(BigDecimal area){
+        setArea(area, SpatialValueAreaBean.CODE_CALCULATED_AREA, CALCULATED_AREA_SIZE_PROPERTY);
+    }
+    
+    private BigDecimal getArea(String areaCode){
         if(getSpatialValueAreaFiletredList()==null || getSpatialValueAreaFiletredList().size() < 1){
             return null;
         }
         for(SpatialValueAreaBean areaBean : getSpatialValueAreaFiletredList()){
-            if(areaBean.getTypeCode()!=null && areaBean.getTypeCode().equals(SpatialValueAreaBean.CODE_OFFICIAL_AREA)){
+            if(areaBean.getTypeCode()!=null && areaBean.getTypeCode().equals(areaCode)){
                 return areaBean.getSize();
             }
         }
         return null;
     }
-
-    /** Sets officialArea code. */
-    public void setOfficialAreaSize(BigDecimal area){
+    
+    private void setArea(BigDecimal area, String areaCode, String evtName){
         for(SpatialValueAreaBean areaBean : getSpatialValueAreaFiletredList()){
-            if(areaBean.getTypeCode()!=null && areaBean.getTypeCode().equals(SpatialValueAreaBean.CODE_OFFICIAL_AREA)){
+            if(areaBean.getTypeCode()!=null && areaBean.getTypeCode().equals(areaCode)){
                 // Delete area if provided value is null
                 if(area == null){
                     areaBean.setEntityAction(EntityAction.DELETE);
                 } else {
                     areaBean.setSize(area);
                 }
-                propertySupport.firePropertyChange(OFFICIAL_AREA_SIZE_PROPERTY, null, area);
+                propertySupport.firePropertyChange(evtName, null, area);
                 return;
             }
         }
@@ -120,11 +139,11 @@ public class CadastreObjectBean extends CadastreObjectSummaryBean {
         if(area!=null){
             SpatialValueAreaBean areaBean = new SpatialValueAreaBean();
             areaBean.setSize(area);
-            areaBean.setTypeCode(SpatialValueAreaBean.CODE_OFFICIAL_AREA);
+            areaBean.setTypeCode(areaCode);
             areaBean.setSpatialUnitId(this.getId());
             getSpatialValueAreaList().addAsNew(areaBean);
         }
-        propertySupport.firePropertyChange(OFFICIAL_AREA_SIZE_PROPERTY, null, area);
+        propertySupport.firePropertyChange(evtName, null, area);
     }
     
     @Valid

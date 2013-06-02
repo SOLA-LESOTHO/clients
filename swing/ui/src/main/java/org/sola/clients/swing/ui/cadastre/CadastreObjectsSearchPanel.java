@@ -316,16 +316,16 @@ public class CadastreObjectsSearchPanel extends JPanel {
         columnBinding.setColumnName("Valuation Amount");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valuationZone}"));
+        columnBinding.setColumnName("Valuation Zone");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${address}"));
         columnBinding.setColumnName("Address");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"));
         columnBinding.setColumnName("Status.display Value");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valuationZone}"));
-        columnBinding.setColumnName("Valuation Zone");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
@@ -339,9 +339,9 @@ public class CadastreObjectsSearchPanel extends JPanel {
         tableCadastreObjects.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title7")); // NOI18N
         tableCadastreObjects.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title3_1")); // NOI18N
         tableCadastreObjects.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title6")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title4")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title5")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title8")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title8")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title4")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title5")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -43,7 +43,9 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.sola.clients.swing.gis.beans.CadastreObjectBean;
 import org.sola.clients.swing.gis.beans.CadastreObjectListBean;
 import org.sola.clients.swing.gis.beans.SpatialBean;
+import org.sola.clients.swing.gis.ui.control.CadastreObjectListDialog;
 import org.sola.clients.swing.gis.ui.control.CadastreObjectListPanel;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.GisMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -67,7 +69,7 @@ public class CadastreChangeNewCadastreObjectLayer
             LAYER_FIELD_OFFICIAL_AREA, LAYER_FIELD_CALCULATED_AREA);
     private Integer firstPartGenerator = 0;
     private String lastPart = "";
-    private CadastreObjectListPanel spatialObjectDisplayPanel;
+    private CadastreObjectListDialog spatialObjectDisplayPanel;
 
     /**
      * Constructor for the layer.
@@ -84,21 +86,9 @@ public class CadastreChangeNewCadastreObjectLayer
         this.listBean = new CadastreObjectListBean();
         //This is called after the listBean is initialized
         initializeListBeanEvents();
-        this.spatialObjectDisplayPanel =
-                new CadastreObjectListPanel((CadastreObjectListBean) this.listBean);
-        initializeFormHosting(
-                MessageUtility.getLocalizedMessageText(
-                GisMessage.CADASTRE_CHANGE_FORM_NEW_OBJECTS_TITLE), 
-                this.spatialObjectDisplayPanel);
-    }
-
-    /**
-     * Gets the panel where the data about the cadastre objects are displayed
-     *
-     * @return
-     */
-    public CadastreObjectListPanel getSpatialObjectDisplayPanel() {
-        return spatialObjectDisplayPanel;
+        spatialObjectDisplayPanel = new CadastreObjectListDialog((CadastreObjectListBean) this.listBean, null, true);
+        WindowUtility.centerForm(spatialObjectDisplayPanel);
+        initializeFormHosting(spatialObjectDisplayPanel);
     }
 
     /**

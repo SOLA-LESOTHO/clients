@@ -447,7 +447,7 @@ public class ExtendedList<E> extends AbstractList<E> implements ObservableList<E
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
         if (list.addAll(index, c)) {
-            filteredList.addAll(filteredList.size(), c);
+            filteredList.addAll(filteredList.size(), c, false);
             modCount++;
 
             for (ObservableListListener listener : listeners) {
@@ -644,17 +644,10 @@ public class ExtendedList<E> extends AbstractList<E> implements ObservableList<E
             return this.remove(list.indexOf(o)) != null;
         }
 
-        @Override
-        public boolean addAll(Collection<? extends E> c) {
-            return addAll(size(), c);
-        }
-
-        @Override
-        public boolean addAll(int index, Collection<? extends E> c) {
-            for (E item : c) {
-                this.add(item);
+        public void addAll(int index, Collection<? extends E> c, boolean fireMainListEvent) {
+            for (E e : c) {
+                this.add(index++, e, fireMainListEvent);
             }
-            return false;
         }
 
         /**

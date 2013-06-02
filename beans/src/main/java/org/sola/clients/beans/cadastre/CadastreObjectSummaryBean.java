@@ -181,7 +181,7 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     }
 
     public void setLandUseType(LandUseTypeBean landUseType) {
-        if(this.landUseType==null){
+        if(landUseType==null){
             this.landUseType = new LandUseTypeBean();
         }else{
             this.landUseType = landUseType;
@@ -244,10 +244,12 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     }
 
     public void setLandGradeType(LandGradeTypeBean landGradeType) {
-        if (this.landGradeType == null) {
+        if (landGradeType == null) {
             this.landGradeType = new LandGradeTypeBean();
+        } else {
+            this.landGradeType = landGradeType;
         }
-        this.setJointRefDataBean(this.landGradeType, landGradeType, LAND_GRADE_TYPE_PROPERTY);
+        propertySupport.firePropertyChange(LAND_GRADE_TYPE_PROPERTY, null, this.landGradeType);
     }
 
     public String getLandGradeCode() {

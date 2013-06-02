@@ -38,6 +38,7 @@ import org.geotools.geometry.jts.Geometries;
 import org.geotools.swing.event.MapMouseEvent;
 import org.geotools.swing.extended.util.Messaging;
 import org.opengis.feature.simple.SimpleFeature;
+import org.sola.clients.beans.converters.GenericTranslatorListener;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.swing.gis.beans.CadastreObjectBean;
 import org.sola.clients.swing.gis.layer.CadastreChangeNewCadastreObjectLayer;
@@ -116,6 +117,7 @@ public class CadastreChangeNewCadastreObjectTool
         formBean.setNameLastpart(getLayer().getNameFirstPart());
         if(geometry!=null){
             formBean.setOfficialAreaSize(new BigDecimal(geometry.getArea()));
+            formBean.setCalculatedArea(new BigDecimal(geometry.getArea()));
         }
         ParcelDialog form = new ParcelDialog(formBean, false, null, true);
         
@@ -130,6 +132,10 @@ public class CadastreChangeNewCadastreObjectTool
                     org.sola.clients.beans.cadastre.CadastreObjectBean bean =
                             (org.sola.clients.beans.cadastre.CadastreObjectBean) evt.getNewValue();
                     CadastreObjectBean bean2 = MappingManager.getMapper().map(bean, CadastreObjectBean.class);
+                    // Fix problem with list area list duplications
+                    bean2.getSpatialValueAreaList().clear();
+                    bean2.getSpatialValueAreaList().addAll(bean.getSpatialValueAreaList());
+                    
                     bean2.setFeatureGeom(geometry);
                     getLayer().getBeanList().add(bean2);
                     beans[0] = bean2;

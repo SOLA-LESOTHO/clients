@@ -245,8 +245,6 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
     protected void setTargetCadastreObjectTypeConfiguration(String targetCadastreObjectType) {
         this.selectTargetCadastreObjectTool.setCadastreObjectType(targetCadastreObjectType);
         this.newCadastreObjectTool.setCadastreObjectType(targetCadastreObjectType);
-        this.newCadastreObjectLayer.getSpatialObjectDisplayPanel().setCadastreObjectType(
-                targetCadastreObjectType);
     }
 
     @Override
