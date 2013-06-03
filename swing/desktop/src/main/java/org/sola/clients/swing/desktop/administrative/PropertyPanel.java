@@ -741,6 +741,7 @@ public class PropertyPanel extends ContentPanel {
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_ADMIN_PUBLIC_SERVITUDE)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_MONUMENT)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_LIFE_ESTATE)
+                || rrrCode.equalsIgnoreCase(RrrBean.CODE_SERVITUDE)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_CAVEAT)) {
             panel = new SimpleRightholderPanel(rrrBean, applicationBean, applicationService, action);
             cardName = MainContentPanel.CARD_SIMPLE_OWNERSHIP;
