@@ -51,18 +51,16 @@ public final class CacheManager {
     private static Cache cache = new Cache();
     private static final String LIST_POSTFIX = "_LIST";
     private static final String MAP_POSTFIX = "_MAP";
-    /**
+   /**
      * Cache key of the {@link RequestTypeBean} collection.
      */
     public static final String REQUEST_TYPES_KEY = RequestTypeBean.class.getName() + LIST_POSTFIX;
     /**
-<<<<<<< HEAD
-=======
      * Cache key of the {@link ApplicationFormBean} collection.
      */
     public static final String APPLICATION_FORM_KEY = ApplicationFormBean.class.getName() + LIST_POSTFIX;
+    
     /**
->>>>>>> 71dea2016434c683d46b7bebf57fba2b77938d81
      * Cache key of the code/displayValue map based on {@link RequestTypeBean}
      * collection.
      */
@@ -229,8 +227,12 @@ public final class CacheManager {
 
     
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
-
     
+    /**
+     * Cache key of the {@link DeedTypeBean} collection.
+     */
+    public static final String DEED_TYPE_CODES_KEY = DeedTypeBean.class.getName() + LIST_POSTFIX;
+   
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
@@ -267,8 +269,9 @@ public final class CacheManager {
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
     private static final String GET_APPLICATION_FORMS = "getApplicationForms";
     private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
-           
+    private static final String GET_DEED_TYPES = "getDeedTypes";      
 
+    
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -526,6 +529,12 @@ public final class CacheManager {
         return getCachedBeanList(OtherAuthoritiesBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_OTHER_AUTHORITIES, OTHER_AUTHORITIES_CODES_KEY);
+    }
+    
+    public static List<DeedTypeBean> getDeedTypes() {
+        return getCachedBeanList(DeedTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_DEED_TYPES, DEED_TYPE_CODES_KEY);
     }
 
     /**
