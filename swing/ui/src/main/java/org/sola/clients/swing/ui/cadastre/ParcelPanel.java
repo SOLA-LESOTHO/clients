@@ -174,6 +174,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         menuAdd1 = new org.sola.clients.swing.common.menuitems.MenuAdd();
         menuEdit1 = new org.sola.clients.swing.common.menuitems.MenuEdit();
         menuRemove1 = new org.sola.clients.swing.common.menuitems.MenuRemove();
+        landGradeTypeListBean1 = new org.sola.clients.beans.referencedata.LandGradeTypeListBean();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -205,6 +206,9 @@ public class ParcelPanel extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtValuationAmount = new javax.swing.JFormattedTextField();
+        jPanel14 = new javax.swing.JPanel();
+        labLandUse1 = new javax.swing.JLabel();
+        cbxLandGrade = new javax.swing.JComboBox();
         jPanel12 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -342,7 +346,7 @@ public class ParcelPanel extends javax.swing.JPanel {
                 .add(jLabel10)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(cbxEstateType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+                .add(0, 2, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4);
@@ -526,7 +530,7 @@ public class ParcelPanel extends javax.swing.JPanel {
                 .add(labLandUse)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(cbxLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+                .add(0, 2, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel6);
@@ -561,6 +565,39 @@ public class ParcelPanel extends javax.swing.JPanel {
         );
 
         jPanel1.add(jPanel8);
+
+        jPanel14.setName(bundle.getString("ParcelPanel.jPanel14.name")); // NOI18N
+
+        labLandUse1.setText(bundle.getString("ParcelPanel.labLandUse1.text")); // NOI18N
+        labLandUse1.setName(bundle.getString("ParcelPanel.labLandUse1.name")); // NOI18N
+
+        cbxLandGrade.setName(bundle.getString("ParcelPanel.cbxLandGrade.name")); // NOI18N
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${landGradeTypeList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, landGradeTypeListBean1, eLProperty, cbxLandGrade);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.landGradeType}"), cbxLandGrade, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel14Layout = new org.jdesktop.layout.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel14Layout.createSequentialGroup()
+                .add(labLandUse1)
+                .add(0, 71, Short.MAX_VALUE))
+            .add(cbxLandGrade, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel14Layout.createSequentialGroup()
+                .add(labLandUse1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(cbxLandGrade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 2, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel14);
 
         jPanel12.setName(bundle.getString("ParcelPanel.jPanel12.name")); // NOI18N
 
@@ -713,6 +750,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.common.buttons.BtnRemove btnRemove1;
     private org.sola.clients.beans.referencedata.CadastreObjectTypeListBean cadastreObjectTypeListBean1;
     private javax.swing.JComboBox cbxEstateType;
+    private javax.swing.JComboBox cbxLandGrade;
     private javax.swing.JComboBox cbxLandUse;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     private javax.swing.JLabel jLabel1;
@@ -730,6 +768,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -743,6 +782,8 @@ public class ParcelPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles jTableWithDefaultStyles1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labLandUse;
+    private javax.swing.JLabel labLandUse1;
+    private org.sola.clients.beans.referencedata.LandGradeTypeListBean landGradeTypeListBean1;
     private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
     private org.sola.clients.swing.common.menuitems.MenuAdd menuAdd1;
     private org.sola.clients.swing.common.menuitems.MenuEdit menuEdit1;

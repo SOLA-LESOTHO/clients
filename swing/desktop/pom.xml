@@ -101,6 +101,11 @@
             <version>1.2-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.sola.clients</groupId>
+            <artifactId>clients-beans</artifactId>
+            <version>1.2-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>

@@ -47,10 +47,7 @@ import org.sola.clients.beans.administrative.validation.TotalShareSize;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.party.PartySummaryBean;
-import org.sola.clients.beans.referencedata.LeaseConditionBean;
-import org.sola.clients.beans.referencedata.MortgageTypeBean;
-import org.sola.clients.beans.referencedata.RrrTypeBean;
-import org.sola.clients.beans.referencedata.StatusConstants;
+import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.clients.beans.validation.NoDuplicates;
@@ -109,6 +106,8 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String SELECTED_LEASE_CONDITION_PROPERTY = "selectedLeaseCondition";
     public static final String REGISTRATION_NUMBER_PROPERTY = "registrationNumber";
     public static final String STATUS_CHANGE_DATE_PROPERTY = "statusChangeDate";
+    public static final String DEED_TYPE_CODE_PROPERTY = "deedTypeCode";
+    public static final String DEED_TYPE_PROPERTY = "deedType";
     
     private String baUnitId;
     private String nr;
@@ -146,6 +145,7 @@ public class RrrBean extends AbstractTransactionedBean {
     @NotEmpty(message = ClientMessage.CHECK_NOTNULL_REGNUMBER, payload = Localized.class)
     private String registrationNumber;
     private Date statusChangeDate;
+    private DeedTypeBean deedType;
     
     public String getConcatenatedName() {
         return concatenatedName;
@@ -507,7 +507,37 @@ public class RrrBean extends AbstractTransactionedBean {
             getLeaseConditionList().safeRemove(selectedLeaseCondition, EntityAction.DISASSOCIATE);
         }
     }
+    
+    public String getDeedTypeCode() {
+        if (deedType != null) {
+            return deedType.getCode();
+        } else {
+            return null;
+        }
+    }
 
+    public void setDeedTypeCode(String deedTypeCode) {
+        String oldValue = null;
+        if (deedType != null) {
+            oldValue = deedType.getCode();
+        }
+        setDeedType(CacheManager.getBeanByCode(
+                CacheManager.getDeedTypes(), deedTypeCode));
+        propertySupport.firePropertyChange(DEED_TYPE_CODE_PROPERTY,
+                oldValue, deedTypeCode);
+    }
+
+    public DeedTypeBean getDeedType() {
+        return deedType;
+    }
+
+    public void setDeedType(DeedTypeBean deedType) {
+        if (this.deedType == null) {
+            this.deedType = new DeedTypeBean();
+        }
+        this.setJointRefDataBean(this.deedType, deedType, DEED_TYPE_PROPERTY);
+    }
+    
     /** 
      * Adds lease conditions in the list 
      * @param leaseConditions List of {@link LeaseConditionBean} that needs to be added in the list
