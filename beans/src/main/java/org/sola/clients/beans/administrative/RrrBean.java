@@ -89,7 +89,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String CODE_MONUMENT = "monument";
     public static final String CODE_LIFE_ESTATE = "lifeEstate";
     public static final String CODE_CAVEAT = "caveat";
-    public static final String CODE_DEED = "regDeed";
+    public static final String CODE_DEED = "regnDeeds";
     public static final String CODE_SERVITUDE = "servitude";
   
     public static final String BA_UNIT_ID_PROPERTY = "baUnitId";
