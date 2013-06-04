@@ -35,7 +35,7 @@ import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
- * Holds the list of {@link RrrTypeBean} objects.
+ * Holds the list of {@link LandGradeTypeBean} objects.
  */
 public class LandGradeTypeListBean extends AbstractBindingBean {
 
