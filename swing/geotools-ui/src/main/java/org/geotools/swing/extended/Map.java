@@ -1,26 +1,30 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO). All rights
- * reserved.
+ * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
+ * (FAO). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification, are permitted
- * provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this list of conditions
- * and the following disclaimer. 2. Redistributions in binary form must reproduce the above
- * copyright notice,this list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this software without
- * specific prior written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the name of FAO nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
- * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 /*
@@ -30,83 +34,79 @@
 package org.geotools.swing.extended;
 
 import com.vividsolutions.jts.geom.Geometry;
-import java.util.Enumeration;
-import java.util.concurrent.TimeUnit;
-import org.geotools.map.event.MapLayerEvent;
-import org.geotools.map.event.MapLayerListEvent;
-import org.geotools.swing.control.extended.ExtendedToolItem;
-import org.geotools.swing.control.extended.Toc;
-import org.geotools.map.MapContent;
-import org.geotools.referencing.CRS;
-import org.geotools.referencing.NamedIdentifier;
-import org.geotools.swing.tool.CursorTool;
-import org.opengis.referencing.FactoryException;
-import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import java.awt.Color;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.Point2D;
-import java.io.IOException;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Properties;
-import javax.swing.AbstractAction;
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JToolBar;
+import java.util.concurrent.TimeUnit;
+import javax.swing.*;
 import org.geotools.data.simple.SimpleFeatureSource;
 import org.geotools.geometry.jts.Geometries;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.map.Layer;
+import org.geotools.map.MapContent;
+import org.geotools.map.event.MapBoundsEvent;
+import org.geotools.map.event.MapLayerEvent;
+import org.geotools.map.event.MapLayerListEvent;
 import org.geotools.map.extended.layer.*;
+import org.geotools.renderer.lite.RendererUtilities;
 import org.geotools.swing.JMapPane;
+import org.geotools.swing.control.extended.CRSItem;
+import org.geotools.swing.control.extended.ExtendedToolItem;
+import org.geotools.swing.control.extended.Toc;
 import org.geotools.swing.event.MapPaneAdapter;
 import org.geotools.swing.event.MapPaneEvent;
-import org.geotools.swing.extended.util.Messaging;
-import org.geotools.renderer.lite.RendererUtilities;
+import org.geotools.swing.extended.exception.InitializeCRSException;
 import org.geotools.swing.extended.exception.InitializeLayerException;
 import org.geotools.swing.extended.exception.InitializeMapException;
+import org.geotools.swing.extended.util.CRSUtility;
+import org.geotools.swing.extended.util.Messaging;
 import org.geotools.swing.mapaction.extended.ExtendedAction;
+import org.geotools.swing.tool.CursorTool;
 import org.geotools.swing.tool.extended.ExtendedTool;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
+import org.opengis.referencing.operation.TransformException;
 
 /**
  * This is an extension of the swing control {
  *
- * @see org.geotools.swing.JMapPane}. Added functionality includes: <ul> <li> Initialization of the
- * control only by a SRID. It uses the StreamingRenderer for rendering and DefaultMapContext for the
- * map context </li> <li> Helper methods to add different kind of layers</li> <li> Adding
- * OnMouseWheel Zoom in/out handling</li> <li> Adding panning with by holding the middle button of
- * the mouse pressed</li> <li> Get current pixel resolution for the map control</li> <li> Helper
- * methods for transforming points map from/to screen</li> <li> Defining a custom full extent that
- * is not dependent in the full extent of all layers found in the map</li> </ul>
+ * @see org.geotools.swing.JMapPane}. Added functionality includes: <ul> <li>
+ * Initialization of the control only by a SRID. It uses the StreamingRenderer
+ * for rendering and DefaultMapContext for the map context </li> <li> Helper
+ * methods to add different kind of layers</li> <li> Adding OnMouseWheel Zoom
+ * in/out handling</li> <li> Adding panning with by holding the middle button of
+ * the mouse pressed</li> <li> Get current pixel resolution for the map
+ * control</li> <li> Helper methods for transforming points map from/to
+ * screen</li> <li> Defining a custom full extent that is not dependent in the
+ * full extent of all layers found in the map</li> </ul>
  * @author Elton Manoku
  *
  */
 public class Map extends JMapPane {
 
-    private static String SRID_RESOURCE_LOCATION = "resources/srid.properties";
     private static String SELECTION_SLD_FILE = "selection.xml";
     private static String SELECTION_LAYER_NAME = "selection";
     private static String LAYER_FIELD_GEOMETRY_TYPE = "geometryType";
-    private static Properties sridResource = null;
     private boolean isRendering = false;
     private MapPaneAdapter mapPaneListener;
     private ReferencedEnvelope fullExtentEnvelope;
     private LinkedHashMap<String, ExtendedLayer> extendedLayers =
             new LinkedHashMap<String, ExtendedLayer>();
-    private Integer srid = null;
     private ButtonGroup toolsGroup = new ButtonGroup();
     private double pixelResolution = 0;
     private Toc toc;
     private CursorTool activeTool = null;
 
     /**
-     * This constructor is used only for the graphical designer. Use the other constructor for
-     * initializing the map control
+     * This constructor is used only for the graphical designer. Use the other
+     * constructor for initializing the map control
      */
     public Map() throws InitializeMapException {
         super();
-        this.initializeReferenceSystemResource();
+        //this.initializeReferenceSystemResource();
         this.setBackground(Color.WHITE);
         this.createListeners();
     }
@@ -123,60 +123,36 @@ public class Map extends JMapPane {
     }
 
     /**
-     * It initializes the map control given an SRID and WKT Presentation of the reference system.
-     * This constructor is used if for the given srid the WKT is not in the resource
-     * srid.properties.
+     * It initializes the map control given an SRID and WKT Presentation of the
+     * reference system. This constructor is used if for the given srid the WKT
+     * is not in the resource srid.properties.
      *
      * @param srid The SRID
-     * @param wktOfReferenceSystem the WKT definition of Reference system if not found in the
-     * srid.properties resource file. If found there there is not need to specify.
+     * @param wktOfReferenceSystem the WKT definition of Reference system if not
+     * found in the srid.properties resource file. If found there there is not
+     * need to specify.
      * @throws InitializeMapException
      */
     public Map(int srid, String wktOfReferenceSystem) throws InitializeMapException {
         this();
-        if (!sridResource.contains(Integer.toString(srid))) {
-            sridResource.setProperty(Integer.toString(srid), wktOfReferenceSystem);
-        }
+        CRSUtility.getInstance().setCRS(srid, wktOfReferenceSystem);
         this.initialize(srid);
     }
 
-    private void initializeReferenceSystemResource() throws InitializeMapException {
-        try {
-            System.setProperty("org.geotools.referencing.forceXY", "true");
-            //Hints hints = new Hints(Hints.FORCE_LONGITUDE_FIRST_AXIS_ORDER, Boolean.TRUE);
-            if (sridResource == null) {
-                sridResource = new Properties();
-                String resourceLocation = String.format("/%s/%s",
-                        this.getClass().getPackage().getName().replace('.', '/'),
-                        SRID_RESOURCE_LOCATION);
-                sridResource.load(this.getClass().getResourceAsStream(resourceLocation));
-            }
-        } catch (IOException ex) {
-            throw new InitializeMapException("Coordinative system resource not found.", ex);
-        }
-    }
-
     /**
-     * Internal initializer of the control. It starts up the map context, renderer and sets the
-     * Reference System based in the SRID.
+     * Internal initializer of the control. It starts up the map context,
+     * renderer and sets the Reference System based in the SRID.
      *
      * @param srid
      * @throws InitializeMapException
      */
     private void initialize(int srid) throws InitializeMapException {
         MapContent content = new MapContent();
-        try {
-            content.getViewport().setCoordinateReferenceSystem(
-                    this.generateCoordinateReferenceSystem(srid));
-        } catch (FactoryException ex) {
-            throw new InitializeMapException(
-                    Messaging.Ids.MAPCONTROL_MAPCONTEXT_WITHOUT_SRID_ERROR.toString(), ex);
-        }
+        content.getViewport().setCoordinateReferenceSystem(CRSUtility.getInstance().getCRS(srid));
         if (content.getCoordinateReferenceSystem() == null) {
             throw new InitializeMapException(
                     Messaging.Ids.MAPCONTROL_MAPCONTEXT_WITHOUT_SRID_ERROR.toString(), null);
         }
-        this.srid = srid;
         this.setMapContent(content);
     }
 
@@ -199,21 +175,9 @@ public class Map extends JMapPane {
     }
 
     /**
-     * It generates a CoordinateReferenceSystem based in srid.
-     *
-     * @param srid
-     * @return The coordinative system corresponding to the srid
-     * @throws FactoryException
-     */
-    private CoordinateReferenceSystem generateCoordinateReferenceSystem(int srid)
-            throws FactoryException {
-        String wktOfCrs = sridResource.getProperty(Integer.toString(srid));
-        return CRS.parseWKT(wktOfCrs);
-    }
-
-    /**
-     * Initialize the mouse and map bounds listeners. The map wheel listener are initialized
-     * separately because the ones provided by mapMouseAdapter gives a null location
+     * Initialize the mouse and map bounds listeners. The map wheel listener are
+     * initialized separately because the ones provided by mapMouseAdapter gives
+     * a null location
      */
     private void createListeners() {
 
@@ -246,8 +210,8 @@ public class Map extends JMapPane {
     }
 
     /**
-     * It zooms in and out as the user uses the mousewheel. The mouse stays pointing in the same map
-     * coordinates
+     * It zooms in and out as the user uses the mousewheel. The mouse stays
+     * pointing in the same map coordinates
      *
      * @param ev
      */
@@ -291,7 +255,8 @@ public class Map extends JMapPane {
     }
 
     /**
-     * It updates the pixel resolution of the map for each change of the DisplayArea.
+     * It updates the pixel resolution of the map for each change of the
+     * DisplayArea.
      *
      * @param ev
      */
@@ -344,6 +309,22 @@ public class Map extends JMapPane {
         return isRendering;
     }
 
+    public void setCRS(CoordinateReferenceSystem crs) {
+        try {
+            this.fullExtent = this.getFullExtent().transform(crs, true);
+            this.getMapContent().getViewport().setCoordinateReferenceSystem(crs);
+            for (ExtendedLayer layer : extendedLayers.values()) {
+                if (layer instanceof ExtendedLayerGraphics) {
+                    ((ExtendedLayerGraphics)layer).transformFeatureGeometries();
+                }
+            }
+        } catch (TransformException ex) {
+            throw new InitializeCRSException("Error while switching CRS.", ex);
+        } catch (FactoryException ex) {
+            throw new InitializeCRSException("Error while switching CRS.", ex);
+        }
+    }
+
     /**
      * It zooms to the full extent.
      */
@@ -360,23 +341,23 @@ public class Map extends JMapPane {
      * @param south
      */
     public void setFullExtent(double east, double west, double north, double south) {
-        this.fullExtentEnvelope = new ReferencedEnvelope(
+        this.fullExtent = new ReferencedEnvelope(
                 west, east, south, north, this.getMapContent().getCoordinateReferenceSystem());
     }
 
     /**
-     * Gets the full extent. If the full extent is not yet set then the full extent of all layers in
-     * the map is used.
+     * Gets the full extent. If the full extent is not yet set then the full
+     * extent of all layers in the map is used.
      *
      *
      * @return
      */
     public ReferencedEnvelope getFullExtent() {
-        if (this.fullExtentEnvelope == null) {
+        if (this.fullExtent == null) {
             this.reset();
-            this.fullExtentEnvelope = this.getDisplayArea();
+            this.fullExtent = this.getDisplayArea();
         }
-        return this.fullExtentEnvelope;
+        return this.fullExtent;
     }
 
     /**
@@ -385,13 +366,17 @@ public class Map extends JMapPane {
      * @return
      */
     public Integer getSrid() {
-        if (srid == null) {
-            Object[] identifiers =
-                    this.getMapContent().getCoordinateReferenceSystem().getIdentifiers().toArray();
-            srid = Integer.parseInt(((NamedIdentifier) identifiers[0]).getCode());
-
+        String sridAsString = CRSUtility.getInstance().getSrid(
+                this.getMapContent().getViewport().getCoordinateReferenceSystem());
+        if (sridAsString.isEmpty()) {
+            return null;
         }
-        return srid;
+
+        return Integer.parseInt(sridAsString);
+    }
+
+    public List<CRSItem> getCRSList() {
+        return CRSUtility.getInstance().getCRSList();
     }
 
     /**
@@ -422,13 +407,15 @@ public class Map extends JMapPane {
     }
 
     /**
-     * It adds a layer of type WMS which is actually a WMS Server with a list of layers in it.
+     * It adds a layer of type WMS which is actually a WMS Server with a list of
+     * layers in it.
      *
      * @param layerName The name
      * @param layerTitle layer title
      * @param URL The Url to the wms server
      * @param layerNames The list of layer names
-     * @param visible Flag to indicate if the layer should be visible by default.
+     * @param visible Flag to indicate if the layer should be visible by
+     * default.
      * @return
      */
     public ExtendedWmsLiteLayer addLayerWms(
@@ -437,10 +424,10 @@ public class Map extends JMapPane {
         ExtendedWmsLiteLayer layer = null;
         try {
             layer = new ExtendedWmsLiteLayer(
-                    layerName, layerTitle, Url, layerNames, this.getSrid(), version, format);
+                    layerName, layerTitle, Url, layerNames, version, format);
             layer.setVisible(visible);
             this.addLayer(layer);
-            this.getSolaLayers().put(layerName, layer);
+            //this.getSolaLayers().put(layerName, layer);
         } catch (InitializeLayerException ex) {
             Messaging.getInstance().show(ex.getMessage());
         }
@@ -453,8 +440,9 @@ public class Map extends JMapPane {
      * @param layerName the layer name
      * @param layerTitle layer title
      * @param pathOfShapefile the path of the .shp file
-     * @param styleResource the resource name .xml in the location of resources for layer styles.
-     * This resource location is added in the path decided in SLD_RESOURCES {
+     * @param styleResource the resource name .xml in the location of resources
+     * for layer styles. This resource location is added in the path decided in
+     * SLD_RESOURCES {
      * @see org.sola.clients.geotools.ui.layers.SolaFeatureLayer}.
      * @return
      */
@@ -470,9 +458,11 @@ public class Map extends JMapPane {
      * @param layerName the layer name
      * @param layerTitle layer title
      * @param pathOfShapefile the path of the .shp file
-     * @param styleResource the resource name .xml in the location of resources for layer styles.
-     * @param visible Indicates if the default state of the layer is visible or not. This resource
-     * location is added in the path decided in SLD_RESOURCES {
+     * @param styleResource the resource name .xml in the location of resources
+     * for layer styles.
+     * @param visible Indicates if the default state of the layer is visible or
+     * not. This resource location is added in the path decided in SLD_RESOURCES
+     * {
      * @see org.sola.clients.geotools.ui.layers.SolaFeatureLayer}.
      * @return
      */
@@ -497,8 +487,9 @@ public class Map extends JMapPane {
      * @param layerName layer name
      * @param layerTitle layer title
      * @param geometryType geometry type for this layer
-     * @param styleResource the resource name .xml in the location of resources for layer styles.
-     * This resource location is added in the path decided in SLD_RESOURCES {
+     * @param styleResource the resource name .xml in the location of resources
+     * for layer styles. This resource location is added in the path decided in
+     * SLD_RESOURCES {
      * @see org.sola.clients.geotools.ui.layers.SolaFeatureLayer}.
      * @return
      */
@@ -522,8 +513,9 @@ public class Map extends JMapPane {
      * @param layerName layer name
      * @param layerTitle layer title
      * @param geometryType geometry type for this layer
-     * @param styleResource the resource name .xml in the location of resources for layer styles.
-     * This resource location is added in the path decided in SLD_RESOURCES {
+     * @param styleResource the resource name .xml in the location of resources
+     * for layer styles. This resource location is added in the path decided in
+     * SLD_RESOURCES {
      * @see org.sola.clients.geotools.ui.layers.SolaFeatureLayer}.
      * @return
      */
@@ -563,8 +555,8 @@ public class Map extends JMapPane {
     }
 
     /**
-     * It adds a tool in the map. The tool adds also an action in the toolbar which can activate the
-     * tool
+     * It adds a tool in the map. The tool adds also an action in the toolbar
+     * which can activate the tool
      *
      * @param tool the tool
      * @param inToolbar the toolbar
@@ -602,8 +594,8 @@ public class Map extends JMapPane {
     }
 
     /**
-     * Gets the map action which is used in one of the buttons added in the toolbar associated with
-     * the map.
+     * Gets the map action which is used in one of the buttons added in the
+     * toolbar associated with the map.
      *
      * @param actionName The action name
      * @return The action if found or null
@@ -670,7 +662,8 @@ public class Map extends JMapPane {
     }
 
     /**
-     * Gets the current scale of the map. The calculation happens according to OGC specification.
+     * Gets the current scale of the map. The calculation happens according to
+     * OGC specification.
      *
      * @return The scale
      */
@@ -679,7 +672,8 @@ public class Map extends JMapPane {
     }
 
     /**
-     * It overrides the default behavior of drawLayers by resetting always the labelcache.
+     * It overrides the default behavior of drawLayers by resetting always the
+     * labelcache.
      *
      * @param createNewImage
      */
@@ -690,8 +684,8 @@ public class Map extends JMapPane {
     }
 
     /**
-     * It overrides the default behavior of the JMapPane of geotools by trying to maintain the
-     * extent of the map while resizing.
+     * It overrides the default behavior of the JMapPane of geotools by trying
+     * to maintain the extent of the map while resizing.
      */
     @Override
     protected void setForNewSize() {
@@ -702,8 +696,9 @@ public class Map extends JMapPane {
     }
 
     /**
-     * Overrides the default behavior of layerChanged. The repaint() is commented so when the layer
-     * is changed and the map is refreshed the image is not reseted completely.
+     * Overrides the default behavior of layerChanged. The repaint() is
+     * commented so when the layer is changed and the map is refreshed the image
+     * is not reseted completely.
      */
     @Override
     public void layerChanged(MapLayerListEvent event) {
@@ -728,8 +723,49 @@ public class Map extends JMapPane {
     }
 
     /**
-     * Overrides the default behavior of onImageMoved. The repaint() is commented so while panning
-     * the image is not reseted completely.
+     * The method is overridden to prevent changing the full extent. The full
+     * extent must always be supplied.
+     *
+     * @return
+     */
+    @Override
+    protected boolean setFullExtent() {
+        if (fullExtent != null) {
+            return true;
+        }
+        return super.setFullExtent();
+    }
+
+    /**
+     * This method is overridden to prevent zooming to full extent when the CRS
+     * is changed.
+     *
+     * @param event
+     */
+    @Override
+    public void mapBoundsChanged(MapBoundsEvent event) {
+        paramsLock.writeLock().lock();
+        try {
+            int type = event.getType();
+            if ((type & MapBoundsEvent.COORDINATE_SYSTEM_MASK) != 0) {
+                /*
+                 * The coordinate reference system has changed. Set the map to
+                 * display the full extent of layer bounds to avoid the effect
+                 * of a shrinking map
+                 */
+//                setFullExtent();
+//                reset();
+                this.setDisplayArea(event.getNewAreaOfInterest());
+            }
+
+        } finally {
+            paramsLock.writeLock().unlock();
+        }
+    }
+
+    /**
+     * Overrides the default behavior of onImageMoved. The repaint() is
+     * commented so while panning the image is not reseted completely.
      */
     @Override
     protected void onImageMoved() {
@@ -749,10 +785,15 @@ public class Map extends JMapPane {
         }, paintDelay, TimeUnit.MILLISECONDS);
     }
 
+    @Override
+    protected void afterImageMoved() {
+        super.afterImageMoved();
+    }
+
     /**
-     * Initializes the selection layer on the map control. This method should be called after all
-     * map layers have been added to ensure the selection layer appears on top of the other SOLA
-     * layers.
+     * Initializes the selection layer on the map control. This method should be
+     * called after all map layers have been added to ensure the selection layer
+     * appears on top of the other SOLA layers.
      */
     public void initializeSelectionLayer() {
         try {
@@ -769,7 +810,7 @@ public class Map extends JMapPane {
             Messaging.getInstance().show(ex.getMessage());
         }
     }
-    
+
     /**
      * Moves the selection layer to the top of the list of layers so that
      * selected objects are always displayed on top of other layers.
@@ -813,7 +854,7 @@ public class Map extends JMapPane {
             selectionLayer.removeFeatures(false);
         }
     }
-    
+
     /**
      * Retrieves the selected features from the selection layer.
      */

@@ -111,7 +111,7 @@ public class CadastreChangeNewCadastreObjectTool
     }
 
     @Override
-    public SimpleFeature addFeature(final Geometry geometry) {
+    public SimpleFeature addFeature(Geometry geometry) {
         org.sola.clients.beans.cadastre.CadastreObjectBean formBean = new org.sola.clients.beans.cadastre.CadastreObjectBean();
         formBean.setNameFirstpart(getLayer().getLastPart());
         formBean.setNameLastpart(getLayer().getNameFirstPart());
@@ -122,6 +122,10 @@ public class CadastreChangeNewCadastreObjectTool
         ParcelDialog form = new ParcelDialog(formBean, false, null, true);
         
         final CadastreObjectBean[] beans = new CadastreObjectBean[1];
+        
+        // AM - Multi-SRID change
+        // Need to explicitly set the SRID of the map on the geometry. 
+        final Geometry geom = this.layer.setSridOnGeometry(geometry); 
 
         form.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -136,7 +140,7 @@ public class CadastreChangeNewCadastreObjectTool
                     bean2.getSpatialValueAreaList().clear();
                     bean2.getSpatialValueAreaList().addAll(bean.getSpatialValueAreaList());
                     
-                    bean2.setFeatureGeom(geometry);
+                    bean2.setFeatureGeom(geom);
                     getLayer().getBeanList().add(bean2);
                     beans[0] = bean2;
                 }

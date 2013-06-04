@@ -55,9 +55,8 @@ import org.geotools.map.MapContent;
 import org.geotools.map.MapViewport;
 import org.geotools.ows.ServiceException;
 import org.geotools.swing.extended.exception.InitializeLayerException;
+import org.geotools.swing.extended.util.CRSUtility;
 import org.geotools.swing.extended.util.Messaging;
-import org.opengis.geometry.BoundingBox;
-import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 /**
  * This layer acts as a client to a wms server. It relies in the configuration
@@ -73,11 +72,9 @@ public class WmsLiteLayer extends DirectLayer {
     private ReferencedEnvelope bounds;
     private BufferedImage image;
     private org.geotools.data.wms.request.GetMapRequest getMapRequest;
-    private Integer srid;
+    //private Integer srid;
+    private String wmsServerUrl = "";
     private String format = "image/png";
-    private Boolean crsIsSouthOriented = null;
-    private static String PROJECTION_SOUTH_ORIENTED =
-            "Transverse Mercator (South Orientated)";
 
     /**
      * Constructor of the layer.
@@ -120,9 +117,9 @@ public class WmsLiteLayer extends DirectLayer {
      *
      * @param srid
      */
-    public void setSrid(Integer srid) {
-        this.srid = srid;
-    }
+//    public void setSrid(Integer srid) {
+//        this.srid = srid;
+//    }
 
     /**
      * Sets the format of the output. Potential formats are image/jpeg or
@@ -133,7 +130,7 @@ public class WmsLiteLayer extends DirectLayer {
     public void setFormat(String format) {
         this.format = format;
     }
-    
+
     @Override
     public void draw(Graphics2D gd, MapContent mc, MapViewport mv) {
         if (this.bounds != null && this.bounds.equals(mv.getBounds()) && this.image != null) {
@@ -144,7 +141,7 @@ public class WmsLiteLayer extends DirectLayer {
             getMapRequest.setBBox(this.bounds);
             getMapRequest.setDimensions(mv.getScreenArea().getSize());
             getMapRequest.setFormat(this.format);
-            getMapRequest.setSRS(String.format("EPSG:%s", this.srid));
+            getMapRequest.setSRS(String.format("EPSG:%s", CRSUtility.getInstance().getSrid(mv.getCoordinateReferenceSystem())));
             //The transparency will not work if the format does not support transparency
             getMapRequest.setTransparent(true);
             try {
@@ -155,9 +152,8 @@ public class WmsLiteLayer extends DirectLayer {
                         new GetMapResponse(httpClient.get(getMapRequest.getFinalURL()));
                 this.image = ImageIO.read(response.getInputStream());
                 response.getInputStream().close();
-                response.dispose();
-                if (this.crsIsSouthOriented(mc.getCoordinateReferenceSystem())) {
-                    this.flipImageIfSouthOriented();
+                if (CRSUtility.getInstance().crsIsSouthOriented(mv.getCoordinateReferenceSystem())){
+                    this.flipImageIfSouthOriented(this.image);
                 }
                 gd.drawImage(this.image, 0, 0, null);
             } catch (IOException ex) {
@@ -175,18 +171,13 @@ public class WmsLiteLayer extends DirectLayer {
         return this.bounds;
     }
 
-    private void flipImageIfSouthOriented() {
+    private BufferedImage flipImageIfSouthOriented(BufferedImage tmpImage) {
         AffineTransform tx = AffineTransform.getScaleInstance(-1, -1);
-        tx.translate(-image.getWidth(null), -image.getHeight(null));
+        tx.translate(-tmpImage.getWidth(null), -tmpImage.getHeight(null));
         AffineTransformOp op = new AffineTransformOp(
                 tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-        image = op.filter(image, null);
+        tmpImage = op.filter(tmpImage, null);
+        return tmpImage;
     }
 
-    private boolean crsIsSouthOriented(CoordinateReferenceSystem crs) {
-        if (crsIsSouthOriented == null) {
-            crsIsSouthOriented = crs.toWKT().contains(PROJECTION_SOUTH_ORIENTED);
-        }
-        return crsIsSouthOriented;
-    }
 }

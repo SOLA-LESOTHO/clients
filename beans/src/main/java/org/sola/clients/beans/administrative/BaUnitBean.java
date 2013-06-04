@@ -618,10 +618,11 @@ public class BaUnitBean extends BaUnitSummaryBean {
             newCadastreObjectList = new SolaList<CadastreObjectBean>();
         }
         newCadastreObjectList.clear();
-        if (getId() != null) {
-            List<SpatialSearchResultTO> searchResults =
-                    WSManager.getInstance().getSearchService().searchSpatialObjects(BAUNIT_ID_SEARCH, getId());
-            if (searchResults != null && searchResults.size() > 0) {
+        if(getId()!=null){
+            List<SpatialSearchResultTO> searchResults = 
+                    WSManager.getInstance().getSearchService()
+                    .searchSpatialObjects(BAUNIT_ID_SEARCH, getId(), -1);
+            if(searchResults!=null && searchResults.size()>0){
                 List<String> ids = new ArrayList<String>();
                 for (SpatialSearchResultTO result : searchResults) {
                     ids.add(result.getId());

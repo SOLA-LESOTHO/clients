@@ -194,7 +194,8 @@ public class MapImageGenerator {
         //Define a new viewport 
         MapViewport mapViewport = new MapViewport(extent, true);
         mapViewport.setScreenArea(rectangle);
-
+        mapViewport.setCoordinateReferenceSystem(this.mapContent.getViewport().getCoordinateReferenceSystem());
+        
         //Set the new viewport
         renderer.getMapContent().setViewport(mapViewport);
         //Render map according to the new viewport

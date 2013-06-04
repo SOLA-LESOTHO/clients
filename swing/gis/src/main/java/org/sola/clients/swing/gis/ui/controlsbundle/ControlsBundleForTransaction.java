@@ -119,7 +119,8 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
         return instance;
     }
     
-    /**
+    
+      /**
      * It sets up the bundle. It calls the adding layer method and adding tools method. It also
      * identifies the pending layer which will be refreshed if a transaction is being saved in the
      * database.
