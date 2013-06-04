@@ -32,14 +32,12 @@ package org.sola.clients.swing.gis.ui.control;
 import java.awt.CardLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.math.BigDecimal;
-import org.sola.clients.beans.referencedata.StatusConstants;
+import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.gis.beans.AbstractListSpatialBean;
 import org.sola.clients.swing.gis.beans.CadastreObjectBean;
 import org.sola.clients.swing.gis.beans.CadastreObjectListBean;
 import org.sola.clients.swing.gis.beans.SpatialBean;
-import org.sola.clients.swing.ui.HeaderPanel;
-import org.sola.common.mapping.MappingManager;
+import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -54,12 +52,14 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
     private CadastreObjectListBean theBean = null;
     private final String CARD_PARCEL = "CARD_PARCEL";
     private final String CARD_LIST = "CARD_LIST";
-
+    private String applicationNumber;
+    
     /**
      * This constructor must be used to initialize the bean.
      */
-    public CadastreObjectListPanel(CadastreObjectListBean bean) {
+    public CadastreObjectListPanel(CadastreObjectListBean bean, String applicationNumber) {
         this.theBean = bean;
+        this.applicationNumber = applicationNumber;
         initComponents();
         // Add a listner to the bean property of selected bean
         theBean.addPropertyChangeListener(new PropertyChangeListener() {
@@ -120,20 +120,35 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         if (cadastreObjectListBean.getSelectedBean() == null) {
             return;
         }
+        parcelPanel.setCadastreObjectBean(convertBean((CadastreObjectBean)cadastreObjectListBean.getSelectedBean()));
+        showParcelPanel(true);
+    }
 
+    private org.sola.clients.beans.cadastre.CadastreObjectBean convertBean(CadastreObjectBean co){
         org.sola.clients.beans.cadastre.CadastreObjectBean bean =
                 new org.sola.clients.beans.cadastre.CadastreObjectBean();
-        bean.copyFromObject(cadastreObjectListBean.getSelectedBean());
+        bean.copyFromObject(co);
         // Fix problem with list area list duplications
         bean.getSpatialValueAreaList().clear();
         bean.getSpatialValueAreaList().addAll(((CadastreObjectBean) 
                 cadastreObjectListBean.getSelectedBean()).getSpatialValueAreaList());
 
         parcelPanel.setCadastreObjectBean(bean);
-        showParcelPanel(true);
+        return bean;
     }
-
-    private void print() {
+    
+    private void print(){
+        print(convertBean((CadastreObjectBean)cadastreObjectListBean.getSelectedBean()));
+    }
+    
+    private void print(org.sola.clients.beans.cadastre.CadastreObjectBean co) {
+        if (cadastreObjectListBean.getSelectedBean() == null) {
+            return;
+        }
+        ReportViewerForm form = new ReportViewerForm(
+                ReportManager.getSurveyReport(co, applicationNumber));
+        form.setLocationRelativeTo(this);
+        form.setVisible(true);
     }
 
     private void remove() {
@@ -148,15 +163,17 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         if (cadastreObjectListBean.getSelectedBean() == null) {
             return;
         }
-
+            
+        parcelPanel.commitEdits();
         if (parcelPanel.getCadastreObjectBean().validate(true).size() <= 0) {
             cadastreObjectListBean.getSelectedBean().copyFromObject(parcelPanel.getCadastreObjectBean());
-            // Fix problem with list area list duplications
+            // Fix problems with SOLA lists after mapping
             ((CadastreObjectBean)cadastreObjectListBean.getSelectedBean()).getSpatialValueAreaList().clear();
             ((CadastreObjectBean)cadastreObjectListBean.getSelectedBean()).getSpatialValueAreaList()
                     .addAll(parcelPanel.getCadastreObjectBean().getSpatialValueAreaList());
-            ((CadastreObjectBean)cadastreObjectListBean.getSelectedBean()).setOfficialArea(parcelPanel.getCadastreObjectBean().getOfficialAreaSize());
-            cadastreObjectListBean.fireListUpdate();
+            ((CadastreObjectBean)cadastreObjectListBean.getSelectedBean()).getAddressList().filter();
+            
+            ((CadastreObjectBean)cadastreObjectListBean.getSelectedBean()).fireCalculatedFieldsUpdate();
             showParcelPanel(false);
         }
     }
@@ -179,8 +196,8 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         cmdRemove = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnPrint = new org.sola.clients.swing.common.buttons.BtnPrint();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableCadastreObject = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableWithDefaultStyles1 = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
         jPanel3 = new javax.swing.JPanel();
         parcelPanel = new org.sola.clients.swing.ui.cadastre.ParcelPanel();
         jToolBar2 = new javax.swing.JToolBar();
@@ -205,6 +222,7 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         menuPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/gis/ui/control/Bundle"); // NOI18N
         menuPrint.setText(bundle.getString("CadastreObjectListPanel.menuPrint.text")); // NOI18N
+        menuPrint.setActionCommand(bundle.getString("CadastreObjectListPanel.menuPrint.actionCommand")); // NOI18N
         menuPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuPrintActionPerformed(evt);
@@ -250,11 +268,10 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         });
         jToolBar1.add(btnPrint);
 
-        tableCadastreObject.setComponentPopupMenu(popupParcels);
-        tableCadastreObject.setMinimumSize(new java.awt.Dimension(450, 150));
+        jTableWithDefaultStyles1.setComponentPopupMenu(popupParcels);
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${beanList}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectListBean, eLProperty, tableCadastreObject);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectListBean, eLProperty, jTableWithDefaultStyles1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${parcelCode}"));
         columnBinding.setColumnName("Parcel Code");
         columnBinding.setColumnClass(String.class);
@@ -280,26 +297,26 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectListBean, org.jdesktop.beansbinding.ELProperty.create("${selectedBean}"), tableCadastreObject, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectListBean, org.jdesktop.beansbinding.ELProperty.create("${selectedBean}"), jTableWithDefaultStyles1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
-        jScrollPane1.setViewportView(tableCadastreObject);
-        tableCadastreObject.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("CadastreObjectListPanel.tableCadastreObject.columnModel.title0")); // NOI18N
-        tableCadastreObject.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("CadastreObjectListPanel.tableCadastreObject.columnModel.title2")); // NOI18N
-        tableCadastreObject.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("CadastreObjectListPanel.tableCadastreObject.columnModel.title3")); // NOI18N
-        tableCadastreObject.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectListPanel.tableCadastreObject.columnModel.title5")); // NOI18N
-        tableCadastreObject.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectListPanel.tableCadastreObject.columnModel.title6")); // NOI18N
-        tableCadastreObject.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectListPanel.tableCadastreObject.columnModel.title8")); // NOI18N
+        jScrollPane2.setViewportView(jTableWithDefaultStyles1);
+        jTableWithDefaultStyles1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title0_1")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title1_1")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title2_1")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title3_1")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title4")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title5")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -308,7 +325,7 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -338,10 +355,10 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -350,7 +367,7 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
 
@@ -415,9 +432,10 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
     private javax.swing.JButton cmdRemove;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles jTableWithDefaultStyles1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private org.sola.clients.swing.common.menuitems.MenuEdit menuEdit;
@@ -426,7 +444,6 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.ui.cadastre.ParcelPanel parcelPanel;
     private javax.swing.JPanel pnlCards;
     private javax.swing.JPopupMenu popupParcels;
-    private javax.swing.JTable tableCadastreObject;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

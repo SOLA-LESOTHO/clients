@@ -37,7 +37,7 @@ import org.sola.clients.beans.systematicregistration.SysRegCertificatesListBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.desktop.MainForm;
-import org.sola.clients.swing.desktop.ReportViewerForm;
+import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.clients.swing.desktop.source.DocumentForm;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.common.FileUtility;

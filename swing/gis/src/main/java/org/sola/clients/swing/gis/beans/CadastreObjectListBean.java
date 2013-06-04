@@ -55,8 +55,4 @@ public class CadastreObjectListBean extends AbstractListSpatialBean{
     public SolaObservableList<CadastreObjectBean> getBeanList() {
         return super.getBeanList();
     }
-    
-    public void fireListUpdate(){
-        propertySupport.firePropertyChange(BEANS_LIST_PROPERTY, null, getBeanList());
-    }
 }

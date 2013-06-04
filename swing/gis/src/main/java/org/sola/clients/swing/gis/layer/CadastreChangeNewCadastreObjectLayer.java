@@ -86,7 +86,8 @@ public class CadastreChangeNewCadastreObjectLayer
         this.listBean = new CadastreObjectListBean();
         //This is called after the listBean is initialized
         initializeListBeanEvents();
-        spatialObjectDisplayPanel = new CadastreObjectListDialog((CadastreObjectListBean) this.listBean, null, true);
+        spatialObjectDisplayPanel = new CadastreObjectListDialog(
+                (CadastreObjectListBean) this.listBean, applicationNumber, null, true);
         WindowUtility.centerForm(spatialObjectDisplayPanel);
         initializeFormHosting(spatialObjectDisplayPanel);
     }

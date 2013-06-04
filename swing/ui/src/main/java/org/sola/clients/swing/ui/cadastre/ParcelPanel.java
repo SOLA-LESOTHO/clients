@@ -163,6 +163,18 @@ public class ParcelPanel extends javax.swing.JPanel {
         cadastreObjectBean.removeSelectedAddress();
     }
     
+    /** 
+     * Forcibly commits edits on FormattedText fields, such as valuation amount. 
+     * It allows to save values to the underlying bean if field in the edit mode at the moment. 
+     */
+    public void commitEdits(){
+        try {
+            txtValuationAmount.commitEdit();
+            txtArea.commitEdit();
+        } catch (Exception e) {
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -268,7 +280,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jLabel17)
-                .add(0, 68, Short.MAX_VALUE))
+                .add(0, 72, Short.MAX_VALUE))
             .add(txtFirstPart)
         );
         jPanel2Layout.setVerticalGroup(
@@ -300,7 +312,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jLabel7)
-                .add(0, 69, Short.MAX_VALUE))
+                .add(0, 73, Short.MAX_VALUE))
             .add(txtLastPart)
         );
         jPanel3Layout.setVerticalGroup(
@@ -335,7 +347,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(jLabel10)
-                .add(0, 88, Short.MAX_VALUE))
+                .add(0, 92, Short.MAX_VALUE))
             .add(cbxEstateType, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
@@ -368,7 +380,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
                 .add(jLabel1)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
             .add(txtArea)
         );
         jPanel7Layout.setVerticalGroup(
@@ -397,7 +409,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
                 .add(jLabel9)
-                .add(0, 73, Short.MAX_VALUE))
+                .add(0, 77, Short.MAX_VALUE))
             .add(txtParcelSurveyRef)
         );
         jPanel5Layout.setVerticalGroup(
@@ -426,7 +438,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel3)
-                .add(0, 82, Short.MAX_VALUE))
+                .add(0, 86, Short.MAX_VALUE))
             .add(txtSurveyor)
         );
         jPanel9Layout.setVerticalGroup(
@@ -456,7 +468,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel10Layout.createSequentialGroup()
                 .add(jLabel4)
-                .add(0, 66, Short.MAX_VALUE))
+                .add(0, 70, Short.MAX_VALUE))
             .add(txtSurveyDate)
         );
         jPanel10Layout.setVerticalGroup(
@@ -487,7 +499,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel11Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel11Layout.createSequentialGroup()
                 .add(jLabel5)
-                .add(0, 71, Short.MAX_VALUE))
+                .add(0, 75, Short.MAX_VALUE))
             .add(txtSurveyFee)
         );
         jPanel11Layout.setVerticalGroup(
@@ -519,7 +531,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel6Layout.createSequentialGroup()
                 .add(labLandUse)
-                .add(0, 82, Short.MAX_VALUE))
+                .add(0, 86, Short.MAX_VALUE))
             .add(cbxLandUse, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
@@ -551,7 +563,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel8Layout.createSequentialGroup()
                 .add(jLabel2)
-                .add(0, 42, Short.MAX_VALUE))
+                .add(0, 46, Short.MAX_VALUE))
             .add(txtValuationAmount)
         );
         jPanel8Layout.setVerticalGroup(
@@ -594,7 +606,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             .add(jPanel12Layout.createSequentialGroup()
                 .add(jLabel6)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                .add(jScrollPane2))
         );
 
         jPanel13.setName(bundle.getString("ParcelPanel.jPanel13.name")); // NOI18N
@@ -670,7 +682,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
             .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jPanel13, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );

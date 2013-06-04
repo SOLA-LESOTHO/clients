@@ -60,7 +60,7 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
     private CadastreChangeTargetCadastreObjectLayer targetParcelsLayer = null;
     private CadastreChangeNewCadastreObjectLayer newCadastreObjectLayer = null;
     private CadastreChangeNewSurveyPointLayer newPointsLayer = null;
-    private String lastPartEntry = "";
+    private ApplicationBean applicationBean;
     private CadastreChangeSelectCadastreObjectTool selectTargetCadastreObjectTool;
     private CadastreChangeNewCadastreObjectTool newCadastreObjectTool;
     private String lastPartTemplate = "%s";
@@ -83,7 +83,7 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
             String baUnitId,
             String targetCadastreObjectType) {
         super(applicationBean, transactionStarterId);
-        this.lastPartEntry = "tmp";//applicationBean.getNr();
+        this.applicationBean = applicationBean;
         this.Setup(PojoDataAccess.getInstance());
         this.setTargetCadastreObjectTypeConfiguration(targetCadastreObjectType);
         this.refreshTransactionFromServer();
@@ -112,7 +112,6 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
             String lastPartEntry) {
         super(null, null);
         this.transactionBean = transactionBean;
-        this.lastPartEntry = lastPartEntry;
         this.lastPartTemplate = "%s";
         this.Setup(PojoDataAccess.getInstance());
         this.setTargetCadastreObjectTypeConfiguration(targetCadastreObjectType);
@@ -192,8 +191,7 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
         this.targetParcelsLayer = new CadastreChangeTargetCadastreObjectLayer();
         this.getMap().addLayer(targetParcelsLayer);
 
-        this.newCadastreObjectLayer = new CadastreChangeNewCadastreObjectLayer(
-                getLastPart(this.lastPartEntry));
+        this.newCadastreObjectLayer = new CadastreChangeNewCadastreObjectLayer(applicationBean.getNr());
         this.getMap().addLayer(newCadastreObjectLayer);
 
         this.newPointsLayer = new CadastreChangeNewSurveyPointLayer(this.newCadastreObjectLayer);

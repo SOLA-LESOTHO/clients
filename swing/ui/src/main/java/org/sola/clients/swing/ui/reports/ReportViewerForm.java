@@ -25,8 +25,9 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
-package org.sola.clients.swing.desktop;
+package org.sola.clients.swing.ui.reports;
 
+import java.awt.Dialog;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JasperPrint;
 
@@ -63,8 +64,9 @@ public class ReportViewerForm extends javax.swing.JFrame {
         reportViewerPanel = new org.sola.clients.swing.ui.reports.ReportViewerPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/reports/Bundle"); // NOI18N
         setTitle(bundle.getString("ReportViewerForm.title")); // NOI18N
+        setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setName("Form"); // NOI18N
 
         reportViewerPanel.setName("reportViewerPanel"); // NOI18N

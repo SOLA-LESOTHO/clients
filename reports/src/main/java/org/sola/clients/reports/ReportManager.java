@@ -43,6 +43,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.system.BrReportBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.system.BrListBean;
@@ -223,6 +224,31 @@ public class ReportManager {
         try {
             return JasperFillManager.fillReport(
                     ReportManager.class.getResourceAsStream("/reports/ApplicationPrintingForm.jasper"), inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
+    
+    /**
+     * Generates and displays <b>Survey report</b>.
+     *
+     * @param co CadastreObjectBean containing data for the report.
+     * @param appNumber Application number
+     */
+    public static JasperPrint getSurveyReport(CadastreObjectBean co, String appNumber) {
+        HashMap inputParameters = new HashMap();
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("APP_NUMBER", appNumber);
+        CadastreObjectBean[] beans = new CadastreObjectBean[1];
+        beans[0] = co;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/map/SurveyFormS10.jasper"), inputParameters, jds);
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});

@@ -524,6 +524,17 @@ public class CadastreObjectBean extends SpatialBean {
         return toString();
     }
     
+    /** 
+     * Fires property change events for the fields which values derived based 
+     * on other fields values (e.g. official area size).
+     */
+    public void fireCalculatedFieldsUpdate(){
+        propertySupport.firePropertyChange(OFFICIAL_AREA_SIZE_PROPERTY, null, getOfficialAreaSize());
+        propertySupport.firePropertyChange(OFFICIAL_AREA_PROPERTY, null, getOfficialArea());
+        propertySupport.firePropertyChange(CALCULATED_AREA_SIZE_PROPERTY, null, getCalculatedArea());
+        propertySupport.firePropertyChange(ADDRESS_STRING_PROPERTY, null, getAddressString());
+    }
+    
     @Override
     public String toString() {
         return String.format("%s-%s",this.nameFirstpart, this.nameLastpart);
