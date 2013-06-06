@@ -29,6 +29,7 @@ package org.sola.clients.swing.ui.cadastre;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javax.swing.JFormattedTextField;
 import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.swing.common.converters.BigDecimalMoneyConverter;
@@ -36,6 +37,7 @@ import org.sola.clients.swing.ui.address.AddressDialog;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
 import org.sola.common.WindowUtility;
+import org.sola.clients.swing.common.controls.CalendarForm;
 
 /**
  * Parcel panel to create and manage parcel objects
@@ -174,6 +176,10 @@ public class ParcelPanel extends javax.swing.JPanel {
         } catch (Exception e) {
         }
     }
+    private void showCalendar(JFormattedTextField dateField) {
+        CalendarForm calendar = new CalendarForm(null, true, dateField);
+        calendar.setVisible(true);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -209,6 +215,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtSurveyDate = new javax.swing.JFormattedTextField();
+        btnSubmissionDateFrom = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtSurveyFee = new javax.swing.JFormattedTextField();
@@ -284,7 +291,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jLabel17)
-                .add(0, 72, Short.MAX_VALUE))
+                .add(0, 85, Short.MAX_VALUE))
             .add(txtFirstPart)
         );
         jPanel2Layout.setVerticalGroup(
@@ -316,7 +323,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jLabel7)
-                .add(0, 73, Short.MAX_VALUE))
+                .add(0, 86, Short.MAX_VALUE))
             .add(txtLastPart)
         );
         jPanel3Layout.setVerticalGroup(
@@ -351,7 +358,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(jLabel10)
-                .add(0, 92, Short.MAX_VALUE))
+                .add(0, 105, Short.MAX_VALUE))
             .add(cbxEstateType, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
@@ -384,7 +391,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
                 .add(jLabel1)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
             .add(txtArea)
         );
         jPanel7Layout.setVerticalGroup(
@@ -413,7 +420,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
                 .add(jLabel9)
-                .add(0, 77, Short.MAX_VALUE))
+                .add(0, 90, Short.MAX_VALUE))
             .add(txtParcelSurveyRef)
         );
         jPanel5Layout.setVerticalGroup(
@@ -442,7 +449,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel3)
-                .add(0, 86, Short.MAX_VALUE))
+                .add(0, 99, Short.MAX_VALUE))
             .add(txtSurveyor)
         );
         jPanel9Layout.setVerticalGroup(
@@ -466,21 +473,42 @@ public class ParcelPanel extends javax.swing.JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.surveyDate}"), txtSurveyDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
+        txtSurveyDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSurveyDateActionPerformed(evt);
+            }
+        });
+
+        btnSubmissionDateFrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnSubmissionDateFrom.setText(bundle.getString("ParcelPanel.btnSubmissionDateFrom.text")); // NOI18N
+        btnSubmissionDateFrom.setBorder(null);
+        btnSubmissionDateFrom.setName(bundle.getString("ParcelPanel.btnSubmissionDateFrom.name")); // NOI18N
+        btnSubmissionDateFrom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmissionDateFromActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel10Layout = new org.jdesktop.layout.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel10Layout.createSequentialGroup()
                 .add(jLabel4)
-                .add(0, 70, Short.MAX_VALUE))
-            .add(txtSurveyDate)
+                .add(0, 83, Short.MAX_VALUE))
+            .add(jPanel10Layout.createSequentialGroup()
+                .add(txtSurveyDate)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(btnSubmissionDateFrom))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel10Layout.createSequentialGroup()
                 .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtSurveyDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(btnSubmissionDateFrom)
+                    .add(txtSurveyDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel1.add(jPanel10);
@@ -503,7 +531,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel11Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel11Layout.createSequentialGroup()
                 .add(jLabel5)
-                .add(0, 75, Short.MAX_VALUE))
+                .add(0, 88, Short.MAX_VALUE))
             .add(txtSurveyFee)
         );
         jPanel11Layout.setVerticalGroup(
@@ -535,7 +563,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel6Layout.createSequentialGroup()
                 .add(labLandUse)
-                .add(0, 86, Short.MAX_VALUE))
+                .add(0, 99, Short.MAX_VALUE))
             .add(cbxLandUse, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
@@ -567,7 +595,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel8Layout.createSequentialGroup()
                 .add(jLabel2)
-                .add(0, 46, Short.MAX_VALUE))
+                .add(0, 59, Short.MAX_VALUE))
             .add(txtValuationAmount)
         );
         jPanel8Layout.setVerticalGroup(
@@ -599,7 +627,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel14Layout.createSequentialGroup()
                 .add(labLandUse1)
-                .add(0, 71, Short.MAX_VALUE))
+                .add(0, 88, Short.MAX_VALUE))
             .add(cbxLandGrade, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
@@ -719,7 +747,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jPanel13, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -760,10 +788,19 @@ public class ParcelPanel extends javax.swing.JPanel {
         removeAddress();
     }//GEN-LAST:event_menuRemove1ActionPerformed
 
+    private void btnSubmissionDateFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFromActionPerformed
+        showCalendar(txtSurveyDate);
+    }//GEN-LAST:event_btnSubmissionDateFromActionPerformed
+
+    private void txtSurveyDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSurveyDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSurveyDateActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.swing.common.buttons.BtnAdd btnAdd1;
     private org.sola.clients.swing.common.buttons.BtnEdit btnEdit1;
     private org.sola.clients.swing.common.buttons.BtnRemove btnRemove1;
+    private javax.swing.JButton btnSubmissionDateFrom;
     private org.sola.clients.beans.referencedata.CadastreObjectTypeListBean cadastreObjectTypeListBean1;
     private javax.swing.JComboBox cbxEstateType;
     private javax.swing.JComboBox cbxLandGrade;
