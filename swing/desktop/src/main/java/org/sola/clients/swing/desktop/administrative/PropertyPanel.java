@@ -481,6 +481,7 @@ public class PropertyPanel extends ContentPanel {
     private void customizeParcelButtons() {
         btnSearchParcel.setEnabled(!readOnly);
         btnSearchParcel.setEnabled(!readOnly);
+        btnAddParcelFromApplication.setEnabled(!readOnly);
     }
 
     /**

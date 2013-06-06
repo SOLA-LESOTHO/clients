@@ -33,14 +33,13 @@ package org.sola.clients.swing.gis.ui.control;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import org.sola.clients.swing.gis.Messaging;
 import org.sola.clients.swing.gis.beans.AbstractListSpatialBean;
 import org.sola.clients.swing.gis.beans.SpatialBean;
 import org.sola.clients.swing.gis.beans.SurveyPointBean;
 import org.sola.clients.swing.gis.beans.SurveyPointListBean;
 import org.sola.clients.swing.gis.data.PojoDataAccess;
+import org.sola.clients.swing.gis.layer.CadastreChangeNewSurveyPointLayer;
 import org.sola.common.messaging.GisMessage;
 
 /**
@@ -51,14 +50,16 @@ import org.sola.common.messaging.GisMessage;
 public class SurveyPointListPanel extends javax.swing.JPanel {
 
     private SurveyPointListBean theBean;
+    private CadastreChangeNewSurveyPointLayer layer;
 
     /**
      * This constructor must be used to initialize the bean.
      * 
      * @param listBean 
      */
-    public SurveyPointListPanel(SurveyPointListBean listBean) {
+    public SurveyPointListPanel(SurveyPointListBean listBean, CadastreChangeNewSurveyPointLayer layer) {
         this.theBean = listBean;
+        this.layer = layer;
         initComponents();
         this.txtAcceptableShift.setText(
                 optionRural.isSelected()
@@ -321,6 +322,7 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
             Double x = Double.valueOf(this.txtX.getText());
             Double y = Double.valueOf(this.txtY.getText());
             SurveyPointBean bean = new SurveyPointBean();
+            bean.setId(layer.getPointId());
             bean.setX(x);
             bean.setY(y);
             this.theBean.getBeanList().add(bean);

@@ -90,7 +90,7 @@ public final class CadastreChangeNewSurveyPointLayer extends AbstractSpatialObje
         //This is called after the listBean is initialized
         initializeListBeanEvents();
         SurveyPointListPanel uiComponent =
-                new SurveyPointListPanel((SurveyPointListBean) this.listBean);
+                new SurveyPointListPanel((SurveyPointListBean) this.listBean, this);
         initializeFormHosting(
                 MessageUtility.getLocalizedMessageText(
                 GisMessage.CADASTRE_CHANGE_FORM_SURVEYPOINT_TITLE), 
@@ -183,7 +183,7 @@ public final class CadastreChangeNewSurveyPointLayer extends AbstractSpatialObje
      *
      * @return A unique number for a new point
      */
-    protected String getPointId() {
+    public String getPointId() {
         if (idGenerator == null) {
             idGenerator = 0;
             for (SurveyPointBean bean : getBeanList()) {
