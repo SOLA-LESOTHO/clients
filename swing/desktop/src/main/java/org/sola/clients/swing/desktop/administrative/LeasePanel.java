@@ -31,6 +31,7 @@ package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.validation.groups.Default;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -64,6 +65,8 @@ import org.sola.common.WindowUtility;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.clients.swing.common.controls.CalendarForm;
+
 
 /**
  * Form for managing simple ownership right. {@link RrrBean} is used to bind the
@@ -243,6 +246,11 @@ public class LeasePanel extends ContentPanel {
         if (rrrBean.getSelectedRightHolder() != null) {
             openRightHolderForm(rrrBean.getSelectedRightHolder(), false);
         }
+    }
+
+    private void showCalendar(JFormattedTextField dateField) {
+        CalendarForm calendar = new CalendarForm(null, true, dateField);
+        calendar.setVisible(true);
     }
 
     private class RightHolderFormListener implements PropertyChangeListener {
@@ -491,18 +499,21 @@ public class LeasePanel extends ContentPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtRegDatetime = new javax.swing.JFormattedTextField();
+        btnSubmissionDateFrom = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtRegistrationNumber = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtExpirationDate = new javax.swing.JFormattedTextField();
+        btnSubmissionDateFrom1 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtRent = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtDueDate = new javax.swing.JFormattedTextField();
+        btnSubmissionDateFrom2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtNotationText = new javax.swing.JTextField();
@@ -608,19 +619,41 @@ public class LeasePanel extends ContentPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${registrationDate}"), txtRegDatetime, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
+        txtRegDatetime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRegDatetimeActionPerformed(evt);
+            }
+        });
+
+        btnSubmissionDateFrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnSubmissionDateFrom.setText(bundle.getString("LeasePanel.btnSubmissionDateFrom.text")); // NOI18N
+        btnSubmissionDateFrom.setBorder(null);
+        btnSubmissionDateFrom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmissionDateFromActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2)
-            .addComponent(txtRegDatetime, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(txtRegDatetime)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSubmissionDateFrom))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRegDatetime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRegDatetime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSubmissionDateFrom)))
         );
 
         jPanel9.add(jPanel5);
@@ -637,7 +670,7 @@ public class LeasePanel extends ContentPanel {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jLabel8)
-                .addGap(0, 25, Short.MAX_VALUE))
+                .addGap(0, 39, Short.MAX_VALUE))
             .addComponent(txtRegistrationNumber)
         );
         jPanel13Layout.setVerticalGroup(
@@ -660,21 +693,41 @@ public class LeasePanel extends ContentPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${expirationDate}"), txtExpirationDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
+        txtExpirationDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtExpirationDateActionPerformed(evt);
+            }
+        });
+
+        btnSubmissionDateFrom1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnSubmissionDateFrom1.setText(bundle.getString("LeasePanel.btnSubmissionDateFrom1.text")); // NOI18N
+        btnSubmissionDateFrom1.setBorder(null);
+        btnSubmissionDateFrom1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmissionDateFrom1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel5)
-                .addGap(0, 49, Short.MAX_VALUE))
-            .addComponent(txtExpirationDate)
+                .addGap(0, 63, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(txtExpirationDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSubmissionDateFrom1))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtExpirationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSubmissionDateFrom1)
+                    .addComponent(txtExpirationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel9.add(jPanel7);
@@ -693,7 +746,7 @@ public class LeasePanel extends ContentPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel6)
-                .addGap(0, 78, Short.MAX_VALUE))
+                .addGap(0, 92, Short.MAX_VALUE))
             .addComponent(txtRent)
         );
         jPanel8Layout.setVerticalGroup(
@@ -714,21 +767,41 @@ public class LeasePanel extends ContentPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${dueDate}"), txtDueDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
+        txtDueDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDueDateActionPerformed(evt);
+            }
+        });
+
+        btnSubmissionDateFrom2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnSubmissionDateFrom2.setText(bundle.getString("LeasePanel.btnSubmissionDateFrom2.text")); // NOI18N
+        btnSubmissionDateFrom2.setBorder(null);
+        btnSubmissionDateFrom2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmissionDateFrom2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel4)
-                .addGap(0, 43, Short.MAX_VALUE))
-            .addComponent(txtDueDate)
+                .addGap(0, 57, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(txtDueDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSubmissionDateFrom2))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSubmissionDateFrom2)
+                    .addComponent(txtDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel9.add(jPanel6);
@@ -839,7 +912,7 @@ public class LeasePanel extends ContentPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(groupPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -859,8 +932,8 @@ public class LeasePanel extends ContentPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(groupPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
-            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+            .addComponent(groupPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE)
+            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -883,7 +956,7 @@ public class LeasePanel extends ContentPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -947,6 +1020,31 @@ public class LeasePanel extends ContentPanel {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         printLease(StatusConstants.PENDING.equals(rrrBean.getStatusCode()));
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void btnSubmissionDateFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFromActionPerformed
+        showCalendar(txtRegDatetime);
+    }//GEN-LAST:event_btnSubmissionDateFromActionPerformed
+
+    private void txtRegDatetimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegDatetimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRegDatetimeActionPerformed
+
+    private void btnSubmissionDateFrom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFrom1ActionPerformed
+        showCalendar(txtExpirationDate);
+    }//GEN-LAST:event_btnSubmissionDateFrom1ActionPerformed
+
+    private void txtExpirationDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtExpirationDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtExpirationDateActionPerformed
+
+    private void btnSubmissionDateFrom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFrom2ActionPerformed
+        showCalendar(txtDueDate);
+    }//GEN-LAST:event_btnSubmissionDateFrom2ActionPerformed
+
+    private void txtDueDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDueDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDueDateActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOwner;
     private javax.swing.JButton btnEditOwner;
@@ -954,6 +1052,9 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JButton btnRemoveOwner;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSelectExisting;
+    private javax.swing.JButton btnSubmissionDateFrom;
+    private javax.swing.JButton btnSubmissionDateFrom1;
+    private javax.swing.JButton btnSubmissionDateFrom2;
     private javax.swing.JButton btnViewOwner;
     private org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel documentsManagementPanel;
     private javax.swing.Box.Filler filler1;
