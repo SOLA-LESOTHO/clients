@@ -294,10 +294,7 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel7">
-<<<<<<< HEAD
 
-=======
->>>>>>> 5eaeb686fa042c2d27a61ec65492d82ff689389e
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
