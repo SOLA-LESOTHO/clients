@@ -29,6 +29,7 @@
  */
 package org.sola.clients.beans;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.RegistrationStatusTypeBean;
@@ -65,8 +66,9 @@ public abstract class AbstractTransactionedBean extends AbstractIdBean {
             oldValue = status.getCode();
         }
         if (WSManager.getInstance().getReferenceDataService() != null) {
+            List<RegistrationStatusTypeBean> registrationStatusType = CacheManager.getRegistrationStatusTypes();
             setStatus(CacheManager.getBeanByCode(
-                    CacheManager.getRegistrationStatusTypes(), statusCode));
+                    registrationStatusType, statusCode));
             propertySupport.firePropertyChange(STATUS_CODE_PROPERTY, oldValue, statusCode);
         }
     }
