@@ -41,7 +41,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.logging.Level;
 import javax.swing.ImageIcon;
-import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.security.SecurityBean;
@@ -54,16 +53,12 @@ import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.administrative.BaUnitSearchForm;
 import org.sola.clients.swing.desktop.administrative.RightsExportForm;
-import org.sola.clients.swing.desktop.application.ApplicationFormPanel;
+import org.sola.clients.swing.desktop.application.ApplicationFormsDialog;
 import org.sola.clients.swing.desktop.application.ApplicationPanel;
 import org.sola.clients.swing.desktop.application.ApplicationSearchPanel;
 import org.sola.clients.swing.desktop.cadastre.MapPanelForm;
-import org.sola.clients.swing.desktop.cadastre.MapPublicDisplayPanel;
 import org.sola.clients.swing.desktop.party.PartySearchPanelForm;
 import org.sola.clients.swing.desktop.reports.LodgementReportParamsForm;
-import org.sola.clients.swing.desktop.reports.SysRegCertParamsForm;
-import org.sola.clients.swing.desktop.reports.SysRegListingParamsForm;
-import org.sola.clients.swing.desktop.reports.SysRegManagementParamsForm;
 import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
@@ -164,17 +159,8 @@ public class MainForm extends javax.swing.JFrame {
     /* Bulara; Open Blank application forms*/
    /** Opens Application form to create new application. */
     public void openBlankForm() {
-        SolaTask t = new SolaTask<Void, Void>() {
-
-            @Override
-            public Void doTask() {
-                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_APPFORM));
-                ApplicationFormPanel applicationFormPanel = new ApplicationFormPanel();
-                getMainContentPanel().addPanel(applicationFormPanel, MainContentPanel.CARD_BLANK_FORM, true);
-                return null;
-            }
-        };
-        TaskManager.getInstance().runTask(t);
+        ApplicationFormsDialog form = new ApplicationFormsDialog(this, true);
+        form.setVisible(true);
     }
 
     /**

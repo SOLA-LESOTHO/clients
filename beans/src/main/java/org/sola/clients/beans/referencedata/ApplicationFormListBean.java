@@ -47,7 +47,6 @@ public class ApplicationFormListBean extends AbstractBindingListBean {
     }
 
     public void setSelectedApplicationForm(ApplicationFormBean selectedApplicationForm) {
-        this.selectedApplicationForm = selectedApplicationForm;
         ApplicationFormBean oldValue = this.selectedApplicationForm;
         this.selectedApplicationForm = selectedApplicationForm;
         propertySupport.firePropertyChange(SELECTED_APPLICATION_FORM_PROPERTY, 

@@ -29,6 +29,7 @@ package org.sola.clients.swing.ui.referencedata;
 
 import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer;
+import org.sola.common.StringUtility;
 import org.sola.webservices.transferobjects.AbstractCodeTO;
 
 /**
@@ -60,7 +61,11 @@ public class ReferenceDataPanel extends javax.swing.JPanel {
 
     /** Setup reference data bean object, used to bind data on the form. */
     private void setupRefDataBean(AbstractCodeBean referenceDataBean) {
-        txtCode.setEnabled(referenceDataBean == null);
+        if(referenceDataBean == null || StringUtility.isEmpty(referenceDataBean.getCode())){
+            txtCode.setEnabled(true);
+        } else {
+            txtCode.setEnabled(false);
+        }
         
         if (referenceDataBean != null) {
             this.referenceDataBean = referenceDataBean;

@@ -160,6 +160,22 @@ public class ReferenceDataManagementPanel extends ContentPanel {
             });
             getMainContentPanel().addPanel(panel, MainContentPanel.CARD_ADMIN_REFDATA, true);
             
+        } else if (refDataClass == ApplicationFormBean.class) {
+            ApplicationFromForm panel = new ApplicationFromForm((ApplicationFormBean) refDataBean, true, refDataBean != null);
+            panel.addPropertyChangeListener(new PropertyChangeListener() {
+
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+                    if (evt.getPropertyName().equals(ReferenceDataPanelForm.REFDATA_SAVED_PROPERTY)) {
+                        if (refDataBean == null) {
+                            ((ApplicationFromForm) evt.getSource()).setAppFormBean(null);
+                        }
+                        initRefDataList();
+                    }
+                }
+            });
+            getMainContentPanel().addPanel(panel, MainContentPanel.CARD_ADMIN_REFDATA, true);
+            
         } else {
             ReferenceDataPanelForm panel = new ReferenceDataPanelForm(refDataClass, 
                     refDataTOClass, refDataBean, headerPanel.getTitleText(), true, refDataBean != null);

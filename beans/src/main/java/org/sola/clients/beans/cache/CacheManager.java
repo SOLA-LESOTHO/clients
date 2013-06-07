@@ -228,6 +228,8 @@ public final class CacheManager {
     
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
     
+    public static final String APPLICATION_FORM_PREFIX_KEY = ApplicationFormWithBinaryBean.class.getName() + "_CODE_";
+    
     /**
      * Cache key of the {@link DeedTypeBean} collection.
      */
