@@ -1020,6 +1020,7 @@
                           </BindingProperties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="cbxCommunicationWay.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));"/>
+                            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ApplicationPanel_cbxCommunicationWay"/>
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                           </AuxValues>
                         </Component>

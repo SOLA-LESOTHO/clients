@@ -33,101 +33,15 @@
  */
 package org.sola.clients.beans.administrative;
 
-import java.util.Date;
 import org.sola.clients.beans.AbstractBindingBean;
 
-public class DisputeSearchResultBean extends AbstractBindingBean {
+public class DisputeSearchResultBean extends DisputeBean {
 
-    public static final String DISP_NR_PROPERTY = "nr";
-    public static final String LEASE_NR_PROPERTY = "leaseNumber";
-    public static final String PLOT_NR_PROPERTY = "plotNumber";
-    public static final String LODGEMENT_DATE_FROM_PROPERTY = "lodgementDateFrom";
-    public static final String LODGEMENT_DATE_TO_PROPERTY = "lodgementDateTo";
-    public static final String COMPLETION_DATE_FROM_PROPERTY = "completionDateFrom";
-    public static final String COMPLETION_DATE_TO_PROPERTY = "completionDateTo";
-    
-    
-    private String nr;
-    private Date lodgementDateFrom;
-    private Date lodgementDateTo;
-    private Date completionDateFrom;
-    private Date completionDateTo;
-    private String leaseNumber;
-    private String plotNumber;
+   
 
     public DisputeSearchResultBean() {
         super();
     }
 
-    public Date getCompletionDateFrom() {
-        return completionDateFrom;
-    }
-
-    public void setCompletionDateFrom(Date completionDateFrom) {
-        Date oldValue = this.completionDateFrom;
-        this.completionDateFrom = completionDateFrom;
-        propertySupport.firePropertyChange(COMPLETION_DATE_FROM_PROPERTY, oldValue, this.completionDateFrom);
-    }
-
-    public Date getCompletionDateTo() {
-        return completionDateTo;
-    }
-
-    public void setCompletionDateTo(Date completionDateTo) {
-        Date oldValue = this.completionDateTo;
-        this.completionDateTo = completionDateTo;
-        propertySupport.firePropertyChange(COMPLETION_DATE_TO_PROPERTY, oldValue, this.completionDateTo);
-    }
-
-    public String getLeaseNumber() {
-        return leaseNumber;
-    }
-
-    public void setLeaseNumber(String leaseNumber) {
-        String oldValue = this.leaseNumber;
-        this.leaseNumber = leaseNumber;
-        propertySupport.firePropertyChange(LEASE_NR_PROPERTY, oldValue, this.leaseNumber);
-    }
-
-    public Date getLodgementDateFrom() {
-        return lodgementDateFrom;
-    }
-
-    public void setLodgementDateFrom(Date lodgementDateFrom) {
-        Date oldValue = this.lodgementDateFrom;
-        this.lodgementDateFrom = lodgementDateFrom;
-        propertySupport.firePropertyChange(LODGEMENT_DATE_FROM_PROPERTY, oldValue, this.lodgementDateFrom);
-    }
-
-    public Date getLodgementDateTo() {
-        return lodgementDateTo;
-    }
-
-    public void setLodgementDateTo(Date lodgementDateTo) {
-        Date oldValue = this.lodgementDateTo;
-        this.lodgementDateTo = lodgementDateTo;
-        propertySupport.firePropertyChange(LODGEMENT_DATE_TO_PROPERTY, oldValue, this.lodgementDateTo);
-
-    }
-
-    public String getNr() {
-        return nr;
-    }
-
-    public void setNr(String nr) {
-        String oldValue = this.nr;
-        this.nr = nr;
-        propertySupport.firePropertyChange(DISP_NR_PROPERTY, oldValue, this.nr);
-    }
-
-    public String getPlotNumber() {
-        return plotNumber;
-    }
-
-    public void setPlotNumber(String plotNumber) {
-        String oldValue = this.plotNumber;
-        this.plotNumber = plotNumber;
-        propertySupport.firePropertyChange(PLOT_NR_PROPERTY, oldValue, this.plotNumber);
-    }
- 
+   
 }

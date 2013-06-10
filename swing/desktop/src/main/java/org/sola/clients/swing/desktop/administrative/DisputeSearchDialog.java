@@ -57,10 +57,12 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
                 if (evt.getPropertyName().equals(org.sola.clients.swing.ui.administrative.DisputeSearchPanel.SELECTED_DISPUTE_SEARCH_RESULT)) {
                     DisputeSearchResultBean searchResult = (DisputeSearchResultBean) evt.getNewValue();
                     firePropertyChange(evt.getPropertyName(), null, searchResult);
+                    
                 }
             }
-            
+           
         });
+        
     }
 
 

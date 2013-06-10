@@ -57,7 +57,7 @@ public class DisputeSearchPanel extends javax.swing.JPanel {
 
         initComponents();
 
-        disputeSearchResults.addPropertyChangeListener(new PropertyChangeListener() {
+        disputeSearchResultList.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -78,7 +78,7 @@ public class DisputeSearchPanel extends javax.swing.JPanel {
      * Returns selected search result.
      */
     public DisputeSearchResultBean getSelectedSearchResult() {
-        return disputeSearchResults.getSelectedDisputeSearchResult();
+        return disputeSearchResultList.getSelectedDisputeSearchResult();
     }
 
     private void clearSearchResults() {
@@ -89,13 +89,14 @@ public class DisputeSearchPanel extends javax.swing.JPanel {
         disputeSearchParams.setLodgementDateTo(null);
         disputeSearchParams.setCompletionDateFrom(null);
         disputeSearchParams.setCompletionDateTo(null);
-        disputeSearchResults.getDisputeSearchResults().clear();
+        disputeSearchResultList.getDisputeSearchResults().clear();
         lblSearchResultCount.setText("0");
     }
 
     private void fireEvent(String eventName) {
-        if (disputeSearchResults.getSelectedDisputeSearchResult() != null) {
-            firePropertyChange(eventName, null, disputeSearchResults.getSelectedDisputeSearchResult());
+        if (disputeSearchResultList.getSelectedDisputeSearchResult() != null) {
+            firePropertyChange(eventName, null, disputeSearchResultList.getSelectedDisputeSearchResult());
+            this.setVisible(false);
         }
     }
 
@@ -115,7 +116,7 @@ public class DisputeSearchPanel extends javax.swing.JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         disputeSearchParams = new org.sola.clients.beans.administrative.DisputeSearchParamsBean();
-        disputeSearchResults = new org.sola.clients.beans.administrative.DisputeSearchResultListBean();
+        disputeSearchResultList = new org.sola.clients.beans.administrative.DisputeSearchResultListBean();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -495,7 +496,7 @@ public class DisputeSearchPanel extends javax.swing.JPanel {
         jTable1.setName(bundle.getString("DisputeSearchPanel.jTable1.name")); // NOI18N
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${disputeSearchResults}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeSearchResults, eLProperty, jTable1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeSearchResultList, eLProperty, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nr}"));
         columnBinding.setColumnName("Nr");
         columnBinding.setColumnClass(String.class);
@@ -506,7 +507,7 @@ public class DisputeSearchPanel extends javax.swing.JPanel {
         columnBinding.setColumnName("Lease Number");
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeSearchResults, org.jdesktop.beansbinding.ELProperty.create("${selectedDisputeSearchResult}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeSearchResultList, org.jdesktop.beansbinding.ELProperty.create("${selectedDisputeSearchResult}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         jScrollPane1.setViewportView(jTable1);
@@ -591,16 +592,16 @@ public class DisputeSearchPanel extends javax.swing.JPanel {
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_PROPERTY_SEARCHING));
-                disputeSearchResults.search(disputeSearchParams);
+                disputeSearchResultList.search(disputeSearchParams);
                 return null;
             }
 
             @Override
             public void taskDone() {
-                lblSearchResultCount.setText(Integer.toString(disputeSearchResults.getDisputeSearchResults().size()));
-                if (disputeSearchResults.getDisputeSearchResults().size() < 1) {
+                lblSearchResultCount.setText(Integer.toString(disputeSearchResultList.getDisputeSearchResults().size()));
+                if (disputeSearchResultList.getDisputeSearchResults().size() < 1) {
                     MessageUtility.displayMessage(ClientMessage.SEARCH_NO_RESULTS);
-                } else if (disputeSearchResults.getDisputeSearchResults().size() > 100) {
+                } else if (disputeSearchResultList.getDisputeSearchResults().size() > 100) {
                     MessageUtility.displayMessage(ClientMessage.SEARCH_TOO_MANY_RESULTS, new String[]{"100"});
                 }
             }
@@ -636,7 +637,7 @@ public class DisputeSearchPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnlodgementTo;
     private javax.swing.JButton btnselectDispute;
     private org.sola.clients.beans.administrative.DisputeSearchParamsBean disputeSearchParams;
-    private org.sola.clients.beans.administrative.DisputeSearchResultListBean disputeSearchResults;
+    private org.sola.clients.beans.administrative.DisputeSearchResultListBean disputeSearchResultList;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
