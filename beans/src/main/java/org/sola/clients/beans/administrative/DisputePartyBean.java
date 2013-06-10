@@ -41,6 +41,8 @@ import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.DisputeCommentsTO;
 import org.sola.clients.beans.referencedata.DisputeActionBean;
 import org.sola.clients.beans.referencedata.OtherAuthoritiesBean;
+import org.sola.clients.beans.party.PartyBean;
+import org.sola.webservices.transferobjects.casemanagement.PartyTO;
 import org.sola.clients.beans.party.*;
 import org.sola.webservices.transferobjects.administrative.DisputePartyTO;
 
@@ -51,10 +53,14 @@ public class DisputePartyBean extends PartyBean {
     public static final String DISPUTE_NR_PROPERTY = "disputeNr";
     public static final String PARTY_ROLE_PROPERTY = "partyRole";
     public static final String PARTY_ID_PROPERTY = "partyId";
+    
     private String id;
     private String disputeNr;
     private String partyRole;
     private String partyId;
+    private String partyName;
+    private PartyBean partyBean;
+    private PartyTO partyTO;
 
     public DisputePartyBean() {
         super();
@@ -68,6 +74,20 @@ public class DisputePartyBean extends PartyBean {
 
     }
 
+    public String getPartyName(String pId) {
+        pId = getPartyId();
+        partyTO = WSManager.getInstance().getCaseManagementService().getParty(pId);
+        if (partyTO != null) {
+             partyName =  partyTO.getName();
+        }
+        return partyName;
+    }
+
+    public void setPartyName(String partyName) {
+        this.partyName = partyName;
+    }
+
+    
     public String getDisputeNr() {
         return disputeNr;
     }

@@ -205,11 +205,9 @@ public class MortgagePanel extends ContentPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         rrrBean = CreateRrrBean();
         mortgageTypeListBean = new org.sola.clients.beans.referencedata.MortgageTypeListBean();
-        deedTypeListBean = new org.sola.clients.beans.referencedata.DeedTypeListBean();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
@@ -289,10 +287,6 @@ public class MortgagePanel extends ContentPanel {
 
         lblStatus.setFont(LafManager.getInstance().getLabFontBold());
         lblStatus.setName("lblStatus"); // NOI18N
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"), lblStatus, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jToolBar1.add(lblStatus);
 
         jScrollPane1.setBorder(null);
@@ -311,9 +305,6 @@ public class MortgagePanel extends ContentPanel {
 
         txtRegDatetime.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
         txtRegDatetime.setName("txtRegDatetime"); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${registrationDate}"), txtRegDatetime, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -342,9 +333,6 @@ public class MortgagePanel extends ContentPanel {
         txtExpiryDate.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
         txtExpiryDate.setName("txtExpiryDate"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${expirationDate}"), txtExpiryDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -371,12 +359,6 @@ public class MortgagePanel extends ContentPanel {
 
         cbxType.setName("cbxType"); // NOI18N
         cbxType.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
-
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${mortgageTypeListBean}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, mortgageTypeListBean, eLProperty, cbxType);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${mortgageType}"), cbxType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -408,9 +390,6 @@ public class MortgagePanel extends ContentPanel {
         browseLender.setDisplayDeleteButton(false);
         browseLender.setName("browseLender"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${firstRightHolder.name}"), browseLender, org.jdesktop.beansbinding.BeanProperty.create("text"), "lenderGoup");
-        bindingGroup.addBinding(binding);
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -436,12 +415,6 @@ public class MortgagePanel extends ContentPanel {
 
         cbxDeedType.setName(bundle.getString("MortgagePanel.cbxDeedType.name")); // NOI18N
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${deedTypeList}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, deedTypeListBean, eLProperty, cbxDeedType);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${deedType}"), cbxDeedType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -466,9 +439,6 @@ public class MortgagePanel extends ContentPanel {
         jLabel8.setName(bundle.getString("MortgagePanel.jLabel8.name")); // NOI18N
 
         txtRegistrationNumber.setName(bundle.getString("MortgagePanel.txtRegistrationNumber.name")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${registrationNumber}"), txtRegistrationNumber, org.jdesktop.beansbinding.BeanProperty.create("text"), "");
-        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -498,9 +468,6 @@ public class MortgagePanel extends ContentPanel {
         txtAmount.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
         txtAmount.setName("txtAmount"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${amount}"), txtAmount, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -527,9 +494,6 @@ public class MortgagePanel extends ContentPanel {
         txtRanking.setFormatterFactory(FormattersFactory.getInstance().getIntegerFormatterFactory());
         txtRanking.setName("txtRanking"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${mortgageRanking}"), txtRanking, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -555,9 +519,6 @@ public class MortgagePanel extends ContentPanel {
 
         txtInterestRate.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
         txtInterestRate.setName("txtInterestRate"); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${mortgageInterestRate}"), txtInterestRate, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -649,9 +610,6 @@ public class MortgagePanel extends ContentPanel {
 
         txtNotationText.setName("txtNotationText"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${notation.notationText}"), txtNotationText, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         groupPanel1.setName("groupPanel1"); // NOI18N
         groupPanel1.setTitleText(bundle.getString("MortgagePanel.groupPanel1.titleText")); // NOI18N
 
@@ -710,8 +668,6 @@ public class MortgagePanel extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
         );
-
-        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -722,7 +678,6 @@ public class MortgagePanel extends ContentPanel {
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cbxDeedType;
     private javax.swing.JComboBox cbxType;
-    private org.sola.clients.beans.referencedata.DeedTypeListBean deedTypeListBean;
     private org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel documentsManagementPanel1;
     private javax.swing.Box.Filler filler1;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
@@ -763,6 +718,5 @@ public class MortgagePanel extends ContentPanel {
     private javax.swing.JFormattedTextField txtRanking;
     private javax.swing.JFormattedTextField txtRegDatetime;
     private javax.swing.JTextField txtRegistrationNumber;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

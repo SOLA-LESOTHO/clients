@@ -55,8 +55,8 @@ public class DisputesCommentsBean extends DisputeBean {
     
     private String disputeNr;
     private Date updateDate;
-    private DisputeActionBean disputeAction;
-    private OtherAuthoritiesBean otherAuthorities;
+    private DisputeActionBean disputeActionCode;
+    private OtherAuthoritiesBean otherAuthoritiesCode;
     private String comments;
     private String updatedBy;
     private DisputeBean disputeBean;
@@ -97,8 +97,8 @@ public class DisputesCommentsBean extends DisputeBean {
     }
 
     public String getDisputeActionCode() {
-        if (disputeAction != null) {
-            return disputeAction.getCode();
+        if (disputeActionCode != null) {
+            return disputeActionCode.getCode();
         } else {
             return null;
         }
@@ -106,8 +106,8 @@ public class DisputesCommentsBean extends DisputeBean {
 
     public void setDisputeActionCode(String disputeActionCode) {
         String oldValue = null;
-        if (disputeAction != null) {
-            oldValue = disputeAction.getCode();
+        if (disputeActionCode != null) {
+            oldValue = this.disputeActionCode.getCode();
 
             return;
 
@@ -120,19 +120,22 @@ public class DisputesCommentsBean extends DisputeBean {
     }
 
     public DisputeActionBean getDisputeAction() {
-        return disputeAction;
+        if (this.disputeActionCode == null) {
+            this.disputeActionCode = new DisputeActionBean();
+        }
+        return disputeActionCode;
     }
 
     public void setDisputeAction(DisputeActionBean disputeAction) {
-        if (this.disputeAction == null) {
-            this.disputeAction = new DisputeActionBean();
+        if (this.disputeActionCode == null) {
+            this.disputeActionCode = new DisputeActionBean();
         }
-        this.setJointRefDataBean(this.disputeAction, disputeAction, DISPUTE_ACTION_PROPERTY);
+        this.setJointRefDataBean(this.disputeActionCode, disputeAction, DISPUTE_ACTION_PROPERTY);
     }
 
     public String getOtherAuthoritiesCode() {
-        if (otherAuthorities != null) {
-            return otherAuthorities.getCode();
+        if (otherAuthoritiesCode != null) {
+            return otherAuthoritiesCode.getCode();
         } else {
             return null;
         }
@@ -140,8 +143,8 @@ public class DisputesCommentsBean extends DisputeBean {
 
     public void setOtherAuthoritiesCode(String OtherAuthoritiesCode) {
         String oldValue = null;
-        if (otherAuthorities != null) {
-            oldValue = otherAuthorities.getCode();
+        if (otherAuthoritiesCode != null) {
+            oldValue = otherAuthoritiesCode.getCode();
 
             return;
 
@@ -154,14 +157,17 @@ public class DisputesCommentsBean extends DisputeBean {
     }
 
     public OtherAuthoritiesBean getOtherAuthorities() {
-        return otherAuthorities;
+        if (this.otherAuthoritiesCode == null) {
+            this.otherAuthoritiesCode = new OtherAuthoritiesBean();
+        }
+        return otherAuthoritiesCode;
     }
 
     public void setOtherAuthorities(OtherAuthoritiesBean otherAuthorities) {
-        if (this.otherAuthorities == null) {
-            this.otherAuthorities = new OtherAuthoritiesBean();
+        if (this.otherAuthoritiesCode == null) {
+            this.otherAuthoritiesCode = new OtherAuthoritiesBean();
         }
-        this.setJointRefDataBean(this.otherAuthorities, otherAuthorities, OTHER_AUTHORITIES_PROPERTY);
+        this.setJointRefDataBean(this.otherAuthoritiesCode, otherAuthorities, OTHER_AUTHORITIES_PROPERTY);
     }
 
     public Date getUpdateDate() {
