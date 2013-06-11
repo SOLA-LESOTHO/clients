@@ -43,8 +43,7 @@ import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
 import org.sola.clients.beans.administrative.validation.MortgageValidationGroup;
 import org.sola.clients.beans.administrative.validation.OwnershipValidationGroup;
 import org.sola.clients.beans.administrative.validation.SimpleOwnershipValidationGroup;
-import org.sola.clients.beans.administrative.validation.SubleaseCheck;
-import org.sola.clients.beans.administrative.validation.SubleaseValidationGroup;
+import org.sola.clients.beans.administrative.validation.RrrBeanCheck;
 import org.sola.clients.beans.administrative.validation.TotalShareSize;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
@@ -62,7 +61,7 @@ import org.sola.webservices.transferobjects.administrative.RrrTO;
  * Contains properties and methods to manage <b>RRR</b> object of the domain
  * model. Could be populated from the {@link RrrTO} object.
  */
-@SubleaseCheck(groups = {SubleaseValidationGroup.class})
+@RrrBeanCheck
 public class RrrBean extends AbstractTransactionedBean {
 
     public enum RRR_ACTION {
@@ -93,6 +92,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String CODE_DEED = "regnDeeds";
     public static final String CODE_SERVITUDE = "servitude";
     public static final String CODE_SUBLEASE = "subLease";
+    public static final String CODE_SUBLEASE_MORTGAGE = "subLeaseMortgage";
     public static final String BA_UNIT_ID_PROPERTY = "baUnitId";
     public static final String TYPE_CODE_PROPERTY = "typeCode";
     public static final String RRR_TYPE_PROPERTY = "rrrType";
@@ -156,9 +156,9 @@ public class RrrBean extends AbstractTransactionedBean {
     private CadastreObjectBean cadastreObject;
     private String cadastreObjectId;
     // Used to hold the lease expiry date when validating the expirationDate for a sublease
-    private transient Date leaseExpiryDate; 
+    private transient Date leaseExpiryDate;
     // Used to indicate if the subplot is vithin the area of the lease plot. 
-    private transient boolean subplotValid = true; 
+    private transient boolean subplotValid = true;
 
     public String getConcatenatedName() {
         return concatenatedName;
@@ -584,7 +584,7 @@ public class RrrBean extends AbstractTransactionedBean {
 
     public void setSubplotValid(boolean subplotValid) {
         this.subplotValid = subplotValid;
-    } 
+    }
 
     /**
      * Adds lease conditions in the list

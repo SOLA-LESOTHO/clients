@@ -28,9 +28,13 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.AbstractBindingListBean;
+import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.controls.ExtendedListFilter;
 import org.sola.clients.beans.controls.SolaCodeList;
+import org.sola.webservices.transferobjects.EntityAction;
 
 /**
  * Holds the list of {@link RrrTypeBean} objects.
@@ -102,5 +106,46 @@ public class RrrTypeListBean extends AbstractBindingListBean {
                 }
             }
         }
+    }
+    
+     /**
+     * Sets up a filter that will remove all codes from the list except for the
+     * ones noted in the codesToInclde parameter
+     * @param codesToInclude 
+     */
+    public void restrictCodes(final String... codesToInclude) {
+
+        rrrTypeBeanList.setFilter(new ExtendedListFilter() {
+
+            @Override
+            public boolean isAllowedByFilter(Object element) {
+                if (element == null) {
+                    return true;
+                }
+
+                AbstractCodeBean codeBean;
+
+                if (AbstractBindingBean.class.isAssignableFrom(element.getClass())) {
+                    codeBean = (AbstractCodeBean) element;
+                } else {
+                    return true;
+                }
+
+                // Don't filter dummy items
+                if (codeBean.getCode() == null && codeBean.getEntityAction() == EntityAction.DISASSOCIATE) {
+                    return true;
+                }
+
+                // Checks included codes
+                if (codesToInclude != null) {
+                    for (String code : codesToInclude) {
+                        if (code != null && code.equalsIgnoreCase(codeBean.getCode())) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
 }

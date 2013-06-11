@@ -41,7 +41,6 @@ import org.jdesktop.beansbinding.Bindings;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
-import org.sola.clients.beans.administrative.validation.SubleaseValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
@@ -273,8 +272,7 @@ public class SubleasePanel extends ContentPanel {
             rrrBean.setSubplotValid(true);
         }
 
-        if (rrrBean.validate(true, Default.class, LeaseValidationGroup.class,
-                SubleaseValidationGroup.class).size() < 1) {
+        if (rrrBean.validate(true, Default.class, LeaseValidationGroup.class).size() < 1) {
             firePropertyChange(UPDATED_RRR,
                     null, rrrBean);
             close();

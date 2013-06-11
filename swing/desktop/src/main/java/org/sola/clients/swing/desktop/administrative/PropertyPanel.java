@@ -32,6 +32,8 @@ package org.sola.clients.swing.desktop.administrative;
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.jdesktop.beansbinding.AutoBinding;
@@ -492,19 +494,46 @@ public class PropertyPanel extends ContentPanel {
             cbxRightType.setEnabled(true);
 
             // Restrict selection of right type by application service
-
-
             if (applicationService != null && applicationService.getRequestType() != null
                     && applicationService.getRequestType().getRrrTypeCode() != null) {
+
+                // Check if the sublease mortgage right should be avaialble to the user
+                boolean allowRightTypeSelection = false;
+                if (isSubleaseMortgageAllowed(applicationService.getRequestType().getRrrTypeCode())) {
+                    rrrTypes.restrictCodes(applicationService.getRequestType().getRrrTypeCode(),
+                            RrrBean.CODE_SUBLEASE_MORTGAGE);
+                    allowRightTypeSelection = true;
+                }
                 rrrTypes.setSelectedRightByCode(applicationService.getRequestType().getRrrTypeCode());
                 if (rrrTypes.getSelectedRrrType() != null) {
-                    cbxRightType.setEnabled(false);
+                    cbxRightType.setEnabled(allowRightTypeSelection);
                 }
             }
         } else {
             cbxRightType.setEnabled(false);
         }
         customizeCreateRightButton(rrrTypes.getSelectedRrrType());
+    }
+
+    /**
+     * Determines if the sublease mortgage right should be included in the list
+     * of right types available to create/vary/cancel.
+     *
+     * @param serviceRrrTypeCode The rrr type targeted by the service
+     * @return true if the service is for a mortgage and this property has a
+     * sublease right on it.
+     */
+    private boolean isSubleaseMortgageAllowed(String serviceRrrTypeCode) {
+        boolean result = false;
+        if (RrrBean.CODE_MORTGAGE.equals(serviceRrrTypeCode)) {
+            for (RrrBean bean : baUnitBean1.getRrrFilteredList()) {
+                if (RrrBean.CODE_SUBLEASE.equals(bean.getTypeCode())) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -590,6 +619,9 @@ public class PropertyPanel extends ContentPanel {
                 && applicationService.getRequestType() != null
                 && applicationService.getRequestType().getRrrTypeCode() != null) {
             result = applicationService.getRequestType().getRrrTypeCode().equalsIgnoreCase(rrrTypeCode);
+            if (!result && isSubleaseMortgageAllowed(applicationService.getRequestType().getRrrTypeCode())) {
+                result = RrrBean.CODE_SUBLEASE_MORTGAGE.equals(rrrTypeCode);
+            }
         }
         return result;
     }
@@ -716,7 +748,7 @@ public class PropertyPanel extends ContentPanel {
         String cardName = MainContentPanel.CARD_SIMPLE_RIGHT;
         String rrrCode = rrrBean.getRrrType().getCode();
 
-        if (rrrCode.equals(RrrBean.CODE_MORTGAGE)) {
+        if (rrrCode.equals(RrrBean.CODE_MORTGAGE) || rrrCode.equals(RrrBean.CODE_SUBLEASE_MORTGAGE)) {
             panel = new MortgagePanel(rrrBean, applicationBean, applicationService, action);
             cardName = MainContentPanel.CARD_MORTGAGE;
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_LEASE)) {

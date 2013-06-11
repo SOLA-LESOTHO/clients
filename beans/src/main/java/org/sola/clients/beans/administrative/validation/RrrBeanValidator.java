@@ -33,42 +33,64 @@ import java.text.DateFormat;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.sola.clients.beans.administrative.RrrBean;
+import org.sola.clients.beans.source.SourceBean;
 import org.sola.common.DateUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
 /**
- * Validates that the sublease expiry date is before the lease expiry date
- * {@link RrrBean}.
+ * Validates RrrBeans to ensure they contain the necessary data for the specific
+ * Rrr type. {@link RrrBean}.
  */
-public class SubleaseValidator implements ConstraintValidator<SubleaseCheck, RrrBean> {
+public class RrrBeanValidator implements ConstraintValidator<RrrBeanCheck, RrrBean> {
 
     @Override
-    public void initialize(SubleaseCheck a) {
+    public void initialize(RrrBeanCheck a) {
     }
 
     @Override
     public boolean isValid(RrrBean rrrBean, ConstraintValidatorContext constraintContext) {
         boolean result = true;
-        // Check the sublease expiry date is before the lease expirty date
-        if (rrrBean.getLeaseExpiryDate() != null && rrrBean.getExpirationDate() != null
-                && rrrBean.getExpirationDate().after(rrrBean.getLeaseExpiryDate())) {
-            result = false;
-            constraintContext.buildConstraintViolationWithTemplate(
-                    (MessageUtility.getLocalizedMessageText(
-                    ClientMessage.CHECK_SUBLEASE_EXPIRY, new Object[]{
-                DateUtility.getDateString(rrrBean.getLeaseExpiryDate(), DateFormat.MEDIUM)}))).addConstraintViolation();
+
+        // Sublease RRR
+        if (RrrBean.CODE_SUBLEASE.equals(rrrBean.getTypeCode())) {
+            // Check the sublease expiry date is before the lease expirty date
+            if (rrrBean.getLeaseExpiryDate() != null && rrrBean.getExpirationDate() != null
+                    && rrrBean.getExpirationDate().after(rrrBean.getLeaseExpiryDate())) {
+                result = false;
+                constraintContext.buildConstraintViolationWithTemplate(
+                        (MessageUtility.getLocalizedMessageText(
+                        ClientMessage.CHECK_SUBLEASE_EXPIRY, new Object[]{
+                    DateUtility.getDateString(rrrBean.getLeaseExpiryDate(), DateFormat.MEDIUM)}))).addConstraintViolation();
+            }
+
+            // Subplot validation is done by the SubleasePanel as the bean must not
+            // have a dependency on the GIS package. 
+            if (!rrrBean.isSubplotValid()) {
+                result = false;
+                constraintContext.buildConstraintViolationWithTemplate(
+                        (MessageUtility.getLocalizedMessageText(
+                        ClientMessage.CHECK_SUBLEASE_PLOT))).addConstraintViolation();
+            }
         }
 
-        // Subplot validation is done by the SubleasePanel as the bean must not
-        // have a dependency on the GIS package. 
-        if (!rrrBean.isSubplotValid()) {
-            result = false;
-            constraintContext.buildConstraintViolationWithTemplate(
-                    (MessageUtility.getLocalizedMessageText(
-                    ClientMessage.CHECK_SUBLEASE_PLOT))).addConstraintViolation();
+        // Sublease Mortgage RRR
+        if (RrrBean.CODE_SUBLEASE_MORTGAGE.equals(rrrBean.getTypeCode())) {
+            // Verify the sublease mortgage has consent from the lessee
+            boolean found = false;
+            for (SourceBean bean : rrrBean.getSourceList()) {
+                if (SourceBean.CODE_LESSEE_CONSENT.equals(bean.getTypeCode())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                result = false;
+                constraintContext.buildConstraintViolationWithTemplate(
+                        (MessageUtility.getLocalizedMessageText(
+                        ClientMessage.CHECK_SUBLEASE_MORTGAGE_CONSENT))).addConstraintViolation();
+            }
         }
-
         return result;
     }
 }

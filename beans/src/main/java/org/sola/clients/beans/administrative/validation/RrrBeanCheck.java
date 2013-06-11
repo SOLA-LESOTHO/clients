@@ -37,13 +37,13 @@ import javax.validation.Payload;
 
 @Target( { TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = SubleaseValidator.class)
+@Constraint(validatedBy = RrrBeanValidator.class)
 @Documented
 /**
  * Class level constraint annotation for the {@link RrrBean} class. Used to
  * validate sublease information
  */
-public @interface SubleaseCheck{
+public @interface RrrBeanCheck{
 
     /** Error message in case of constraint violation */
     String message() default "";

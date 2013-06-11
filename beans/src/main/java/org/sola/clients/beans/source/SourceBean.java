@@ -42,6 +42,7 @@ import org.sola.webservices.transferobjects.casemanagement.SourceTO;
  */
 public class SourceBean extends SourceSummaryBean {
 
+    public static final String CODE_LESSEE_CONSENT = "lesseeConsent";
     public static final String ARCHIVE_DOCUMENT_PROPERTY = "archiveDocument";
     public static final String MAIN_TYPE_PROPERTY = "mainType";
     public static final String AVAILABILITY_STATUS_CODE_PROPERTY = "availabilityStatusCode";
