@@ -9,6 +9,8 @@
     </Component>
     <Component class="org.sola.clients.beans.referencedata.MortgageTypeListBean" name="mortgageTypeListBean">
     </Component>
+    <Component class="org.sola.clients.beans.referencedata.DeedTypeListBean" name="deedTypeListBean">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="closeOnHide" type="boolean" value="true"/>
@@ -126,6 +128,9 @@
             </Property>
             <Property name="name" type="java.lang.String" value="lblStatus" noResource="true"/>
           </Properties>
+          <BindingProperties>
+            <BindingProperty name="text" source="rrrBean" sourcePath="${status.displayValue}" target="lblStatus" targetPath="text" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
         </Component>
       </SubComponents>
     </Container>
@@ -301,6 +306,9 @@
                         </Property>
                         <Property name="name" type="java.lang.String" value="txtRegDatetime" noResource="true"/>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="value" source="rrrBean" sourcePath="${registrationDate}" target="txtRegDatetime" targetPath="value" updateStrategy="0" immediately="false"/>
+                      </BindingProperties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -349,6 +357,9 @@
                         </Property>
                         <Property name="name" type="java.lang.String" value="txtExpiryDate" noResource="true"/>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="value" source="rrrBean" sourcePath="${expirationDate}" target="txtExpiryDate" targetPath="value" updateStrategy="0" immediately="false"/>
+                      </BindingProperties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -397,6 +408,10 @@
                           <Connection code="new SimpleComboBoxRenderer(&quot;getDisplayValue&quot;)" type="code"/>
                         </Property>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="elements" source="mortgageTypeListBean" sourcePath="${mortgageTypeListBean}" target="cbxType" targetPath="elements" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="selectedItem" source="rrrBean" sourcePath="${mortgageType}" target="cbxType" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+                      </BindingProperties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -452,6 +467,15 @@
                         <Property name="displayDeleteButton" type="boolean" value="false"/>
                         <Property name="name" type="java.lang.String" value="browseLender" noResource="true"/>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="text" source="rrrBean" sourcePath="${firstRightHolder.name}" target="browseLender" targetPath="text" updateStrategy="0" immediately="false">
+                          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                          <Property name="name" type="java.lang.String" value="lenderGroup"/>
+                        </BindingProperty>
+                      </BindingProperties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MortgagePanel_browseLender"/>
+                      </AuxValues>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -500,6 +524,10 @@
                           <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="MortgagePanel.cbxDeedType.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="elements" source="deedTypeListBean" sourcePath="${deedTypeList}" target="cbxDeedType" targetPath="elements" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="selectedItem" source="rrrBean" sourcePath="${deedType}" target="cbxDeedType" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+                      </BindingProperties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -548,6 +576,12 @@
                           <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="MortgagePanel.txtRegistrationNumber.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="text" source="rrrBean" sourcePath="${registrationNumber}" target="txtRegistrationNumber" targetPath="text" updateStrategy="0" immediately="false">
+                          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                          <Property name="name" type="java.lang.String" value=""/>
+                        </BindingProperty>
+                      </BindingProperties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -599,6 +633,9 @@
                         </Property>
                         <Property name="name" type="java.lang.String" value="txtAmount" noResource="true"/>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="value" source="rrrBean" sourcePath="${amount}" target="txtAmount" targetPath="value" updateStrategy="0" immediately="false"/>
+                      </BindingProperties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -644,6 +681,9 @@
                         </Property>
                         <Property name="name" type="java.lang.String" value="txtRanking" noResource="true"/>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="value" source="rrrBean" sourcePath="${mortgageRanking}" target="txtRanking" targetPath="value" updateStrategy="0" immediately="false"/>
+                      </BindingProperties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -689,6 +729,9 @@
                         </Property>
                         <Property name="name" type="java.lang.String" value="txtInterestRate" noResource="true"/>
                       </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="value" source="rrrBean" sourcePath="${mortgageInterestRate}" target="txtInterestRate" targetPath="value" updateStrategy="0" immediately="false"/>
+                      </BindingProperties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -732,6 +775,11 @@
               <Properties>
                 <Property name="name" type="java.lang.String" value="txtNotationText" noResource="true"/>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="rrrBean" sourcePath="${notation.notationText}" target="txtNotationText" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>

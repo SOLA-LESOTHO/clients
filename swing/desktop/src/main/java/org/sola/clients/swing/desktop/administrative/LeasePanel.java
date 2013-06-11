@@ -234,7 +234,7 @@ public class LeasePanel extends ContentPanel {
     private void removeOwner() {
         if (rrrBean.getSelectedRightHolder() != null
                 && MessageUtility.displayMessage(ClientMessage.CONFIRM_DELETE_RECORD) == MessageUtility.BUTTON_ONE) {
-            rrrBean.getSelectedRightHolder().setRowVersion(0);
+            //rrrBean.getSelectedRightHolder().setRowVersion(0);
             rrrBean.removeSelectedRightHolder();
         }
     }
