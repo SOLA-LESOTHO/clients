@@ -43,8 +43,11 @@ import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
 import org.sola.clients.beans.administrative.validation.MortgageValidationGroup;
 import org.sola.clients.beans.administrative.validation.OwnershipValidationGroup;
 import org.sola.clients.beans.administrative.validation.SimpleOwnershipValidationGroup;
+import org.sola.clients.beans.administrative.validation.SubleaseCheck;
+import org.sola.clients.beans.administrative.validation.SubleaseValidationGroup;
 import org.sola.clients.beans.administrative.validation.TotalShareSize;
 import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.*;
@@ -59,6 +62,7 @@ import org.sola.webservices.transferobjects.administrative.RrrTO;
  * Contains properties and methods to manage <b>RRR</b> object of the domain
  * model. Could be populated from the {@link RrrTO} object.
  */
+@SubleaseCheck(groups = {SubleaseValidationGroup.class})
 public class RrrBean extends AbstractTransactionedBean {
 
     public enum RRR_ACTION {
@@ -88,7 +92,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String CODE_CAVEAT = "caveat";
     public static final String CODE_DEED = "regnDeeds";
     public static final String CODE_SERVITUDE = "servitude";
-  
+    public static final String CODE_SUBLEASE = "subLease";
     public static final String BA_UNIT_ID_PROPERTY = "baUnitId";
     public static final String TYPE_CODE_PROPERTY = "typeCode";
     public static final String RRR_TYPE_PROPERTY = "rrrType";
@@ -111,13 +115,13 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String STATUS_CHANGE_DATE_PROPERTY = "statusChangeDate";
     public static final String DEED_TYPE_CODE_PROPERTY = "deedTypeCode";
     public static final String DEED_TYPE_PROPERTY = "deedType";
-    
+    public static final String CADASTRE_OBJECT_PROPERTY = "cadastreObject";
     private String baUnitId;
     private String nr;
     @Past(message = ClientMessage.CHECK_REGISTRATION_DATE, payload = Localized.class)
     private Date registrationDate;
     private String transactionId;
-    @NotNull(message = ClientMessage.CHECK_NOTNULL_EXPIRATION, payload = Localized.class, 
+    @NotNull(message = ClientMessage.CHECK_NOTNULL_EXPIRATION, payload = Localized.class,
             groups = {MortgageValidationGroup.class, LeaseValidationGroup.class})
     @Future(message = ClientMessage.CHECK_FUTURE_EXPIRATION, payload = Localized.class,
             groups = {MortgageValidationGroup.class})
@@ -149,7 +153,13 @@ public class RrrBean extends AbstractTransactionedBean {
     private String registrationNumber;
     private Date statusChangeDate;
     private DeedTypeBean deedType;
-    
+    private CadastreObjectBean cadastreObject;
+    private String cadastreObjectId;
+    // Used to hold the lease expiry date when validating the expirationDate for a sublease
+    private transient Date leaseExpiryDate; 
+    // Used to indicate if the subplot is vithin the area of the lease plot. 
+    private transient boolean subplotValid = true; 
+
     public String getConcatenatedName() {
         return concatenatedName;
     }
@@ -279,6 +289,14 @@ public class RrrBean extends AbstractTransactionedBean {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public Date getLeaseExpiryDate() {
+        return leaseExpiryDate;
+    }
+
+    public void setLeaseExpiryDate(Date leaseExpiryDate) {
+        this.leaseExpiryDate = leaseExpiryDate;
     }
 
     public BigDecimal getAmount() {
@@ -436,7 +454,7 @@ public class RrrBean extends AbstractTransactionedBean {
         return rightHolderList.getFilteredList();
     }
 
-    @Size(min = 1, groups = {SimpleOwnershipValidationGroup.class, LeaseValidationGroup.class}, 
+    @Size(min = 1, groups = {SimpleOwnershipValidationGroup.class, LeaseValidationGroup.class},
             message = ClientMessage.CHECK_SIZE_OWNERSLIST, payload = Localized.class)
     private ObservableList<PartySummaryBean> getFilteredOwnersList() {
         return rightHolderList.getFilteredList();
@@ -449,31 +467,31 @@ public class RrrBean extends AbstractTransactionedBean {
     public ObservableList<LeaseConditionForRrrBean> getLeaseConditionFilteredList() {
         return leaseConditionList.getFilteredList();
     }
-    
+
     public void setLeaseConditionList(SolaList<LeaseConditionForRrrBean> leaseConditionList) {
         this.leaseConditionList = leaseConditionList;
     }
-    
-    public ArrayList<LeaseConditionForRrrBean> getLeaseCustomConditions(){
+
+    public ArrayList<LeaseConditionForRrrBean> getLeaseCustomConditions() {
         ArrayList<LeaseConditionForRrrBean> conditions = new ArrayList<LeaseConditionForRrrBean>();
-        for(LeaseConditionForRrrBean cond : getLeaseConditionFilteredList()){
-            if(cond.isCustomCondition()){
+        for (LeaseConditionForRrrBean cond : getLeaseConditionFilteredList()) {
+            if (cond.isCustomCondition()) {
                 conditions.add(cond);
             }
         }
         return conditions;
     }
-    
-    public ArrayList<LeaseConditionForRrrBean> getLeaseStandardConditions(){
+
+    public ArrayList<LeaseConditionForRrrBean> getLeaseStandardConditions() {
         ArrayList<LeaseConditionForRrrBean> conditions = new ArrayList<LeaseConditionForRrrBean>();
-        for(LeaseConditionForRrrBean cond : getLeaseConditionFilteredList()){
-            if(!cond.isCustomCondition()){
+        for (LeaseConditionForRrrBean cond : getLeaseConditionFilteredList()) {
+            if (!cond.isCustomCondition()) {
                 conditions.add(cond);
             }
         }
         return conditions;
     }
-    
+
     public void setRightHolderList(SolaList<PartySummaryBean> rightHolderList) {
         this.rightHolderList = rightHolderList;
     }
@@ -503,14 +521,16 @@ public class RrrBean extends AbstractTransactionedBean {
             getRightHolderList().safeRemove(selectedRightholder, EntityAction.DISASSOCIATE);
         }
     }
-    
-    /** Removes selected lease condition. */
+
+    /**
+     * Removes selected lease condition.
+     */
     public void removeSelectedLeaseCondition() {
         if (selectedLeaseCondition != null) {
             getLeaseConditionList().safeRemove(selectedLeaseCondition, EntityAction.DISASSOCIATE);
         }
     }
-    
+
     public String getDeedTypeCode() {
         if (deedType != null) {
             return deedType.getCode();
@@ -540,47 +560,78 @@ public class RrrBean extends AbstractTransactionedBean {
         }
         this.setJointRefDataBean(this.deedType, deedType, DEED_TYPE_PROPERTY);
     }
-    
-    /** 
-     * Adds lease conditions in the list 
-     * @param leaseConditions List of {@link LeaseConditionBean} that needs to be added in the list
+
+    public CadastreObjectBean getCadastreObject() {
+        return cadastreObject;
+    }
+
+    public void setCadastreObject(CadastreObjectBean cadastreObject) {
+        this.cadastreObject = cadastreObject;
+        propertySupport.firePropertyChange(CADASTRE_OBJECT_PROPERTY, null, this.cadastreObject);
+    }
+
+    public String getCadastreObjectId() {
+        return cadastreObjectId;
+    }
+
+    public void setCadastreObjectId(String cadastreObjectId) {
+        this.cadastreObjectId = cadastreObjectId;
+    }
+
+    public boolean isSubplotValid() {
+        return subplotValid;
+    }
+
+    public void setSubplotValid(boolean subplotValid) {
+        this.subplotValid = subplotValid;
+    } 
+
+    /**
+     * Adds lease conditions in the list
+     *
+     * @param leaseConditions List of {@link LeaseConditionBean} that needs to
+     * be added in the list
      */
-    public void addLeaseConditions(List<LeaseConditionBean> leaseConditions){
-        if(leaseConditions == null || getLeaseConditionList() == null){
+    public void addLeaseConditions(List<LeaseConditionBean> leaseConditions) {
+        if (leaseConditions == null || getLeaseConditionList() == null) {
             return;
         }
-        for(LeaseConditionBean cond : leaseConditions){
+        for (LeaseConditionBean cond : leaseConditions) {
             addLeaseCondition(cond);
         }
     }
-    
-    /** 
-     * Adds lease condition in the list 
-     * @param leaseCondition {@link LeaseConditionForRrrBean} that needs to be added in the list
+
+    /**
+     * Adds lease condition in the list
+     *
+     * @param leaseCondition {@link LeaseConditionForRrrBean} that needs to be
+     * added in the list
      */
-    public void addLeaseCondition(LeaseConditionForRrrBean leaseCondition){
-        if(leaseCondition == null || getLeaseConditionList() == null){
+    public void addLeaseCondition(LeaseConditionForRrrBean leaseCondition) {
+        if (leaseCondition == null || getLeaseConditionList() == null) {
             return;
         }
-        if(leaseCondition.isCustomCondition()){
+        if (leaseCondition.isCustomCondition()) {
             leaseCondition.setLeaseCondition(null);
         }
         getLeaseConditionList().addAsNew(leaseCondition);
     }
-    
-    /** 
-     * Adds lease condition in the list 
-     * @param leaseCondition {@link LeaseConditionBean} that needs to be added in the list.
-     * New {@link LeaseConditionForRrrBean} will be created and added in the list.
+
+    /**
+     * Adds lease condition in the list
+     *
+     * @param leaseCondition {@link LeaseConditionBean} that needs to be added
+     * in the list. New {@link LeaseConditionForRrrBean} will be created and
+     * added in the list.
      */
-    public void addLeaseCondition(LeaseConditionBean leaseCondition){
-        if(leaseCondition == null || getLeaseConditionList() == null){
+    public void addLeaseCondition(LeaseConditionBean leaseCondition) {
+        if (leaseCondition == null || getLeaseConditionList() == null) {
             return;
         }
-        for(LeaseConditionForRrrBean leaseForRrr : getLeaseConditionList()){
-            if(leaseForRrr.getLeaseConditionCode()!=null && 
-                    leaseForRrr.getLeaseConditionCode().equals(leaseCondition.getCode())){
-                if(leaseForRrr.getEntityAction() == EntityAction.DELETE || leaseForRrr.getEntityAction() == EntityAction.DISASSOCIATE){
+        for (LeaseConditionForRrrBean leaseForRrr : getLeaseConditionList()) {
+            if (leaseForRrr.getLeaseConditionCode() != null
+                    && leaseForRrr.getLeaseConditionCode().equals(leaseCondition.getCode())) {
+                if (leaseForRrr.getEntityAction() == EntityAction.DELETE || leaseForRrr.getEntityAction() == EntityAction.DISASSOCIATE) {
                     leaseForRrr.setEntityAction(null);
                 }
                 return;
@@ -590,7 +641,7 @@ public class RrrBean extends AbstractTransactionedBean {
         newLeaseForRrr.setLeaseCondition(leaseCondition);
         getLeaseConditionList().addAsNew(newLeaseForRrr);
     }
-    
+
     public void addOrUpdateRightholder(PartySummaryBean rightholder) {
         if (rightholder != null && rightHolderList != null) {
             if (rightHolderList.contains(rightholder)) {
@@ -642,7 +693,7 @@ public class RrrBean extends AbstractTransactionedBean {
                 shareBean.resetVersion();
                 shareBean.setRrrId(getId());
             }
-            for(LeaseConditionForRrrBean leaseCondition: getLeaseConditionList()){
+            for (LeaseConditionForRrrBean leaseCondition : getLeaseConditionList()) {
                 leaseCondition.resetVersion();
             }
             getNotation().generateId();
