@@ -479,7 +479,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel16" pref="677" max="32767" attributes="0"/>
+                          <Component id="jPanel16" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1268,7 +1268,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnNext" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jPanel14" pref="677" max="32767" attributes="0"/>
+                              <Component id="jPanel14" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
