@@ -15,7 +15,7 @@
  */
 package org.sola.clients.swing.desktop.administrative;
 
-import org.sola.clients.beans.administrative.LeaseConditionForRrrBean;
+import org.sola.clients.beans.administrative.LeaseSpecialConditionBean;
 import org.sola.clients.beans.administrative.validation.LeaseCustomConditionValidationGroup;
 
 /**
@@ -25,28 +25,28 @@ public class CustomLeaseConditionDialog extends javax.swing.JDialog {
     
     public static final String LEASE_CONDITION_SAVED = "leaseConditionSaved";
     
-    private LeaseConditionForRrrBean leaseCondition;
+    private LeaseSpecialConditionBean leaseCondition;
     
     /**
      * Default constructor
      */
-    public CustomLeaseConditionDialog(LeaseConditionForRrrBean leaseCondition, 
+    public CustomLeaseConditionDialog(LeaseSpecialConditionBean leaseCondition, 
             java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         if(leaseCondition==null){
-            this.leaseCondition = new LeaseConditionForRrrBean();
+            this.leaseCondition = new LeaseSpecialConditionBean();
         } else {
             this.leaseCondition = leaseCondition;
         }
         initComponents();
     }
     
-    public LeaseConditionForRrrBean getLeaseCondition() {
+    public LeaseSpecialConditionBean getLeaseCondition() {
         return leaseCondition;
     }
     
     private void save(){
-        if(leaseCondition.validate(true, LeaseCustomConditionValidationGroup.class).size()<1){
+        if(leaseCondition.validate(true).size()<1){
             firePropertyChange(LEASE_CONDITION_SAVED, null, leaseCondition);
             this.setVisible(false);
         }
@@ -81,7 +81,7 @@ public class CustomLeaseConditionDialog extends javax.swing.JDialog {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${leaseCondition.customConditionText}"), jTextArea1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${leaseCondition.conditionText}"), jTextArea1, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         jScrollPane2.setViewportView(jTextArea1);

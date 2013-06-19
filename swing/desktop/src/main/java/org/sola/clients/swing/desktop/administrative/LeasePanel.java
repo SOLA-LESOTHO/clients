@@ -38,7 +38,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import org.geotools.map.extended.layer.ExtendedLayer;
 import org.geotools.swing.extended.exception.InitializeMapException;
 import org.sola.clients.beans.administrative.BaUnitBean;
-import org.sola.clients.beans.administrative.LeaseConditionForRrrBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
@@ -310,39 +309,6 @@ public class LeasePanel extends ContentPanel {
         partySearchForm = new PartySearchPanelForm(true, this.rrrBean);
         return partySearchForm;
 
-    }
-
-    private void addCustomCondition() {
-        CustomLeaseConditionDialog form = new CustomLeaseConditionDialog(null, MainForm.getInstance(), true);
-        WindowUtility.centerForm(form);
-
-        form.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(CustomLeaseConditionDialog.LEASE_CONDITION_SAVED)) {
-                    rrrBean.addLeaseCondition((LeaseConditionForRrrBean) evt.getNewValue());
-                }
-            }
-        });
-        form.setVisible(true);
-    }
-
-    private void editCustomCondition() {
-        CustomLeaseConditionDialog form = new CustomLeaseConditionDialog(
-                (LeaseConditionForRrrBean) rrrBean.getSelectedLeaseCondition().copy(),
-                MainForm.getInstance(), true);
-        WindowUtility.centerForm(form);
-
-        form.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(CustomLeaseConditionDialog.LEASE_CONDITION_SAVED)) {
-                    LeaseConditionForRrrBean cond = (LeaseConditionForRrrBean) evt.getNewValue();
-                    rrrBean.getSelectedLeaseCondition().setCustomConditionText(cond.getCustomConditionText());
-                }
-            }
-        });
-        form.setVisible(true);
     }
 
     private RrrReportBean prepareReportBean() {
