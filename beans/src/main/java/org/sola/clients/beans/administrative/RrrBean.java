@@ -112,8 +112,6 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String DUE_DATE_PROPERTY = "dueDate";
     public static final String REGISTRATION_NUMBER_PROPERTY = "registrationNumber";
     public static final String STATUS_CHANGE_DATE_PROPERTY = "statusChangeDate";
-    public static final String DEED_TYPE_CODE_PROPERTY = "deedTypeCode";
-    public static final String DEED_TYPE_PROPERTY = "deedType";
     public static final String CADASTRE_OBJECT_PROPERTY = "cadastreObject";
     private String baUnitId;
     private String nr;
@@ -149,7 +147,6 @@ public class RrrBean extends AbstractTransactionedBean {
     @NotEmpty(message = ClientMessage.CHECK_NOTNULL_REGNUMBER, payload = Localized.class)
     private String registrationNumber;
     private Date statusChangeDate;
-    private DeedTypeBean deedType;
     private CadastreObjectBean cadastreObject;
     private String cadastreObjectId;
     // Used to hold the lease expiry date when validating the expirationDate for a sublease
@@ -477,35 +474,7 @@ public class RrrBean extends AbstractTransactionedBean {
         }
     }
 
-    public String getDeedTypeCode() {
-        if (deedType != null) {
-            return deedType.getCode();
-        } else {
-            return null;
-        }
-    }
 
-    public void setDeedTypeCode(String deedTypeCode) {
-        String oldValue = null;
-        if (deedType != null) {
-            oldValue = deedType.getCode();
-        }
-        setDeedType(CacheManager.getBeanByCode(
-                CacheManager.getDeedTypes(), deedTypeCode));
-        propertySupport.firePropertyChange(DEED_TYPE_CODE_PROPERTY,
-                oldValue, deedTypeCode);
-    }
-
-    public DeedTypeBean getDeedType() {
-        return deedType;
-    }
-
-    public void setDeedType(DeedTypeBean deedType) {
-        if (this.deedType == null) {
-            this.deedType = new DeedTypeBean();
-        }
-        this.setJointRefDataBean(this.deedType, deedType, DEED_TYPE_PROPERTY);
-    }
 
     public CadastreObjectBean getCadastreObject() {
         return cadastreObject;
