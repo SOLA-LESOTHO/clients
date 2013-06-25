@@ -230,10 +230,6 @@ public final class CacheManager {
     
     public static final String APPLICATION_FORM_PREFIX_KEY = ApplicationFormWithBinaryBean.class.getName() + "_CODE_";
     
-    /**
-     * Cache key of the {@link DeedTypeBean} collection.
-     */
-    public static final String DEED_TYPE_CODES_KEY = DeedTypeBean.class.getName() + LIST_POSTFIX;
    
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
@@ -270,8 +266,7 @@ public final class CacheManager {
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
     private static final String GET_APPLICATION_FORMS = "getApplicationForms";
-    private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
-    private static final String GET_DEED_TYPES = "getDeedTypes";      
+    private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";      
 
     
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
@@ -533,11 +528,6 @@ public final class CacheManager {
                 GET_OTHER_AUTHORITIES, OTHER_AUTHORITIES_CODES_KEY);
     }
     
-    public static List<DeedTypeBean> getDeedTypes() {
-        return getCachedBeanList(DeedTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_DEED_TYPES, DEED_TYPE_CODES_KEY);
-    }
 
     /**
      * Generic method to create cached list of the beans, representing reference
