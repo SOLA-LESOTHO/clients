@@ -41,6 +41,7 @@ import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.sola.clients.beans.administrative.BaUnitBean;
+import org.sola.clients.beans.administrative.DisputeBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
@@ -84,6 +85,32 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Generates and displays <b>Lodgement notice</b> report for the new
+     * application.
+     *
+     * @param appBean Application bean containing data for the report.
+     */
+    public static JasperPrint getDisputeConfirmationReport(DisputeBean dispBean) {
+        HashMap inputParameters = new HashMap();
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("LODGEMENTDATE",dispBean.getLodgementDate());
+        DisputeBean[] beans = new DisputeBean[1];
+        beans[0] = dispBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
+        inputParameters.put("WHICH_CALLER", "N");
+
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/DisputeConfirmation.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
     /**
      * Generates and displays <b>Application status report</b>.
      *

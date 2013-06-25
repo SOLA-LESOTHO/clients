@@ -172,7 +172,7 @@ public class MortgagePanel extends ContentPanel {
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getNewValue() != null) {
                     rrrBean.setFirstRightholder((PartySummaryBean) e.getNewValue());
-                    BindingTools.resetBinding(bindingGroup, "lenderGoup");
+                    //BindingTools.resetBinding(bindingGroup, "lenderGoup");
                 }
             }
         };
