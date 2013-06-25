@@ -46,6 +46,7 @@ public class DisputeSearchParamsBean extends AbstractBindingBean {
     public static final String LODGEMENT_DATE_TO_PROPERTY = "lodgementDateTo";
     public static final String COMPLETION_DATE_FROM_PROPERTY = "completionDateFrom";
     public static final String COMPLETION_DATE_TO_PROPERTY = "completionDateTo";
+    public static final String CASE_TYPE_PROPERTY = "caseType";
     
     
     private String nr;
@@ -55,6 +56,7 @@ public class DisputeSearchParamsBean extends AbstractBindingBean {
     private Date completionDateTo;
     private String leaseNumber;
     private String plotNumber;
+    private String caseType;
     
     
     
@@ -131,4 +133,16 @@ public class DisputeSearchParamsBean extends AbstractBindingBean {
         this.plotNumber = plotNumber;
         propertySupport.firePropertyChange(PLOT_NR_PROPERTY, old, this.plotNumber);
     }
+
+    public String getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(String caseType) {
+        String old = this.caseType;
+        this.caseType = caseType;
+        propertySupport.firePropertyChange(CASE_TYPE_PROPERTY, old, this.caseType);
+    }
+    
+    
 }

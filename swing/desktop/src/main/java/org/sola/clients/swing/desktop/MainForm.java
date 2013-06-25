@@ -52,6 +52,7 @@ import org.sola.clients.swing.common.controls.LanguageCombobox;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.administrative.BaUnitSearchForm;
+import org.sola.clients.swing.desktop.administrative.DisputePanelForm;
 import org.sola.clients.swing.desktop.administrative.RightsExportForm;
 import org.sola.clients.swing.desktop.application.ApplicationFormsDialog;
 import org.sola.clients.swing.desktop.application.ApplicationPanel;
@@ -77,7 +78,6 @@ public class MainForm extends javax.swing.JFrame {
     private DocumentSearchForm searchDocPanel;
     private PartySearchPanelForm searchPartyPanel;
     private BaUnitSearchForm searchBaUnitPanel;
-    
     // Create a variable holding the listener
     KeyAdapter keyAdapterAppSearch = new KeyAdapter() {
 
@@ -88,8 +88,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         }
     };
-    
-   // Create a variable holding the listener
+    // Create a variable holding the listener
     KeyAdapter keyAdapterDocSearch = new KeyAdapter() {
 
         @Override
@@ -99,8 +98,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         }
     };
-    
-    
     // Create a variable holding the listener
     KeyAdapter keyAdapterBaUnitSearch = new KeyAdapter() {
 
@@ -111,8 +108,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         }
     };
-    
-    
     // Create a variable holding the listener
     KeyAdapter keyAdapterPartySearch = new KeyAdapter() {
 
@@ -156,8 +151,12 @@ public class MainForm extends javax.swing.JFrame {
         this.searchPartyPanel = searchPartyPanel;
     }
 
-    /* Bulara; Open Blank application forms*/
-   /** Opens Application form to create new application. */
+    /*
+     * Bulara; Open Blank application forms
+     */
+    /**
+     * Opens Application form to create new application.
+     */
     public void openBlankForm() {
         ApplicationFormsDialog form = new ApplicationFormsDialog(this, true);
         form.setVisible(true);
@@ -189,6 +188,7 @@ public class MainForm extends javax.swing.JFrame {
         HelpUtility.getInstance().registerHelpMenu(jmiContextHelp, "overview");
 
         this.addWindowListener(new java.awt.event.WindowAdapter() {
+
             @Override
             public void windowOpened(WindowEvent e) {
                 postInit();
@@ -227,7 +227,8 @@ public class MainForm extends javax.swing.JFrame {
         menuSearchApplication.setEnabled(btnSearchApplications.isEnabled());
         menuNewApplication.setEnabled(btnNewApplication.isEnabled());
         menuExportRights.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_RIGHTS_EXPORT));
-
+        btnAccessDisputeForm.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_DISPUTE_VIEW));
+        
         // Load dashboard
         openDashBoard();
 
@@ -275,7 +276,7 @@ public class MainForm extends javax.swing.JFrame {
                     pnlContent.addPanel(searchApplicationPanel, MainContentPanel.CARD_APPSEARCH);
 
                 }
-                
+
                 pnlContent.showPanel(MainContentPanel.CARD_APPSEARCH);
                 return null;
             }
@@ -538,15 +539,15 @@ public class MainForm extends javax.swing.JFrame {
         TaskManager.getInstance().runTask(t);
     }
 
-    private void showRightsExportPanel(){
-        if(getMainContentPanel().isPanelOpened(MainContentPanel.CARD_RIGHT_EXPORT)){
+    private void showRightsExportPanel() {
+        if (getMainContentPanel().isPanelOpened(MainContentPanel.CARD_RIGHT_EXPORT)) {
             getMainContentPanel().showPanel(MainContentPanel.CARD_RIGHT_EXPORT);
         } else {
             RightsExportForm form = new RightsExportForm();
             getMainContentPanel().addPanel(form, MainContentPanel.CARD_RIGHT_EXPORT, true);
         }
     }
-    
+
     /**
      * Opens {@link PowerOfAttorneyViewForm} form and shows provided document.
      *
@@ -584,6 +585,7 @@ public class MainForm extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOpenMap = new javax.swing.JButton();
         btnSetPassword = new javax.swing.JButton();
+        btnAccessDisputeForm = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
         labStatus = new javax.swing.JLabel();
         taskPanel1 = new org.sola.clients.swing.common.tasks.TaskPanel();
@@ -741,6 +743,17 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         applicationsMain.add(btnSetPassword);
+
+        btnAccessDisputeForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/flag.png"))); // NOI18N
+        btnAccessDisputeForm.setText(bundle.getString("MainForm.btnAccessDisputeForm.text_1")); // NOI18N
+        btnAccessDisputeForm.setFocusable(false);
+        btnAccessDisputeForm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAccessDisputeForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccessDisputeFormActionPerformed(evt);
+            }
+        });
+        applicationsMain.add(btnAccessDisputeForm);
 
         statusPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         statusPanel.setPreferredSize(new java.awt.Dimension(1024, 24));
@@ -1068,6 +1081,10 @@ public class MainForm extends javax.swing.JFrame {
         openBlankForm();
     }//GEN-LAST:event_btnAppFormsActionPerformed
 
+    private void btnAccessDisputeFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccessDisputeFormActionPerformed
+        openDispute();
+    }//GEN-LAST:event_btnAccessDisputeFormActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1091,8 +1108,26 @@ public class MainForm extends javax.swing.JFrame {
         };
         TaskManager.getInstance().runTask(t);
     }
+
+    private void openDispute() {
+        SolaTask t = new SolaTask<Void, Void>() {
+
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DISFORM));
+                if (!getMainContentPanel().isPanelOpened(MainContentPanel.CARD_DISPUTE)) {
+                    DisputePanelForm disputePanel = new DisputePanelForm();
+                    getMainContentPanel().addPanel(disputePanel, MainContentPanel.CARD_DISPUTE);
+                }
+                getMainContentPanel().showPanel(MainContentPanel.CARD_DISPUTE);
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar applicationsMain;
+    private javax.swing.JButton btnAccessDisputeForm;
     private javax.swing.JButton btnAppForms;
     private javax.swing.JButton btnDocumentSearch;
     private javax.swing.JButton btnManageParties;

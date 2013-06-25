@@ -631,22 +631,6 @@ public class ApplicationPanel extends ContentPanel {
                     }
                 };
                 TaskManager.getInstance().runTask(t);
-            } //Disputes
-            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DISPUTE)) {
-                SolaTask t = new SolaTask<Void, Void>() {
-
-                    @Override
-                    public Void doTask() {
-                        //setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCUMENTSEARCH));
-                        if (!getMainContentPanel().isPanelOpened(MainContentPanel.CARD_DISPUTE)) {
-                            DisputePanelForm disputePanel = new DisputePanelForm();
-                            getMainContentPanel().addPanel(disputePanel, MainContentPanel.CARD_DISPUTE);
-                        }
-                        getMainContentPanel().showPanel(MainContentPanel.CARD_DISPUTE);
-                        return null;
-                    }
-                };
-                TaskManager.getInstance().runTask(t);
             }// Cadastre print
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_PRINT)) {
                 SolaTask t = new SolaTask<Void, Void>() {
