@@ -265,40 +265,51 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public String getDisputeCategoryCode() {
-        if (disputeCategoryCode != null) {
-            return disputeCategoryCode.getCode();
-        } else {
-            return null;
-        }
+        
+        return getDisputeCategory().getCode();
+//        if (disputeCategoryCode != null) {
+//            return disputeCategoryCode.getCode();
+//        } else {
+//            return null;
+//        }
     }
 
-    public void setDisputeCategoryCode(String disputeCategoryCode) {
-        String oldValue = null;
-        if (this.disputeCategoryCode != null) {
-            oldValue = this.disputeCategoryCode.getCode();
-
-            return;
-
-        }
-        setDisputeCategory(CacheManager.getBeanByCode(
-                CacheManager.getDisputeCategory(), disputeCategoryCode));
-
-        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY,
-                oldValue, disputeCategoryCode);
+    public void setDisputeCategoryCode(String value) {
+        String oldValue = getDisputeCategory().getCode();
+        setDisputeCategory(CacheManager.getBeanByCode(CacheManager.getDisputeCategory(), value));
+        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY, oldValue, value);
+//        String oldValue = null;
+//        if (this.disputeCategoryCode != null) {
+//            oldValue = this.disputeCategoryCode.getCode();
+//
+//            return;
+//
+//        }
+//        setDisputeCategory(CacheManager.getBeanByCode(
+//                CacheManager.getDisputeCategory(), disputeCategoryCode));
+//
+//        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY,
+//                oldValue, disputeCategoryCode);
     }
 
     public DisputeCategoryBean getDisputeCategory() {
-        if (this.disputeCategoryCode == null) {
-            this.disputeCategoryCode = new DisputeCategoryBean();
+        if (disputeCategoryCode == null) {
+            disputeCategoryCode = new DisputeCategoryBean();
         }
         return disputeCategoryCode;
+        
+//        if (this.disputeCategoryCode == null) {
+//            this.disputeCategoryCode = new DisputeCategoryBean();
+//        }
+//        return disputeCategoryCode;
     }
 
     public void setDisputeCategory(DisputeCategoryBean disputeCategory) {
-        if (this.disputeCategoryCode == null) {
-            this.disputeCategoryCode = new DisputeCategoryBean();
-        }
-        this.setJointRefDataBean(this.disputeCategoryCode, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+        this.setJointRefDataBean(getDisputeCategory(), disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+//        if (this.disputeCategoryCode == null) {
+//            this.disputeCategoryCode = new DisputeCategoryBean();
+//        }
+//        this.setJointRefDataBean(this.disputeCategoryCode, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
     }
 
     public String getUserId() {
