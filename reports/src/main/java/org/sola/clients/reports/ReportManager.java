@@ -131,11 +131,12 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     /**
      * Generates and displays <b>Lease rejection</b> report.
      *
-     * @param reportBean RRR report bean containing all required information to build the report.
+     * @param reportBean RRR report bean containing all required information to
+     * build the report.
      */
     public static JasperPrint getLeaseRejectionReport(RrrReportBean reportBean) {
         HashMap inputParameters = new HashMap();
@@ -154,11 +155,12 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     /**
      * Generates and displays <b>Lease offer</b> report.
      *
-     * @param reportBean RRR report bean containing all required information to build the report.
+     * @param reportBean RRR report bean containing all required information to
+     * build the report.
      */
     public static JasperPrint getLeaseOfferReport(RrrReportBean reportBean, boolean isDraft) {
         HashMap inputParameters = new HashMap();
@@ -178,13 +180,14 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     /**
      * Generates and displays <b>Lease</b> report.
      *
-     * @param reportBean RRR report bean containing all required information to build the report.
+     * @param reportBean RRR report bean containing all required information to
+     * build the report.
      */
-    public static JasperPrint getLeaseReport(RrrReportBean reportBean, 
+    public static JasperPrint getLeaseReport(RrrReportBean reportBean,
             String mapImageFileName, boolean isDraft) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -230,7 +233,7 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     /**
      * Generates and displays <b>Survey report</b>.
      *
@@ -249,6 +252,61 @@ public class ReportManager {
         try {
             return JasperFillManager.fillReport(
                     ReportManager.class.getResourceAsStream("/reports/map/SurveyFormS10.jasper"), inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
+
+    /**
+     * Generates and displays <b>Consent Report</b>.
+     *
+     * @param appNumber Application number
+     */
+    public static JasperPrint getConsentReport(RrrReportBean reportBean, 
+            String conditionText,
+            String expirationDate,
+            String amount,
+            String rightholder1,
+            String rightholder2,
+            String lessees_marital_status,
+            String recipient1,
+            String recipient2,
+            String recipients_marital_status
+            ) {
+
+        HashMap inputParameters = new HashMap();
+        
+        String comma1 = ", ";
+        String comma2 = ", ";
+        if (rightholder1.isEmpty() || rightholder2.isEmpty()){
+            comma1 = "";
+        }
+        if (recipient1.isEmpty() || recipient2.isEmpty()){
+            comma2 = "";
+        }
+        
+        inputParameters.put("NAME_FIRSTPART", reportBean.getBaUnit().getNameFirstpart());
+        inputParameters.put("NAME_LASTPART", reportBean.getBaUnit().getNameLastpart());
+        inputParameters.put("DUE_DATE", expirationDate);
+        inputParameters.put("CONDITION_TEXT", conditionText);        
+        inputParameters.put("LESSEES", rightholder1 + comma1 + rightholder2);
+        inputParameters.put("LESSEES_MARITAL_STATUS", lessees_marital_status);
+        inputParameters.put("RECIPIENTS", recipient1 + comma2 + recipient2);
+        inputParameters.put("RECIPIENTS_MARITAL_STATUS", recipients_marital_status);
+        inputParameters.put("CONSIDERATION_AMOUNT", amount);   
+        inputParameters.put("FEE", reportBean.getService().getBaseFee().toString());
+
+        RrrReportBean[] beans = new RrrReportBean[1];        
+        beans[0] = reportBean;
+
+        
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/ConsentReport.jasper"),
+                    inputParameters, jds);
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});
@@ -454,7 +512,7 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     /**
      * Generates and displays <b>Systematic registration Public display
      * report</b>.
@@ -585,8 +643,8 @@ public class ReportManager {
             return null;
         }
     }
-    
-     /**
+
+    /**
      * Generates and displays <b>BA Unit</b> report.
      *
      * @param appBean Application bean containing data for the report.
@@ -615,14 +673,14 @@ public class ReportManager {
             return null;
         }
     }
-    
+
 //      /**
 //     * Generates and displays <b>Sys Reg Status</b> report.
 //     *
 //     * @param appBean Application bean containing data for the report.
 //     */
     public static JasperPrint getSysRegStatusReport(SysRegStatusBean statusBean, Date dateFrom, Date dateTo, String nameLastpart) {
-        
+
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -646,14 +704,14 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     //      /**
 //     * Generates and displays <b>Sys Reg Progress</b> report.
 //     *
 //     * @param appBean Application bean containing data for the report.
 //     */
     public static JasperPrint getSysRegProgressReport(SysRegProgressBean progressBean, Date dateFrom, Date dateTo, String nameLastpart) {
-        
+
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -677,5 +735,4 @@ public class ReportManager {
             return null;
         }
     }
-    
 }

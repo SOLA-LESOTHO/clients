@@ -67,6 +67,9 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODE_DISPUTE = "dispute";
     public static final String CODE_OTHER_DEEDS = "regnDeeds";
     public static final String CODE_SERVITUDE ="servitude";
+    public static final String CODE_CONSENT_SERVITUDE = "servitudeConsent";
+    public static final String CODE_CONSENT_TRANSFER = "transferConsent";
+    public static final String CODE_CONSENT_SUBLEASE = "subleaseConsent";
    
     public static final String NR_DAYS_TO_COMPLETE_PROPERTY = "nrDaysToComplete";
     public static final String NR_PROPERTIES_REQUIRED_PROPERTY = "nrPropertiesRequired";
