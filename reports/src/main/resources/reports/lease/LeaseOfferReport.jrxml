@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="a011e8f3-da51-4089-8689-f47d43515305">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="57"/>
+=======
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="1993be0c-6bfa-438f-9226-17ccbcd5b5fc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="IS_DRAFT" class="java.lang.Boolean"/>
 	<queryString>
@@ -113,33 +120,69 @@
 	<field name="lesseesAndMaritalStatus" class="java.lang.String">
 		<fieldDescription><![CDATA[lesseesAndMaritalStatus]]></fieldDescription>
 	</field>
+<<<<<<< HEAD
 	<title>
 		<band height="205" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="415e3863-c84f-4561-ad20-d0efabce638c" x="0" y="181" width="511" height="24"/>
+=======
+	<background>
+		<band height="744" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="bdf60223-df46-4ec9-bc42-5b94b6c0e9b3" mode="Transparent" x="0" y="188" width="511" height="150" forecolor="#E7E7E7">
+					<printWhenExpression><![CDATA[$P{IS_DRAFT}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="100" isBold="true"/>
+				</textElement>
+				<text><![CDATA[D R A F T]]></text>
+			</staticText>
+		</band>
+	</background>
+	<title>
+		<band height="205" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="470dddc6-facb-4758-8542-4a48f0059b51" x="0" y="181" width="511" height="24"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LETTER OF OFFER]]></text>
 			</staticText>
 			<staticText>
+<<<<<<< HEAD
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="10" y="64" width="95" height="19"/>
+=======
+				<reportElement uuid="8f0d8a4e-ae86-4457-aee9-af3172969c56" x="10" y="64" width="95" height="19"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement/>
 				<text><![CDATA[Ref. number:]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy HH:mm">
+<<<<<<< HEAD
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="10" y="45" width="105" height="19"/>
+=======
+				<reportElement uuid="a1aaac78-ca75-46bd-981b-280f53aea0c6" x="10" y="45" width="105" height="19"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<image>
+<<<<<<< HEAD
 				<reportElement uuid="550c53ba-ceb1-4d05-a275-cee027986209" x="320" y="0" width="188" height="64"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="65e2c442-44b6-4707-88d2-846d76f19a10" x="413" y="64" width="95" height="36"/>
+=======
+				<reportElement uuid="2b94a3e5-dd9e-4999-9634-e3c4de5c9d05" x="320" y="0" width="188" height="64"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="6f0e38a7-3b86-4b92-b522-cfc328971974" x="413" y="64" width="95" height="36"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -148,14 +191,22 @@ PO Box 11856,
 Maseru 100]]></text>
 			</staticText>
 			<staticText>
+<<<<<<< HEAD
 				<reportElement uuid="182b1739-ce4b-47c2-922a-d4f3d2dee718" x="413" y="100" width="95" height="15"/>
+=======
+				<reportElement uuid="8a146d39-e478-4850-9f49-eed252631483" x="413" y="100" width="95" height="15"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Lesotho]]></text>
 			</staticText>
 			<staticText>
+<<<<<<< HEAD
 				<reportElement uuid="1db9b3a5-e29a-4825-bc33-9050b1d9c8f8" x="413" y="115" width="95" height="52"/>
+=======
+				<reportElement uuid="c5fb66af-0f30-4993-b4fc-005064804489" x="413" y="115" width="95" height="52"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -169,7 +220,11 @@ Fax: +266 2231 0905]]></text>
 	<detail>
 		<band height="214" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+<<<<<<< HEAD
 				<reportElement uuid="efbd3b2e-3792-4f78-ae18-5fa5ef1cadd1" x="23" y="30" width="463" height="182"/>
+=======
+				<reportElement uuid="08f0a894-4f6d-4cf2-bede-cafb0264eec8" x="23" y="30" width="463" height="182"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement markup="html">
 					<font size="12"/>
 				</textElement>
@@ -199,20 +254,35 @@ $F{parcelCode}, $F{parcelAddress}, $F{parcelOfficialArea}, $F{groundRent}
 	<lastPageFooter>
 		<band height="50">
 			<line>
+<<<<<<< HEAD
 				<reportElement uuid="f49122c9-5247-4390-b49c-1615ea0f3ccb" x="339" y="36" width="169" height="1"/>
 			</line>
 			<staticText>
 				<reportElement uuid="ffaf668c-15f6-4bdd-b99a-61ebca82b954" x="339" y="36" width="169" height="14"/>
+=======
+				<reportElement uuid="abca1d48-3bc7-46f6-b1aa-b69180425a18" x="339" y="36" width="169" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="3e9fabb9-64cf-4974-9497-40c6867e1d18" x="339" y="36" width="169" height="14"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Signature]]></text>
 			</staticText>
 			<staticText>
+<<<<<<< HEAD
 				<reportElement uuid="7392ea84-1c8a-46eb-b2dc-2e6539347749" x="10" y="15" width="66" height="16"/>
+=======
+				<reportElement uuid="09718f23-b1a6-43a9-b92e-326c3b9d7910" x="10" y="15" width="66" height="16"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement/>
 				<text><![CDATA[Prepared by:]]></text>
 			</staticText>
 			<textField>
+<<<<<<< HEAD
 				<reportElement uuid="c0b91bca-de4a-4d1a-95aa-4e149ebaa5ef" x="76" y="15" width="238" height="20"/>
+=======
+				<reportElement uuid="e383626f-018c-42cd-b7f2-3123867b43b3" x="76" y="15" width="238" height="20"/>
+>>>>>>> cf1e38b48c9233d46c86245c652a741edc1cf863
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{USER_NAME}]]></textFieldExpression>
 			</textField>

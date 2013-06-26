@@ -65,6 +65,9 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
     public static final String PLOT_LOCATION_PROPERTY = "plotLocation";
     public static final String PLOT_NUMBER_PROPERTY = "plotNumber";
+    public static final String CASE_TYPE_PROPERTY = "caseType";
+    public static final String PRIMARY_RESPONDENT_PROPERTY = "primaryRespondent";
+    public static final String ACTION_REQUIRED_PROPERTY = "actionRequired";
     public static final String SELECTED_CATEGORY_PROPERTY = "selectedCategory";
     public static final String SELECTED_TYPE_PROPERTY = "selectedType";
     public static final String USER_ID_PROPERTY = "userid";
@@ -81,6 +84,9 @@ public class DisputeBean extends AbstractTransactionedBean {
     private String leaseNumber;
     private String plotLocation;
     private String plotNumber;
+    private String caseType;
+    private boolean primaryRespondent;
+    private String actionRequired;
     private String userId;
     private DisputeBean bean;
     private SolaList<DisputesCommentsBean> disputeCommentsList;
@@ -110,6 +116,7 @@ public class DisputeBean extends AbstractTransactionedBean {
         this.setId(null);
         this.setDisputeCommentsList(null);
         this.setDisputePartyList(null);
+        
 
     }
 
@@ -258,40 +265,51 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public String getDisputeCategoryCode() {
-        if (disputeCategoryCode != null) {
-            return disputeCategoryCode.getCode();
-        } else {
-            return null;
-        }
+        
+        return getDisputeCategory().getCode();
+//        if (disputeCategoryCode != null) {
+//            return disputeCategoryCode.getCode();
+//        } else {
+//            return null;
+//        }
     }
 
-    public void setDisputeCategoryCode(String disputeCategoryCode) {
-        String oldValue = null;
-        if (this.disputeCategoryCode != null) {
-            oldValue = this.disputeCategoryCode.getCode();
-
-            return;
-
-        }
-        setDisputeCategory(CacheManager.getBeanByCode(
-                CacheManager.getDisputeCategory(), disputeCategoryCode));
-
-        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY,
-                oldValue, disputeCategoryCode);
+    public void setDisputeCategoryCode(String value) {
+        String oldValue = getDisputeCategory().getCode();
+        setDisputeCategory(CacheManager.getBeanByCode(CacheManager.getDisputeCategory(), value));
+        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY, oldValue, value);
+//        String oldValue = null;
+//        if (this.disputeCategoryCode != null) {
+//            oldValue = this.disputeCategoryCode.getCode();
+//
+//            return;
+//
+//        }
+//        setDisputeCategory(CacheManager.getBeanByCode(
+//                CacheManager.getDisputeCategory(), disputeCategoryCode));
+//
+//        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY,
+//                oldValue, disputeCategoryCode);
     }
 
     public DisputeCategoryBean getDisputeCategory() {
-        if (this.disputeCategoryCode == null) {
-            this.disputeCategoryCode = new DisputeCategoryBean();
+        if (disputeCategoryCode == null) {
+            disputeCategoryCode = new DisputeCategoryBean();
         }
         return disputeCategoryCode;
+        
+//        if (this.disputeCategoryCode == null) {
+//            this.disputeCategoryCode = new DisputeCategoryBean();
+//        }
+//        return disputeCategoryCode;
     }
 
     public void setDisputeCategory(DisputeCategoryBean disputeCategory) {
-        if (this.disputeCategoryCode == null) {
-            this.disputeCategoryCode = new DisputeCategoryBean();
-        }
-        this.setJointRefDataBean(this.disputeCategoryCode, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+        this.setJointRefDataBean(getDisputeCategory(), disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+//        if (this.disputeCategoryCode == null) {
+//            this.disputeCategoryCode = new DisputeCategoryBean();
+//        }
+//        this.setJointRefDataBean(this.disputeCategoryCode, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
     }
 
     public String getUserId() {
@@ -358,6 +376,37 @@ public class DisputeBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(NR_PROPERTY, old, nr);
     }
 
+    public String getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(String value) {
+        String old = caseType;
+        caseType = value;
+        propertySupport.firePropertyChange(CASE_TYPE_PROPERTY, old, caseType);
+    }
+
+    public String getActionRequired() {
+        return actionRequired;
+    }
+
+    public void setActionRequired(String value) {
+        String old = actionRequired;
+        actionRequired = value;
+        propertySupport.firePropertyChange(ACTION_REQUIRED_PROPERTY, old, actionRequired);
+    }
+
+    public boolean isPrimaryRespondent() {
+        return primaryRespondent;
+    }
+
+    public void setPrimaryRespondent(boolean value) {
+        boolean old = primaryRespondent;
+        primaryRespondent = value;
+        propertySupport.firePropertyChange(PRIMARY_RESPONDENT_PROPERTY, old, primaryRespondent);
+    }
+    
+    
     public String getPlotLocation() {
         return plotLocation;
     }

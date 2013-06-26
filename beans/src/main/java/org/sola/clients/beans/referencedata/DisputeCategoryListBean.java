@@ -28,37 +28,60 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.AbstractBindingListBean;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.controls.SolaObservableList;
+import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
  * Holds the list of {@link DisputeCategoryBean} objects and used to bound the
  * data in the combobox on the forms.
  */
-public class DisputeCategoryListBean extends AbstractBindingBean {
+public class DisputeCategoryListBean extends AbstractBindingListBean {
     public static final String SELECTED_DISPUTECATEGORY_PROPERTY = "selectedDisputeCategory";
-    private SolaObservableList<DisputeCategoryBean> disputeCategoryListBean;
+    private SolaCodeList<DisputeCategoryBean> disputeCategoryListBean;
     private DisputeCategoryBean selectedDisputeCategory;
     
+    
     public DisputeCategoryListBean() {
-       disputeCategoryListBean = new SolaObservableList(CacheManager.getDisputeCategory());
+        this(false);
     }
-     
+    
+    public DisputeCategoryListBean(boolean createDummy) {
+        this(createDummy, (String) null);
+    }
+    
+    public DisputeCategoryListBean(boolean createDummy, String ... excludedCodes) {
+        super();
+        disputeCategoryListBean = new SolaCodeList<DisputeCategoryBean>(excludedCodes);
+        loadList(createDummy);
+    }
+    
+    public final void loadList(boolean createDummy) {
+        loadCodeList(DisputeCategoryBean.class, disputeCategoryListBean, 
+                CacheManager.getDisputeCategory(), createDummy);
+    }
+    
+//    public DisputeCategoryListBean() {
+//       disputeCategoryListBean = new SolaObservableList(CacheManager.getDisputeCategory());
+//    }
+//     
     public ObservableList<DisputeCategoryBean> getDisputeCategoryListBean() {
-        return disputeCategoryListBean;
+        return disputeCategoryListBean.getFilteredList();
     }
-    
-    public void setDisputeCategoryListBean(SolaObservableList<DisputeCategoryBean> disputeCategoryListBean) {
-        this.disputeCategoryListBean = disputeCategoryListBean;
+     public void setExcludedCodes(String ... codes){
+        disputeCategoryListBean.setExcludedCodes(codes);
     }
-    
+//    
+//    public void setDisputeCategoryListBean(SolaObservableList<DisputeCategoryBean> disputeCategoryListBean) {
+//        this.disputeCategoryListBean = disputeCategoryListBean;
+//    }
+//    
      public DisputeCategoryBean getSelectedDisputeCategory() {
         return selectedDisputeCategory;
     }
 
-    public void setSelectedDisputeCategory(DisputeCategoryBean selectedDisputeCategory) {
-        this.selectedDisputeCategory = selectedDisputeCategory;
+    public void setSelectedDisputeCategory(DisputeCategoryBean value) {
+        selectedDisputeCategory = value;
         propertySupport.firePropertyChange(SELECTED_DISPUTECATEGORY_PROPERTY, null, selectedDisputeCategory);
     }
 }

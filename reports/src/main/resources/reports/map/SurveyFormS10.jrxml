@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SurveyFormS10" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SurveyFormS10" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b33ed423-3b2e-412a-8601-7b555621315d">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="284"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="APP_NUMBER" class="java.lang.String"/>
 	<queryString>
@@ -42,14 +42,14 @@
 	<title>
 		<band height="224" splitType="Stretch">
 			<staticText>
-				<reportElement x="12" y="12" width="100" height="20"/>
+				<reportElement uuid="2a7fa6ab-3c34-4758-adef-cb51571a6ea2" x="12" y="12" width="100" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FORM S.10]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="460" y="64" width="95" height="36"/>
+				<reportElement uuid="06547684-5686-4824-9423-dc5d320f01e0" x="460" y="64" width="95" height="36"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -58,7 +58,7 @@ PO Box 11856,
 Maseru 100]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="460" y="115" width="95" height="52"/>
+				<reportElement uuid="97b2fcb2-10a9-4308-9b6a-fe52d5030323" x="460" y="115" width="95" height="52"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -68,18 +68,18 @@ Tel: +266 2232 2376
 Fax: +266 2231 0905]]></text>
 			</staticText>
 			<image>
-				<reportElement x="367" y="0" width="188" height="64"/>
+				<reportElement uuid="1b71c3aa-1071-413b-b33b-d0d9deea993d" x="367" y="0" width="188" height="64"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="460" y="100" width="95" height="15"/>
+				<reportElement uuid="9b101f4e-b7d4-4fa3-af95-abb6bed98146" x="460" y="100" width="95" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Lesotho]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="190" width="552" height="20"/>
+				<reportElement uuid="e3bb7ab1-313a-496f-a810-27d4bce5951e" x="3" y="190" width="552" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -90,28 +90,28 @@ Fax: +266 2231 0905]]></text>
 	<columnHeader>
 		<band height="56" splitType="Stretch">
 			<staticText>
-				<reportElement x="14" y="0" width="74" height="20"/>
+				<reportElement uuid="fc2e2d5a-7237-4b5f-a55b-d925bcfaa1c7" x="14" y="0" width="74" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="20" width="74" height="20"/>
+				<reportElement uuid="5986aeb9-2268-4e73-9350-57e872bd6085" x="14" y="20" width="74" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FROM:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="88" y="0" width="225" height="20"/>
+				<reportElement uuid="70676ede-e8e2-4dbe-ac64-7b2e94f5093c" x="88" y="0" width="225" height="20"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[CHIEF LANDS OFFICER]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="88" y="20" width="225" height="20"/>
+				<reportElement uuid="9b488f37-a539-4579-9923-c441a921cf1c" x="88" y="20" width="225" height="20"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
@@ -122,196 +122,196 @@ Fax: +266 2231 0905]]></text>
 	<detail>
 		<band height="495" splitType="Stretch">
 			<staticText>
-				<reportElement x="14" y="14" width="203" height="20"/>
+				<reportElement uuid="8faf4825-e27b-45a5-91d8-080d53b686e6" x="14" y="14" width="203" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[APPLICATION NUMBER]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="34" width="203" height="20"/>
+				<reportElement uuid="8e3d9dfe-43c8-43cf-aa82-61dbdb52f2f4" x="14" y="34" width="203" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SURVEY FILE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="54" width="203" height="20"/>
+				<reportElement uuid="920b6ee5-780b-4f3a-a891-2b67165f6aa8" x="14" y="54" width="203" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CADASTRAL PLAN PLOT NUMBER]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="74" width="203" height="20"/>
+				<reportElement uuid="2b004aeb-6beb-4724-8e58-ee2d42a86611" x="14" y="74" width="203" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AREA OF PLOT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="94" width="203" height="20"/>
+				<reportElement uuid="fa260451-10c5-4461-92a0-8c926e88b74c" x="14" y="94" width="203" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SURVEY FEES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="188" width="89" height="20"/>
+				<reportElement uuid="687a4002-09dc-4b1e-9610-d29ac026b7c3" x="14" y="188" width="89" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REMARKS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="352" width="89" height="20"/>
+				<reportElement uuid="34701876-2323-480e-835a-c4ef57e20409" x="12" y="352" width="89" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Surveyed by]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="384" width="89" height="20"/>
+				<reportElement uuid="6b72462a-05c9-4e30-aa3f-2e620558942a" x="12" y="384" width="89" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DATE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="416" width="370" height="31"/>
+				<reportElement uuid="6e184541-843d-441b-a774-a5d90dabbfa4" x="12" y="416" width="370" height="31"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ISSUED BY   ..........................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="396" y="416" width="42" height="20"/>
+				<reportElement uuid="76894373-cf97-4629-a24a-39313b9d3dcc" x="396" y="416" width="42" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DATE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="101" y="436" width="181" height="20"/>
+				<reportElement uuid="c9d0e2c3-af1b-48a5-8409-12ffbc17b41e" x="101" y="436" width="181" height="20"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[for CHIEF SURVEYOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="117" y="226" width="419" height="23"/>
+				<reportElement uuid="6d56cb13-2c3b-4e2e-8a34-0b2bd29848d3" x="117" y="226" width="419" height="23"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[.........................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="117" y="249" width="419" height="23"/>
+				<reportElement uuid="26ba132c-5266-497c-a1bb-f108f34f328b" x="117" y="249" width="419" height="23"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[.........................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="117" y="272" width="419" height="23"/>
+				<reportElement uuid="ca8cc609-3fc3-43a7-86a9-5c493b81328f" x="117" y="272" width="419" height="23"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[.........................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="117" y="295" width="419" height="23"/>
+				<reportElement uuid="7c08cc33-747d-40b7-b4a8-325fa34d9c05" x="117" y="295" width="419" height="23"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[.........................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="117" y="318" width="419" height="23"/>
+				<reportElement uuid="2d57a9fe-7234-4c51-b6d4-199080a33745" x="117" y="318" width="419" height="23"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[.........................................................................................................................................]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="243" y="34" width="293" height="20"/>
+				<reportElement uuid="291db9bf-3ea1-4202-97c9-e48ad3b1873c" x="243" y="34" width="293" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sourceReference}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="243" y="54" width="293" height="20"/>
+				<reportElement uuid="22d68f41-2682-4c35-99bc-9e71c4177c41" x="243" y="54" width="293" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nameFirstpart} +"-"+ $F{nameLastpart}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="243" y="74" width="293" height="20"/>
+				<reportElement uuid="cb69fa0a-2adc-4919-af8a-ca28eced134a" x="243" y="74" width="293" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{officialAreaSize} == null ? "" : $F{officialAreaSize}.toPlainString() + " m2"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement x="438" y="416" width="100" height="20"/>
+				<reportElement uuid="5c719788-a949-4e65-9717-c9320af4bdeb" x="438" y="416" width="100" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="254" y="94" width="282" height="20"/>
+				<reportElement uuid="a41f3869-16bd-4cc7-9892-33a5bc9bac53" x="254" y="94" width="282" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyFee}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="117" y="188" width="419" height="38"/>
+				<reportElement uuid="d1463b14-7328-473c-b3c2-f64a645a91c8" x="117" y="188" width="419" height="38"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="101" y="352" width="435" height="20"/>
+				<reportElement uuid="b129af61-5773-4044-a481-a6c5da0171be" x="101" y="352" width="435" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{surveyor}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="14" y="114" width="203" height="20"/>
+				<reportElement uuid="2c0bd867-ef64-4e6a-9b4a-5aebca0dfc5a" x="14" y="114" width="203" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PLOT LOCATION]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="243" y="114" width="293" height="60"/>
+				<reportElement uuid="c991a532-e5a3-46fc-bfed-d7d7071fb18c" x="243" y="114" width="293" height="60"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{addressString}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="243" y="14" width="293" height="20"/>
+				<reportElement uuid="828617f9-09ed-44f7-a42b-31f53ace0873" x="243" y="14" width="293" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{APP_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="243" y="94" width="11" height="20"/>
+				<reportElement uuid="a94124d5-366c-4982-b15e-ec8cc3929316" x="243" y="94" width="11" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[M]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement x="103" y="384" width="433" height="20"/>
+				<reportElement uuid="7f0b19b2-3da4-473b-a135-7f58e89fef29" x="103" y="384" width="433" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

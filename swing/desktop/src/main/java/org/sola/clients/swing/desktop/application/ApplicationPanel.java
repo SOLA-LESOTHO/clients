@@ -44,6 +44,7 @@ import org.jdesktop.observablecollections.ObservableListListener;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
 import org.sola.clients.beans.administrative.LeaseBean;
+import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationDocumentsHelperBean;
 import org.sola.clients.beans.application.ApplicationPropertyBean;
@@ -64,6 +65,7 @@ import org.sola.clients.swing.common.converters.BigDecimalMoneyConverter;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
+import org.sola.clients.swing.desktop.administrative.ConsentPanel;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.clients.swing.desktop.administrative.PropertyPanel;
 import org.sola.clients.swing.desktop.cadastre.CadastreTransactionMapPanel;
@@ -632,6 +634,30 @@ public class ApplicationPanel extends ContentPanel {
                     }
                 };
                 TaskManager.getInstance().runTask(t);
+            } // Consent service
+            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_SERVITUDE)
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_SUBLEASE)
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_TRANSFER)) {
+                // Run consent service
+                SolaTask t = new SolaTask<Void, Void>() {
+
+                    @Override
+                    public Void doTask() {
+                        //
+                        BaUnitSearchResultBean applicationProperty = appBean.getFilteredPropertyList().get(0);
+                        if (applicationProperty.getId() != null) {
+                            
+                            BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(applicationProperty.getId());
+                            
+                            
+                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCREGISTRATION));
+                            ConsentPanel form = new ConsentPanel(baUnitBean, appBean, service, RrrBean.RRR_ACTION.NEW, service.getRequestType().getDisplayValue());
+                            getMainContentPanel().addPanel(form, MainContentPanel.CARD_CONSENT_SERVITUDE, true);
+                        }
+                        return null;
+                    }
+                };
+                TaskManager.getInstance().runTask(t);
             } // Document copy request
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DOCUMENT_COPY)) {
                 SolaTask t = new SolaTask<Void, Void>() {
@@ -644,22 +670,6 @@ public class ApplicationPanel extends ContentPanel {
                             getMainContentPanel().addPanel(documentSearchPanel, MainContentPanel.CARD_DOCUMENT_SEARCH);
                         }
                         getMainContentPanel().showPanel(MainContentPanel.CARD_DOCUMENT_SEARCH);
-                        return null;
-                    }
-                };
-                TaskManager.getInstance().runTask(t);
-            } //Disputes
-            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DISPUTE)) {
-                SolaTask t = new SolaTask<Void, Void>() {
-
-                    @Override
-                    public Void doTask() {
-                        //setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCUMENTSEARCH));
-                        if (!getMainContentPanel().isPanelOpened(MainContentPanel.CARD_DISPUTE)) {
-                            DisputePanelForm disputePanel = new DisputePanelForm();
-                            getMainContentPanel().addPanel(disputePanel, MainContentPanel.CARD_DISPUTE);
-                        }
-                        getMainContentPanel().showPanel(MainContentPanel.CARD_DISPUTE);
                         return null;
                     }
                 };
