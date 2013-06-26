@@ -30,7 +30,6 @@
 package org.sola.clients.reports;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,9 +37,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.sola.clients.beans.administrative.BaUnitBean;
+import org.sola.clients.beans.administrative.LeaseReportBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
@@ -137,11 +135,11 @@ public class ReportManager {
      *
      * @param reportBean RRR report bean containing all required information to build the report.
      */
-    public static JasperPrint getLeaseRejectionReport(RrrReportBean reportBean) {
+    public static JasperPrint getLeaseRejectionReport(LeaseReportBean reportBean) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
-        RrrReportBean[] beans = new RrrReportBean[1];
+        LeaseReportBean[] beans = new LeaseReportBean[1];
         beans[0] = reportBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         try {
@@ -160,12 +158,11 @@ public class ReportManager {
      *
      * @param reportBean RRR report bean containing all required information to build the report.
      */
-    public static JasperPrint getLeaseOfferReport(RrrReportBean reportBean, boolean isDraft) {
+    public static JasperPrint getLeaseOfferReport(LeaseReportBean reportBean) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
-        inputParameters.put("IS_DRAFT", isDraft);
-        RrrReportBean[] beans = new RrrReportBean[1];
+        LeaseReportBean[] beans = new LeaseReportBean[1];
         beans[0] = reportBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         try {
@@ -184,14 +181,12 @@ public class ReportManager {
      *
      * @param reportBean RRR report bean containing all required information to build the report.
      */
-    public static JasperPrint getLeaseReport(RrrReportBean reportBean, 
-            String mapImageFileName, boolean isDraft) {
+    public static JasperPrint getLeaseReport(LeaseReportBean reportBean, String mapImageFileName) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
-        inputParameters.put("IS_DRAFT", isDraft);
         inputParameters.put("MAP_IMAGE", mapImageFileName);
-        RrrReportBean[] beans = new RrrReportBean[1];
+        LeaseReportBean[] beans = new LeaseReportBean[1];
         beans[0] = reportBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         try {

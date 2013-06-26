@@ -37,13 +37,11 @@ import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
-import org.sola.clients.swing.desktop.application.ApplicationPanel;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.party.PartySearchPanel;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
-//import org.sola.clients.swing.ui.party.PartySearchPanel;
 
 /**
  * Holds {@link PartySearchPanel} component.
@@ -111,9 +109,12 @@ public class PartySearchPanelForm extends ContentPanel {
                 }
             }
         });
-
     }
 
+    public PartySearchPanel getPartySearchPanel(){
+        return partySearchPanel;
+    }
+    
     private void addElementList(String bean) {
         if (this.partySearchPanel.partySearchResuls.getSelectedPartySearchResult() != null) {
             PartySummaryBean partySummary = this.partySearchPanel.partySearchResuls.getSelectedPartySearchResult();

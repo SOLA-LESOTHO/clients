@@ -43,12 +43,14 @@ import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.observablecollections.ObservableListListener;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
+import org.sola.clients.beans.administrative.LeaseBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationDocumentsHelperBean;
 import org.sola.clients.beans.application.ApplicationPropertyBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
+import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.party.PartySummaryListBean;
@@ -81,6 +83,7 @@ import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 import org.sola.clients.swing.desktop.administrative.DisputePanelForm;
+import org.sola.clients.swing.desktop.administrative.LeasePreparationForm;
 import org.sola.clients.swing.ui.administrative.BaUnitSearchPanel;
 
 /**
@@ -268,12 +271,12 @@ public class ApplicationPanel extends ContentPanel {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)){
-                    appBean.addProperty((BaUnitSearchResultBean)evt.getNewValue());
+                if (evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)) {
+                    appBean.addProperty((BaUnitSearchResultBean) evt.getNewValue());
                 }
             }
         });
-        
+
         customizeServicesButtons();
         customizeApplicationForm();
         customizeParcelsButtons();
@@ -355,7 +358,7 @@ public class ApplicationPanel extends ContentPanel {
             documentsPanel.setAllowEdit(editAllowed);
             cadastreObjectsSearch.setReadOnly(!editAllowed);
             propertySearchPanel.setReadOnly(!editAllowed);
-            
+
             if (appBean.getStatusCode().equals("approved")) {
                 btnCertificate.setEnabled(true);
             }
@@ -369,8 +372,8 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     /**
-    * Disables or enables buttons, related to the property list management.
-    */
+     * Disables or enables buttons, related to the property list management.
+     */
     private void customizePropertyButtons() {
         boolean enable = false;
         if (appBean.isEditingAllowed() && appBean.getSelectedProperty() != null) {
@@ -378,7 +381,7 @@ public class ApplicationPanel extends ContentPanel {
         }
         btnRemoveProperty.setEnabled(enable);
     }
-    
+
     /**
      * Disables or enables parcel remove button.
      */
@@ -590,6 +593,21 @@ public class ApplicationPanel extends ContentPanel {
         }
     }
 
+    private void openLeasePreparation(final LeaseBean lease, 
+            final ApplicationServiceBean service, final boolean readOnly) {
+        SolaTask t = new SolaTask<Void, Void>() {
+
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_LEASE_PREPARATION));
+                LeasePreparationForm form = new LeasePreparationForm(lease, appBean, service, readOnly);
+                getMainContentPanel().addPanel(form, MainContentPanel.CARD_LEASE_PREPARATION, true);
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);
+    }
+
     private void launchService(final ApplicationServiceBean service, final boolean readOnly) {
         if (service != null) {
 
@@ -601,7 +619,6 @@ public class ApplicationPanel extends ContentPanel {
             if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_POWER_OF_ATTORNEY)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_STANDARD_DOCUMENT)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_OTHER_DEEDS)
-                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_NEW_LEASE)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CANCEL_POWER_OF_ATTORNEY)) {
                 // Run registration/cancelation Power of attorney
                 SolaTask t = new SolaTask<Void, Void>() {
@@ -679,7 +696,31 @@ public class ApplicationPanel extends ContentPanel {
                     }
                 };
                 TaskManager.getInstance().runTask(t);
-            } // Cadastre change services
+            } // New lease
+            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_NEW_LEASE)) {
+                // Get leases created by the service
+                SolaObservableList<LeaseBean> leases = new SolaObservableList(LeaseBean.getLeasesByServiceId(service.getId()));
+
+                if (leases != null && leases.size() > 0) {
+                    if (leases.size() == 1) {
+                        openLeasePreparation(leases.get(0), service, readOnly);
+                    } else if (leases.size() > 1) {
+                        // Open form to select lease
+                        LeaseListDialog form = new LeaseListDialog(null, leases, readOnly);
+                        form.addPropertyChangeListener(new PropertyChangeListener() {
+
+                            @Override
+                            public void propertyChange(PropertyChangeEvent evt) {
+                                if (evt.getPropertyName().equals(LeaseListDialog.LEASE_SELECTED)) {
+                                    openLeasePreparation((LeaseBean)evt.getNewValue(), service, readOnly);
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    openLeasePreparation(null, service, readOnly);
+                }
+            }// Cadastre change services
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_CHANGE)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_REDEFINITION)) {
 
@@ -886,7 +927,7 @@ public class ApplicationPanel extends ContentPanel {
     private void removeSelectedParcel() {
         appBean.removeSelectedCadastreObject();
     }
- 
+
     /**
      * Designer generated code
      */

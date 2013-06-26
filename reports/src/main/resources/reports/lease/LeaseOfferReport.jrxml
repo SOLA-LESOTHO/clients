@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="a011e8f3-da51-4089-8689-f47d43515305">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="57"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="IS_DRAFT" class="java.lang.Boolean"/>
 	<queryString>
@@ -11,76 +11,135 @@
 	<field name="applicantName" class="java.lang.String">
 		<fieldDescription><![CDATA[applicantName]]></fieldDescription>
 	</field>
+	<field name="serviceName" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
+	</field>
+	<field name="freeText" class="java.lang.String">
+		<fieldDescription><![CDATA[freeText]]></fieldDescription>
+	</field>
+	<field name="lease" class="org.sola.clients.beans.administrative.LeaseBean">
+		<fieldDescription><![CDATA[lease]]></fieldDescription>
+	</field>
+	<field name="service" class="org.sola.clients.beans.application.ApplicationServiceBean">
+		<fieldDescription><![CDATA[service]]></fieldDescription>
+	</field>
+	<field name="lessees" class="java.lang.String">
+		<fieldDescription><![CDATA[lessees]]></fieldDescription>
+	</field>
+	<field name="leaseStartMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="parcelAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelAddress]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationDate]]></fieldDescription>
+	</field>
+	<field name="leaseStartDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartDay]]></fieldDescription>
+	</field>
+	<field name="groundRent" class="java.lang.String">
+		<fieldDescription><![CDATA[groundRent]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="entityAction" class="org.sola.webservices.transferobjects.EntityAction">
+		<fieldDescription><![CDATA[entityAction]]></fieldDescription>
+	</field>
+	<field name="leaseRegistrationNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseRegistrationNumber]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionDate]]></fieldDescription>
+	</field>
 	<field name="applicationDate" class="java.lang.String">
 		<fieldDescription><![CDATA[applicationDate]]></fieldDescription>
+	</field>
+	<field name="lesseeAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseeAddress]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="parcelLandUse" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelLandUse]]></fieldDescription>
+	</field>
+	<field name="parcelType" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelType]]></fieldDescription>
+	</field>
+	<field name="parcelMapRef" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelMapRef]]></fieldDescription>
+	</field>
+	<field name="leaseStartDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartDate]]></fieldDescription>
+	</field>
+	<field name="leaseTerm" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseTerm]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionDay]]></fieldDescription>
+	</field>
+	<field name="checkSum" class="java.lang.String">
+		<fieldDescription><![CDATA[checkSum]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationDay]]></fieldDescription>
+	</field>
+	<field name="lesseeMaritalStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseeMaritalStatus]]></fieldDescription>
+	</field>
+	<field name="parcelOfficialArea" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelOfficialArea]]></fieldDescription>
+	</field>
+	<field name="leaseTermWord" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseTermWord]]></fieldDescription>
+	</field>
+	<field name="lesseePrivate" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[lesseePrivate]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="parcelCode" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelCode]]></fieldDescription>
+	</field>
+	<field name="application" class="org.sola.clients.beans.application.ApplicationBean">
+		<fieldDescription><![CDATA[application]]></fieldDescription>
 	</field>
 	<field name="applicationNumber" class="java.lang.String">
 		<fieldDescription><![CDATA[applicationNumber]]></fieldDescription>
 	</field>
-	<field name="firstParcelAddress" class="java.lang.String">
-		<fieldDescription><![CDATA[firstParcelAddress]]></fieldDescription>
+	<field name="lesseesAndMaritalStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseesAndMaritalStatus]]></fieldDescription>
 	</field>
-	<field name="firstParcelCode" class="java.lang.String">
-		<fieldDescription><![CDATA[firstParcelCode]]></fieldDescription>
-	</field>
-	<field name="firstParcelLandUse" class="java.lang.String">
-		<fieldDescription><![CDATA[firstParcelLandUse]]></fieldDescription>
-	</field>
-	<field name="firstParcelOfficialArea" class="java.lang.String">
-		<fieldDescription><![CDATA[firstParcelOfficialArea]]></fieldDescription>
-	</field>
-	<field name="rrrPaymentAmount" class="java.lang.String">
-		<fieldDescription><![CDATA[rrrPaymentAmount]]></fieldDescription>
-	</field>
-	<field name="rrrRegDate" class="java.lang.String">
-		<fieldDescription><![CDATA[rrrRegDate]]></fieldDescription>
-	</field>
-	<field name="rrrRegNumber" class="java.lang.String">
-		<fieldDescription><![CDATA[rrrRegNumber]]></fieldDescription>
-	</field>
-	<field name="serviceName" class="java.lang.String">
-		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
-	</field>
-	<background>
-		<band height="744" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Transparent" x="0" y="188" width="511" height="150" forecolor="#E7E7E7">
-					<printWhenExpression><![CDATA[$P{IS_DRAFT}]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
-					<font size="100" isBold="true"/>
-				</textElement>
-				<text><![CDATA[D R A F T]]></text>
-			</staticText>
-		</band>
-	</background>
 	<title>
 		<band height="205" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="181" width="511" height="24"/>
+				<reportElement uuid="415e3863-c84f-4561-ad20-d0efabce638c" x="0" y="181" width="511" height="24"/>
 				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LETTER OF OFFER]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="64" width="95" height="19"/>
+				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="10" y="64" width="95" height="19"/>
 				<textElement/>
 				<text><![CDATA[Ref. number:]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy HH:mm">
-				<reportElement x="10" y="45" width="105" height="19"/>
+				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="10" y="45" width="105" height="19"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="320" y="0" width="188" height="64"/>
+				<reportElement uuid="550c53ba-ceb1-4d05-a275-cee027986209" x="320" y="0" width="188" height="64"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="413" y="64" width="95" height="36"/>
+				<reportElement uuid="65e2c442-44b6-4707-88d2-846d76f19a10" x="413" y="64" width="95" height="36"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -89,14 +148,14 @@ PO Box 11856,
 Maseru 100]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="413" y="100" width="95" height="15"/>
+				<reportElement uuid="182b1739-ce4b-47c2-922a-d4f3d2dee718" x="413" y="100" width="95" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Lesotho]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="413" y="115" width="95" height="52"/>
+				<reportElement uuid="1db9b3a5-e29a-4825-bc33-9050b1d9c8f8" x="413" y="115" width="95" height="52"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -110,7 +169,7 @@ Fax: +266 2231 0905]]></text>
 	<detail>
 		<band height="214" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="23" y="30" width="463" height="182"/>
+				<reportElement uuid="efbd3b2e-3792-4f78-ae18-5fa5ef1cadd1" x="23" y="30" width="463" height="182"/>
 				<textElement markup="html">
 					<font size="12"/>
 				</textElement>
@@ -123,7 +182,7 @@ Fax: +266 2231 0905]]></text>
 "located at %s of %s square meters is available." +
 "<p></p>" +
 "Could you please call the office to arrange for the signing of the lease. " +
-"You will also need to show that you have paid the first year's ground rent of <b>M%s</b> " +
+"You will also need to show that you have paid the first year's ground rent of <b>%s</b> " +
 "prior to the signing and the uplifting of the documents." +
 "<p></p>" +
 "<p></p>" +
@@ -131,8 +190,8 @@ Fax: +266 2231 0905]]></text>
 "Regards,<br />" +
 "Land Administration office" +
 "</font>",
-$F{applicantName}, $F{applicationNumber}, $F{applicationDate}, $F{firstParcelLandUse}, 
-$F{firstParcelCode}, $F{firstParcelAddress}, $F{firstParcelOfficialArea}, $F{rrrPaymentAmount}
+$F{applicantName}, $F{applicationNumber}, $F{applicationDate}, $F{parcelLandUse}, 
+$F{parcelCode}, $F{parcelAddress}, $F{parcelOfficialArea}, $F{groundRent}
 )]]></textFieldExpression>
 			</textField>
 		</band>
@@ -140,20 +199,20 @@ $F{firstParcelCode}, $F{firstParcelAddress}, $F{firstParcelOfficialArea}, $F{rrr
 	<lastPageFooter>
 		<band height="50">
 			<line>
-				<reportElement x="339" y="36" width="169" height="1"/>
+				<reportElement uuid="f49122c9-5247-4390-b49c-1615ea0f3ccb" x="339" y="36" width="169" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="339" y="36" width="169" height="14"/>
+				<reportElement uuid="ffaf668c-15f6-4bdd-b99a-61ebca82b954" x="339" y="36" width="169" height="14"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Signature]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="15" width="66" height="16"/>
+				<reportElement uuid="7392ea84-1c8a-46eb-b2dc-2e6539347749" x="10" y="15" width="66" height="16"/>
 				<textElement/>
 				<text><![CDATA[Prepared by:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="76" y="15" width="238" height="20"/>
+				<reportElement uuid="c0b91bca-de4a-4d1a-95aa-4e149ebaa5ef" x="76" y="15" width="238" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{USER_NAME}]]></textFieldExpression>
 			</textField>
