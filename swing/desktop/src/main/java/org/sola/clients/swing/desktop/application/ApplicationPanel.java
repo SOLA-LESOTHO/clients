@@ -43,6 +43,7 @@ import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.observablecollections.ObservableListListener;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
+import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationDocumentsHelperBean;
 import org.sola.clients.beans.application.ApplicationPropertyBean;
@@ -62,6 +63,7 @@ import org.sola.clients.swing.common.converters.BigDecimalMoneyConverter;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
+import org.sola.clients.swing.desktop.administrative.ConsentPanel;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.clients.swing.desktop.administrative.PropertyPanel;
 import org.sola.clients.swing.desktop.cadastre.CadastreTransactionMapPanel;
@@ -268,12 +270,12 @@ public class ApplicationPanel extends ContentPanel {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)){
-                    appBean.addProperty((BaUnitSearchResultBean)evt.getNewValue());
+                if (evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)) {
+                    appBean.addProperty((BaUnitSearchResultBean) evt.getNewValue());
                 }
             }
         });
-        
+
         customizeServicesButtons();
         customizeApplicationForm();
         customizeParcelsButtons();
@@ -355,7 +357,7 @@ public class ApplicationPanel extends ContentPanel {
             documentsPanel.setAllowEdit(editAllowed);
             cadastreObjectsSearch.setReadOnly(!editAllowed);
             propertySearchPanel.setReadOnly(!editAllowed);
-            
+
             if (appBean.getStatusCode().equals("approved")) {
                 btnCertificate.setEnabled(true);
             }
@@ -369,8 +371,8 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     /**
-    * Disables or enables buttons, related to the property list management.
-    */
+     * Disables or enables buttons, related to the property list management.
+     */
     private void customizePropertyButtons() {
         boolean enable = false;
         if (appBean.isEditingAllowed() && appBean.getSelectedProperty() != null) {
@@ -378,7 +380,7 @@ public class ApplicationPanel extends ContentPanel {
         }
         btnRemoveProperty.setEnabled(enable);
     }
-    
+
     /**
      * Disables or enables parcel remove button.
      */
@@ -611,6 +613,30 @@ public class ApplicationPanel extends ContentPanel {
                         setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCREGISTRATION));
                         TransactionedDocumentsPanel form = new TransactionedDocumentsPanel(appBean, service);
                         getMainContentPanel().addPanel(form, MainContentPanel.CARD_TRANSACTIONED_DOCUMENT, true);
+                        return null;
+                    }
+                };
+                TaskManager.getInstance().runTask(t);
+            } // Consent service
+            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_SERVITUDE)
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_SUBLEASE)
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_TRANSFER)) {
+                // Run consent service
+                SolaTask t = new SolaTask<Void, Void>() {
+
+                    @Override
+                    public Void doTask() {
+                        //
+                        BaUnitSearchResultBean applicationProperty = appBean.getFilteredPropertyList().get(0);
+                        if (applicationProperty.getId() != null) {
+                            
+                            BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(applicationProperty.getId());
+                            
+                            
+                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCREGISTRATION));
+                            ConsentPanel form = new ConsentPanel(baUnitBean, appBean, service, RrrBean.RRR_ACTION.NEW, service.getRequestType().getDisplayValue());
+                            getMainContentPanel().addPanel(form, MainContentPanel.CARD_CONSENT_SERVITUDE, true);
+                        }
                         return null;
                     }
                 };
@@ -870,7 +896,7 @@ public class ApplicationPanel extends ContentPanel {
     private void removeSelectedParcel() {
         appBean.removeSelectedCadastreObject();
     }
- 
+
     /**
      * Designer generated code
      */
