@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Application status report" pageWidth="595" pageHeight="842" columnWidth="548" leftMargin="27" rightMargin="20" topMargin="24" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.ApplicationStatusReport" uuid="fa81ad38-fe18-4ec4-a9b1-695d6da0e7d9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="349"/>
+	<property name="ireport.y" value="96"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#006633"/>
