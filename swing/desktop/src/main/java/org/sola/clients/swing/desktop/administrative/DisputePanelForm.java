@@ -193,6 +193,7 @@ public class DisputePanelForm extends ContentPanel {
             txtdisputeNumber.setText(null);
             txtdisputeNumber.setEditable(false);
             disputeBean1.setCaseType(typeofCase);
+            tabGeneralInfo.setFocusable(true);
 
         } else {
             typeofCase = courtProcessString;
@@ -202,6 +203,7 @@ public class DisputePanelForm extends ContentPanel {
             txtdisputeNumber.setText(null);
             txtdisputeNumber.setEditable(true);
             disputeBean1.setCaseType(typeofCase);
+            jPanel13.setFocusable(true);
         }
     }
 
@@ -695,7 +697,7 @@ public class DisputePanelForm extends ContentPanel {
         jSeparator4 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
-        jButton1 = new javax.swing.JButton();
+        dropDownButtonReports = new org.sola.clients.swing.common.controls.DropDownButton();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         tabGeneralInfo = new javax.swing.JPanel();
@@ -808,10 +810,10 @@ public class DisputePanelForm extends ContentPanel {
         jToolBar1.setBorder(null);
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
-        jToolBar1.setName(bundle.getString("DisputePanelForm.jToolBar1.name")); // NOI18N
+        jToolBar1.setName(bundle.getString("DisputePanelForm.jToolBar1.name_1")); // NOI18N
 
         btnnewDispute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/new.png"))); // NOI18N
-        btnnewDispute.setText(bundle.getString("DisputePanelForm.btnnewDispute.text")); // NOI18N
+        btnnewDispute.setText(bundle.getString("DisputePanelForm.btnnewDispute.text_1")); // NOI18N
         btnnewDispute.setFocusable(false);
         btnnewDispute.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnnewDispute.addActionListener(new java.awt.event.ActionListener() {
@@ -821,14 +823,14 @@ public class DisputePanelForm extends ContentPanel {
         });
         jToolBar1.add(btnnewDispute);
 
-        jSeparator1.setName(bundle.getString("DisputePanelForm.jSeparator1.name")); // NOI18N
+        jSeparator1.setName(bundle.getString("DisputePanelForm.jSeparator1.name_1")); // NOI18N
         jToolBar1.add(jSeparator1);
 
         btnSaveDispute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
-        btnSaveDispute.setText(bundle.getString("DisputePanelForm.btnSaveDispute.text")); // NOI18N
-        btnSaveDispute.setToolTipText(bundle.getString("DisputePanelForm.btnSaveDispute.toolTipText")); // NOI18N
+        btnSaveDispute.setText(bundle.getString("DisputePanelForm.btnSaveDispute.text_1")); // NOI18N
+        btnSaveDispute.setToolTipText(bundle.getString("DisputePanelForm.btnSaveDispute.toolTipText_1")); // NOI18N
         btnSaveDispute.setFocusable(false);
-        btnSaveDispute.setName(bundle.getString("DisputePanelForm.btnSaveDispute.name")); // NOI18N
+        btnSaveDispute.setName(bundle.getString("DisputePanelForm.btnSaveDispute.name_1")); // NOI18N
         btnSaveDispute.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnSaveDispute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -837,11 +839,11 @@ public class DisputePanelForm extends ContentPanel {
         });
         jToolBar1.add(btnSaveDispute);
 
-        jSeparator3.setName(bundle.getString("DisputePanelForm.jSeparator3.name")); // NOI18N
+        jSeparator3.setName(bundle.getString("DisputePanelForm.jSeparator3.name_1")); // NOI18N
         jToolBar1.add(jSeparator3);
 
         btnsearchDispute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/search.png"))); // NOI18N
-        btnsearchDispute.setText(bundle.getString("DisputePanelForm.btnsearchDispute.text")); // NOI18N
+        btnsearchDispute.setText(bundle.getString("DisputePanelForm.btnsearchDispute.text_1")); // NOI18N
         btnsearchDispute.setFocusable(false);
         btnsearchDispute.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnsearchDispute.addActionListener(new java.awt.event.ActionListener() {
@@ -851,11 +853,11 @@ public class DisputePanelForm extends ContentPanel {
         });
         jToolBar1.add(btnsearchDispute);
 
-        jSeparator4.setName(bundle.getString("DisputePanelForm.jSeparator4.name")); // NOI18N
+        jSeparator4.setName(bundle.getString("DisputePanelForm.jSeparator4.name_1")); // NOI18N
         jToolBar1.add(jSeparator4);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock.png"))); // NOI18N
-        jButton2.setText(bundle.getString("DisputePanelForm.jButton2.text")); // NOI18N
+        jButton2.setText(bundle.getString("DisputePanelForm.jButton2.text_1")); // NOI18N
         jButton2.setFocusable(false);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -868,16 +870,11 @@ public class DisputePanelForm extends ContentPanel {
         jSeparator5.setName(bundle.getString("DisputePanelForm.jSeparator5.name")); // NOI18N
         jToolBar1.add(jSeparator5);
 
-        jButton1.setText(bundle.getString("DisputePanelForm.jButton1.text")); // NOI18N
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton1);
+        dropDownButtonReports.setText(bundle.getString("DisputePanelForm.dropDownButtonReports.text")); // NOI18N
+        dropDownButtonReports.setFocusable(false);
+        dropDownButtonReports.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        dropDownButtonReports.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(dropDownButtonReports);
 
         jPanel1.setName(bundle.getString("DisputePanelForm.jPanel1.name")); // NOI18N
 
@@ -1958,14 +1955,6 @@ public class DisputePanelForm extends ContentPanel {
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDisputeActionPerformed
-        if (btnDisputeMode.isSelected() || btnCourtProcess.isSelected()) {
-            saveDispute(true, false);
-        } else {
-            MessageUtility.displayMessage(ClientMessage.DISPUTE_CHOOSE_RIGHT_FUNCTIONALITY);
-        }
-    }//GEN-LAST:event_btnSaveDisputeActionPerformed
-
     private void txtcadastreIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcadastreIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtcadastreIdActionPerformed
@@ -2019,10 +2008,6 @@ public class DisputePanelForm extends ContentPanel {
         removeParty();
     }//GEN-LAST:event_btnRemovePartyActionPerformed
 
-    private void btnsearchDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchDisputeActionPerformed
-        searchDispute();
-    }//GEN-LAST:event_btnsearchDisputeActionPerformed
-
     private void btnRemoveDisputeCommentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveDisputeCommentActionPerformed
         removeComment();
     }//GEN-LAST:event_btnRemoveDisputeCommentActionPerformed
@@ -2052,18 +2037,6 @@ public class DisputePanelForm extends ContentPanel {
         viewAttachment();
     }//GEN-LAST:event_btnViewAttachmanetActionPerformed
 
-    private void btnnewDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewDisputeActionPerformed
-        createNewDispute();
-    }//GEN-LAST:event_btnnewDisputeActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        completeDispute();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        printConfirmation();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnDisputeModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisputeModeActionPerformed
         switchModeRole(true);
     }//GEN-LAST:event_btnDisputeModeActionPerformed
@@ -2091,6 +2064,26 @@ public class DisputePanelForm extends ContentPanel {
     private void cbxLAAPrimary1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLAAPrimary1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxLAAPrimary1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        completeDispute();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnsearchDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchDisputeActionPerformed
+        searchDispute();
+    }//GEN-LAST:event_btnsearchDisputeActionPerformed
+
+    private void btnSaveDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDisputeActionPerformed
+        if (btnDisputeMode.isSelected() || btnCourtProcess.isSelected()) {
+            saveDispute(true, false);
+        } else {
+            MessageUtility.displayMessage(ClientMessage.DISPUTE_CHOOSE_RIGHT_FUNCTIONALITY);
+        }
+    }//GEN-LAST:event_btnSaveDisputeActionPerformed
+
+    private void btnnewDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewDisputeActionPerformed
+        createNewDispute();
+    }//GEN-LAST:event_btnnewDisputeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -2131,11 +2124,11 @@ public class DisputePanelForm extends ContentPanel {
     private org.sola.clients.beans.referencedata.DisputeTypeListBean disputeType;
     private org.sola.clients.beans.administrative.DisputesCommentsBean disputesCommentsBean1;
     private org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel;
+    private org.sola.clients.swing.common.controls.DropDownButton dropDownButtonReports;
     private org.sola.clients.beans.referencedata.GenderTypeListBean genderTypes;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     private org.sola.clients.swing.ui.GroupPanel groupPanel2;
     private org.sola.clients.beans.referencedata.IdTypeListBean idType;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
