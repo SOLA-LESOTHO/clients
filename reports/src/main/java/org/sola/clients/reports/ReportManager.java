@@ -308,6 +308,9 @@ public class ReportManager {
         if (recipient1.isEmpty() || recipient2.isEmpty()){
             comma2 = "";
         }
+        if (amount.isEmpty() || amount.equals("")){
+                amount = "0.00";
+            }
         
         inputParameters.put("NAME_FIRSTPART", reportBean.getBaUnit().getNameFirstpart());
         inputParameters.put("NAME_LASTPART", reportBean.getBaUnit().getNameLastpart());
