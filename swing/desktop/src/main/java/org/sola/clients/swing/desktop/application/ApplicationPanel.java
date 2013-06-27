@@ -635,9 +635,7 @@ public class ApplicationPanel extends ContentPanel {
                 };
                 TaskManager.getInstance().runTask(t);
             } // Consent service
-            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_SERVITUDE)
-                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_SUBLEASE)
-                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT_TRANSFER)) {
+            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT)) {
                 // Run consent service
                 SolaTask t = new SolaTask<Void, Void>() {
 
@@ -652,7 +650,7 @@ public class ApplicationPanel extends ContentPanel {
                             
                             setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCREGISTRATION));
                             ConsentPanel form = new ConsentPanel(baUnitBean, appBean, service, RrrBean.RRR_ACTION.NEW, service.getRequestType().getDisplayValue());
-                            getMainContentPanel().addPanel(form, MainContentPanel.CARD_CONSENT_SERVITUDE, true);
+                            getMainContentPanel().addPanel(form, MainContentPanel.CARD_CONSENT, true);
                         }
                         return null;
                     }

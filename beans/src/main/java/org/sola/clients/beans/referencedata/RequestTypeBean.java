@@ -70,9 +70,7 @@ public class RequestTypeBean extends AbstractCodeBean {
 
     public static final String CODE_CANCEL_MORTGAGE = "cancelMortBonds";
 
-    public static final String CODE_CONSENT_SERVITUDE = "servitudeConsent";
-    public static final String CODE_CONSENT_TRANSFER = "transferConsent";
-    public static final String CODE_CONSENT_SUBLEASE = "subleaseConsent";
+    public static final String CODE_CONSENT = "consentApplication";
    
     public static final String NR_DAYS_TO_COMPLETE_PROPERTY = "nrDaysToComplete";
     public static final String NR_PROPERTIES_REQUIRED_PROPERTY = "nrPropertiesRequired";
