@@ -21,7 +21,7 @@ import org.sola.clients.beans.administrative.validation.LeaseCustomConditionVali
 /**
  * Allows to create and edit custom lease condition.
  */
-public class CustomLeaseConditionDialog extends javax.swing.JDialog {
+public class LeaseSpecialConditionDialog extends javax.swing.JDialog {
     
     public static final String LEASE_CONDITION_SAVED = "leaseConditionSaved";
     
@@ -30,7 +30,7 @@ public class CustomLeaseConditionDialog extends javax.swing.JDialog {
     /**
      * Default constructor
      */
-    public CustomLeaseConditionDialog(LeaseSpecialConditionBean leaseCondition, 
+    public LeaseSpecialConditionDialog(LeaseSpecialConditionBean leaseCondition, 
             java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         if(leaseCondition==null){
@@ -63,13 +63,13 @@ public class CustomLeaseConditionDialog extends javax.swing.JDialog {
         jTextArea1 = new javax.swing.JTextArea();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
-        setTitle(bundle.getString("CustomLeaseConditionDialog.title")); // NOI18N
+        setTitle(bundle.getString("LeaseSpecialConditionDialog.title")); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
-        btnSave.setText(bundle.getString("CustomLeaseConditionDialog.btnSave.text")); // NOI18N
+        btnSave.setText(bundle.getString("LeaseSpecialConditionDialog.btnSave.text")); // NOI18N
         btnSave.setFocusable(false);
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

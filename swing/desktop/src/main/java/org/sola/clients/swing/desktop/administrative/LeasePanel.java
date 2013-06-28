@@ -311,138 +311,6 @@ public class LeasePanel extends ContentPanel {
 
     }
 
-    private RrrReportBean prepareReportBean() {
-        RrrReportBean reportBean = new RrrReportBean(baUnit, rrrBean, applicationBean, appService);
-        String warnings = "";
-        String warning;
-
-        if (applicationBean == null || applicationBean.isNew()) {
-            warnings = warnings + MessageUtility.getLocalizedMessageText(ClientMessage.APPLICATION_NOT_FOUND);
-        }
-
-        if (reportBean.getRrrRegNumber().isEmpty()) {
-            warning = MessageUtility.getLocalizedMessageText(
-                    ClientMessage.BAUNIT_RRR_NO_REGISTRATION_NUMBER,
-                    new Object[]{rrrBean.getRrrType().getDisplayValue()});
-            if (warnings.isEmpty()) {
-                warnings = "- " + warning;
-            } else {
-                warnings = warnings + "\n- " + warning;
-            }
-        }
-
-        if (reportBean.getBaUnit().getCadastreObject() == null) {
-            warning = MessageUtility.getLocalizedMessageText(ClientMessage.BAUNIT_HAS_NO_PARCELS);
-            if (warnings.isEmpty()) {
-                warnings = "- " + warning;
-            } else {
-                warnings = warnings + "\n- " + warning;
-            }
-        }
-
-        if (!warnings.isEmpty()) {
-            warnings = MessageUtility.getLocalizedMessageText(ClientMessage.BAUNIT_RRR_REPORT_WARNINGS)
-                    + "\n\n" + warnings;
-            if (JOptionPane.showConfirmDialog(MainForm.getInstance(), warnings, "",
-                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                return reportBean;
-            } else {
-                return null;
-            }
-        }
-        return reportBean;
-    }
-
-    private void printRejectionLetter() {
-        final RrrReportBean reportBean = prepareReportBean();
-        if (reportBean != null) {
-            // Show free text form
-            FreeTextDialog form = new FreeTextDialog(
-                    MessageUtility.getLocalizedMessageText(ClientMessage.BAUNIT_LEASE_REJECTION_REASON_TITLE),
-                    null, MainForm.getInstance(), true);
-            WindowUtility.centerForm(form);
-
-            form.addPropertyChangeListener(new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent evt) {
-                    if (evt.getPropertyName().equals(FreeTextDialog.TEXT_TO_SAVE)) {
-                        reportBean.setFreeText((String) evt.getNewValue());
-                    }
-                }
-            });
-            form.setVisible(true);
-            showReport(ReportManager.getLeaseRejectionReport(reportBean));
-        }
-    }
-
-    private void printOfferLetter(boolean isDraft) {
-        final RrrReportBean reportBean = prepareReportBean();
-        if (reportBean != null) {
-            showReport(ReportManager.getLeaseOfferReport(reportBean, isDraft));
-        }
-    }
-
-    private void printLease(boolean isDraft) {
-        final RrrReportBean reportBean = prepareReportBean();
-        if (reportBean != null) {
-            showReport(ReportManager.getLeaseReport(reportBean,
-                    createMapImage(), isDraft));
-        }
-    }
-
-    /**
-     * Uses the mapControl from the Property form to render the lease parcel on
-     * top of the map to create as an image for the lease report. The context
-     * information shown in the image (i.e. abutting parcels, roads, rivers,
-     * zoom scale, etc) can be changed by the user by modifying the map control
-     * on the Property form.
-     *
-     * @return The file name for the generated image or NULL if the map control
-     * is not set.
-     */
-    private String createMapImage() {
-        String result = null;
-        if (baUnit.getCadastreObject() != null && mapControl != null && mapControl.getMap() != null) {
-            try {
-                // Remove any temporary objects from the map and turn off any layers
-                // that should not be displayed on the Location diagram such as the parcel nodes layer
-                // and the grid layer
-                mapControl.setCadastreObject(null);
-                ExtendedLayer nodesLayer = mapControl.getMap().getSolaLayers().get("parcel-nodes");
-                if (nodesLayer != null) {
-                    nodesLayer.setVisible(false);
-                }
-                ExtendedLayer gridLayer = mapControl.getMap().getSolaLayers().get("grid");
-                if (gridLayer != null) {
-                    gridLayer.setVisible(false);
-                }
-
-                MapFeatureImageGenerator generator = new MapFeatureImageGenerator(mapControl.getMap());
-
-                String parcelLabel = baUnit.getCadastreObject().toString();
-                //String areaLabel = NumberUtility.formatAreaMetric(baUnit.getCadastreObject().getOfficialAreaSize());
-
-                result = generator.getFeatureImage(
-                        baUnit.getCadastreObject().getGeomPolygon(),
-                        parcelLabel, null,
-                        MapFeatureImageGenerator.IMAGE_FORMAT_PNG);
-
-            } catch (InitializeMapException mapEx) {
-                LogUtility.log("Unable to initialize MapFeaureImageGenerator", mapEx);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Opens {@link ReportViewerForm} to display report.
-     */
-    private void showReport(JasperPrint report) {
-        ReportViewerForm form = new ReportViewerForm(report);
-        form.setLocationRelativeTo(this);
-        form.setVisible(true);
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -458,7 +326,6 @@ public class LeasePanel extends ContentPanel {
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
-        btnPrint = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jLabel1 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
@@ -553,17 +420,6 @@ public class LeasePanel extends ContentPanel {
         });
         jToolBar1.add(btnSave);
         jToolBar1.add(filler1);
-
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
-        btnPrint.setText(bundle.getString("LeasePanel.btnPrint.text")); // NOI18N
-        btnPrint.setFocusable(false);
-        btnPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnPrint);
         jToolBar1.add(jSeparator2);
 
         jLabel1.setText(bundle.getString("SimpleOwhershipPanel.jLabel1.text")); // NOI18N
@@ -984,10 +840,6 @@ public class LeasePanel extends ContentPanel {
         openSelectRightHolderForm();
     }//GEN-LAST:event_btnSelectExistingActionPerformed
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        printLease(StatusConstants.PENDING.equals(rrrBean.getStatusCode()));
-    }//GEN-LAST:event_btnPrintActionPerformed
-
     private void btnSubmissionDateFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFromActionPerformed
         showCalendar(txtRegDatetime);
     }//GEN-LAST:event_btnSubmissionDateFromActionPerformed
@@ -1015,7 +867,6 @@ public class LeasePanel extends ContentPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOwner;
     private javax.swing.JButton btnEditOwner;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRemoveOwner;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSelectExisting;

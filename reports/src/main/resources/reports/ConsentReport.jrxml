@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
-	<property name="ireport.zoom" value="1.1000000000000023"/>
+	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="245"/>
+	<property name="ireport.y" value="145"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
@@ -161,7 +161,7 @@
 				<textFieldExpression><![CDATA[$P{RECIPIENTS_MARITAL_STATUS}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="234" y="175" width="321" height="20"/>
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="244" y="175" width="268" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -199,10 +199,17 @@
 $P{CONDITION_TEXT}
 )]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="81408da3-fe84-4a70-a9f0-8c01ac489131" x="230" y="175" width="14" height="20"/>
+				<textElement textAlignment="Right" markup="none">
+					<font size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[M]]></text>
+			</staticText>
 		</band>
 		<band height="221">
 			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="9" y="22" width="534" height="20"/>
+				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="9" y="22" width="546" height="20"/>
 				<textElement>
 					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
@@ -278,8 +285,17 @@ $P{CONDITION_TEXT}
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="81408da3-fe84-4a70-a9f0-8c01ac489131" x="84" y="170" width="14" height="20">
+					<printWhenExpression><![CDATA[$P{FEE} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" markup="none">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[M]]></text>
+			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="84" y="170" width="122" height="20"/>
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="98" y="170" width="122" height="20"/>
 				<textElement>
 					<font size="11" isBold="true" isItalic="true"/>
 				</textElement>
@@ -315,7 +331,7 @@ $P{CONDITION_TEXT}
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="9" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[-------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+				<text><![CDATA[----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
 			</staticText>
 		</band>
 	</columnFooter>
