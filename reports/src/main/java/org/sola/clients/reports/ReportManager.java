@@ -295,7 +295,8 @@ public class ReportManager {
             String lessees_marital_status,
             String recipient1,
             String recipient2,
-            String recipients_marital_status
+            String recipients_marital_status,
+            String transactionType
             ) {
 
         HashMap inputParameters = new HashMap();
@@ -312,6 +313,7 @@ public class ReportManager {
                 amount = "0.00";
             }
         
+        inputParameters.put("TRANSACTION_TYPE", transactionType);
         inputParameters.put("NAME_FIRSTPART", reportBean.getBaUnit().getNameFirstpart());
         inputParameters.put("NAME_LASTPART", reportBean.getBaUnit().getNameLastpart());
         inputParameters.put("DUE_DATE", expirationDate);
@@ -322,6 +324,7 @@ public class ReportManager {
         inputParameters.put("RECIPIENTS_MARITAL_STATUS", recipients_marital_status);
         inputParameters.put("CONSIDERATION_AMOUNT", amount);   
         inputParameters.put("FEE", reportBean.getService().getBaseFee().toString());
+        inputParameters.put("RECEIPT_NUMBER", reportBean.getApplication().getReceiptRef());
 
         RrrReportBean[] beans = new RrrReportBean[1];        
         beans[0] = reportBean;

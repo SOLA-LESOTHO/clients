@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="145"/>
+	<property name="ireport.y" value="5"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
@@ -19,6 +19,8 @@
 	<parameter name="NAME_FIRSTPART" class="java.lang.String"/>
 	<parameter name="NAME_LASTPART" class="java.lang.String"/>
 	<parameter name="FEE" class="java.lang.String"/>
+	<parameter name="RECEIPT_NUMBER" class="java.lang.String"/>
+	<parameter name="TRANSACTION_TYPE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -179,7 +181,7 @@
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{serviceName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{TRANSACTION_TYPE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="85" y="95" width="470" height="20"/>
@@ -300,6 +302,13 @@ $P{CONDITION_TEXT}
 					<font size="11" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{FEE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="110" y="200" width="134" height="20"/>
+				<textElement>
+					<font size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RECEIPT_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
