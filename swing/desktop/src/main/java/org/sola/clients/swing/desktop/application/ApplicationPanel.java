@@ -621,7 +621,8 @@ public class ApplicationPanel extends ContentPanel {
             if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_POWER_OF_ATTORNEY)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_STANDARD_DOCUMENT)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_OTHER_DEEDS)
-                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CANCEL_POWER_OF_ATTORNEY)) {
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CANCEL_POWER_OF_ATTORNEY)
+                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_BOND_DEED)) {
                 // Run registration/cancelation Power of attorney
                 SolaTask t = new SolaTask<Void, Void>() {
 
