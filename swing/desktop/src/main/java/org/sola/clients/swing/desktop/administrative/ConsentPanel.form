@@ -117,7 +117,7 @@
               <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -160,7 +160,9 @@
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="308" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Component id="jPanel7" max="32767" attributes="0"/>
           </Group>
@@ -172,10 +174,11 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -388,11 +391,58 @@
             </Component>
           </SubComponents>
         </Container>
+        <Container class="javax.swing.JPanel" name="jPanel9">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="txtTransactionType" pref="166" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="txtTransactionType" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Transaction Type"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="txtTransactionType">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="PRIVATE SERVITUDE"/>
+                    <StringItem index="1" value="SUB LEASE"/>
+                    <StringItem index="2" value="TRANSFER"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Component class="org.sola.clients.swing.ui.GroupPanel" name="groupPanel1">
       <Properties>
-        <Property name="titleText" type="java.lang.String" value="Rightholder(s)"/>
+        <Property name="titleText" type="java.lang.String" value="Rightholder(s) Full Name"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel8">
@@ -403,11 +453,13 @@
               <Component id="jPanel3" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFullname1" alignment="0" pref="683" max="32767" attributes="0"/>
+                          <Component id="txtFullname2" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtFullname1" alignment="0" pref="683" max="32767" attributes="0"/>
-                      <Component id="txtFullname2" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -463,9 +515,15 @@
               <Properties>
                 <Property name="editable" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Married in Community of Property"/>
-                    <StringItem index="1" value="Registered under the Companies&apos; Act of XXXX"/>
+                  <StringArray count="8">
+                    <StringItem index="0" value="Divorced"/>
+                    <StringItem index="1" value="In Trust For xxxx - Widowed"/>
+                    <StringItem index="2" value="Married in community of property"/>
+                    <StringItem index="3" value="Married out of community of property"/>
+                    <StringItem index="4" value="REGISTERED SOCIETY UNDER SOCIETIES ACT OF 1966"/>
+                    <StringItem index="5" value="Separated"/>
+                    <StringItem index="6" value="Unmarried"/>
+                    <StringItem index="7" value="Widowed"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -492,12 +550,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/common/red_asterisk.gif"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fullname"/>
+            <Property name="text" type="java.lang.String" value="1st Rightholder"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Fullname"/>
+            <Property name="text" type="java.lang.String" value="2nd Rightholder"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFullname2">
@@ -516,16 +574,18 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="groupPanel2" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtFullname3" alignment="0" pref="685" max="32767" attributes="0"/>
+                                  <Component id="txtFullname4" alignment="0" max="32767" attributes="0"/>
+                              </Group>
                               <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtFullname3" alignment="0" pref="685" max="32767" attributes="0"/>
-                              <Component id="txtFullname4" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="groupPanel2" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -583,9 +643,15 @@
               <Properties>
                 <Property name="editable" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Married in Community of Property"/>
-                    <StringItem index="1" value="Registered under the Companies&apos; Act of XXXX"/>
+                  <StringArray count="8">
+                    <StringItem index="0" value="Divorced"/>
+                    <StringItem index="1" value="In Trust For xxxx - Widowed"/>
+                    <StringItem index="2" value="Married in community of property"/>
+                    <StringItem index="3" value="Married out of community of property"/>
+                    <StringItem index="4" value="REGISTERED SOCIETY UNDER SOCIETIES ACT OF 1966"/>
+                    <StringItem index="5" value="Separated"/>
+                    <StringItem index="6" value="Unmarried"/>
+                    <StringItem index="7" value="Widowed"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -602,7 +668,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/common/red_asterisk.gif"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fullname"/>
+            <Property name="text" type="java.lang.String" value="1st Recipient"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFullname3">
@@ -617,7 +683,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Fullname"/>
+            <Property name="text" type="java.lang.String" value="2nd Recipient"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFullname4">
@@ -627,7 +693,7 @@
         </Component>
         <Component class="org.sola.clients.swing.ui.GroupPanel" name="groupPanel2">
           <Properties>
-            <Property name="titleText" type="java.lang.String" value="Recipient(s)"/>
+            <Property name="titleText" type="java.lang.String" value="Recipient(s) Full Name"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -91,9 +91,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String CODE_CAVEAT = "caveat";
     public static final String CODE_DEED = "regnDeeds";
     public static final String CODE_SERVITUDE = "servitude";
-    public static final String CODE_CONSENT_SERVITUDE = "servitudeConsent";
-    public static final String CODE_CONSENT_TRANSFER = "transferConsent";
-    public static final String CODE_CONSENT_SUBLEASE = "subleaseConsent";
+    public static final String CODE_CONSENT = "consentApplication";
     public static final String CODE_SUBLEASE = "subLease";
     public static final String CODE_SUBLEASE_MORTGAGE = "subLeaseMortgage";
     public static final String BA_UNIT_ID_PROPERTY = "baUnitId";

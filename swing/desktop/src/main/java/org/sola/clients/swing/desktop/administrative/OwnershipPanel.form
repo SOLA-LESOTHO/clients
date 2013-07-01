@@ -126,7 +126,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtNotationText" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jPanel4" pref="267" max="32767" attributes="0"/>
+              <Component id="jPanel4" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -144,8 +144,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="txtRegDatetime" min="-2" pref="82" max="-2" attributes="1"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="txtRegDatetime" min="-2" pref="128" max="-2" attributes="1"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnSubmissionDateFrom" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="cbxIsPrimary" min="-2" pref="117" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -153,13 +155,16 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtRegDatetime" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbxIsPrimary" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtRegDatetime" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="btnSubmissionDateFrom" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbxIsPrimary" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -189,6 +194,9 @@
           <BindingProperties>
             <BindingProperty name="value" source="rrrBean" sourcePath="${registrationDate}" target="txtRegDatetime" targetPath="value" updateStrategy="0" immediately="false"/>
           </BindingProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtRegDatetimeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="cbxIsPrimary">
           <Properties>
@@ -204,6 +212,28 @@
           <BindingProperties>
             <BindingProperty name="selected" source="rrrBean" sourcePath="${primary}" target="cbxIsPrimary" targetPath="selected" updateStrategy="0" immediately="false"/>
           </BindingProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxIsPrimaryActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSubmissionDateFrom">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/common/calendar.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="OwnershipPanel.btnSubmissionDateFrom.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="OwnershipPanel.btnSubmissionDateFrom.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmissionDateFromActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -333,7 +363,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="72" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="59" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -494,7 +524,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="groupPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="documentsPanel" pref="103" max="32767" attributes="0"/>
+                      <Component id="documentsPanel" pref="93" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

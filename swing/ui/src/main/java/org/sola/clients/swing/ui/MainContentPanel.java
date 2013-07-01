@@ -92,9 +92,7 @@ public class MainContentPanel extends javax.swing.JPanel {
     public final static String CARD_PARCEL_SEARCH = "parcelSearchPanel";
     public final static String CARD_SUBLEASE = "subleasePanel";
     public final static String CARD_LEASE_PREPARATION = "leasePreparationPanel";
-    public final static String CARD_CONSENT_SERVITUDE = "consentPanel";
-    public final static String CARD_CONSENT_TRANSFER = "consentPanel";
-    public final static String CARD_CONSENT_SUBLEASE = "consentPanel";
+    public final static String CARD_CONSENT = "consentPanel";
     
     private HashMap<String, Component> cards;
     private ArrayList<String> cardsIndex;
