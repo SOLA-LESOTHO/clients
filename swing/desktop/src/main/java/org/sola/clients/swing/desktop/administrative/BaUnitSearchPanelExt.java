@@ -17,6 +17,7 @@ package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
@@ -39,19 +40,21 @@ public class BaUnitSearchPanelExt extends BaUnitSearchPanel {
                 if (evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_OPEN)) {
                     BaUnitSearchResultBean searchResult = (BaUnitSearchResultBean) evt.getNewValue();
                     if (searchResult != null) {
-                        openPropertyForm(searchResult.getNameFirstPart(), searchResult.getNameLastPart());
+                        openPropertyForm(searchResult.getId());
                     }
                 }
             }
         });
     }
     
-    private void openPropertyForm(final String nameFirstPart, final String nameLastPart) {
+    private void openPropertyForm(final String baUnitId) {
         SolaTask t = new SolaTask<Void, Void>() {
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTY));
-                PropertyPanel propertyPanel = new PropertyPanel(nameFirstPart, nameLastPart);
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_BA_UNIT_GETTING));
+                BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(baUnitId);
+                PropertyPanel propertyPanel = new PropertyPanel(null, null, baUnitBean, true);
                 MainForm.getInstance().getMainContentPanel().addPanel(propertyPanel, MainContentPanel.CARD_PROPERTY_PANEL, true);
                 return null;
             }

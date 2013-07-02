@@ -91,8 +91,6 @@ public class PropertyPanel extends ContentPanel {
     private ApplicationBean applicationBean;
     private ApplicationServiceBean applicationService;
     private String baUnitID;
-    private String nameFirstPart;
-    private String nameLastPart;
     private ControlsBundleForBaUnit mapControl = null;
     private boolean readOnly = false;
     java.util.ResourceBundle resourceBundle;
@@ -104,63 +102,11 @@ public class PropertyPanel extends ContentPanel {
      */
     private BaUnitBean createBaUnitBean() {
         if (baUnitBean1 == null) {
-            BaUnitBean baUnitBean = null;
-            if (nameFirstPart != null && nameLastPart != null) {
-                // Get BA Unit
-                baUnitBean = getBaUnit(nameFirstPart, nameLastPart);
-                if (baUnitBean != null) {
-                    baUnitID = baUnitBean.getId();
-                }
-            }
-            if (baUnitBean == null) {
-                baUnitBean = new BaUnitBean();
-                if (nameFirstPart != null && nameLastPart != null) {
-                    baUnitBean.setNameFirstpart(nameFirstPart);
-                    baUnitBean.setNameLastpart(nameLastPart);
-                }
-            }
-            baUnitBean1 = baUnitBean;
-            if (baUnitBean1.getStatusCode() != null && !baUnitBean1.getStatusCode().equals(StatusConstants.CURRENT)
-                    && !baUnitBean1.getStatusCode().equals(StatusConstants.PENDING)) {
-                readOnly = true;
-            }
+            baUnitBean1 = new BaUnitBean();
+        } else {
+            baUnitID = baUnitBean1.getId();
         }
         return baUnitBean1;
-    }
-
-    /**
-     * Form constructor. Creates and open form in read only mode.
-     *
-     * @param nameFirstPart First part of the property code.
-     * @param nameLastPart Last part of the property code.
-     */
-    public PropertyPanel(String nameFirstPart, String nameLastPart) {
-        this(null, null, nameFirstPart, nameLastPart, true);
-    }
-
-    /**
-     * Form constructor.
-     *
-     * @param applicationBean {@link ApplicationBean} instance, used to get data
-     * on BaUnit and provide list of documents.
-     * @param applicationService {@link ApplicationServiceBean} instance, used
-     * to determine what actions should be taken on this form.
-     * @param nameFirstPart First part of the property code.
-     * @param nameLastPart Last part of the property code.
-     * @param readOnly If true, opens form in read only mode.
-     */
-    public PropertyPanel(ApplicationBean applicationBean,
-            ApplicationServiceBean applicationService,
-            String nameFirstPart, String nameLastPart, boolean readOnly) {
-        this.readOnly = readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_BA_UNIT_SAVE);
-        this.applicationBean = applicationBean;
-        this.applicationService = applicationService;
-        this.nameFirstPart = nameFirstPart;
-        this.nameLastPart = nameLastPart;
-        resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
-        initComponents();
-        postInit();
-
     }
 
     /**
@@ -181,16 +127,9 @@ public class PropertyPanel extends ContentPanel {
         this.readOnly = readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_BA_UNIT_SAVE);
         this.applicationBean = applicationBean;
         this.applicationService = applicationService;
-        if (baUnitBean != null) {
-            this.nameFirstPart = baUnitBean.getNameFirstpart();
-            this.nameLastPart = baUnitBean.getNameLastpart();
-        }
-
         resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
         initComponents();
         postInit();
-
-
     }
 
     /**
@@ -242,10 +181,10 @@ public class PropertyPanel extends ContentPanel {
      */
     private void customizeForm() {
 
-        if (nameFirstPart != null && nameLastPart != null) {
+        if (baUnitBean1.getNameFirstpart() != null && baUnitBean1.getNameLastpart() != null) {
             headerPanel.setTitleText(String.format(
                     resourceBundle.getString("PropertyPanel.existingProperty.Text"),
-                    nameFirstPart, nameLastPart));
+                    baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart()));
         } else {
             headerPanel.setTitleText(resourceBundle.getString("PropertyPanel.newProperty.Text"));
         }
@@ -896,9 +835,8 @@ public class PropertyPanel extends ContentPanel {
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTY));
-                    PropertyPanel propertyPnl = new PropertyPanel(
-                            relatedBaUnit.getRelatedBaUnit().getNameFirstpart(),
-                            relatedBaUnit.getRelatedBaUnit().getNameLastpart());
+                    BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(relatedBaUnit.getBaUnitId());
+                    PropertyPanel propertyPnl = new PropertyPanel(null, null, baUnitBean, true);
                     getMainContentPanel().addPanel(propertyPnl,
                             MainContentPanel.CARD_PROPERTY_PANEL + "_"
                             + relatedBaUnit.getRelatedBaUnit().getId(), true);

@@ -522,15 +522,10 @@ public class ApplicationPanel extends ContentPanel {
                     ApplicationBean applicationBean = appBean.copy();
                     PropertyPanel propertyPnl;
 
-                    if (applicationProperty.getId() != null) {
-                        setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_BA_UNIT_GETTING));
-                        BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(applicationProperty.getId());
-                        propertyPnl = new PropertyPanel(applicationBean, service, baUnitBean, readOnly);
-                    } else {
-                        propertyPnl = new PropertyPanel(applicationBean,
-                                service, applicationProperty.getNameFirstPart(),
-                                applicationProperty.getNameLastPart(), readOnly);
-                    }
+                    setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_BA_UNIT_GETTING));
+                    BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(applicationProperty.getId());
+                    propertyPnl = new PropertyPanel(applicationBean, service, baUnitBean, readOnly);
+
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTY));
                     getMainContentPanel().addPanel(propertyPnl, MainContentPanel.CARD_PROPERTY_PANEL, true);
                     return null;
@@ -595,7 +590,7 @@ public class ApplicationPanel extends ContentPanel {
         }
     }
 
-    private void openLeasePreparation(final LeaseBean lease, 
+    private void openLeasePreparation(final LeaseBean lease,
             final ApplicationServiceBean service, final boolean readOnly) {
         SolaTask t = new SolaTask<Void, Void>() {
 
@@ -645,10 +640,10 @@ public class ApplicationPanel extends ContentPanel {
                         //
                         BaUnitSearchResultBean applicationProperty = appBean.getFilteredPropertyList().get(0);
                         if (applicationProperty.getId() != null) {
-                            
+
                             BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(applicationProperty.getId());
-                            
-                            
+
+
                             setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCREGISTRATION));
                             ConsentPanel form = new ConsentPanel(baUnitBean, appBean, service, RrrBean.RRR_ACTION.NEW, service.getRequestType().getDisplayValue());
                             getMainContentPanel().addPanel(form, MainContentPanel.CARD_CONSENT, true);
@@ -721,7 +716,7 @@ public class ApplicationPanel extends ContentPanel {
                             @Override
                             public void propertyChange(PropertyChangeEvent evt) {
                                 if (evt.getPropertyName().equals(LeaseListDialog.LEASE_SELECTED)) {
-                                    openLeasePreparation((LeaseBean)evt.getNewValue(), service, readOnly);
+                                    openLeasePreparation((LeaseBean) evt.getNewValue(), service, readOnly);
                                 }
                             }
                         });
