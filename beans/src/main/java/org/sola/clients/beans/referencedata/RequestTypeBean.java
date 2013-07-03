@@ -68,6 +68,7 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODE_OTHER_DEEDS = "regnDeeds";
     public static final String CODE_SERVITUDE ="servitude";
     public static final String CODE_BOND_DEED ="regNotBond";
+    public static final String CODE_CANCEL_BOND ="cnclNotBond";
 
     public static final String CODE_CANCEL_MORTGAGE = "cancelMortBonds";
 
