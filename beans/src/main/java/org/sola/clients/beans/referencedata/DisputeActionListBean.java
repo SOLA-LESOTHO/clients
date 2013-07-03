@@ -30,38 +30,53 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.AbstractBindingListBean;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.controls.SolaObservableList;
+import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
  * Holds the list of {@link DisputeActionBean} objects and used to bound the
  * data in the combobox on the forms.
  */
-public class DisputeActionListBean extends AbstractBindingBean {
+public class DisputeActionListBean extends AbstractBindingListBean {
 
     public static final String SELECTED_DISPUTEACTION_PROPERTY = "selectedDisputeAction";
-    private SolaObservableList<DisputeActionBean> disputeActionListBean;
+    private SolaCodeList<DisputeActionBean> disputeActionListBean;
     private DisputeActionBean selectedDisputeAction;
 
     public DisputeActionListBean() {
-       disputeActionListBean = new SolaObservableList(CacheManager.getDisputeAction());
+        this(false);
+    }
+    
+     public DisputeActionListBean(boolean createDummy) {
+        this(createDummy, (String) null);
+    }
+     
+    public DisputeActionListBean(boolean createDummy, String ... excludedCodes) {
+        super();
+       disputeActionListBean = new SolaCodeList<DisputeActionBean>(excludedCodes);
+       loadList(createDummy);
+    }
+    
+    public final void loadList(boolean createDummy) {
+        loadCodeList(DisputeActionBean.class, disputeActionListBean, 
+                CacheManager.getDisputeAction(), createDummy);
     }
     
      public ObservableList<DisputeActionBean> getDisputeActionListBean() {
-        return disputeActionListBean;
+        return disputeActionListBean.getFilteredList();
     }
     
-    public void setDisputeActionListBean(SolaObservableList<DisputeActionBean> disputeActionListBean) {
-        this.disputeActionListBean = disputeActionListBean;
+     public void setExcludedCodes(String ... codes){
+        disputeActionListBean.setExcludedCodes(codes);
     }
-    
+      
     public DisputeActionBean getSelectedDisputeAction() {
         return selectedDisputeAction;
     }
 
-    public void setSelectedDisputeAction(DisputeActionBean selectedDisputeAction) {
-        this.selectedDisputeAction = selectedDisputeAction;
-        propertySupport.firePropertyChange(SELECTED_DISPUTEACTION_PROPERTY, null, selectedDisputeAction);
+    public void setSelectedDisputeAction(DisputeActionBean value) {
+        selectedDisputeAction = value;
+        propertySupport.firePropertyChange(SELECTED_DISPUTEACTION_PROPERTY, null, value);
     }
 }

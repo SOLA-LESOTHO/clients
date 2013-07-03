@@ -28,37 +28,54 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.AbstractBindingListBean;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.controls.SolaObservableList;
+import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
  * Holds the list of {@link OtherAuthoritiesBean} objects and used to bound the
  * data in the combobox on the forms.
  */
-public class OtherAuthoritiesListBean extends AbstractBindingBean {
+public class OtherAuthoritiesListBean extends AbstractBindingListBean {
     
    public static final String SELECTED_OTHERAUTHORITIES_PROPERTY = "selectedOtherAuthorities";
-    private SolaObservableList<OtherAuthoritiesBean> otherAuthoritiesListBean;
+    private SolaCodeList<OtherAuthoritiesBean> otherAuthoritiesListBean;
     private OtherAuthoritiesBean selectedOtherAuthorities;
     
     public OtherAuthoritiesListBean() {
-        otherAuthoritiesListBean = new SolaObservableList(CacheManager.getOtherAuthorities());
-    } 
-    public ObservableList<OtherAuthoritiesBean> getOtherAuthoritiesListBean() {
-        return otherAuthoritiesListBean;
+        this(false);
     }
     
-    public void setOtherAuthoritiesListBean(SolaObservableList<OtherAuthoritiesBean> otherAuthoritiesListBean) {
-        this.otherAuthoritiesListBean = otherAuthoritiesListBean;
+     public OtherAuthoritiesListBean(boolean createDummy) {
+        this(createDummy, (String) null);
     }
+    
+    public OtherAuthoritiesListBean(boolean createDummy, String ... excludedCodes) {
+        super();
+        otherAuthoritiesListBean = new SolaCodeList<OtherAuthoritiesBean>(excludedCodes);
+       loadList(createDummy);
+    } 
+    
+    public final void loadList(boolean createDummy) {
+        loadCodeList(OtherAuthoritiesBean.class, otherAuthoritiesListBean, 
+                CacheManager.getOtherAuthorities(), createDummy);
+    }
+    
+    public ObservableList<OtherAuthoritiesBean> getOtherAuthoritiesListBean() {
+        return otherAuthoritiesListBean.getFilteredList();
+    }
+    
+    public void setExcludedCodes(String ... codes){
+        otherAuthoritiesListBean.setExcludedCodes(codes);
+    }
+    
     
     public OtherAuthoritiesBean getSelectedOtherAuthorities() {
         return selectedOtherAuthorities;
     }
 
-    public void setSelectedOtherAuthorities(OtherAuthoritiesBean selectedOtherAuthorities) {
-        this.selectedOtherAuthorities = selectedOtherAuthorities;
-        propertySupport.firePropertyChange(SELECTED_OTHERAUTHORITIES_PROPERTY, null, selectedOtherAuthorities);
+    public void setSelectedOtherAuthorities(OtherAuthoritiesBean value) {
+        selectedOtherAuthorities = value;
+        propertySupport.firePropertyChange(SELECTED_OTHERAUTHORITIES_PROPERTY, null, value);
     }    
 }
