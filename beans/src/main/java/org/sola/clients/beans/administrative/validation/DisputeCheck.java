@@ -25,59 +25,38 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
-package org.sola.clients.beans.referencedata;
 
-import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingListBean;
-import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.controls.SolaCodeList;
+
+package org.sola.clients.beans.administrative.validation;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import javax.validation.Constraint;
+import javax.validation.Payload;
+
+@Target( { TYPE, METHOD, FIELD, ANNOTATION_TYPE })
+@Retention(RUNTIME)
+@Constraint(validatedBy = DisputeValidator.class)
+@Documented
 
 /**
- * Holds the list of {@link CommunicationTypeBean} objects and used to bound the
- * data in the combobox on the forms.
+ * Class level constraint annotation for the {@link ApplicationBean} class
  */
+public @interface DisputeCheck{
 
-public class DisputeTypeListBean extends  AbstractBindingListBean{
+    /** Error message in case of constraint violation */
+    String message() default "";
     
-    public static final String SELECTED_DISPUTETYPE_PROPERTY = "selectedDisputeType";
-    private SolaCodeList<DisputeTypeBean> disputeTypeListBean;
-    private DisputeTypeBean selectedDisputeType;
-    
-    public DisputeTypeListBean() {
-        this(false);
-    }
-    
-    public DisputeTypeListBean(boolean createDummy) {
-        this(createDummy, (String) null);
-    }
-    
-    public DisputeTypeListBean(boolean createDummy, String ... excludedCodes) {
-        super();
-        disputeTypeListBean = new SolaCodeList<DisputeTypeBean>(excludedCodes);
-        loadList(createDummy);
-    }
-    
-    public final void loadList(boolean createDummy) {
-        loadCodeList(DisputeTypeBean.class, disputeTypeListBean, 
-                CacheManager.getDisputeType(), createDummy);
-    }
-    
-   public ObservableList<DisputeTypeBean> getDisputeTypeListBean() {
-        return disputeTypeListBean.getFilteredList();
-    }
-    
-   public void setExcludedCodes(String ... codes){
-        disputeTypeListBean.setExcludedCodes(codes);
-    }
-   
-   
-    public DisputeTypeBean getSelectedDisputeType() {
-        return selectedDisputeType;
-    }
+    /**
+     * Array of interfaces, defining evaluation groups
+     */
+    Class<?>[] groups() default {};
 
-    public void setSelectedDisputeType(DisputeTypeBean value) {
-        selectedDisputeType = value;
-        propertySupport.firePropertyChange(SELECTED_DISPUTETYPE_PROPERTY, null, value);
-    }
-    
+    /**
+     * Used by clients of the Bean Validation API to assign custom payload objects to a constraint
+     */
+    Class<? extends Payload>[] payload() default {};
 }

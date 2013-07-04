@@ -61,27 +61,19 @@ public class DisputeCategoryListBean extends AbstractBindingListBean {
                 CacheManager.getDisputeCategory(), createDummy);
     }
     
-//    public DisputeCategoryListBean() {
-//       disputeCategoryListBean = new SolaObservableList(CacheManager.getDisputeCategory());
-//    }
-//     
     public ObservableList<DisputeCategoryBean> getDisputeCategoryListBean() {
         return disputeCategoryListBean.getFilteredList();
     }
      public void setExcludedCodes(String ... codes){
         disputeCategoryListBean.setExcludedCodes(codes);
     }
-//    
-//    public void setDisputeCategoryListBean(SolaObservableList<DisputeCategoryBean> disputeCategoryListBean) {
-//        this.disputeCategoryListBean = disputeCategoryListBean;
-//    }
-//    
+
      public DisputeCategoryBean getSelectedDisputeCategory() {
         return selectedDisputeCategory;
     }
 
     public void setSelectedDisputeCategory(DisputeCategoryBean value) {
         selectedDisputeCategory = value;
-        propertySupport.firePropertyChange(SELECTED_DISPUTECATEGORY_PROPERTY, null, selectedDisputeCategory);
+        propertySupport.firePropertyChange(SELECTED_DISPUTECATEGORY_PROPERTY, null, value);
     }
 }

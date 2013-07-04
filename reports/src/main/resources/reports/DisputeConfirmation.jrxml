@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="disputeConfirmation" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -69,24 +69,15 @@
 			<fieldDescription><![CDATA[plotNumber]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Parties">
+	<subDataset name="Comments">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="fullName" class="java.lang.String">
-			<fieldDescription><![CDATA[fullName]]></fieldDescription>
+		<field name="comments" class="java.lang.String">
+			<fieldDescription><![CDATA[comments]]></fieldDescription>
 		</field>
 		<field name="disputeNr" class="java.lang.String">
 			<fieldDescription><![CDATA[disputeNr]]></fieldDescription>
-		</field>
-		<field name="lastName" class="java.lang.String">
-			<fieldDescription><![CDATA[lastName]]></fieldDescription>
-		</field>
-		<field name="name" class="java.lang.String">
-			<fieldDescription><![CDATA[name]]></fieldDescription>
-		</field>
-		<field name="partyRole" class="java.lang.String">
-			<fieldDescription><![CDATA[partyRole]]></fieldDescription>
 		</field>
 	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
@@ -231,26 +222,6 @@ Maseru 100]]></text>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
-	<detail>
-		<band height="73" splitType="Stretch">
-			<staticText>
-				<reportElement x="3" y="0" width="134" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Narration of Dispute :]]></text>
-			</staticText>
-		</band>
-		<band height="92">
-			<staticText>
-				<reportElement x="3" y="0" width="137" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Parties in Dispute :]]></text>
-			</staticText>
-		</band>
-	</detail>
 	<columnFooter>
 		<band height="4" splitType="Stretch"/>
 	</columnFooter>
