@@ -133,7 +133,7 @@ public class SharePanel extends ContentPanel {
     }
 
     private PartySearchPanelForm initializePartySearchForm(PartySearchPanelForm partySearchForm) {
-        partySearchForm = new PartySearchPanelForm(true, this.rrrShareBean);
+        partySearchForm = new PartySearchPanelForm();
         return partySearchForm;
 
     }

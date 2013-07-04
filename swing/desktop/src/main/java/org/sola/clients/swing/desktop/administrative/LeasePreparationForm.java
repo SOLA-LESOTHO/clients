@@ -65,16 +65,12 @@ public class LeasePreparationForm extends ContentPanel {
     private ApplicationBean application;
     private ControlsBundleForBaUnit mapControl = null;
 
-    private PartyListExtPanel createPartyListPanel() {
-        return new PartyListExtPanel(lease.getLessees());
-    }
-
     /**
      * Form constructor.
      */
     public LeasePreparationForm(LeaseBean lease, ApplicationBean application, ApplicationServiceBean serviceBean, boolean readOnly) {
         this.application = application;
-        this.readOnly = readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_PREPARE_LEASE);
+        this.readOnly = readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_NEW_LEASE);
         this.serviceBean = serviceBean;
 
         if (lease == null) {
@@ -108,7 +104,7 @@ public class LeasePreparationForm extends ContentPanel {
 
     private void customizeForm() {
         boolean enabled = !readOnly
-                && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_PREPARE_LEASE)
+                && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_NEW_LEASE)
                 && (StringUtility.empty(lease.getStatusCode()).equals("")
                 || lease.getStatusCode().equals(StatusConstants.PENDING));
 
@@ -134,7 +130,7 @@ public class LeasePreparationForm extends ContentPanel {
 
     private void customizeConditionButtons() {
         boolean editable = !readOnly
-                && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_PREPARE_LEASE)
+                && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_NEW_LEASE)
                 && (StringUtility.empty(lease.getStatusCode()).equals("")
                 || lease.getStatusCode().equals(StatusConstants.PENDING));
 
@@ -254,7 +250,8 @@ public class LeasePreparationForm extends ContentPanel {
     }
 
     private LeaseReportBean prepareReportBean() {
-        return new LeaseReportBean(lease, application, serviceBean);
+        return null;
+        //return new LeaseReportBean(lease, application, serviceBean);
     }
 
     private void printLease() {
@@ -463,7 +460,7 @@ public class LeasePreparationForm extends ContentPanel {
         jPanel7 = new javax.swing.JPanel();
         txtStampDuty = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
-        partyList = createPartyListPanel();
+        partyList = new org.sola.clients.swing.desktop.party.PartyListExtPanel();
         groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
         jPanel11 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -886,10 +883,10 @@ public class LeasePreparationForm extends ContentPanel {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                    .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -897,8 +894,8 @@ public class LeasePreparationForm extends ContentPanel {
                 .addContainerGap()
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab(bundle.getString("LeasePreparationForm.jPanel13.TabConstraints.tabTitle"), jPanel13); // NOI18N

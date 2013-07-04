@@ -32,8 +32,6 @@ package org.sola.clients.swing.desktop.administrative;
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.jdesktop.beansbinding.AutoBinding;
@@ -60,6 +58,7 @@ import org.sola.clients.swing.ui.cadastre.CadastreObjectsDialog;
 import org.sola.clients.swing.ui.cadastre.CadastreObjectsSearchPanel;
 import org.sola.clients.swing.ui.renderers.*;
 import org.sola.common.RolesConstants;
+import org.sola.common.StringUtility;
 import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -162,8 +161,6 @@ public class PropertyPanel extends ContentPanel {
                     customizeHistoricRightsViewButton();
                 } else if (evt.getPropertyName().equals(BaUnitBean.SELECTED_BA_UNIT_NOTATION_PROPERTY)) {
                     customizeNotationButtons((BaUnitNotationBean) evt.getNewValue());
-                } else if (evt.getPropertyName().equals(BaUnitBean.ROW_VERSION_PROPERTY)) {
-                    customizePrintButton();
                 } else if (evt.getPropertyName().equals(BaUnitBean.SELECTED_PARENT_BA_UNIT_PROPERTY)) {
                     customizeParentPropertyButtons();
                 } else if (evt.getPropertyName().equals(BaUnitBean.SELECTED_CHILD_BA_UNIT_PROPERTY)) {
@@ -202,7 +199,6 @@ public class PropertyPanel extends ContentPanel {
         customizeNotationButtons(null);
         customizeRightTypesList();
         customizeParcelButtons();
-        customizePrintButton();
         customizeParentPropertyButtons();
         customizeChildPropertyButtons();
         customizeTerminationButton();
@@ -352,14 +348,6 @@ public class PropertyPanel extends ContentPanel {
         menuOpenChildBaUnit.setEnabled(btnOpenChild.isEnabled());
     }
 
-    /**
-     * Enables or disables print button if row version of {@link BaUnitBean} > 0
-     * .
-     */
-    private void customizePrintButton() {
-        btnPrintBaUnit.setEnabled(baUnitBean1.getRowVersion() > 0);
-    }
-
     private void customizeHistoricRightsViewButton() {
         btnViewHistoricRight.setEnabled(baUnitBean1.getSelectedHistoricRight() != null);
     }
@@ -416,9 +404,13 @@ public class PropertyPanel extends ContentPanel {
      * selection in the list of parcel.
      */
     private void customizeParcelButtons() {
-        btnSearchParcel.setEnabled(!readOnly);
-        btnSearchParcel.setEnabled(!readOnly);
-        btnAddParcelFromApplication.setEnabled(!readOnly);
+        // Allows manage parcel selection only for users with lease management right and if BaUnit state is pending
+        boolean enabled =  !readOnly && 
+                SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE) &&
+                (StringUtility.isEmpty(baUnitBean1.getStatusCode()) || 
+                baUnitBean1.getStatusCode().equals(StatusConstants.PENDING));
+        btnSearchParcel.setEnabled(enabled);
+        btnAddParcelFromApplication.setEnabled(enabled);
     }
 
     /**
@@ -565,31 +557,22 @@ public class PropertyPanel extends ContentPanel {
         return result;
     }
 
-    /**
-     * Returns {@link BaUnitBean} by first and last name part.
+    /** 
+     * Returns true if cadastre object attached on the BaUnit, otherwise false. 
+     * @param showMessage Indicates whether to show a warning message if cadastre object isn't attached.
      */
-    private BaUnitBean getBaUnit(String nameFirstPart, String nameLastPart) {
-        BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative().getBaUnitByCode(nameFirstPart, nameLastPart);
-        return TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, null);
+    private boolean isCadastreObjectExists(boolean showMessage){
+        if(baUnitBean1.getCadastreObject()!=null && 
+                !baUnitBean1.getCadastreObject().toString().equals("")){
+            return true;
+        }
+        if(showMessage){
+            MessageUtility.displayMessage(ClientMessage.BAUNIT_SELECT_PARCEL);
+            tabsMain.setSelectedComponent(pnlPlot);
+        }
+        return false;
     }
-
-    /**
-     * Returns {@link BaUnitBean} by first and last name part.
-     */
-    private BaUnitBean getBaUnitWithCadObject(String nameFirstPart, String nameLastPart, String colist) {
-        BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative().getBaUnitWithCadObject(nameFirstPart, nameLastPart, colist);
-        return TypeConverters.TransferObjectToBean(baUnitTO, BaUnitBean.class, null);
-    }
-
-    /**
-     * Opens {@link ReportViewerForm} to display report.
-     */
-    private void showReport(JasperPrint report) {
-        ReportViewerForm form = new ReportViewerForm(report);
-        form.setLocationRelativeTo(this);
-        form.setVisible(true);
-    }
-
+    
     /**
      * Removes selected right from the list of rights.
      */
@@ -604,7 +587,6 @@ public class PropertyPanel extends ContentPanel {
      * Opens appropriate right form for editing.
      */
     private void editRight() {
-
         if (baUnitBean1.getSelectedRight() != null) {
             openRightForm(baUnitBean1.getSelectedRight(), RrrBean.RRR_ACTION.EDIT);
         }
@@ -614,7 +596,6 @@ public class PropertyPanel extends ContentPanel {
      * Opens appropriate right form to extinguish selected right.
      */
     private void extinguishRight() {
-
         if (baUnitBean1.getSelectedRight() != null) {
             openRightForm(baUnitBean1.getSelectedRight(), RrrBean.RRR_ACTION.CANCEL);
         }
@@ -655,16 +636,6 @@ public class PropertyPanel extends ContentPanel {
     }
 
     /**
-     * Prints BA unit certificate.
-     */
-    private void print() {
-        if (ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_TITLE_SERACH)) {
-            showReport(ReportManager.getBaUnitReport(getBaUnit(
-                    baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
-        }
-    }
-
-    /**
      * Opens right form, depending on given {@link RrrBean} and action.
      *
      * @param rrrBean {@link RrrBean} instance to figure out what form to open
@@ -673,6 +644,10 @@ public class PropertyPanel extends ContentPanel {
      * further form customization.
      */
     private void openRightForm(RrrBean rrrBean, RrrBean.RRR_ACTION action) {
+        if(!isCadastreObjectExists(true)){
+            return;
+        }
+        
         if (action == RrrBean.RRR_ACTION.NEW && rrrTypes.getSelectedRrrType() == null) {
             return;
         }
@@ -789,7 +764,6 @@ public class PropertyPanel extends ContentPanel {
                 return whichMessage;
             }
         }
-
         return whichMessage;
     }
 
@@ -902,14 +876,12 @@ public class PropertyPanel extends ContentPanel {
         jToolBar5 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
         btnTerminate = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
-        btnPrintBaUnit = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
         jLabel4 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tabsMain = new javax.swing.JTabbedPane();
-        jPanel7 = new javax.swing.JPanel();
+        pnlPlot = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnAddParcelFromApplication = new javax.swing.JButton();
         btnSearchParcel = new javax.swing.JButton();
@@ -1118,22 +1090,6 @@ public class PropertyPanel extends ContentPanel {
         });
         jToolBar5.add(btnTerminate);
 
-        jSeparator4.setName("jSeparator4"); // NOI18N
-        jToolBar5.add(jSeparator4);
-
-        btnPrintBaUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
-        btnPrintBaUnit.setText(bundle.getString("PropertyPanel.btnPrintBaUnit.text")); // NOI18N
-        btnPrintBaUnit.setFocusable(false);
-        btnPrintBaUnit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnPrintBaUnit.setName("btnPrintBaUnit"); // NOI18N
-        btnPrintBaUnit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPrintBaUnit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintBaUnitActionPerformed(evt);
-            }
-        });
-        jToolBar5.add(btnPrintBaUnit);
-
         jSeparator7.setName(bundle.getString("PropertyPanel.jSeparator7.name")); // NOI18N
         jToolBar5.add(jSeparator7);
 
@@ -1151,7 +1107,7 @@ public class PropertyPanel extends ContentPanel {
         tabsMain.setName("tabsMain"); // NOI18N
         tabsMain.setPreferredSize(new java.awt.Dimension(494, 300));
 
-        jPanel7.setName("jPanel7"); // NOI18N
+        pnlPlot.setName("pnlPlot"); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -1182,28 +1138,28 @@ public class PropertyPanel extends ContentPanel {
 
         cadastreObject.setName(bundle.getString("PropertyPanel.cadastreObject.name")); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel7Layout.createSequentialGroup()
+        org.jdesktop.layout.GroupLayout pnlPlotLayout = new org.jdesktop.layout.GroupLayout(pnlPlot);
+        pnlPlot.setLayout(pnlPlotLayout);
+        pnlPlotLayout.setHorizontalGroup(
+            pnlPlotLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(pnlPlotLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(pnlPlotLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-                    .add(cadastreObject, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(cadastreObject, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel7Layout.createSequentialGroup()
+        pnlPlotLayout.setVerticalGroup(
+            pnlPlotLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(pnlPlotLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cadastreObject, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .add(cadastreObject, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tabsMain.addTab(bundle.getString("PropertyPanel.jPanel7.TabConstraints.tabTitle"), jPanel7); // NOI18N
+        tabsMain.addTab(bundle.getString("PropertyPanel.pnlPlot.TabConstraints.tabTitle"), pnlPlot); // NOI18N
 
         jPanel2.setName("jPanel2"); // NOI18N
 
@@ -1362,7 +1318,7 @@ public class PropertyPanel extends ContentPanel {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
             .add(jToolBar2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
@@ -1370,7 +1326,7 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel15Layout.createSequentialGroup()
                 .add(jToolBar2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
         );
 
         jPanel16.add(jPanel15);
@@ -1456,14 +1412,14 @@ public class PropertyPanel extends ContentPanel {
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jToolBar8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jScrollPane8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+            .add(jScrollPane8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel17Layout.createSequentialGroup()
                 .add(jToolBar8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                .add(jScrollPane8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
         );
 
         jPanel16.add(jPanel17);
@@ -1481,7 +1437,7 @@ public class PropertyPanel extends ContentPanel {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel16, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .add(jPanel16, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1510,14 +1466,14 @@ public class PropertyPanel extends ContentPanel {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                .add(jScrollPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .add(jScrollPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1605,7 +1561,7 @@ public class PropertyPanel extends ContentPanel {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jLabel15)
                         .add(9, 9, 9)
@@ -1624,7 +1580,7 @@ public class PropertyPanel extends ContentPanel {
                         .add(txtNotationText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jLabel15)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1732,7 +1688,7 @@ public class PropertyPanel extends ContentPanel {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jToolBar6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1814,7 +1770,7 @@ public class PropertyPanel extends ContentPanel {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jToolBar7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-            .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+            .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1871,7 +1827,7 @@ public class PropertyPanel extends ContentPanel {
                 .add(pnlPriorPropertiesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(pnlNextButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(btnNext))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.pnlPriorProperties.TabConstraints.tabTitle"), pnlPriorProperties); // NOI18N
@@ -1887,11 +1843,11 @@ public class PropertyPanel extends ContentPanel {
         mapPanel.setLayout(mapPanelLayout);
         mapPanelLayout.setHorizontalGroup(
             mapPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 695, Short.MAX_VALUE)
+            .add(0, 697, Short.MAX_VALUE)
         );
         mapPanelLayout.setVerticalGroup(
             mapPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 403, Short.MAX_VALUE)
+            .add(0, 405, Short.MAX_VALUE)
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
@@ -1990,10 +1946,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
         }
     }//GEN-LAST:event_btnViewRightActionPerformed
 
-    private void btnPrintBaUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBaUnitActionPerformed
-        print();
-    }//GEN-LAST:event_btnPrintBaUnitActionPerformed
-
     private void menuVaryRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVaryRightActionPerformed
         varyRight();
     }//GEN-LAST:event_menuVaryRightActionPerformed
@@ -2048,7 +2000,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         tabsMain.setEnabled(true);
-        tabsMain.setSelectedIndex(tabsMain.indexOfComponent(jPanel7));
+        tabsMain.setSelectedIndex(tabsMain.indexOfComponent(pnlPlot));
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnViewHistoricRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHistoricRightActionPerformed
@@ -2083,7 +2035,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnOpenChild;
     private javax.swing.JButton btnOpenParent;
-    private javax.swing.JButton btnPrintBaUnit;
     private javax.swing.JButton btnRemoveNotation;
     private javax.swing.JButton btnRemoveParent;
     private javax.swing.JButton btnRemoveRight;
@@ -2112,7 +2063,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2124,7 +2074,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
@@ -2148,6 +2097,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JMenuItem menuVaryRight;
     private javax.swing.JMenuItem menuViewRight;
     private javax.swing.JPanel pnlNextButton;
+    private javax.swing.JPanel pnlPlot;
     private javax.swing.JPanel pnlPriorProperties;
     private javax.swing.JPopupMenu popupChildBaUnits;
     private javax.swing.JPopupMenu popupNotations;

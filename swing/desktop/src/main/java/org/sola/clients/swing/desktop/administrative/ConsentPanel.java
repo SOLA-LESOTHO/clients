@@ -27,6 +27,7 @@ import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.reports.ReportManager;
@@ -203,7 +204,7 @@ public class ConsentPanel extends ContentPanel {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals(PartyPanelForm.PARTY_SAVED)) {
-                rrrBean1.addOrUpdateRightholder((PartySummaryBean) ((PartyPanelForm) evt.getSource()).getParty());
+                rrrBean1.addOrUpdateRightholder((PartyBean) ((PartyPanelForm) evt.getSource()).getParty());
             }
         }
     }
@@ -253,9 +254,9 @@ public class ConsentPanel extends ContentPanel {
 
     private PartySearchPanelForm initializePartySearchForm(PartySearchPanelForm partySearchForm, String role) {
         if (role.equals("rightholder")) {
-            partySearchForm = new PartySearchPanelForm(true, this.rrrBean1);
+            //partySearchForm = new PartySearchPanelForm(true, this.rrrBean1);
         } else {
-            partySearchForm = new PartySearchPanelForm(true, this.rrrBean2);
+            //partySearchForm = new PartySearchPanelForm(true, this.rrrBean2);
         }
         return partySearchForm;
 

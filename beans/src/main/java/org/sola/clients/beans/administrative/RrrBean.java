@@ -36,32 +36,33 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractTransactionedBean;
-import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
-import org.sola.clients.beans.administrative.validation.MortgageValidationGroup;
-import org.sola.clients.beans.administrative.validation.OwnershipValidationGroup;
-import org.sola.clients.beans.administrative.validation.SimpleOwnershipValidationGroup;
-import org.sola.clients.beans.administrative.validation.RrrBeanCheck;
-import org.sola.clients.beans.administrative.validation.TotalShareSize;
+import org.sola.clients.beans.administrative.validation.*;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.controls.SolaList;
+import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.clients.beans.validation.NoDuplicates;
 import org.sola.common.messaging.ClientMessage;
-import org.sola.webservices.transferobjects.EntityAction;
+import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.RrrTO;
+import org.sola.webservices.transferobjects.EntityAction;
+import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
 
 /**
  * Contains properties and methods to manage <b>RRR</b> object of the domain
  * model. Could be populated from the {@link RrrTO} object.
  */
 @RrrBeanCheck
+@LeaseBeanCheck
 public class RrrBean extends AbstractTransactionedBean {
 
     public enum RRR_ACTION {
@@ -114,15 +115,27 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String REGISTRATION_NUMBER_PROPERTY = "registrationNumber";
     public static final String STATUS_CHANGE_DATE_PROPERTY = "statusChangeDate";
     public static final String CADASTRE_OBJECT_PROPERTY = "cadastreObject";
+    public static final String START_DATE_PROPERTY = "startDate";
+    public static final String EXECUTION_DATE_PROPERTY = "executionDate";
+    public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
+    public static final String STAMP_DUTY_PROPERTY = "stampDuty";
+    public static final String TRANSFER_DUTY_PROPERTY = "transferDuty";
+    public static final String REGISTRATION_FEE_PROPERTY = "registrationFee";
+    public static final String LEASE_SPECIAL_CONDITION_LIST_PROPERTY = "leaseSpecialConditionList";
+    public static final String SELECTED_SPECIAL_CONDITION_PROPERTY = "selectedSpecialCondition";
+    public static final String GROUND_RENT_PROPERTY = "groundRent";
+    
     private String baUnitId;
     private String nr;
     @Past(message = ClientMessage.CHECK_REGISTRATION_DATE, payload = Localized.class)
+    @NotNull(message = ClientMessage.CHECK_NOTNULL_REGDATE, payload = Localized.class,
+            groups = {RrrValidationGroup.class})
     private Date registrationDate;
     private String transactionId;
     @NotNull(message = ClientMessage.CHECK_NOTNULL_EXPIRATION, payload = Localized.class,
             groups = {MortgageValidationGroup.class, LeaseValidationGroup.class})
     @Future(message = ClientMessage.CHECK_FUTURE_EXPIRATION, payload = Localized.class,
-            groups = {MortgageValidationGroup.class})
+            groups = {MortgageValidationGroup.class, LeaseValidationGroup.class})
     private Date expirationDate;
     @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTGAGEAMOUNT, payload = Localized.class, groups = {MortgageValidationGroup.class})
     private BigDecimal amount;
@@ -136,16 +149,16 @@ public class RrrBean extends AbstractTransactionedBean {
     @Valid
     private SolaList<RrrShareBean> rrrShareList;
     private RrrTypeBean rrrType;
-    @Valid
     private BaUnitNotationBean notation;
     private boolean primary = false;
     @Valid
-    private SolaList<PartySummaryBean> rightHolderList;
+    private SolaList<PartyBean> rightHolderList;
     private transient RrrShareBean selectedShare;
     private transient boolean selected;
-    private transient PartySummaryBean selectedRightholder;
+    private transient PartyBean selectedRightholder;
     private String concatenatedName;
-    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_REGNUMBER, payload = Localized.class)
+    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_REGNUMBER, 
+            groups={RrrValidationGroup.class}, payload = Localized.class)
     private String registrationNumber;
     private Date statusChangeDate;
     private CadastreObjectBean cadastreObject;
@@ -155,6 +168,25 @@ public class RrrBean extends AbstractTransactionedBean {
     // Used to indicate if the subplot is vithin the area of the lease plot. 
     private transient boolean subplotValid = true;
 
+    @NotNull(message = ClientMessage.LEASE_START_DATE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    private Date startDate;
+
+    @NotNull(message = ClientMessage.LEASE_EXECUTION_DATE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    @Past(message = ClientMessage.LEASE_EXECUTION_DATE_IS_IN_FUTURE, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    private Date executionDate;
+    
+    @NotEmpty(message=ClientMessage.LEASE_LEASE_NUMBER_IS_IMPTY, groups={LeaseValidationGroup.class}, payload=Localized.class)
+    private String leaseNumber;
+    
+    @NotNull(message = ClientMessage.LEASE_GROUND_RENT_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    private BigDecimal groundRent;
+    
+    private BigDecimal stampDuty;
+    private BigDecimal transferDuty;
+    private BigDecimal registrationFee;
+    private SolaList<LeaseSpecialConditionBean> leaseSpecialConditionList;
+    private transient LeaseSpecialConditionBean selectedSpecialCondition;
+    
     public String getConcatenatedName() {
         return concatenatedName;
     }
@@ -165,14 +197,14 @@ public class RrrBean extends AbstractTransactionedBean {
 
     public RrrBean() {
         super();
-        registrationDate = Calendar.getInstance().getTime();
         sourceList = new SolaList();
         rrrShareList = new SolaList();
         rightHolderList = new SolaList();
         notation = new BaUnitNotationBean();
+        leaseSpecialConditionList = new SolaList<LeaseSpecialConditionBean>();
     }
 
-    public void setFirstRightholder(PartySummaryBean rightholder) {
+    public void setFirstRightholder(PartyBean rightholder) {
         if (rightHolderList.size() > 0) {
             rightHolderList.set(0, rightholder);
         } else {
@@ -199,6 +231,14 @@ public class RrrBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(IS_PRIMARY_PROPERTY, oldValue, primary);
     }
 
+    @Length(max = 1000, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_NOTATION, 
+            groups = {RrrValidationGroup.class}, payload=Localized.class)
+    @NotEmpty(message= ClientMessage.CHECK_NOTNULL_NOTATION, 
+            groups = {RrrValidationGroup.class}, payload=Localized.class)
+    public String getNotationText(){
+        return getNotation().getNotationText();
+    }
+    
     public BaUnitNotationBean getNotation() {
         return notation;
     }
@@ -398,7 +438,6 @@ public class RrrBean extends AbstractTransactionedBean {
     }
 
     @Valid
-    @Size(min = 1, message = ClientMessage.CHECK_SIZE_RRRSHARELIST, payload = Localized.class, groups = OwnershipValidationGroup.class)
     @TotalShareSize(message = ClientMessage.CHECK_TOTALSHARE_RRRSHARELIST, payload = Localized.class)
     public ObservableList<RrrShareBean> getFilteredRrrShareList() {
         return rrrShareList.getFilteredList();
@@ -412,7 +451,7 @@ public class RrrBean extends AbstractTransactionedBean {
         // Issue #256 Unlink Party from RRR when removing share. 
         if (selectedShare != null && rrrShareList != null) {
             if (getRightHolderList().size() > 0) {
-                ListIterator<PartySummaryBean> it = getRightHolderList().listIterator();
+                ListIterator<PartyBean> it = getRightHolderList().listIterator();
                 while (it.hasNext()) {
                     getRightHolderList().safeRemove(it.next(), EntityAction.DISASSOCIATE);
                 }
@@ -421,31 +460,118 @@ public class RrrBean extends AbstractTransactionedBean {
         }
     }
 
-    public PartySummaryBean getSelectedRightHolder() {
+    public Date getExecutionDate() {
+        return executionDate;
+    }
+
+    public void setExecutionDate(Date executionDate) {
+        Date oldValue = this.executionDate;
+        this.executionDate = executionDate;
+        propertySupport.firePropertyChange(EXECUTION_DATE_PROPERTY, oldValue, this.executionDate);
+    }
+
+    public BigDecimal getGroundRent() {
+        return groundRent;
+    }
+
+    public void setGroundRent(BigDecimal groundRent) {
+        BigDecimal oldValue = this.groundRent;
+        this.groundRent = groundRent;
+        propertySupport.firePropertyChange(GROUND_RENT_PROPERTY, oldValue, this.groundRent);
+    }
+
+    public String getLeaseNumber() {
+        return leaseNumber;
+    }
+
+    public void setLeaseNumber(String leaseNumber) {
+        String oldValue = this.leaseNumber;
+        this.leaseNumber = leaseNumber;
+        propertySupport.firePropertyChange(LEASE_NUMBER_PROPERTY, oldValue, this.leaseNumber);
+    }
+    
+    public ObservableList<LeaseSpecialConditionBean> getFilteredLeaseSpecialConditionList() {
+        return leaseSpecialConditionList.getFilteredList();
+    }
+
+    public SolaList<LeaseSpecialConditionBean> getLeaseSpecialConditionList() {
+        return leaseSpecialConditionList;
+    }
+
+    public BigDecimal getRegistrationFee() {
+        return registrationFee;
+    }
+
+    public void setRegistrationFee(BigDecimal registrationFee) {
+        BigDecimal oldValue = this.registrationFee;
+        this.registrationFee = registrationFee;
+        propertySupport.firePropertyChange(REGISTRATION_FEE_PROPERTY, oldValue, this.registrationFee);
+    }
+
+    public LeaseSpecialConditionBean getSelectedSpecialCondition() {
+        return selectedSpecialCondition;
+    }
+
+    public void setSelectedSpecialCondition(LeaseSpecialConditionBean selectedSpecialCondition) {
+        this.selectedSpecialCondition = selectedSpecialCondition;
+        propertySupport.firePropertyChange(SELECTED_SPECIAL_CONDITION_PROPERTY, null, this.selectedSpecialCondition);
+    }
+
+    public BigDecimal getStampDuty() {
+        return stampDuty;
+    }
+
+    public void setStampDuty(BigDecimal stampDuty) {
+        BigDecimal oldValue = this.stampDuty;
+        this.stampDuty = stampDuty;
+        propertySupport.firePropertyChange(STAMP_DUTY_PROPERTY, oldValue, this.stampDuty);
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        Date oldValue = this.startDate;
+        this.startDate = startDate;
+        propertySupport.firePropertyChange(START_DATE_PROPERTY, oldValue, this.startDate);
+    }
+
+    public BigDecimal getTransferDuty() {
+        return transferDuty;
+    }
+
+    public void setTransferDuty(BigDecimal transferDuty) {
+        BigDecimal oldValue = this.transferDuty;
+        this.transferDuty = transferDuty;
+        propertySupport.firePropertyChange(TRANSFER_DUTY_PROPERTY, oldValue, this.transferDuty);
+    }
+
+    public PartyBean getSelectedRightHolder() {
         return selectedRightholder;
     }
 
-    public void setSelectedRightHolder(PartySummaryBean selectedRightholder) {
+    public void setSelectedRightHolder(PartyBean selectedRightholder) {
         this.selectedRightholder = selectedRightholder;
         propertySupport.firePropertyChange(SELECTED_RIGHTHOLDER_PROPERTY, null, this.selectedRightholder);
     }
 
-    public SolaList<PartySummaryBean> getRightHolderList() {
+    public SolaList<PartyBean> getRightHolderList() {
         return rightHolderList;
     }
 
     @Size(min = 1, groups = {MortgageValidationGroup.class}, message = ClientMessage.CHECK_SIZE_RIGHTHOLDERLIST, payload = Localized.class)
-    public ObservableList<PartySummaryBean> getFilteredRightHolderList() {
+    public ObservableList<PartyBean> getFilteredRightHolderList() {
         return rightHolderList.getFilteredList();
     }
 
     @Size(min = 1, groups = {SimpleOwnershipValidationGroup.class, LeaseValidationGroup.class},
             message = ClientMessage.CHECK_SIZE_OWNERSLIST, payload = Localized.class)
-    private ObservableList<PartySummaryBean> getFilteredOwnersList() {
+    private ObservableList<PartyBean> getFilteredOwnersList() {
         return rightHolderList.getFilteredList();
     }
 
-    public void setRightHolderList(SolaList<PartySummaryBean> rightHolderList) {
+    public void setRightHolderList(SolaList<PartyBean> rightHolderList) {
         this.rightHolderList = rightHolderList;
     }
 
@@ -502,7 +628,7 @@ public class RrrBean extends AbstractTransactionedBean {
         this.subplotValid = subplotValid;
     }
 
-    public void addOrUpdateRightholder(PartySummaryBean rightholder) {
+    public void addOrUpdateRightholder(PartyBean rightholder) {
         if (rightholder != null && rightHolderList != null) {
             if (rightHolderList.contains(rightholder)) {
                 rightHolderList.set(rightHolderList.indexOf(rightholder), rightholder);
@@ -533,6 +659,27 @@ public class RrrBean extends AbstractTransactionedBean {
         return copy;
     }
 
+    /** Removes selected lease condition. */
+    public void removeSelectedCondition(){
+        if(selectedSpecialCondition!=null){
+            getLeaseSpecialConditionList().safeRemove(selectedSpecialCondition, EntityAction.DELETE);
+        }
+    }
+    
+    /** Calculates ground rent fee for attached CadastreObject. */
+    public void calculateGroundRent(CadastreObjectBean co){
+        setGroundRent(RrrBean.calcGroundRent(co));
+    }
+    
+    /** Calculates ground rent fee for the given CadastreObject. */
+    public static BigDecimal calcGroundRent(CadastreObjectBean co){
+        if(co==null){
+            return BigDecimal.ZERO;
+        }
+        return WSManager.getInstance().getAdministrative().calculateGroundRent(
+                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class));
+    }
+    
     /**
      * Generates new ID, RowVerion and RowID.
      *

@@ -38,6 +38,7 @@ import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.validation.MortgageValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.swing.common.LafManager;
@@ -50,7 +51,6 @@ import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
-import org.sola.clients.swing.ui.source.DocumentsManagementPanel;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -173,8 +173,7 @@ public class MortgagePanel extends ContentPanel {
             @Override
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getNewValue() != null) {
-                    rrrBean.setFirstRightholder((PartySummaryBean) e.getNewValue());
-
+                    rrrBean.setFirstRightholder(PartyBean.getParty(((PartySummaryBean) e.getNewValue()).getId()));
                     BindingTools.resetBinding(bindingGroup, "lenderGroup");
                 }
             }

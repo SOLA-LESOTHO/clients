@@ -26,8 +26,8 @@ public class PartyListPanel extends javax.swing.JPanel {
     public static final String ADD_PARTY = "addParty";
     public static final String SELECTED_PERSON_PROPERTY = "selectedPerson";
     
-    private SolaList<PartySummaryBean> personList;
-    private PartySummaryBean selectedPerson;
+    private SolaList<PartyBean> personList;
+    private PartyBean selectedPerson;
     private boolean readOnly = false;
     
     /**
@@ -40,9 +40,9 @@ public class PartyListPanel extends javax.swing.JPanel {
     /**
      * Panel constructor with list of persons argument.
      */
-    public PartyListPanel(SolaList<PartySummaryBean> personList) {
+    public PartyListPanel(SolaList<PartyBean> personList) {
         if(personList==null){
-            this.personList = new SolaList<PartySummaryBean>();
+            this.personList = new SolaList<PartyBean>();
         } else {
             this.personList = personList;
         }
@@ -50,9 +50,9 @@ public class PartyListPanel extends javax.swing.JPanel {
         postInit();
     }
     
-    private void setupPersonList(SolaList<PartySummaryBean> personList){
+    private void setupPersonList(SolaList<PartyBean> personList){
         if(personList == null){
-            this.personList = new SolaList<PartySummaryBean>();
+            this.personList = new SolaList<PartyBean>();
         } else {
             this.personList = personList;
         }
@@ -89,15 +89,15 @@ public class PartyListPanel extends javax.swing.JPanel {
         menuAdd.setEnabled(btnAdd.isEnabled());
     }
     
-    public SolaList<PartySummaryBean> getPersonList() {
+    public SolaList<PartyBean> getPersonList() {
         return personList;
     }
 
-    public ObservableList<PartySummaryBean> getFilteredPersonList() {
+    public ObservableList<PartyBean> getFilteredPersonList() {
         return personList.getFilteredList();
     }
     
-    public void setPersonList(SolaList<PartySummaryBean> personList) {
+    public void setPersonList(SolaList<PartyBean> personList) {
         setupPersonList(personList);
     }
 
@@ -105,8 +105,8 @@ public class PartyListPanel extends javax.swing.JPanel {
         return selectedPerson;
     }
 
-    public void setSelectedPerson(PartySummaryBean selectedPerson) {
-        PartySummaryBean oldValue = this.selectedPerson;
+    public void setSelectedPerson(PartyBean selectedPerson) {
+        PartyBean oldValue = this.selectedPerson;
         this.selectedPerson = selectedPerson;
         firePropertyChange(SELECTED_PERSON_PROPERTY, oldValue, this.selectedPerson);
     }
@@ -164,25 +164,7 @@ public class PartyListPanel extends javax.swing.JPanel {
         if(selectedPerson==null){
             return;
         }
-        
-        SolaTask<PartyBean, Void> task = new SolaTask<PartyBean, Void>() {
-
-            @Override
-            protected PartyBean doTask() {
-                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_PERSON_GETTING));
-                return PartyBean.getParty(getSelectedPerson().getId());
-            }
-
-            @Override
-            protected void taskDone() {
-                if(get()==null){
-                    MessageUtility.displayMessage(ClientMessage.PARTY_NOT_FOUND);
-                } else {
-                    firePropertyChange(evtName, null, get());
-                }
-            }
-        };
-        TaskManager.getInstance().runTask(task);
+        firePropertyChange(evtName, null, selectedPerson);
     }
     
     private void searchParty(){

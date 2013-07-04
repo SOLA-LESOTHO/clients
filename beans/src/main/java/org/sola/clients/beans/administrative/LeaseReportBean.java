@@ -21,6 +21,7 @@ import java.util.Calendar;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.common.DateUtility;
 import org.sola.common.NumberToWords;
@@ -33,8 +34,9 @@ public class LeaseReportBean extends AbstractBindingBean {
 
     private ApplicationBean application;
     private ApplicationServiceBean service;
-    private LeaseBean lease;
+    private RrrBean lease;
     private String freeText;
+    private CadastreObjectBean cadastreObject;
 
     /**
      * Default constructor.
@@ -47,9 +49,10 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Class constructor with initial values for BaUnit, RRR, Application and
      * ApplicationService object.
      */
-    public LeaseReportBean(LeaseBean lease, ApplicationBean application, ApplicationServiceBean service) {
+    public LeaseReportBean(RrrBean lease, CadastreObjectBean cadastreObject, ApplicationBean application, ApplicationServiceBean service) {
         super();
         this.lease = lease;
+        this.cadastreObject = cadastreObject;
         this.application = application;
         this.service = service;
     }
@@ -68,18 +71,29 @@ public class LeaseReportBean extends AbstractBindingBean {
         this.freeText = freeText;
     }
 
-    public LeaseBean getLease() {
+    public RrrBean getLease() {
         if (lease == null) {
-            lease = new LeaseBean();
+            lease = new RrrBean();
         }
         return lease;
     }
 
-    public void setLease(LeaseBean lease) {
+    public void setLease(RrrBean lease) {
         if (lease == null) {
-            lease = new LeaseBean();
+            lease = new RrrBean();
         }
         this.lease = lease;
+    }
+
+    public CadastreObjectBean getCadastreObject() {
+        if(cadastreObject==null){
+            cadastreObject = new CadastreObjectBean();
+        }
+        return cadastreObject;
+    }
+
+    public void setCadastreObject(CadastreObjectBean cadastreObject) {
+        this.cadastreObject = cadastreObject;
     }
 
     public ApplicationBean getApplication() {
@@ -149,8 +163,8 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for the parcel first/last name parts.
      */
     public String getParcelCode() {
-        if (getLease().getCadastreObject() != null) {
-            return getLease().getCadastreObject().toString();
+        if (getCadastreObject() != null) {
+            return getCadastreObject().toString();
         }
         return "";
     }
@@ -159,9 +173,9 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for the parcel type.
      */
     public String getParcelType() {
-        if (getLease().getCadastreObject() != null) {
-            if (getLease().getCadastreObject().getCadastreObjectType() != null) {
-                return getLease().getCadastreObject().getCadastreObjectType().toString();
+        if (getCadastreObject() != null) {
+            if (getCadastreObject().getCadastreObjectType() != null) {
+                return getCadastreObject().getCadastreObjectType().toString();
             }
         }
         return "";
@@ -171,9 +185,9 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for the parcel official area.
      */
     public String getParcelOfficialArea() {
-        if (getLease().getCadastreObject() != null) {
-            if (getLease().getCadastreObject().getOfficialAreaSize() != null) {
-                return getLease().getCadastreObject().getOfficialAreaSize().toPlainString();
+        if (getCadastreObject() != null) {
+            if (getCadastreObject().getOfficialAreaSize() != null) {
+                return getCadastreObject().getOfficialAreaSize().toPlainString();
             }
         }
         return "";
@@ -183,9 +197,9 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for the parcel land use.
      */
     public String getParcelLandUse() {
-        if (getLease().getCadastreObject() != null) {
-            if (getLease().getCadastreObject().getLandUseType() != null) {
-                return getLease().getCadastreObject().getLandUseType().toString().toUpperCase();
+        if (getCadastreObject() != null) {
+            if (getCadastreObject().getLandUseType() != null) {
+                return getCadastreObject().getLandUseType().toString().toUpperCase();
             }
         }
         return "";
@@ -195,8 +209,8 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for the parcel address.
      */
     public String getParcelAddress() {
-        if (getLease().getCadastreObject() != null) {
-            return getLease().getCadastreObject().getAddressString().toUpperCase();
+        if (getCadastreObject() != null) {
+            return getCadastreObject().getAddressString().toUpperCase();
         }
         return "";
     }
@@ -205,8 +219,8 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for the first parcel map reference number.
      */
     public String getParcelMapRef() {
-        if (getLease().getCadastreObject() != null && getLease().getCadastreObject().getSourceReference() != null) {
-            return getLease().getCadastreObject().getSourceReference();
+        if (getCadastreObject() != null && getCadastreObject().getSourceReference() != null) {
+            return getCadastreObject().getSourceReference();
         }
         return "";
     }
@@ -335,8 +349,9 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut to lessee address.
      */
     public String getLesseeAddress() {
-        if (getLease().getLesseeAddress() != null) {
-            return getLease().getLesseeAddress().toUpperCase();
+        if (getLease().getRightHolderList().size()>0 && getLease().getRightHolderList().get(0).getAddress() != null) {
+            return StringUtility.empty(getLease().getRightHolderList().get(0)
+                    .getAddress().getDescription()).toUpperCase();
         } else {
             return "";
         }
@@ -346,8 +361,8 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut to lessees marital status.
      */
     public String getLesseeMaritalStatus() {
-        if (getLease().getMaritalStatus() != null) {
-            return getLease().getMaritalStatus();
+        if (getLease().getRightHolderList().size()>0 && getLease().getRightHolderList().get(0).getLegalType()!=null) {
+            return getLease().getRightHolderList().get(0).getLegalType();
         } else {
             return "";
         }
@@ -358,8 +373,8 @@ public class LeaseReportBean extends AbstractBindingBean {
      */
     public String getLessees() {
         String lessess = "";
-        if (getLease().getLessees() != null && getLease().getLessees().size() > 0) {
-            for (PartySummaryBean party : getLease().getLessees()) {
+        if (getLease().getRightHolderList() != null && getLease().getRightHolderList().size() > 0) {
+            for (PartySummaryBean party : getLease().getRightHolderList()) {
                 if (lessess.equals("")) {
                     lessess = party.getFullName();
                 } else {
@@ -373,8 +388,8 @@ public class LeaseReportBean extends AbstractBindingBean {
     /** Returns true is lessee is private, otherwise false */
     public boolean isLesseePrivate(){
         boolean result = true;
-        if(getLease().getLessees()!=null && getLease().getLessees().size()>0){
-            result = getLease().getLessees().get(0).getTypeCode().equalsIgnoreCase("naturalPerson");
+        if(getLease().getRightHolderList()!=null && getLease().getRightHolderList().size()>0){
+            result = getLease().getRightHolderList().get(0).getTypeCode().equalsIgnoreCase("naturalPerson");
         }
         return result;
     }

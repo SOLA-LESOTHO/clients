@@ -41,7 +41,7 @@ public class PartyListExtPanel extends PartyListPanel {
         //this(null);
     }
 
-    public PartyListExtPanel(SolaList<PartySummaryBean> partyList) {
+    public PartyListExtPanel(SolaList<PartyBean> partyList) {
         super(partyList);
         addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -74,9 +74,9 @@ public class PartyListExtPanel extends PartyListPanel {
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         if (evt.getPropertyName().equals(PartySearchPanel.SELECT_PARTY_PROPERTY)) {
-                            PartySummaryBean selectedParty = (PartySummaryBean) evt.getNewValue();
+                            PartyBean selectedParty = (PartyBean) evt.getNewValue();
                             if (getPersonList().contains(selectedParty)) {
-                                PartySummaryBean existingParty = getPersonList().get(getPersonList().indexOf(selectedParty));
+                                PartyBean existingParty = getPersonList().get(getPersonList().indexOf(selectedParty));
                                 if (existingParty.getEntityAction() != null && existingParty.getEntityAction() == EntityAction.DISASSOCIATE) {
                                     existingParty.setEntityAction(null);
                                     getPersonList().filter();
@@ -111,7 +111,7 @@ public class PartyListExtPanel extends PartyListPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(PartyPanelForm.PARTY_SAVED)) {
-                    PartySummaryBean savedParty = (PartySummaryBean) ((PartyPanelForm) evt.getSource()).getParty();
+                    PartyBean savedParty = ((PartyPanelForm) evt.getSource()).getParty();
                     if (isNew) {
                         getPersonList().addAsNew(savedParty);
                     } else {

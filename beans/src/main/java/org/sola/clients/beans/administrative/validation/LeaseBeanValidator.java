@@ -18,6 +18,7 @@ package org.sola.clients.beans.administrative.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.sola.clients.beans.administrative.LeaseBean;
+import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.common.StringUtility;
 import org.sola.common.messaging.ClientMessage;
@@ -26,23 +27,15 @@ import org.sola.common.messaging.MessageUtility;
 /**
  * Used to validate {@link LeaseBean}
  */
-public class LeaseBeanValidator implements ConstraintValidator<LeaseBeanCheck, LeaseBean> {
+public class LeaseBeanValidator implements ConstraintValidator<LeaseBeanCheck, RrrBean> {
 
     @Override
     public void initialize(LeaseBeanCheck constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(LeaseBean value, ConstraintValidatorContext context) {
+    public boolean isValid(RrrBean value, ConstraintValidatorContext context) {
         boolean result = true;
-        // Check lease number and parcel number to be the same
-        if (!StringUtility.isEmpty(value.getLeaseNumber()) && value.getCadastreObject() != null
-                && !value.getLeaseNumber().equals(value.getCadastreObject().toString())) {
-            result = false;
-            context.buildConstraintViolationWithTemplate(
-                    (MessageUtility.getLocalizedMessageText(
-                    ClientMessage.LEASE_NUMBER_AND_PARCEL_CODE_DOESNT_MATCH))).addConstraintViolation();
-        }
 
         // Check start and expiration dates
         if (value.getStartDate() != null && value.getExpirationDate() != null) {
@@ -55,9 +48,9 @@ public class LeaseBeanValidator implements ConstraintValidator<LeaseBeanCheck, L
         }
 
         // Check lessees to be of the same type
-        if (value.getFilteredLessees().size() > 0) {
-            String lesseeType = value.getFilteredLessees().get(0).getTypeCode();
-            for (PartySummaryBean lessee : value.getFilteredLessees()) {
+        if (value.getFilteredRightHolderList().size() > 0) {
+            String lesseeType = value.getFilteredRightHolderList().get(0).getTypeCode();
+            for (PartySummaryBean lessee : value.getFilteredRightHolderList()) {
                 if (!StringUtility.empty(lessee.getTypeCode()).equals(lesseeType)) {
                     result = false;
                     context.buildConstraintViolationWithTemplate(

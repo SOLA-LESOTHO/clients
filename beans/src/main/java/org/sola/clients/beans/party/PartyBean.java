@@ -70,6 +70,7 @@ public class PartyBean extends PartySummaryBean {
     public static final String FATHERSNAME_PROPERTY = "fathersName";
     public static final String GRANDFATHERSNAME_PROPERTY = "fathersLastName";
     public static final String ALIAS_PROPERTY = "alias";
+    public static final String LEGAL_TYPE_PROPERTY = "alias";
     
     @Length(max = 50, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_MAIL, payload=Localized.class)
     @Email(message = ClientMessage.CHECK_INVALID_EMAIL, payload=Localized.class)
@@ -93,7 +94,8 @@ public class PartyBean extends PartySummaryBean {
     private CommunicationTypeBean communicationTypeBean;
     private SolaList<PartyRoleBean> roleList;
     private transient PartyRoleBean selectedRole;
-
+    private String legalType;
+    
     /** 
      * Default constructor to create party bean. Initializes 
      * {@link CommunicationTypeBean} as a part of this bean.
@@ -291,6 +293,16 @@ public class PartyBean extends PartySummaryBean {
 
     public void setRoleList(SolaList<PartyRoleBean> roleList) {
         this.roleList = roleList;
+    }
+
+    public String getLegalType() {
+        return legalType;
+    }
+
+    public void setLegalType(String legalType) {
+        String oldValue = this.legalType;
+        this.legalType = legalType;
+        propertySupport.firePropertyChange(LEGAL_TYPE_PROPERTY, oldValue, this.legalType);
     }
 
     /** 

@@ -34,6 +34,7 @@ import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.validation.SimpleOwnershipValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.swing.common.LafManager;
@@ -46,7 +47,6 @@ import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
-import org.sola.clients.swing.ui.source.DocumentsManagementPanel;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -228,7 +228,7 @@ public class SimpleRightholderPanel extends ContentPanel {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals(PartyPanelForm.PARTY_SAVED)) {
-                rrrBean.addOrUpdateRightholder((PartySummaryBean) ((PartyPanelForm) evt.getSource()).getParty());
+                rrrBean.addOrUpdateRightholder((PartyBean) ((PartyPanelForm) evt.getSource()).getParty());
                 tableOwners.clearSelection();
             }
         }
@@ -278,9 +278,8 @@ public class SimpleRightholderPanel extends ContentPanel {
     }
 
     private PartySearchPanelForm initializePartySearchForm(PartySearchPanelForm partySearchForm) {
-        partySearchForm = new PartySearchPanelForm(true, this.rrrBean);
+        partySearchForm = new PartySearchPanelForm();
         return partySearchForm;
-
     }
 
     

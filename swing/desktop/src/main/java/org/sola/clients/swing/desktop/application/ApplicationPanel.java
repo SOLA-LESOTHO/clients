@@ -700,31 +700,7 @@ public class ApplicationPanel extends ContentPanel {
                     }
                 };
                 TaskManager.getInstance().runTask(t);
-            } // New lease
-            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_NEW_LEASE)) {
-                // Get leases created by the service
-                SolaObservableList<LeaseBean> leases = new SolaObservableList(LeaseBean.getLeasesByServiceId(service.getId()));
-
-                if (leases != null && leases.size() > 0) {
-                    if (leases.size() == 1) {
-                        openLeasePreparation(leases.get(0), service, readOnly);
-                    } else if (leases.size() > 1) {
-                        // Open form to select lease
-                        LeaseListDialog form = new LeaseListDialog(null, leases, readOnly);
-                        form.addPropertyChangeListener(new PropertyChangeListener() {
-
-                            @Override
-                            public void propertyChange(PropertyChangeEvent evt) {
-                                if (evt.getPropertyName().equals(LeaseListDialog.LEASE_SELECTED)) {
-                                    openLeasePreparation((LeaseBean) evt.getNewValue(), service, readOnly);
-                                }
-                            }
-                        });
-                    }
-                } else {
-                    openLeasePreparation(null, service, readOnly);
-                }
-            }// Cadastre change services
+            } // Cadastre change services
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_CHANGE)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_REDEFINITION)) {
 
@@ -814,7 +790,6 @@ public class ApplicationPanel extends ContentPanel {
                             openPropertyForm(service, new BaUnitBean(), readOnly);
                         }
                     } else {
-
                         // Open property form for existing title changes
                         if (appBean.getFilteredPropertyList().size() == 1) {
                             openPropertyForm(service, appBean.getFilteredPropertyList().get(0), readOnly);

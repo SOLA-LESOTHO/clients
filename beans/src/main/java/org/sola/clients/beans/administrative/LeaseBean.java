@@ -33,7 +33,6 @@ import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.EntityAction;
-import org.sola.webservices.transferobjects.administrative.LeaseTO;
 import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
 
 /**
@@ -221,22 +220,24 @@ public class LeaseBean extends AbstractTransactionedBean {
     
     /** Saves current bean. */
     public boolean save(String serviceId){
-        LeaseTO lease = TypeConverters.BeanToTrasferObject(this, LeaseTO.class);
-        TypeConverters.TransferObjectToBean(WSManager.getInstance()
-                .getAdministrative().saveLease(lease, serviceId), LeaseBean.class, this);
+//        LeaseTO lease = TypeConverters.BeanToTrasferObject(this, LeaseTO.class);
+//        TypeConverters.TransferObjectToBean(WSManager.getInstance()
+//                .getAdministrative().saveLease(lease, serviceId), LeaseBean.class, this);
         return true;
     }
     
     /** Returns lease by ID. */
     public static LeaseBean getLease(String id){
-        return TypeConverters.TransferObjectToBean(WSManager.getInstance()
-                .getAdministrative().getLease(id), LeaseBean.class, null);
+        return null;
+//        return TypeConverters.TransferObjectToBean(WSManager.getInstance()
+//                .getAdministrative().getLease(id), LeaseBean.class, null);
     }
     
     /** Returns leases by service ID. */
     public static List<LeaseBean> getLeasesByServiceId(String serviceId){
-        return TypeConverters.TransferObjectListToBeanList(WSManager.getInstance()
-                .getAdministrative().getLeasesByServiceId(serviceId), LeaseBean.class, null);
+        return null;
+//        return TypeConverters.TransferObjectListToBeanList(WSManager.getInstance()
+//                .getAdministrative().getLeasesByServiceId(serviceId), LeaseBean.class, null);
     }
     
     /** Calculates ground rent fee for attached CadastreObject. */
