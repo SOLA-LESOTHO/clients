@@ -198,9 +198,7 @@ public class LeaseReportBean extends AbstractBindingBean {
      */
     public String getParcelLandUse() {
         if (getCadastreObject() != null) {
-            if (getCadastreObject().getLandUseType() != null) {
-                return getCadastreObject().getLandUseType().toString().toUpperCase();
-            }
+            return "";
         }
         return "";
     }

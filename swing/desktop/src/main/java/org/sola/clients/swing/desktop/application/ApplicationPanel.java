@@ -942,7 +942,6 @@ public class ApplicationPanel extends ContentPanel {
         menuDispatch = new javax.swing.JMenuItem();
         menuArchive = new javax.swing.JMenuItem();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         popUpParcels = new javax.swing.JPopupMenu();
         menuRemoveParcel = new org.sola.clients.swing.common.menuitems.MenuRemove();
         pnlHeader = new org.sola.clients.swing.ui.HeaderPanel();
@@ -2164,10 +2163,6 @@ public class ApplicationPanel extends ContentPanel {
         columnBinding.setColumnName("Official Area Size");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${landUseType.displayValue}"));
-        columnBinding.setColumnName("Land Use Type.display Value");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${landGradeType.displayValue}"));
         columnBinding.setColumnName("Land Grade Type.display Value");
         columnBinding.setColumnClass(String.class);
@@ -2184,9 +2179,8 @@ public class ApplicationPanel extends ContentPanel {
         tableParcels.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title0")); // NOI18N
         tableParcels.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title1")); // NOI18N
         tableParcels.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title4")); // NOI18N
-        tableParcels.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title2")); // NOI18N
-        tableParcels.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title5_1")); // NOI18N
-        tableParcels.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title3")); // NOI18N
+        tableParcels.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title5_1")); // NOI18N
+        tableParcels.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title3")); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -3418,7 +3412,6 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JLabel labTotalFee1;
     private javax.swing.JLabel labTotalFee2;
     private javax.swing.JLabel labTotalFee3;
-    private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
     private javax.swing.JMenuItem menuAddService;
     private javax.swing.JMenuItem menuApprove;
     private javax.swing.JMenuItem menuArchive;

@@ -194,10 +194,6 @@ public final class CacheManager {
      */
     public static final String BA_UNIT_REL_TYPE_KEY = BaUnitRelTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the {@link LandUseTypeBean} collection.
-     */
-    public static final String LAND_USE_TYPE_CODES_KEY = LandUseTypeBean.class.getName() + LIST_POSTFIX;
-    /**
      * Cache key of the {@link LeaseConditionBean} collection.
      */
     public static final String LEASE_CONDITION_CODES_KEY = LeaseConditionBean.class.getName() + LIST_POSTFIX;
@@ -228,7 +224,10 @@ public final class CacheManager {
     
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
     
+    
     public static final String APPLICATION_FORM_PREFIX_KEY = ApplicationFormWithBinaryBean.class.getName() + "_CODE_";
+    
+    public static final String ROAD_CLASS_TYPE_CODES_KEY = RoadClassTypeBean.class.getName() + LIST_POSTFIX;
     
    
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
@@ -266,7 +265,8 @@ public final class CacheManager {
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
     private static final String GET_APPLICATION_FORMS = "getApplicationForms";
-    private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";      
+    private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes"; 
+    private static final String GET_ROAD_CLASS_TYPE = "getRoadClassType";
 
     
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
@@ -335,11 +335,6 @@ public final class CacheManager {
                 GET_CADASTRE_OBJECT_TYPES, CADASTRE_OBJECT_TYPE_CODES_KEY);
     }
 
-    public static List<LandUseTypeBean> getLandUseTypes() {
-        return getCachedBeanList(LandUseTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_LAND_USE_TYPES, LAND_USE_TYPE_CODES_KEY);
-    }
 
     public static List<SourceBaUnitRelationTypeBean> getSourceBaUnitRelationTypes() {
         return getCachedBeanList(SourceBaUnitRelationTypeBean.class,
@@ -526,6 +521,12 @@ public final class CacheManager {
         return getCachedBeanList(OtherAuthoritiesBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_OTHER_AUTHORITIES, OTHER_AUTHORITIES_CODES_KEY);
+    }
+    
+    public static List<RoadClassTypeBean> getRoadClassType(){
+        return getCachedBeanList(RoadClassTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_ROAD_CLASS_TYPE, ROAD_CLASS_TYPE_CODES_KEY);
     }
     
 
