@@ -83,8 +83,6 @@ import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
-import org.sola.clients.swing.desktop.administrative.DisputePanelForm;
-import org.sola.clients.swing.desktop.administrative.LeasePreparationForm;
 import org.sola.clients.swing.ui.administrative.BaUnitSearchPanel;
 
 /**
@@ -797,7 +795,7 @@ public class ApplicationPanel extends ContentPanel {
 
                             propertyListForm.setVisible(true);
                         } else {
-                            MessageUtility.displayMessage(ClientMessage.APPLICATION_PARCELS_LIST_EMPTY);
+                            MessageUtility.displayMessage(ClientMessage.APPLICATION_PROPERTY_LIST_EMPTY);
                         }
                     }
                 }
@@ -2136,28 +2134,20 @@ public class ApplicationPanel extends ContentPanel {
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectFilteredList}");
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, eLProperty, tableParcels);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"));
-        columnBinding.setColumnName("Name Firstpart");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${code}"));
+        columnBinding.setColumnName("Code");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameLastpart}"));
-        columnBinding.setColumnName("Name Lastpart");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${addressString}"));
+        columnBinding.setColumnName("Address String");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${officialAreaSize}"));
         columnBinding.setColumnName("Official Area Size");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${landUseType.displayValue}"));
-        columnBinding.setColumnName("Land Use Type.display Value");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${landGradeType.displayValue}"));
         columnBinding.setColumnName("Land Grade Type.display Value");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${addressString}"));
-        columnBinding.setColumnName("Address String");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
@@ -2165,12 +2155,13 @@ public class ApplicationPanel extends ContentPanel {
         bindingGroup.addBinding(binding);
 
         jScrollPane1.setViewportView(tableParcels);
+        tableParcels.getColumnModel().getColumn(0).setPreferredWidth(60);
         tableParcels.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title0")); // NOI18N
-        tableParcels.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title1")); // NOI18N
+        tableParcels.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title3")); // NOI18N
+        tableParcels.getColumnModel().getColumn(2).setPreferredWidth(50);
         tableParcels.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title4")); // NOI18N
-        tableParcels.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title2")); // NOI18N
-        tableParcels.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title5_1")); // NOI18N
-        tableParcels.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title3")); // NOI18N
+        tableParcels.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tableParcels.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title5_1")); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);

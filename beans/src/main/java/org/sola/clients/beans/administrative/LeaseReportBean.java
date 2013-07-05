@@ -198,10 +198,8 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for the parcel land use.
      */
     public String getParcelLandUse() {
-        if (getCadastreObject() != null) {
-            if (getCadastreObject().getLandUseType() != null) {
-                return getCadastreObject().getLandUseType().toString().toUpperCase();
-            }
+        if (getLease().getLandUseType() != null) {
+            return getLease().getLandUseType().getDisplayValue().toUpperCase();
         }
         return "";
     }

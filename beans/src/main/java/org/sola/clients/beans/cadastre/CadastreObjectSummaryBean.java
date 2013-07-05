@@ -280,10 +280,7 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(VALUATION_ZONE_PROPERTY, oldValue, this.valuationZone);
     }
     
-    
-    
-    @Override
-    public String toString() {
+    public String getCode() {
         String result = "";
         if(nameFirstpart!=null){
             result = nameFirstpart;
@@ -292,5 +289,10 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
             }
         }
         return result;
+    }
+    
+    @Override
+    public String toString() {
+        return getCode();
     }
 }

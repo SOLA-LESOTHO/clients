@@ -124,6 +124,8 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String LEASE_SPECIAL_CONDITION_LIST_PROPERTY = "leaseSpecialConditionList";
     public static final String SELECTED_SPECIAL_CONDITION_PROPERTY = "selectedSpecialCondition";
     public static final String GROUND_RENT_PROPERTY = "groundRent";
+    public static final String LAND_USE_TYPE_PROPERTY = "landUseType";
+    public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
     
     private String baUnitId;
     private String nr;
@@ -156,7 +158,6 @@ public class RrrBean extends AbstractTransactionedBean {
     private transient RrrShareBean selectedShare;
     private transient boolean selected;
     private transient PartyBean selectedRightholder;
-    private String concatenatedName;
     @NotEmpty(message = ClientMessage.CHECK_NOTNULL_REGNUMBER, 
             groups={RrrValidationGroup.class}, payload = Localized.class)
     private String registrationNumber;
@@ -186,14 +187,8 @@ public class RrrBean extends AbstractTransactionedBean {
     private BigDecimal registrationFee;
     private SolaList<LeaseSpecialConditionBean> leaseSpecialConditionList;
     private transient LeaseSpecialConditionBean selectedSpecialCondition;
-    
-    public String getConcatenatedName() {
-        return concatenatedName;
-    }
-
-    public void setConcatenatedName(String concatenatedName) {
-        this.concatenatedName = concatenatedName;
-    }
+    @NotNull(message = ClientMessage.LEASE_LAND_USE_IS_NULL, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    private LandUseTypeBean landUseType;
 
     public RrrBean() {
         super();
@@ -204,6 +199,37 @@ public class RrrBean extends AbstractTransactionedBean {
         leaseSpecialConditionList = new SolaList<LeaseSpecialConditionBean>();
     }
 
+    public String getLandUseCode() {
+        if (landUseType != null) {
+            return landUseType.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public void setLandUseCode(String landUseCode) {
+        String oldValue = null;
+        if (landUseType != null) {
+            oldValue = landUseType.getCode();
+        }
+        setLandUseType(CacheManager.getBeanByCode(
+                CacheManager.getLandUseTypes(), landUseCode));
+        propertySupport.firePropertyChange(LAND_USE_CODE_PROPERTY, oldValue, landUseCode);
+    }
+    
+    public LandUseTypeBean getLandUseType() {
+        return landUseType;
+    }
+
+    public void setLandUseType(LandUseTypeBean landUseType) {
+        if(landUseType==null){
+            this.landUseType = new LandUseTypeBean();
+        }else{
+            this.landUseType = landUseType;
+        }
+        propertySupport.firePropertyChange(LAND_USE_TYPE_PROPERTY, null, this.landUseType);
+    }
+    
     public void setFirstRightholder(PartyBean rightholder) {
         if (rightHolderList.size() > 0) {
             rightHolderList.set(0, rightholder);
@@ -423,8 +449,10 @@ public class RrrBean extends AbstractTransactionedBean {
         return sourceList;
     }
 
-    @Size(min = 1, message = ClientMessage.CHECK_SIZE_SOURCELIST, payload = Localized.class)
-    @NoDuplicates(message = ClientMessage.CHECK_NODUPLICATED_SOURCELIST, payload = Localized.class)
+    @Size(min = 1, message = ClientMessage.CHECK_SIZE_SOURCELIST, 
+            groups={RrrValidationGroup.class}, payload = Localized.class)
+    @NoDuplicates(message = ClientMessage.CHECK_NODUPLICATED_SOURCELIST, 
+            groups={RrrValidationGroup.class}, payload = Localized.class)
     public ObservableList<SourceBean> getFilteredSourceList() {
         return sourceList.getFilteredList();
     }
@@ -670,6 +698,11 @@ public class RrrBean extends AbstractTransactionedBean {
             // Make a copy of current bean with new ID
             copy = this.copy();
             copy.resetIdAndVerion(true, false);
+            copy.setRegistrationDate(null);
+            copy.setRegistrationNumber(null);
+            copy.setStampDuty(null);
+            copy.setRegistrationFee(null);
+            copy.setTransferDuty(null);
         }
 
         if (rrrAction == RRR_ACTION.EDIT) {

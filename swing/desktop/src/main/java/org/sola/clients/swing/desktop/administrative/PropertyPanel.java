@@ -156,22 +156,7 @@ public class PropertyPanel extends ContentPanel {
      * the {@link BaUnitBean} and other components.
      */
     private void customizeForm() {
-
-        if (baUnitBean1.getNameFirstpart() != null && baUnitBean1.getNameLastpart() != null) {
-            headerPanel.setTitleText(String.format(
-                    resourceBundle.getString("PropertyPanel.existingProperty.Text"),
-                    baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart()));
-        } else {
-            headerPanel.setTitleText(resourceBundle.getString("PropertyPanel.newProperty.Text"));
-        }
-
-        if (applicationBean != null && applicationService != null) {
-            headerPanel.setTitleText(String.format("%s, %s",
-                    headerPanel.getTitleText(),
-                    String.format(resourceBundle.getString("PropertyPanel.applicationInfo.Text"),
-                    applicationService.getRequestType().getDisplayValue(), applicationBean.getNr())));
-        }
-
+        setFormHeader();
         btnSave.setEnabled(!readOnly);
         cadastreObject.setReadOnly(true);
         customizeRightsButtons(null);
@@ -185,9 +170,25 @@ public class PropertyPanel extends ContentPanel {
 
         btnNext.setVisible(false);
         btnNext.setEnabled(false);
-
     }
 
+    private void setFormHeader(){
+        if (baUnitBean1.getNameFirstpart() != null && baUnitBean1.getNameLastpart() != null) {
+            headerPanel.setTitleText(String.format(
+                    resourceBundle.getString("PropertyPanel.existingProperty.Text"),
+                    baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart()));
+        } else {
+            headerPanel.setTitleText(resourceBundle.getString("PropertyPanel.newProperty.Text"));
+        }
+        
+        if (applicationBean != null && applicationService != null) {
+            headerPanel.setTitleText(String.format("%s, %s",
+                    headerPanel.getTitleText(),
+                    String.format(resourceBundle.getString("PropertyPanel.applicationInfo.Text"),
+                    applicationService.getRequestType().getDisplayValue(), applicationBean.getNr())));
+        }
+    }
+    
     /**
      * Shows {@link NewPropertyWizardPanel} to select parent property.
      */

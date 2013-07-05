@@ -21,7 +21,6 @@ import org.sola.clients.beans.referencedata.LandUseTypeBean;
 public class CadastreObjectSearchParamsBean extends AbstractBindingBean {
     private String nameFirstPart;
     private String nameLastPart;
-    private LandUseTypeBean landUse;
     private String address;
     
     public CadastreObjectSearchParamsBean(){
@@ -34,20 +33,6 @@ public class CadastreObjectSearchParamsBean extends AbstractBindingBean {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getLandUseCode() {
-        if(getLandUse() == null)
-            return null;
-        return getLandUse().getCode();
-    }
-
-    public LandUseTypeBean getLandUse() {
-        return landUse;
-    }
-
-    public void setLandUse(LandUseTypeBean landUse) {
-        this.landUse = landUse;
     }
 
     public String getNameFirstPart() {

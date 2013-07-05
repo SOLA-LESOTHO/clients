@@ -39,7 +39,6 @@ public class CadastreObjectsSearchPanel extends JPanel {
         txtAddress.setEnabled(!readOnly);
         txtNameFirstPart.setEnabled(!readOnly);
         txtNameLastPart.setEnabled(!readOnly);
-        cbxLandUse.setEnabled(!readOnly);
         btnSearch.setEnabled(!readOnly);
         customizeSelectButton();
     }
@@ -109,9 +108,6 @@ public class CadastreObjectsSearchPanel extends JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNameLastPart = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        cbxLandUse = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
@@ -159,7 +155,7 @@ public class CadastreObjectsSearchPanel extends JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 83, Short.MAX_VALUE))
             .addComponent(txtNameFirstPart)
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,7 +179,7 @@ public class CadastreObjectsSearchPanel extends JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addGap(0, 40, Short.MAX_VALUE))
+                .addGap(0, 84, Short.MAX_VALUE))
             .addComponent(txtNameLastPart)
         );
         jPanel2Layout.setVerticalGroup(
@@ -196,33 +192,6 @@ public class CadastreObjectsSearchPanel extends JPanel {
 
         jPanel7.add(jPanel2);
 
-        jLabel3.setText(bundle.getString("CadastreObjectsSearchPanel.jLabel3.text")); // NOI18N
-
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${landUseTypeList}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, landUses, eLProperty, cbxLandUse);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectSearchParams, org.jdesktop.beansbinding.ELProperty.create("${landUse}"), cbxLandUse, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(cbxLandUse, 0, 117, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxLandUse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel7.add(jPanel3);
-
         jLabel4.setText(bundle.getString("CadastreObjectsSearchPanel.jLabel4.text")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectSearchParams, org.jdesktop.beansbinding.ELProperty.create("${address}"), txtAddress, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -234,7 +203,7 @@ public class CadastreObjectsSearchPanel extends JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel4)
-                .addGap(0, 74, Short.MAX_VALUE))
+                .addGap(0, 118, Short.MAX_VALUE))
             .addComponent(txtAddress)
         );
         jPanel4Layout.setVerticalGroup(
@@ -290,18 +259,10 @@ public class CadastreObjectsSearchPanel extends JPanel {
 
         tableCadastreObjects.setComponentPopupMenu(popupSearchResults);
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjects}");
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjects}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjects, eLProperty, tableCadastreObjects);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"));
-        columnBinding.setColumnName("Name Firstpart");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameLastpart}"));
-        columnBinding.setColumnName("Name Lastpart");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${landUseType.displayValue}"));
-        columnBinding.setColumnName("Land Use Type.display Value");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${code}"));
+        columnBinding.setColumnName("Code");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${landGradeType.displayValue}"));
@@ -334,14 +295,12 @@ public class CadastreObjectsSearchPanel extends JPanel {
 
         jScrollPane1.setViewportView(tableCadastreObjects);
         tableCadastreObjects.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title0_1")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title1_1")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title2_1")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title7")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title3_1")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title6")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title8")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title4")); // NOI18N
-        tableCadastreObjects.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title5")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title7")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title3_1")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title6")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title8")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title4")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title5")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -386,16 +345,13 @@ public class CadastreObjectsSearchPanel extends JPanel {
     private org.sola.clients.swing.common.buttons.BtnSelect btnSelect;
     private org.sola.clients.beans.cadastre.CadastreObjectSearchParamsBean cadastreObjectSearchParams;
     private org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean cadastreObjects;
-    private javax.swing.JComboBox cbxLandUse;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
