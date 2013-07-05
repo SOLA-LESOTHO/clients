@@ -203,9 +203,7 @@ public class RrrReportBean extends AbstractBindingBean {
      */
     public String getFirstParcelLandUse() {
         if (getBaUnit().getCadastreObject()!=null) {
-            if (getBaUnit().getCadastreObject().getLandUseType() != null) {
-                return getBaUnit().getCadastreObject().getLandUseType().toString();
-            }
+            return "";
         }
         return "";
     }

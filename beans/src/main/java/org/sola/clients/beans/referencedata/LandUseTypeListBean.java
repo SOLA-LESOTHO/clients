@@ -40,58 +40,16 @@ import org.sola.clients.beans.controls.SolaCodeList;
 public class LandUseTypeListBean extends AbstractBindingListBean {
 
     public static final String SELECTED_LAND_USE_TYPE_PROPERTY = "selectedLandUseType";
-    private SolaCodeList<LandUseTypeBean> landUseTypeList;
-    private LandUseTypeBean selectedLandUseType;
+   
+    //private LandUseTypeBean selectedLandUseType;
 
     /**
      * Initializes object's instance and populates {@link ObservableList}&lt;
      * {@link LandUseTypeBean} &gt; with values from the cache.
      */
     public LandUseTypeListBean() {
-        this(false);
+       
     }
 
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public LandUseTypeListBean(boolean createDummy) {
-        this(createDummy, (String) null);
-    }
     
-    /** 
-     * Creates object instance.
-     * @param createDummy Indicates whether to add empty object on the list.
-     * @param excludedCodes Codes, which should be skipped while filtering.
-     */
-    public LandUseTypeListBean(boolean createDummy, String ... excludedCodes) {
-        super();
-        landUseTypeList = new SolaCodeList<LandUseTypeBean>(excludedCodes);
-        loadList(createDummy);
-    }
-    
-    /** 
-     * Loads list of {@link IdTypeBean}.
-     * @param createDummy Indicates whether to add empty object on the list.
-     */
-    public final void loadList(boolean createDummy) {
-        loadCodeList(LandUseTypeBean.class, landUseTypeList, CacheManager.getLandUseTypes(), createDummy);
-    }
-    
-    public void setExcludedCodes(String ... codes){
-        landUseTypeList.setExcludedCodes(codes);
-    }
-    
-    public ObservableList<LandUseTypeBean> getLandUseTypeList() {
-        return landUseTypeList.getFilteredList();
-    }
-
-    public LandUseTypeBean getSelectedLandUseType() {
-        return selectedLandUseType;
-    }
-
-    public void setSelectedLandUseType(LandUseTypeBean selectedLandUseType) {
-        this.selectedLandUseType = selectedLandUseType;
-        propertySupport.firePropertyChange(SELECTED_LAND_USE_TYPE_PROPERTY, null, selectedLandUseType);
-    }
 }

@@ -106,7 +106,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         //txtLastPart.setEnabled(enabled);
         txtArea.setEnabled(enabled);
         cbxEstateType.setEnabled(enabled);
-        cbxLandUse.setEnabled(enabled);
+        cbxRoadClass.setEnabled(enabled);
         txtSurveyDate.setEnabled(enabled);
         txtSurveyFee.setEnabled(enabled);
         txtSurveyor.setEnabled(enabled);
@@ -187,12 +187,12 @@ public class ParcelPanel extends javax.swing.JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         cadastreObjectTypeListBean1 = new org.sola.clients.beans.referencedata.CadastreObjectTypeListBean();
-        landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         popUpAddresses = new javax.swing.JPopupMenu();
         menuAdd1 = new org.sola.clients.swing.common.menuitems.MenuAdd();
         menuEdit1 = new org.sola.clients.swing.common.menuitems.MenuEdit();
         menuRemove1 = new org.sola.clients.swing.common.menuitems.MenuRemove();
         landGradeTypeListBean1 = new org.sola.clients.beans.referencedata.LandGradeTypeListBean();
+        roadClassTypeListBean1 = new org.sola.clients.beans.referencedata.RoadClassTypeListBean();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -221,7 +221,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         txtSurveyFee = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         labLandUse = new javax.swing.JLabel();
-        cbxLandUse = new javax.swing.JComboBox();
+        cbxRoadClass = new javax.swing.JComboBox();
         jPanel8 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtValuationAmount = new javax.swing.JFormattedTextField();
@@ -549,12 +549,12 @@ public class ParcelPanel extends javax.swing.JPanel {
         labLandUse.setText(bundle.getString("ParcelPanel.labLandUse.text")); // NOI18N
         labLandUse.setName(bundle.getString("ParcelPanel.labLandUse.name")); // NOI18N
 
-        cbxLandUse.setName(bundle.getString("ParcelPanel.cbxLandUse.name")); // NOI18N
+        cbxRoadClass.setName(bundle.getString("ParcelPanel.cbxRoadClass.name")); // NOI18N
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${landUseTypeList}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, landUseTypeListBean1, eLProperty, cbxLandUse);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${roadClassTypeList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, roadClassTypeListBean1, eLProperty, cbxRoadClass);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.landUseType}"), cbxLandUse, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.roadClassType}"), cbxRoadClass, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
@@ -563,15 +563,15 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel6Layout.createSequentialGroup()
                 .add(labLandUse)
-                .add(0, 99, Short.MAX_VALUE))
-            .add(cbxLandUse, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(0, 90, Short.MAX_VALUE))
+            .add(cbxRoadClass, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel6Layout.createSequentialGroup()
                 .add(labLandUse)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cbxLandUse, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(cbxRoadClass, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(0, 2, Short.MAX_VALUE))
         );
 
@@ -804,7 +804,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     private org.sola.clients.beans.referencedata.CadastreObjectTypeListBean cadastreObjectTypeListBean1;
     private javax.swing.JComboBox cbxEstateType;
     private javax.swing.JComboBox cbxLandGrade;
-    private javax.swing.JComboBox cbxLandUse;
+    private javax.swing.JComboBox cbxRoadClass;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -837,11 +837,11 @@ public class ParcelPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labLandUse;
     private javax.swing.JLabel labLandUse1;
     private org.sola.clients.beans.referencedata.LandGradeTypeListBean landGradeTypeListBean1;
-    private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
     private org.sola.clients.swing.common.menuitems.MenuAdd menuAdd1;
     private org.sola.clients.swing.common.menuitems.MenuEdit menuEdit1;
     private org.sola.clients.swing.common.menuitems.MenuRemove menuRemove1;
     private javax.swing.JPopupMenu popUpAddresses;
+    private org.sola.clients.beans.referencedata.RoadClassTypeListBean roadClassTypeListBean1;
     private javax.swing.JFormattedTextField txtArea;
     private javax.swing.JTextField txtFirstPart;
     private javax.swing.JTextField txtLastPart;

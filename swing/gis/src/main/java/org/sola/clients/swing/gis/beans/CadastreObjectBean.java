@@ -40,10 +40,7 @@ import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.cadastre.SpatialValueAreaBean;
 import org.sola.clients.beans.controls.SolaList;
-import org.sola.clients.beans.referencedata.CadastreObjectTypeBean;
-import org.sola.clients.beans.referencedata.LandGradeTypeBean;
-import org.sola.clients.beans.referencedata.LandUseTypeBean;
-import org.sola.clients.beans.referencedata.RegistrationStatusTypeBean;
+import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.services.boundary.wsclients.WSManager;
@@ -69,8 +66,6 @@ public class CadastreObjectBean extends SpatialBean {
     public static final String NAME_FIRSTPART_PROPERTY = "nameFirstpart";
     public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
     public static final String CADASTRE_OBJECT_TYPE_PROPERTY = "cadastreObjectType";
-    public static final String LAND_USE_TYPE_PROPERTY = "landUseType";
-    public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
     public static final String VALUATION_AMOUNT_PROPERTY = "valuationAmount";
     public static final String SURVEYOR_PROPERTY = "surveyor";
     public static final String SURVEY_DATE_PROPERTY = "surveyDate";
@@ -83,6 +78,8 @@ public class CadastreObjectBean extends SpatialBean {
     public static final String STATUS_CODE_PROPERTY = "statusCode";
     public static final String STATUS_PROPERTY = "status";
     public static final String ADDRESS_STRING_PROPERTY = "addressString";
+    public static final String ROAD_CLAS_TYPE_PROPERTY = "roadClassType";
+    public static final String ROAD_CLASS_CODE_PROPERTY = "roadClassCode";
     
     private String id;
     private byte[] geomPolygon;
@@ -99,8 +96,8 @@ public class CadastreObjectBean extends SpatialBean {
     private Date surveyDate;
     private String surveyor;
     private String remarks;
-    private LandUseTypeBean landUseType;
     private LandGradeTypeBean landGradeType;
+    private RoadClassTypeBean roadClassType;
     private BigDecimal surveyFee;
     private String valuationZone;
     private RegistrationStatusTypeBean status;
@@ -352,23 +349,7 @@ public class CadastreObjectBean extends SpatialBean {
                 CacheManager.getCadastreObjectTypes(), typeCode));
         propertySupport.firePropertyChange(TYPE_CODE_PROPERTY, oldValue, typeCode);
     }
-    public String getLandUseCode() {
-        if (landUseType != null) {
-            return landUseType.getCode();
-        } else {
-            return null;
-        }
-    }
-
-    public void setLandUseCode(String landUseCode) {
-        String oldValue = null;
-        if (landUseType != null) {
-            oldValue = landUseType.getCode();
-        }
-        setLandUseType(CacheManager.getBeanByCode(
-                CacheManager.getLandUseTypes(), landUseCode));
-        propertySupport.firePropertyChange(LAND_USE_CODE_PROPERTY, oldValue, landUseCode);
-    }
+    
 
     public CadastreObjectTypeBean getCadastreObjectType() {
         return cadastreObjectType;
@@ -382,19 +363,7 @@ public class CadastreObjectBean extends SpatialBean {
         }
         propertySupport.firePropertyChange(CADASTRE_OBJECT_TYPE_PROPERTY, null, this.cadastreObjectType);
     }
-    
-    public LandUseTypeBean getLandUseType() {
-        return landUseType;
-    }
-
-    public void setLandUseType(LandUseTypeBean landUseType) {
-        if(landUseType==null){
-            this.landUseType = new LandUseTypeBean();
-        } else {
-            this.landUseType = landUseType;
-        }
-        propertySupport.firePropertyChange(LAND_USE_TYPE_PROPERTY, null, this.landUseType);
-    }
+   
 
     public String getRemarks() {
         return remarks;
@@ -444,6 +413,39 @@ public class CadastreObjectBean extends SpatialBean {
         BigDecimal oldValue = this.surveyFee;
         this.surveyFee = surveyFee;
         propertySupport.firePropertyChange(SURVEY_FEE_PROPERTY, oldValue, this.surveyFee);
+    }
+    
+    public RoadClassTypeBean getRoadClassType(){
+        return roadClassType;
+    }
+    
+    public void setRoadClassType(RoadClassTypeBean roadClassType){
+        if (roadClassType == null){
+            this.roadClassType = new RoadClassTypeBean();
+        }else{
+            this.roadClassType = roadClassType;
+        }
+        propertySupport.firePropertyChange(ROAD_CLAS_TYPE_PROPERTY, null, roadClassType);
+    }
+    
+    public String getRoadClassCode(){
+        if (roadClassType != null){
+            return roadClassType.getCode();
+        }else
+        {
+            return null;
+        }
+    }
+    
+    public void setRoadClassCode(String roadClassCode){
+        String oldValue = null;
+        if (roadClassType != null){
+            oldValue = roadClassType.getCode();
+        }
+        setRoadClassType(CacheManager.getBeanByCode(
+                            CacheManager.getRoadClassType(),roadClassCode));
+        
+        propertySupport.firePropertyChange(ROAD_CLASS_CODE_PROPERTY, oldValue, roadClassCode);
     }
     
     public LandGradeTypeBean getLandGradeType() {
