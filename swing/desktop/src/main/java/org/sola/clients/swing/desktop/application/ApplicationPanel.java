@@ -43,7 +43,6 @@ import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.observablecollections.ObservableListListener;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
-import org.sola.clients.beans.administrative.LeaseBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationDocumentsHelperBean;
@@ -588,21 +587,6 @@ public class ApplicationPanel extends ContentPanel {
             };
             TaskManager.getInstance().runTask(t);
         }
-    }
-
-    private void openLeasePreparation(final LeaseBean lease,
-            final ApplicationServiceBean service, final boolean readOnly) {
-        SolaTask t = new SolaTask<Void, Void>() {
-
-            @Override
-            public Void doTask() {
-                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_LEASE_PREPARATION));
-                LeasePreparationForm form = new LeasePreparationForm(lease, appBean, service, readOnly);
-                getMainContentPanel().addPanel(form, MainContentPanel.CARD_LEASE_PREPARATION, true);
-                return null;
-            }
-        };
-        TaskManager.getInstance().runTask(t);
     }
 
     private void launchService(final ApplicationServiceBean service, final boolean readOnly) {

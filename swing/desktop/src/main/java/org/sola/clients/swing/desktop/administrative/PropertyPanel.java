@@ -33,7 +33,6 @@ import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.ImageIcon;
-import net.sf.jasperreports.engine.JasperPrint;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.Bindings;
 import org.sola.clients.beans.administrative.*;
@@ -41,15 +40,12 @@ import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
-import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.security.SecurityBean;
-import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
-import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.clients.swing.desktop.cadastre.CadastreObjectSearchForm;
 import org.sola.clients.swing.gis.ui.controlsbundle.ControlsBundleForBaUnit;
 import org.sola.clients.swing.ui.ContentPanel;
@@ -62,8 +58,6 @@ import org.sola.common.StringUtility;
 import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
-import org.sola.services.boundary.wsclients.WSManager;
-import org.sola.webservices.transferobjects.administrative.BaUnitTO;
 
 /**
  * This form is used to manage property object ({
@@ -72,21 +66,6 @@ import org.sola.webservices.transferobjects.administrative.BaUnitTO;
  */
 public class PropertyPanel extends ContentPanel {
 
-    /**
-     * Listens for events of different right forms, to add created right into
-     * the list of rights or update existing one.
-     */
-    private class RightFormListener implements PropertyChangeListener {
-
-        @Override
-        public void propertyChange(PropertyChangeEvent evt) {
-            // Add new RRR
-            if (evt.getNewValue() != null) {
-                baUnitBean1.addRrr((RrrBean) evt.getNewValue());
-                tableRights.clearSelection();
-            }
-        }
-    }
     private ApplicationBean applicationBean;
     private ApplicationServiceBean applicationService;
     private String baUnitID;
@@ -147,7 +126,7 @@ public class PropertyPanel extends ContentPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(RrrTypeListBean.SELECTED_RRR_TYPE_PROPERTY)) {
-                    customizeCreateRightButton((RrrTypeBean) evt.getNewValue());
+                    customizeCreateRightButton();
                 }
             }
         });
@@ -443,7 +422,7 @@ public class PropertyPanel extends ContentPanel {
         } else {
             cbxRightType.setEnabled(false);
         }
-        customizeCreateRightButton(rrrTypes.getSelectedRrrType());
+        customizeCreateRightButton();
     }
 
     /**
@@ -471,13 +450,22 @@ public class PropertyPanel extends ContentPanel {
      * Enables or disables button for creating new right, depending on the form
      * state.
      */
-    private void customizeCreateRightButton(RrrTypeBean rrrTypeBean) {
-        if (rrrTypeBean != null && rrrTypeBean.getCode() != null
-                && !readOnly && isActionAllowed(RrrTypeActionConstants.NEW)) {
-            btnCreateRight.setEnabled(true);
-        } else {
-            btnCreateRight.setEnabled(false);
+    private void customizeCreateRightButton() {
+        RrrTypeBean selectedRrrType = rrrTypes.getSelectedRrrType();
+        boolean enabled = selectedRrrType != null && selectedRrrType.getCode() != null
+                && !readOnly && isActionAllowed(RrrTypeActionConstants.NEW);
+        if(enabled){
+            // Check if lease already in the list
+            if(selectedRrrType.getCode().equals(RrrBean.CODE_LEASE)){
+                for(RrrBean rrr: baUnitBean1.getRrrFilteredList()){
+                    if(StringUtility.empty(rrr.getTypeCode()).equals(RrrBean.CODE_LEASE)){
+                        enabled = false;
+                        break;
+                    }
+                }
+            }
         }
+        btnCreateRight.setEnabled(enabled);
     }
 
     /**
@@ -580,6 +568,7 @@ public class PropertyPanel extends ContentPanel {
         if (baUnitBean1.getSelectedRight() != null
                 && MessageUtility.displayMessage(ClientMessage.CONFIRM_DELETE_RECORD) == MessageUtility.BUTTON_ONE) {
             baUnitBean1.removeSelectedRight();
+            customizeCreateRightButton();
         }
     }
 
@@ -657,7 +646,19 @@ public class PropertyPanel extends ContentPanel {
             rrrBean.setTypeCode(rrrTypes.getSelectedRrrType().getCode());
         }
 
-        RightFormListener rightFormListener = new RightFormListener();
+        PropertyChangeListener rightFormListener = new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                // Add new RRR
+                if (evt.getNewValue() != null) {
+                    baUnitBean1.addRrr((RrrBean) evt.getNewValue());
+                    tableRights.clearSelection();
+                    customizeCreateRightButton();
+                }
+            }
+        };
+        
         ContentPanel panel;
         String cardName = MainContentPanel.CARD_SIMPLE_RIGHT;
         String rrrCode = rrrBean.getRrrType().getCode();
@@ -1099,6 +1100,10 @@ public class PropertyPanel extends ContentPanel {
 
         lblStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblStatus.setName(bundle.getString("PropertyPanel.lblStatus.name")); // NOI18N
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"), lblStatus, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jToolBar5.add(lblStatus);
 
         jScrollPane6.setBorder(null);
@@ -1187,8 +1192,12 @@ public class PropertyPanel extends ContentPanel {
         columnBinding.setColumnName("Registration Date");
         columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${concatenatedName}"));
-        columnBinding.setColumnName("Concatenated Name");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightholdersString}"));
+        columnBinding.setColumnName("Rightholders String");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${notation.notationText}"));
+        columnBinding.setColumnName("Notation.notation Text");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"));
@@ -1196,7 +1205,7 @@ public class PropertyPanel extends ContentPanel {
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${selectedRight}"), tableRights, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${selectedRight}"), tableRights, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         tableRights.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1215,10 +1224,12 @@ public class PropertyPanel extends ContentPanel {
         tableRights.getColumnModel().getColumn(2).setMaxWidth(120);
         tableRights.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.tableRights.columnModel.title1")); // NOI18N
         tableRights.getColumnModel().getColumn(2).setCellRenderer(new DateTimeRenderer());
-        tableRights.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertyPanel.tableRights.columnModel.title4_1")); // NOI18N
-        tableRights.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tableRights.getColumnModel().getColumn(4).setMaxWidth(100);
-        tableRights.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("PropertyPanel.tableRights.columnModel.title2")); // NOI18N
+        tableRights.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertyPanel.tableRights.columnModel.title5")); // NOI18N
+        tableRights.getColumnModel().getColumn(3).setCellRenderer(new CellDelimitedListRenderer(", "));
+        tableRights.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("PropertyPanel.tableRights.columnModel.title4_1")); // NOI18N
+        tableRights.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tableRights.getColumnModel().getColumn(5).setMaxWidth(100);
+        tableRights.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("PropertyPanel.tableRights.columnModel.title2")); // NOI18N
 
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
@@ -1374,8 +1385,12 @@ public class PropertyPanel extends ContentPanel {
         columnBinding.setColumnName("Registration Date");
         columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${concatenatedName}"));
-        columnBinding.setColumnName("Concatenated Name");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightholdersString}"));
+        columnBinding.setColumnName("Rightholders String");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${notation.notationText}"));
+        columnBinding.setColumnName("Notation.notation Text");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"));
@@ -1402,10 +1417,11 @@ public class PropertyPanel extends ContentPanel {
         tableRightsHistory.getColumnModel().getColumn(2).setMaxWidth(120);
         tableRightsHistory.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.tableRightsHistory.columnModel.title1")); // NOI18N
         tableRightsHistory.getColumnModel().getColumn(2).setCellRenderer(new DateTimeRenderer());
-        tableRightsHistory.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertyPanel.tableRightsHistory.columnModel.title4")); // NOI18N
-        tableRightsHistory.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tableRightsHistory.getColumnModel().getColumn(4).setMaxWidth(100);
-        tableRightsHistory.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("PropertyPanel.tableRightsHistory.columnModel.title2")); // NOI18N
+        tableRightsHistory.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertyPanel.tableRightsHistory.columnModel.title5")); // NOI18N
+        tableRightsHistory.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("PropertyPanel.tableRightsHistory.columnModel.title4")); // NOI18N
+        tableRightsHistory.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tableRightsHistory.getColumnModel().getColumn(5).setMaxWidth(100);
+        tableRightsHistory.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("PropertyPanel.tableRightsHistory.columnModel.title2")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel17Layout = new org.jdesktop.layout.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -1500,10 +1516,6 @@ public class PropertyPanel extends ContentPanel {
         columnBinding.setColumnName("Change Time");
         columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"));
-        columnBinding.setColumnName("Status.display Value");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${selectedBaUnitNotation}"), tableNotations, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -1517,9 +1529,6 @@ public class PropertyPanel extends ContentPanel {
         tableNotations.getColumnModel().getColumn(2).setMaxWidth(120);
         tableNotations.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.tableNotations.columnModel.title3")); // NOI18N
         tableNotations.getColumnModel().getColumn(2).setCellRenderer(new DateTimeRenderer());
-        tableNotations.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tableNotations.getColumnModel().getColumn(3).setMaxWidth(100);
-        tableNotations.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertyPanel.tableNotations.columnModel.title2")); // NOI18N
 
         jToolBar3.setFloatable(false);
         jToolBar3.setRollover(true);

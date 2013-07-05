@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="757a9111-60e2-4019-9050-5bca15097a54">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="504"/>
+	<property name="ireport.y" value="410"/>
 	<subDataset name="SpecialConditions" uuid="b34b4205-264c-42c6-b1fa-9a686e749301">
 		<queryString>
 			<![CDATA[]]>
@@ -41,7 +41,7 @@
 	<field name="applicantName" class="java.lang.String">
 		<fieldDescription><![CDATA[applicantName]]></fieldDescription>
 	</field>
-	<field name="lease" class="org.sola.clients.beans.administrative.LeaseBean">
+	<field name="lease" class="org.sola.clients.beans.administrative.RrrBean">
 		<fieldDescription><![CDATA[lease]]></fieldDescription>
 	</field>
 	<field name="freeText" class="java.lang.String">
@@ -143,7 +143,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="337" splitType="Stretch">
+		<band height="332" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="0b4be9cc-61a6-4127-a841-66bfab1f8ed2" x="0" y="38" width="172" height="17"/>
 				<textElement>
@@ -202,7 +202,7 @@ $F{parcelLandUse}
 )]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement uuid="1d13bc14-dbef-4299-8330-b5abf8acaa0e" positionType="Float" x="0" y="244" width="511" height="22"/>
+				<reportElement uuid="1d13bc14-dbef-4299-8330-b5abf8acaa0e" positionType="Float" x="0" y="247" width="511" height="22"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="SpecialConditions" uuid="739370d2-eb6c-4336-ab3e-ccb10ec39909">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{lease}.getLeaseSpecialConditionList().toArray())]]></dataSourceExpression>
@@ -227,7 +227,7 @@ $F{parcelLandUse}
 				</jr:list>
 			</componentElement>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b0781255-e41a-4e77-9210-7dbb5472b22a" positionType="Float" x="0" y="270" width="511" height="17"/>
+				<reportElement uuid="b0781255-e41a-4e77-9210-7dbb5472b22a" positionType="Float" x="0" y="273" width="511" height="17"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
@@ -290,7 +290,7 @@ $F{groundRent}, $F{leaseStartDay}, $F{leaseStartMonthAndYear}, $F{leaseTermWord}
 $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b0781255-e41a-4e77-9210-7dbb5472b22a" positionType="Float" x="1" y="315" width="511" height="18"/>
+				<reportElement uuid="b0781255-e41a-4e77-9210-7dbb5472b22a" positionType="Float" x="1" y="311" width="511" height="18"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
@@ -305,9 +305,9 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 				<reportElement uuid="81256b3d-9aab-41df-86eb-a9bd735424cb" positionType="Float" x="0" y="219" width="511" height="1"/>
 			</break>
 		</band>
-		<band height="250">
+		<band height="190">
 			<line>
-				<reportElement uuid="3713e858-33d1-49f0-90d0-06ae7820dbf2" positionType="Float" x="0" y="242" width="510" height="1"/>
+				<reportElement uuid="3713e858-33d1-49f0-90d0-06ae7820dbf2" positionType="Float" x="0" y="186" width="510" height="1"/>
 			</line>
 			<staticText>
 				<reportElement uuid="9f5b2d22-24a7-4b62-a5e1-9313833b2ca5" positionType="Float" x="1" y="42" width="172" height="36"/>
@@ -337,41 +337,44 @@ Land Administration Authority]]></text>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="305" y="108" width="202" height="23"/>
+				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="305" y="102" width="202" height="23"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Witness       (signature)]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae" positionType="Float" x="305" y="101" width="202" height="1"/>
+				<reportElement uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae" positionType="Float" x="305" y="95" width="202" height="1"/>
 				<graphicElement>
 					<pen lineWidth="1.25" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="305" y="141" width="39" height="18"/>
+				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="305" y="135" width="39" height="18"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Name:]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae" positionType="Float" x="344" y="153" width="163" height="1"/>
+				<reportElement uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae" positionType="Float" x="344" y="147" width="163" height="1"/>
 				<graphicElement>
 					<pen lineWidth="1.25" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
-			<staticText>
-				<reportElement uuid="9f5b2d22-24a7-4b62-a5e1-9313833b2ca5" positionType="Float" x="1" y="169" width="511" height="69">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b0781255-e41a-4e77-9210-7dbb5472b22a" positionType="Float" x="1" y="162" width="506" height="18">
 					<printWhenExpression><![CDATA[$F{lesseePrivate} == false]]></printWhenExpression>
 				</reportElement>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<text><![CDATA[Where the lessee is legal entity the capacity of the signatory is: …….………………………… in exercise of the powers conferred on him/her by a Power of Attorney No. …………………. / resolution of the Board of Directors of the Lessee / …………………………………………. dated the ……..…….. day of …………. 20……. a certified copy of which is attached hereto.
-Seal affixed in the presence of the witness.]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA["Where the lessee is legal entity the capacity of the signatory is: …….………………………… " +
+"in exercise of the powers conferred on him/her by a Power of Attorney No. …………………. / " +
+"resolution of the Board of Directors of the Lessee / …………………………………………. dated the" +
+" ……..…….. day of …………. 20……. a certified copy of which is attached hereto." +
+"Seal affixed in the presence of the witness."]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="184">
 			<break>

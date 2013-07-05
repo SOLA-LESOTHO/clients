@@ -101,7 +101,7 @@ public class PartyListPanel extends javax.swing.JPanel {
         setupPersonList(personList);
     }
 
-    public PartySummaryBean getSelectedPerson() {
+    public PartyBean getSelectedPerson() {
         return selectedPerson;
     }
 

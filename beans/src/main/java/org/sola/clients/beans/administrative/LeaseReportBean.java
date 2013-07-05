@@ -22,6 +22,7 @@ import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.common.DateUtility;
 import org.sola.common.NumberToWords;
@@ -86,7 +87,7 @@ public class LeaseReportBean extends AbstractBindingBean {
     }
 
     public CadastreObjectBean getCadastreObject() {
-        if(cadastreObject==null){
+        if (cadastreObject == null) {
             cadastreObject = new CadastreObjectBean();
         }
         return cadastreObject;
@@ -349,23 +350,32 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut to lessee address.
      */
     public String getLesseeAddress() {
-        if (getLease().getRightHolderList().size()>0 && getLease().getRightHolderList().get(0).getAddress() != null) {
-            return StringUtility.empty(getLease().getRightHolderList().get(0)
-                    .getAddress().getDescription()).toUpperCase();
-        } else {
-            return "";
+        String address = "";
+        if (getLease().getRightHolderList().size() > 0) {
+            for (PartyBean party : getLease().getFilteredRightHolderList()) {
+                if (party.getAddress() != null && !StringUtility.empty(party.getAddress().getDescription()).equals("")) {
+                    address = party.getAddress().getDescription();
+                    break;
+                }
+            }
         }
+        return address.toUpperCase();
     }
 
     /**
      * Shortcut to lessees marital status.
      */
     public String getLesseeMaritalStatus() {
-        if (getLease().getRightHolderList().size()>0 && getLease().getRightHolderList().get(0).getLegalType()!=null) {
-            return getLease().getRightHolderList().get(0).getLegalType();
-        } else {
-            return "";
+        String legalStatus = "";
+        if (getLease().getRightHolderList().size() > 0) {
+            for (PartyBean party : getLease().getFilteredRightHolderList()) {
+                if (!StringUtility.empty(party.getLegalType()).equals("")) {
+                    legalStatus = party.getLegalType();
+                    break;
+                }
+            }
         }
+        return legalStatus.toUpperCase();
     }
 
     /**
@@ -373,8 +383,8 @@ public class LeaseReportBean extends AbstractBindingBean {
      */
     public String getLessees() {
         String lessess = "";
-        if (getLease().getRightHolderList() != null && getLease().getRightHolderList().size() > 0) {
-            for (PartySummaryBean party : getLease().getRightHolderList()) {
+        if (getLease().getFilteredRightHolderList() != null && getLease().getFilteredRightHolderList().size() > 0) {
+            for (PartyBean party : getLease().getFilteredRightHolderList()) {
                 if (lessess.equals("")) {
                     lessess = party.getFullName();
                 } else {
@@ -384,16 +394,18 @@ public class LeaseReportBean extends AbstractBindingBean {
         }
         return lessess.toUpperCase();
     }
-    
-    /** Returns true is lessee is private, otherwise false */
-    public boolean isLesseePrivate(){
+
+    /**
+     * Returns true is lessee is private, otherwise false
+     */
+    public boolean isLesseePrivate() {
         boolean result = true;
-        if(getLease().getRightHolderList()!=null && getLease().getRightHolderList().size()>0){
+        if (getLease().getRightHolderList() != null && getLease().getRightHolderList().size() > 0) {
             result = getLease().getRightHolderList().get(0).getTypeCode().equalsIgnoreCase("naturalPerson");
         }
         return result;
     }
-            
+
     /**
      * Shortcut to lessees and marital status.
      */
@@ -421,7 +433,7 @@ public class LeaseReportBean extends AbstractBindingBean {
         }
         return String.valueOf(result);
     }
-    
+
     /**
      * Calculates and returns lease term in years transformed into words.
      */

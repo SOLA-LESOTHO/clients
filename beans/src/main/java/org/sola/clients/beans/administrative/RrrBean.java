@@ -498,6 +498,10 @@ public class RrrBean extends AbstractTransactionedBean {
         return leaseSpecialConditionList;
     }
 
+    public void setLeaseSpecialConditionList(SolaList<LeaseSpecialConditionBean> leaseSpecialConditionList) {
+        this.leaseSpecialConditionList = leaseSpecialConditionList;
+    }
+
     public BigDecimal getRegistrationFee() {
         return registrationFee;
     }
@@ -565,6 +569,23 @@ public class RrrBean extends AbstractTransactionedBean {
         return rightHolderList.getFilteredList();
     }
 
+    /**
+     * Shortcut to rightholders names.
+     */
+    public String getRightholdersString() {
+        String rightholders = "";
+        if (getFilteredRightHolderList() != null && getFilteredRightHolderList().size() > 0) {
+            for (PartyBean party : getFilteredRightHolderList()) {
+                if (rightholders.equals("")) {
+                    rightholders = party.getFullName();
+                } else {
+                    rightholders = rightholders + ", " + party.getFullName();
+                }
+            }
+        }
+        return rightholders;
+    }
+    
     @Size(min = 1, groups = {SimpleOwnershipValidationGroup.class, LeaseValidationGroup.class},
             message = ClientMessage.CHECK_SIZE_OWNERSLIST, payload = Localized.class)
     private ObservableList<PartyBean> getFilteredOwnersList() {

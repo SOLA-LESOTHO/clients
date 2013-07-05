@@ -17,7 +17,6 @@ package org.sola.clients.beans.administrative.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import org.sola.clients.beans.administrative.LeaseBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.common.StringUtility;

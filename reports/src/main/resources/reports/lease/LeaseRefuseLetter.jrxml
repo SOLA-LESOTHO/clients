@@ -34,7 +34,7 @@
 	<field name="serviceName" class="java.lang.String">
 		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
 	</field>
-	<field name="lease" class="org.sola.clients.beans.administrative.LeaseBean">
+	<field name="lease" class="org.sola.clients.beans.administrative.RrrBean">
 		<fieldDescription><![CDATA[lease]]></fieldDescription>
 	</field>
 	<field name="leaseExpirationMonthAndYear" class="java.lang.String">

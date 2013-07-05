@@ -31,6 +31,10 @@ package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.validation.groups.Default;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -68,7 +72,6 @@ import org.sola.common.StringUtility;
 import org.sola.common.WindowUtility;
 import org.sola.common.logging.LogUtility;
 
-
 /**
  * Form for managing simple ownership right. {@link RrrBean} is used to bind the
  * data on the form.
@@ -99,7 +102,7 @@ public class LeasePanel extends ContentPanel {
                 rrrBean.getSourceList(), applicationBean, allowEdit);
         return panel;
     }
-    
+
     private PartyListExtPanel createPartyListPanel() {
         return new PartyListExtPanel(rrrBean.getRightHolderList());
     }
@@ -132,18 +135,22 @@ public class LeasePanel extends ContentPanel {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(RrrBean.SELECTED_SPECIAL_CONDITION_PROPERTY)){
+                if (evt.getPropertyName().equals(RrrBean.SELECTED_SPECIAL_CONDITION_PROPERTY)) {
                     customizeConditionButtons();
                 }
             }
         });
-        
+
         customizeForm();
         saveRrrState();
     }
 
     private void customizeForm() {
         headerPanel.setTitleText(rrrBean.getRrrType().getDisplayValue());
+        if(!StringUtility.isEmpty(rrrBean.getLeaseNumber())){
+            headerPanel.setTitleText(headerPanel.getTitleText() + " #" + rrrBean.getLeaseNumber());
+        }
+        
         if (rrrAction == RrrBean.RRR_ACTION.NEW) {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                     ClientMessage.GENERAL_LABELS_CREATE_AND_CLOSE).getMessage());
@@ -153,28 +160,22 @@ public class LeasePanel extends ContentPanel {
                     ClientMessage.GENERAL_LABELS_TERMINATE_AND_CLOSE).getMessage());
         }
 
-        if (rrrAction != RrrBean.RRR_ACTION.EDIT && rrrAction != RrrBean.RRR_ACTION.VIEW
-                && appService != null) {
-            // Set default noation text from the selected application service
-            txtNotationText.setText(appService.getRequestType().getNotationTemplate());
-        }
-
         boolean enabled = rrrAction != RrrBean.RRR_ACTION.VIEW;
         boolean regEnabled = enabled && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_REGISTER_LEASE);
         boolean leaseEnabled = enabled && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
-        
+
         // Common fields for registration and lease management
         btnSave.setEnabled(enabled);
         txtStampDuty.setEnabled(enabled);
-        
+
         // Registration part
         txtNotationText.setEnabled(regEnabled);
-        txtRegDatetime.setEditable(regEnabled);
-        txtRegistrationNumber.setEditable(regEnabled);
-        txtTransferDuty.setEditable(regEnabled);
-        txtRegistrationFee.setEditable(regEnabled);
+        txtRegDatetime.setEnabled(regEnabled);
+        txtRegistrationNumber.setEnabled(regEnabled);
+        txtTransferDuty.setEnabled(regEnabled);
+        txtRegistrationFee.setEnabled(regEnabled);
         btnRegistrationDate.setEnabled(regEnabled);
-        
+
         // Lease management part
         txtStartDate.setEnabled(leaseEnabled);
         txtExpirationDate.setEnabled(leaseEnabled);
@@ -186,13 +187,22 @@ public class LeasePanel extends ContentPanel {
         btnPrintLease.setEnabled(leaseEnabled);
         btnPrintLeaseOffer.setEnabled(leaseEnabled);
         btnPrintRejectionLetter.setEnabled(leaseEnabled);
+        btnStartDate.setEnabled(leaseEnabled);
+        btnExpirationDate.setEnabled(leaseEnabled);
+        btnExecutionDate.setEnabled(leaseEnabled);
+        btnNextPaymentDate.setEnabled(leaseEnabled);
+        
+        if (txtNotationText.isEnabled() && !txtNotationText.getText().equals("") 
+                && rrrAction != RrrBean.RRR_ACTION.VIEW && appService != null) {
+            txtNotationText.setText(appService.getRequestType().getNotationTemplate());
+        }
         
         customizeConditionButtons();
     }
-    
+
     private void customizeConditionButtons() {
-        boolean editable = rrrAction != RrrBean.RRR_ACTION.VIEW &&
-                SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
+        boolean editable = rrrAction != RrrBean.RRR_ACTION.VIEW
+                && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
 
         boolean enabled = editable && rrrBean.getSelectedSpecialCondition() != null;
 
@@ -213,12 +223,12 @@ public class LeasePanel extends ContentPanel {
             this.rrrBean = rrrBean.makeCopyByAction(rrrAction);
         }
 
-        if((StringUtility.empty(this.rrrBean.getStatusCode()).equals("") || 
-                this.rrrBean.getStatusCode().equals(StatusConstants.PENDING)) &&
-                baUnit!=null && baUnit.getCadastreObject()!=null){
+        if ((StringUtility.empty(this.rrrBean.getStatusCode()).equals("")
+                || this.rrrBean.getStatusCode().equals(StatusConstants.PENDING))
+                && baUnit != null && baUnit.getCadastreObject() != null) {
             this.rrrBean.setLeaseNumber(baUnit.getCadastreObject().toString());
         }
-        
+
         if (!this.rrrBean.isPrimary()) {
             this.rrrBean.setPrimary(true);
         }
@@ -228,14 +238,14 @@ public class LeasePanel extends ContentPanel {
         boolean validated;
 
         // If user has only lease management role
-        if(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE)){
+        if (SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE)) {
             validated = rrrBean.validate(true, Default.class, LeaseValidationGroup.class).size() < 1;
         } else {
             // Otherwise check all rules
-            validated = rrrBean.validate(true, Default.class, 
+            validated = rrrBean.validate(true, Default.class,
                     LeaseValidationGroup.class, RrrValidationGroup.class).size() < 1;
         }
-        
+
         if (validated) {
             firePropertyChange(UPDATED_RRR, null, rrrBean);
             close();
@@ -263,7 +273,7 @@ public class LeasePanel extends ContentPanel {
     private LeaseReportBean prepareReportBean() {
         return new LeaseReportBean(rrrBean, baUnit.getCadastreObject(), applicationBean, appService);
     }
-    
+
     /**
      * Opens {@link ReportViewerForm} to display report.
      */
@@ -272,7 +282,7 @@ public class LeasePanel extends ContentPanel {
         form.setLocationRelativeTo(this);
         form.setVisible(true);
     }
-    
+
     private void printLease() {
         if (rrrBean.validate(true, Default.class, LeaseValidationGroup.class).size() < 1) {
             final LeaseReportBean reportBean = prepareReportBean();
@@ -281,7 +291,7 @@ public class LeasePanel extends ContentPanel {
             }
         }
     }
-    
+
     private void printOfferLetter() {
         final LeaseReportBean reportBean = prepareReportBean();
         if (reportBean != null) {
@@ -299,6 +309,7 @@ public class LeasePanel extends ContentPanel {
             WindowUtility.centerForm(form);
 
             form.addPropertyChangeListener(new PropertyChangeListener() {
+
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     if (evt.getPropertyName().equals(FreeTextDialog.TEXT_TO_SAVE)) {
@@ -310,7 +321,7 @@ public class LeasePanel extends ContentPanel {
             showReport(ReportManager.getLeaseRejectionReport(reportBean));
         }
     }
-    
+
     /**
      * Uses the mapControl from the Property form to render the lease parcel on
      * top of the map to create as an image for the lease report. The context
@@ -329,19 +340,17 @@ public class LeasePanel extends ContentPanel {
                 // that should not be displayed on the Location diagram such as the parcel nodes layer
                 // and the grid layer
                 mapControl.setCadastreObject(null);
-                ExtendedLayer nodesLayer = mapControl.getMap().getSolaLayers().get("parcel-nodes");
-                if (nodesLayer != null) {
-                    nodesLayer.setVisible(false);
-                }
-                ExtendedLayer gridLayer = mapControl.getMap().getSolaLayers().get("grid");
-                if (gridLayer != null) {
-                    gridLayer.setVisible(false);
+
+                for (Map.Entry<String, ExtendedLayer> en : mapControl.getMap().getSolaLayers().entrySet()) {
+                    //String key = en.getKey();
+                    //if(!key.equals("parcels") && !key.equals("subplots") && !key.equals("roads") && !key.equals("selection")){
+                    ExtendedLayer layer = en.getValue();
+                    layer.setVisible(false);
                 }
 
                 MapFeatureImageGenerator generator = new MapFeatureImageGenerator(mapControl.getMap());
 
                 String parcelLabel = baUnit.getCadastreObject().toString();
-
                 result = generator.getFeatureImage(
                         baUnit.getCadastreObject().getGeomPolygon(),
                         parcelLabel, null,
@@ -353,7 +362,7 @@ public class LeasePanel extends ContentPanel {
         }
         return result;
     }
-    
+
     private void calculateGroundRent() {
         if (baUnit.getCadastreObject() == null) {
             MessageUtility.displayMessage(ClientMessage.LEASE_SELECT_PLOT);
@@ -371,7 +380,7 @@ public class LeasePanel extends ContentPanel {
         };
         TaskManager.getInstance().runTask(t);
     }
-    
+
     private void addCondition() {
         LeaseSpecialConditionDialog form = new LeaseSpecialConditionDialog(null, null, true);
         form.addPropertyChangeListener(new PropertyChangeListener() {
@@ -410,7 +419,7 @@ public class LeasePanel extends ContentPanel {
             rrrBean.removeSelectedCondition();
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -426,9 +435,9 @@ public class LeasePanel extends ContentPanel {
         btnSave = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        btnPrintRejectionLetter = new org.sola.clients.swing.common.buttons.BtnPrint();
         btnPrintLeaseOffer = new org.sola.clients.swing.common.buttons.BtnPrint();
         btnPrintLease = new org.sola.clients.swing.common.buttons.BtnPrint();
+        btnPrintRejectionLetter = new org.sola.clients.swing.common.buttons.BtnPrint();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jLabel1 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
@@ -539,14 +548,6 @@ public class LeasePanel extends ContentPanel {
         jToolBar1.add(filler1);
         jToolBar1.add(jSeparator1);
 
-        btnPrintRejectionLetter.setText(bundle.getString("LeasePanel.btnPrintRejectionLetter.text")); // NOI18N
-        btnPrintRejectionLetter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintRejectionLetterActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnPrintRejectionLetter);
-
         btnPrintLeaseOffer.setText(bundle.getString("LeasePanel.btnPrintLeaseOffer.text")); // NOI18N
         btnPrintLeaseOffer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -562,6 +563,14 @@ public class LeasePanel extends ContentPanel {
             }
         });
         jToolBar1.add(btnPrintLease);
+
+        btnPrintRejectionLetter.setText(bundle.getString("LeasePanel.btnPrintRejectionLetter.text")); // NOI18N
+        btnPrintRejectionLetter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintRejectionLetterActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnPrintRejectionLetter);
         jToolBar1.add(jSeparator2);
 
         jLabel1.setText(bundle.getString("SimpleOwhershipPanel.jLabel1.text")); // NOI18N
@@ -896,6 +905,12 @@ public class LeasePanel extends ContentPanel {
             }
         });
         jToolBar3.add(btnAddCodition);
+
+        btnEditCondition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditConditionActionPerformed(evt);
+            }
+        });
         jToolBar3.add(btnEditCondition);
 
         btnRemoveCondition.addActionListener(new java.awt.event.ActionListener() {
@@ -914,7 +929,9 @@ public class LeasePanel extends ContentPanel {
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${selectedSpecialCondition}"), jTableWithDefaultStyles1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane3.setViewportView(jTableWithDefaultStyles1);
         jTableWithDefaultStyles1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("LeasePanel.jTableWithDefaultStyles1.columnModel.title0")); // NOI18N
         jTableWithDefaultStyles1.getColumnModel().getColumn(0).setCellRenderer(new TableCellTextAreaRenderer());
@@ -1255,6 +1272,9 @@ public class LeasePanel extends ContentPanel {
         printRejectionLetter();
     }//GEN-LAST:event_btnPrintRejectionLetterActionPerformed
 
+    private void btnEditConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditConditionActionPerformed
+        editCondition();
+    }//GEN-LAST:event_btnEditConditionActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.swing.common.buttons.BtnAdd btnAddCodition;
     private javax.swing.JButton btnCalculateGroundRent;
