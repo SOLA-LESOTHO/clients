@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean;
-import org.sola.clients.beans.referencedata.LandUseTypeListBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.common.messaging.ClientMessage;
@@ -18,9 +17,7 @@ public class CadastreObjectsSearchPanel extends JPanel {
     public static final String SELECTED_CADASTRE_OBJECT = "selectedCadastreObject";
     private boolean readOnly = false;
     
-    private LandUseTypeListBean createLandTypes(){
-        return new LandUseTypeListBean(true);
-    }
+
     
     /**
      * Default constructor
@@ -97,7 +94,6 @@ public class CadastreObjectsSearchPanel extends JPanel {
 
         jPanel5 = new javax.swing.JPanel();
         cadastreObjects = new org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean();
-        landUses = createLandTypes();
         cadastreObjectSearchParams = new org.sola.clients.beans.cadastre.CadastreObjectSearchParamsBean();
         popupSearchResults = new javax.swing.JPopupMenu();
         menuSelect = new org.sola.clients.swing.common.menuitems.MenuSelect();
@@ -193,10 +189,8 @@ public class CadastreObjectsSearchPanel extends JPanel {
         jPanel7.add(jPanel2);
 
         jLabel4.setText(bundle.getString("CadastreObjectsSearchPanel.jLabel4.text")); // NOI18N
-
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectSearchParams, org.jdesktop.beansbinding.ELProperty.create("${address}"), txtAddress, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -213,8 +207,6 @@ public class CadastreObjectsSearchPanel extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        jPanel7.add(jPanel4);
 
         jLabel5.setText(bundle.getString("CadastreObjectsSearchPanel.jLabel5.text")); // NOI18N
 
@@ -359,7 +351,6 @@ public class CadastreObjectsSearchPanel extends JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
-    private org.sola.clients.beans.referencedata.LandUseTypeListBean landUses;
     private javax.swing.JLabel lblSearchResultCount;
     private org.sola.clients.swing.common.menuitems.MenuSelect menuSelect;
     private javax.swing.JPopupMenu popupSearchResults;

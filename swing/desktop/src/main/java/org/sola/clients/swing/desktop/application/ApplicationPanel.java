@@ -924,7 +924,6 @@ public class ApplicationPanel extends ContentPanel {
         menuDispatch = new javax.swing.JMenuItem();
         menuArchive = new javax.swing.JMenuItem();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         popUpParcels = new javax.swing.JPopupMenu();
         menuRemoveParcel = new org.sola.clients.swing.common.menuitems.MenuRemove();
         pnlHeader = new org.sola.clients.swing.ui.HeaderPanel();
@@ -3393,7 +3392,6 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JLabel labTotalFee1;
     private javax.swing.JLabel labTotalFee2;
     private javax.swing.JLabel labTotalFee3;
-    private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
     private javax.swing.JMenuItem menuAddService;
     private javax.swing.JMenuItem menuApprove;
     private javax.swing.JMenuItem menuArchive;

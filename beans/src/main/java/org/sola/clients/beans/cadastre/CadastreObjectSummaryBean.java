@@ -24,7 +24,7 @@ import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.CadastreObjectTypeBean;
 import org.sola.clients.beans.referencedata.LandGradeTypeBean;
-import org.sola.clients.beans.referencedata.LandUseTypeBean;
+import org.sola.clients.beans.referencedata.RoadClassTypeBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
 
@@ -39,8 +39,6 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     public static final String NAME_FIRSTPART_PROPERTY = "nameFirstpart";
     public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
     public static final String CADASTRE_OBJECT_TYPE_PROPERTY = "cadastreObjectType";
-    public static final String LAND_USE_TYPE_PROPERTY = "landUseType";
-    public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
     public static final String VALUATION_AMOUNT_PROPERTY = "valuationAmount";
     public static final String SURVEYOR_PROPERTY = "surveyor";
     public static final String SURVEY_DATE_PROPERTY = "surveyDate";
@@ -49,6 +47,8 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     public static final String LAND_GRADE_TYPE_PROPERTY = "landGradeType";
     public static final String LAND_GRADE_CODE_PROPERTY = "landGradeCode";
     public static final String VALUATION_ZONE_PROPERTY = "valuationZone";
+    public static final String ROAD_CLASS_TYPE_PROPERTY = "roadClassType";
+    public static final String ROAD_CLASS_CODE_PROPERTY = "roadClassCode";
 
     
     private Date approvalDatetime;
@@ -67,8 +67,8 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     private Date surveyDate;
     private String surveyor;
     private String remarks;
-    private LandUseTypeBean landUseType;
     private LandGradeTypeBean landGradeType;
+    private RoadClassTypeBean roadClassType;
     private BigDecimal surveyFee;
     private String valuationZone;
     
@@ -148,23 +148,6 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
                 CacheManager.getCadastreObjectTypes(), typeCode));
         propertySupport.firePropertyChange(TYPE_CODE_PROPERTY, oldValue, typeCode);
     }
-    public String getLandUseCode() {
-        if (landUseType != null) {
-            return landUseType.getCode();
-        } else {
-            return null;
-        }
-    }
-
-    public void setLandUseCode(String landUseCode) {
-        String oldValue = null;
-        if (landUseType != null) {
-            oldValue = landUseType.getCode();
-        }
-        setLandUseType(CacheManager.getBeanByCode(
-                CacheManager.getLandUseTypes(), landUseCode));
-        propertySupport.firePropertyChange(LAND_USE_CODE_PROPERTY, oldValue, landUseCode);
-    }
 
     public CadastreObjectTypeBean getCadastreObjectType() {
         return cadastreObjectType;
@@ -175,18 +158,6 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
             this.cadastreObjectType = new CadastreObjectTypeBean();
         }
         this.setJointRefDataBean(this.cadastreObjectType, cadastreObjectType, CADASTRE_OBJECT_TYPE_PROPERTY);
-    }
-     public LandUseTypeBean getLandUseType() {
-        return landUseType;
-    }
-
-    public void setLandUseType(LandUseTypeBean landUseType) {
-        if(landUseType==null){
-            this.landUseType = new LandUseTypeBean();
-        }else{
-            this.landUseType = landUseType;
-        }
-        propertySupport.firePropertyChange(LAND_USE_TYPE_PROPERTY, null, this.landUseType);
     }
 
     public String getRemarks() {
@@ -268,6 +239,39 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
         setLandGradeType(CacheManager.getBeanByCode(
                 CacheManager.getLandGradeTypes(), landGradeCode));
         propertySupport.firePropertyChange(LAND_GRADE_CODE_PROPERTY, oldValue, landGradeCode);
+    }
+    
+    public RoadClassTypeBean getRoadClassType(){
+        return roadClassType;
+    }
+    
+    public void setRoadClassType(RoadClassTypeBean roadClassType){
+        if (roadClassType == null){
+           this.roadClassType = new RoadClassTypeBean();
+        }else
+        {
+            this.roadClassType = roadClassType;
+        }
+    }
+    
+    public String getRoadClassCode(){
+        if (roadClassType != null){
+            return roadClassType.getCode();
+        }else
+        {
+            return null;
+        }
+    }
+    
+    public void setRoadClassCode(String roadClassCode){
+        String oldValue = null;
+        if (roadClassType != null){
+            oldValue = roadClassType.getCode();
+        }
+        setRoadClassType(CacheManager.getBeanByCode(
+                            CacheManager.getRoadClassType(), roadClassCode));
+        propertySupport.firePropertyChange(ROAD_CLASS_CODE_PROPERTY, 
+                                            oldValue, roadClassCode);
     }
 
     public String getValuationZone() {

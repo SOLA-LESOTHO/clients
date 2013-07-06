@@ -16,7 +16,6 @@
 package org.sola.clients.beans.cadastre;
 
 import org.sola.clients.beans.AbstractBindingBean;
-import org.sola.clients.beans.referencedata.LandUseTypeBean;
 
 public class CadastreObjectSearchParamsBean extends AbstractBindingBean {
     private String nameFirstPart;
