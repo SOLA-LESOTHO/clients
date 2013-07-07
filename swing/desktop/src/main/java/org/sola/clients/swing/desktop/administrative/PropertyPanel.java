@@ -158,7 +158,8 @@ public class PropertyPanel extends ContentPanel {
     private void customizeForm() {
         setFormHeader();
         btnSave.setEnabled(!readOnly);
-        cadastreObject.setReadOnly(true);
+        cadastreObject.setReadOnly(readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE));
+        cadastreObject.setLockCadastreFields(true);
         customizeRightsButtons(null);
         customizeNotationButtons(null);
         customizeRightTypesList();

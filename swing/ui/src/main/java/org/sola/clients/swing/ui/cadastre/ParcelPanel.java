@@ -32,7 +32,6 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JFormattedTextField;
 import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
-import org.sola.clients.swing.common.converters.BigDecimalMoneyConverter;
 import org.sola.clients.swing.ui.address.AddressDialog;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
@@ -46,6 +45,7 @@ public class ParcelPanel extends javax.swing.JPanel {
 
     private CadastreObjectBean cadastreObjectBean;
     private boolean readOnly = false;
+    private boolean lockCadastreFields = false;
     
     public ParcelPanel() {
         this(null, true);
@@ -102,23 +102,27 @@ public class ParcelPanel extends javax.swing.JPanel {
  
     private void customizeForm(){
         boolean enabled = !readOnly;
-        //txtFirstPart.setEnabled(enabled);
-        //txtLastPart.setEnabled(enabled);
-        txtArea.setEnabled(enabled);
-        cbxEstateType.setEnabled(enabled);
+        boolean enabledAll = enabled && !lockCadastreFields;
+        
+        txtArea.setEnabled(enabledAll);
+        cbxEstateType.setEnabled(enabledAll);
+        txtSurveyDate.setEnabled(enabledAll);
+        txtSurveyFee.setEnabled(enabledAll);
+        txtSurveyor.setEnabled(enabledAll);
+        txtParcelSurveyRef.setEnabled(enabledAll);
+        btnSurveyDate.setEnabled(enabledAll);
+        txtRemarks.setEnabled(enabledAll);
+        cbxLandGrade.setEnabled(enabled);
         cbxRoadClass.setEnabled(enabled);
-        txtSurveyDate.setEnabled(enabled);
-        txtSurveyFee.setEnabled(enabled);
-        txtSurveyor.setEnabled(enabled);
-        txtParcelSurveyRef.setEnabled(enabled);
         txtValuationAmount.setEnabled(enabled);
-        txtRemarks.setEnabled(enabled);
+        
         customizeAddressButtons();
     }
     
     private void customizeAddressButtons(){
-        boolean enabled = cadastreObjectBean.getSelectedAddress()!=null && !readOnly;
-        btnAdd1.setEnabled(!readOnly);
+        boolean enabled = cadastreObjectBean.getSelectedAddress()!=null && 
+                !readOnly && !lockCadastreFields;
+        btnAdd1.setEnabled(!readOnly && !lockCadastreFields);
         btnEdit1.setEnabled(enabled);
         btnRemove1.setEnabled(enabled);
         menuAdd1.setEnabled(btnAdd1.isEnabled());
@@ -180,6 +184,17 @@ public class ParcelPanel extends javax.swing.JPanel {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
     }
+
+    /** Returns true if cadastre department relevant fields are enabled.*/
+    public boolean isLockCadastreFields() {
+        return lockCadastreFields;
+    }
+
+    /** Locks cadastre department relevant fields.*/
+    public void setLockCadastreFields(boolean lockCadastreFields) {
+        this.lockCadastreFields = lockCadastreFields;
+        customizeForm();
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -215,19 +230,19 @@ public class ParcelPanel extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtSurveyDate = new javax.swing.JFormattedTextField();
-        btnSubmissionDateFrom = new javax.swing.JButton();
+        btnSurveyDate = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtSurveyFee = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         labLandUse = new javax.swing.JLabel();
         cbxRoadClass = new javax.swing.JComboBox();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        txtValuationAmount = new javax.swing.JFormattedTextField();
         jPanel14 = new javax.swing.JPanel();
         labLandUse1 = new javax.swing.JLabel();
         cbxLandGrade = new javax.swing.JComboBox();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtValuationAmount = new javax.swing.JFormattedTextField();
         jPanel12 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -479,13 +494,13 @@ public class ParcelPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSubmissionDateFrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
-        btnSubmissionDateFrom.setText(bundle.getString("ParcelPanel.btnSubmissionDateFrom.text")); // NOI18N
-        btnSubmissionDateFrom.setBorder(null);
-        btnSubmissionDateFrom.setName(bundle.getString("ParcelPanel.btnSubmissionDateFrom.name")); // NOI18N
-        btnSubmissionDateFrom.addActionListener(new java.awt.event.ActionListener() {
+        btnSurveyDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnSurveyDate.setText(bundle.getString("ParcelPanel.btnSurveyDate.text")); // NOI18N
+        btnSurveyDate.setBorder(null);
+        btnSurveyDate.setName(bundle.getString("ParcelPanel.btnSurveyDate.name")); // NOI18N
+        btnSurveyDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmissionDateFromActionPerformed(evt);
+                btnSurveyDateActionPerformed(evt);
             }
         });
 
@@ -499,7 +514,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             .add(jPanel10Layout.createSequentialGroup()
                 .add(txtSurveyDate)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(btnSubmissionDateFrom))
+                .add(btnSurveyDate))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -507,7 +522,7 @@ public class ParcelPanel extends javax.swing.JPanel {
                 .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(btnSubmissionDateFrom)
+                    .add(btnSurveyDate)
                     .add(txtSurveyDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -577,37 +592,6 @@ public class ParcelPanel extends javax.swing.JPanel {
 
         jPanel1.add(jPanel6);
 
-        jPanel8.setName(bundle.getString("ParcelPanel.jPanel8.name")); // NOI18N
-
-        jLabel2.setText(bundle.getString("ParcelPanel.jLabel2.text")); // NOI18N
-        jLabel2.setName(bundle.getString("ParcelPanel.jLabel2.name")); // NOI18N
-
-        txtValuationAmount.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
-        txtValuationAmount.setText(bundle.getString("ParcelPanel.txtValuationAmount.text")); // NOI18N
-        txtValuationAmount.setName(bundle.getString("ParcelPanel.txtValuationAmount.name")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.valuationAmount}"), txtValuationAmount, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
-
-        org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel8Layout.createSequentialGroup()
-                .add(jLabel2)
-                .add(0, 59, Short.MAX_VALUE))
-            .add(txtValuationAmount)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel8Layout.createSequentialGroup()
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtValuationAmount, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel1.add(jPanel8);
-
         jPanel14.setName(bundle.getString("ParcelPanel.jPanel14.name")); // NOI18N
 
         labLandUse1.setText(bundle.getString("ParcelPanel.labLandUse1.text")); // NOI18N
@@ -640,6 +624,37 @@ public class ParcelPanel extends javax.swing.JPanel {
         );
 
         jPanel1.add(jPanel14);
+
+        jPanel8.setName(bundle.getString("ParcelPanel.jPanel8.name")); // NOI18N
+
+        jLabel2.setText(bundle.getString("ParcelPanel.jLabel2.text")); // NOI18N
+        jLabel2.setName(bundle.getString("ParcelPanel.jLabel2.name")); // NOI18N
+
+        txtValuationAmount.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
+        txtValuationAmount.setText(bundle.getString("ParcelPanel.txtValuationAmount.text")); // NOI18N
+        txtValuationAmount.setName(bundle.getString("ParcelPanel.txtValuationAmount.name")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.valuationAmount}"), txtValuationAmount, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel8Layout.createSequentialGroup()
+                .add(jLabel2)
+                .add(0, 59, Short.MAX_VALUE))
+            .add(txtValuationAmount)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel8Layout.createSequentialGroup()
+                .add(jLabel2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(txtValuationAmount, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel8);
 
         jPanel12.setName(bundle.getString("ParcelPanel.jPanel12.name")); // NOI18N
 
@@ -788,9 +803,9 @@ public class ParcelPanel extends javax.swing.JPanel {
         removeAddress();
     }//GEN-LAST:event_menuRemove1ActionPerformed
 
-    private void btnSubmissionDateFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFromActionPerformed
+    private void btnSurveyDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSurveyDateActionPerformed
         showCalendar(txtSurveyDate);
-    }//GEN-LAST:event_btnSubmissionDateFromActionPerformed
+    }//GEN-LAST:event_btnSurveyDateActionPerformed
 
     private void txtSurveyDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSurveyDateActionPerformed
         // TODO add your handling code here:
@@ -800,7 +815,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.common.buttons.BtnAdd btnAdd1;
     private org.sola.clients.swing.common.buttons.BtnEdit btnEdit1;
     private org.sola.clients.swing.common.buttons.BtnRemove btnRemove1;
-    private javax.swing.JButton btnSubmissionDateFrom;
+    private javax.swing.JButton btnSurveyDate;
     private org.sola.clients.beans.referencedata.CadastreObjectTypeListBean cadastreObjectTypeListBean1;
     private javax.swing.JComboBox cbxEstateType;
     private javax.swing.JComboBox cbxLandGrade;

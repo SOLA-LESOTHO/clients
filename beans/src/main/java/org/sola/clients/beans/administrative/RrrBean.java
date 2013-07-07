@@ -703,6 +703,8 @@ public class RrrBean extends AbstractTransactionedBean {
             copy.setStampDuty(null);
             copy.setRegistrationFee(null);
             copy.setTransferDuty(null);
+            copy.getNotation().setNotationText(null);
+            copy.getSourceList().clear();
         }
 
         if (rrrAction == RRR_ACTION.EDIT) {

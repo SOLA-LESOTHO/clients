@@ -269,6 +269,7 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         jToolBar1.add(btnPrint);
 
         jTableWithDefaultStyles1.setComponentPopupMenu(popupParcels);
+        jTableWithDefaultStyles1.setPreferredSize(new java.awt.Dimension(450, 100));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${beanList}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectListBean, eLProperty, jTableWithDefaultStyles1);
@@ -279,10 +280,6 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${officialArea}"));
         columnBinding.setColumnName("Official Area");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${landUseType.displayValue}"));
-        columnBinding.setColumnName("Land Use Type.display Value");
-        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valuationAmount}"));
         columnBinding.setColumnName("Valuation Amount");
@@ -303,10 +300,9 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTableWithDefaultStyles1);
         jTableWithDefaultStyles1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title0_1")); // NOI18N
         jTableWithDefaultStyles1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title1_1")); // NOI18N
-        jTableWithDefaultStyles1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title2_1")); // NOI18N
-        jTableWithDefaultStyles1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title3_1")); // NOI18N
-        jTableWithDefaultStyles1.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title4")); // NOI18N
-        jTableWithDefaultStyles1.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title5")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title3_1")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title4")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectListPanel.jTableWithDefaultStyles1.columnModel.title5")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -315,7 +311,7 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -325,7 +321,7 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -355,10 +351,10 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -367,7 +363,7 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addComponent(parcelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
 

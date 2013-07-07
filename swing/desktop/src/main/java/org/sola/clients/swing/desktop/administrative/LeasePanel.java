@@ -48,6 +48,7 @@ import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
 import org.sola.clients.beans.administrative.validation.RrrValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.reports.ReportManager;
@@ -163,7 +164,8 @@ public class LeasePanel extends ContentPanel {
         boolean enabled = rrrAction != RrrBean.RRR_ACTION.VIEW;
         boolean regEnabled = enabled && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_REGISTER_LEASE);
         boolean leaseEnabled = enabled && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
-
+        boolean partyListEnabled = leaseEnabled || (regEnabled && isLeaseTransfer());
+        
         // Common fields for registration and lease management
         btnSave.setEnabled(enabled);
         txtStampDuty.setEnabled(enabled);
@@ -182,7 +184,7 @@ public class LeasePanel extends ContentPanel {
         txtExecutionDate.setEnabled(leaseEnabled);
         txtRent.setEnabled(leaseEnabled);
         txtDueDate.setEnabled(leaseEnabled);
-        partyList.setReadOnly(!leaseEnabled);
+        partyList.setReadOnly(!partyListEnabled);
         btnCalculateGroundRent.setEnabled(leaseEnabled);
         btnPrintLease.setEnabled(leaseEnabled);
         btnPrintLeaseOffer.setEnabled(leaseEnabled);
@@ -233,6 +235,17 @@ public class LeasePanel extends ContentPanel {
         if (!this.rrrBean.isPrimary()) {
             this.rrrBean.setPrimary(true);
         }
+    }
+    
+    // Returns true is service type affects change of lessee
+    private boolean isLeaseTransfer(){
+        if(appService!=null && appService.getRequestTypeCode()!=null){
+            // TODO: Put service code checks
+//            if(appService.getRequestTypeCode().equals(RequestTypeBean.CODE_REGISTER_LEASE)){
+//                return true;
+//            }
+        }
+        return false;
     }
 
     private boolean saveRrr() {
