@@ -15,6 +15,7 @@
  */
 package org.sola.clients.beans.administrative.validation;
 
+import java.math.BigDecimal;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.sola.clients.beans.administrative.RrrBean;
@@ -36,6 +37,17 @@ public class LeaseBeanValidator implements ConstraintValidator<LeaseBeanCheck, R
     public boolean isValid(RrrBean value, ConstraintValidatorContext context) {
         boolean result = true;
 
+        // Check personal levy factor
+        if(value.getPersonalLevy()!=null && value.getPersonalLevy().compareTo(BigDecimal.ZERO)!=0){
+            if(value.getPersonalLevy().compareTo(BigDecimal.ONE)<0 || 
+                    value.getPersonalLevy().compareTo(BigDecimal.valueOf(2L))>=0){
+                result = false;
+                context.buildConstraintViolationWithTemplate(
+                        (MessageUtility.getLocalizedMessageText(
+                        ClientMessage.LEASE_PERSONAL_LEVY_RANGE_ERROR))).addConstraintViolation();
+            }
+        }
+        
         // Check start and expiration dates
         if (value.getStartDate() != null && value.getExpirationDate() != null) {
             if (value.getStartDate().after(value.getExpirationDate())) {

@@ -38,6 +38,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.administrative.validation.*;
@@ -51,6 +52,7 @@ import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.clients.beans.validation.NoDuplicates;
+import org.sola.common.NumberUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.RrrTO;
@@ -99,6 +101,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String TYPE_CODE_PROPERTY = "typeCode";
     public static final String RRR_TYPE_PROPERTY = "rrrType";
     public static final String EXPIRATION_DATE_PROPERTY = "expirationDate";
+    public static final String LEASE_TERM_PROPERTY = "leaseTerm";
     public static final String SHARE_PROPERTY = "share";
     public static final String AMOUNT_PROPERTY = "amount";
     public static final String MORTGAGE_INTEREST_RATE_PROPERTY = "mortgageInterestRate";
@@ -184,11 +187,13 @@ public class RrrBean extends AbstractTransactionedBean {
     @NotNull(message = ClientMessage.LEASE_GROUND_RENT_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
     private BigDecimal groundRent;
     
-    @NotNull(message = ClientMessage.LEASE_USABLE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
-    private BigDecimal landUsable;
+    @NotNull(message = ClientMessage.LEASE_LAND_USABLE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    @Range(min=1, max=100, message=ClientMessage.LEASE_LAND_USABLE_ERROR, 
+            groups={LeaseValidationGroup.class}, payload = Localized.class)
+    private BigDecimal landUsable = BigDecimal.valueOf(100L);
     
     @NotNull(message = ClientMessage.LEASE_PERSONAL_LEVY_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
-    private BigDecimal personalLevy;
+    private BigDecimal personalLevy = BigDecimal.ONE;
     
     private BigDecimal stampDuty;
     private BigDecimal transferDuty;
@@ -351,12 +356,43 @@ public class RrrBean extends AbstractTransactionedBean {
         this.setJointRefDataBean(this.rrrType, rrrType, RRR_TYPE_PROPERTY);
     }
 
+    /**
+     * Calculates and returns lease term in years.
+     */
+    public int getLeaseTerm() {
+        int result = 0;
+        if (getStartDate() != null && getExpirationDate() != null) {
+            Calendar startDateCal = Calendar.getInstance();
+            Calendar expirationDateCal = Calendar.getInstance();
+            startDateCal.setTime(getStartDate());
+            expirationDateCal.setTime(getExpirationDate());
+            if (startDateCal.before(expirationDateCal)) {
+                result = expirationDateCal.get(Calendar.YEAR) - startDateCal.get(Calendar.YEAR);
+            }
+        }
+        return result;
+    }
+    
+    /** Calculates lease expiration date based on provided lease terms in years. */
+    public void setLeaseTerm(int years){
+        if(getStartDate()!=null){
+            Calendar startDateCal = Calendar.getInstance();
+            startDateCal.setTime(getStartDate());
+            startDateCal.add(Calendar.YEAR, years);
+            startDateCal.add(Calendar.DAY_OF_MONTH, -1);
+            setExpirationDate(startDateCal.getTime());
+        }
+    }
+    
     public Date getExpirationDate() {
         return expirationDate;
     }
 
     public void setExpirationDate(Date expirationDate) {
+        Date oldValue = this.expirationDate;
         this.expirationDate = expirationDate;
+        propertySupport.firePropertyChange(EXPIRATION_DATE_PROPERTY, oldValue, this.expirationDate);
+        propertySupport.firePropertyChange(LEASE_TERM_PROPERTY, null, getLeaseTerm());
     }
 
     public Date getLeaseExpiryDate() {
@@ -372,7 +408,9 @@ public class RrrBean extends AbstractTransactionedBean {
     }
 
     public void setAmount(BigDecimal amount) {
+        BigDecimal oldValue = this.amount;
         this.amount = amount;
+        propertySupport.firePropertyChange(AMOUNT_PROPERTY, oldValue, this.amount);
     }
 
     public Date getDueDate() {
@@ -510,6 +548,18 @@ public class RrrBean extends AbstractTransactionedBean {
         return groundRent;
     }
 
+    /**
+     * Calculated remaining ground rent.
+     */
+    public double getGroundRentRemaining() {
+        double rent = 0;
+        if (getGroundRent() != null && getGroundRent().compareTo(BigDecimal.ZERO) > 0) {
+            double remainingMonths = 12 - Calendar.getInstance().get(Calendar.MONTH) + 4;
+            rent = NumberUtility.roundDouble((remainingMonths/12)*getGroundRent().doubleValue(), 2);
+        } 
+        return rent;
+    }
+    
     public void setGroundRent(BigDecimal groundRent) {
         BigDecimal oldValue = this.groundRent;
         this.groundRent = groundRent;
@@ -575,6 +625,7 @@ public class RrrBean extends AbstractTransactionedBean {
         Date oldValue = this.startDate;
         this.startDate = startDate;
         propertySupport.firePropertyChange(START_DATE_PROPERTY, oldValue, this.startDate);
+        propertySupport.firePropertyChange(LEASE_TERM_PROPERTY, null, getLeaseTerm());
     }
 
     public BigDecimal getTransferDuty() {

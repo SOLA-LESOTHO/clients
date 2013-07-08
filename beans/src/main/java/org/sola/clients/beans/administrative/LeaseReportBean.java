@@ -18,6 +18,7 @@ package org.sola.clients.beans.administrative;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import org.codehaus.stax2.ri.typed.NumberUtil;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
@@ -26,6 +27,7 @@ import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.common.DateUtility;
 import org.sola.common.NumberToWords;
+import org.sola.common.NumberUtility;
 import org.sola.common.StringUtility;
 
 /**
@@ -343,6 +345,17 @@ public class LeaseReportBean extends AbstractBindingBean {
             return "NIL";
         }
     }
+    
+    /**
+     * Calculated remaining ground rent.
+     */
+    public String getGroundRentRemaining() {
+        if (getLease().getGroundRentRemaining() > 0) {
+            return "M" + String.valueOf(getLease().getGroundRentRemaining());
+        } else {
+            return "NIL";
+        }
+    }
 
     /**
      * Shortcut to lessee address.
@@ -419,17 +432,7 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Calculates and returns lease term in years.
      */
     public String getLeaseTerm() {
-        int result = 0;
-        if (lease.getStartDate() != null && lease.getExpirationDate() != null) {
-            Calendar startDateCal = Calendar.getInstance();
-            Calendar expirationDateCal = Calendar.getInstance();
-            startDateCal.setTime(lease.getStartDate());
-            expirationDateCal.setTime(lease.getExpirationDate());
-            if (startDateCal.before(expirationDateCal)) {
-                result = expirationDateCal.get(Calendar.YEAR) - startDateCal.get(Calendar.YEAR);
-            }
-        }
-        return String.valueOf(result);
+        return String.valueOf(getLease().getLeaseTerm());
     }
 
     /**

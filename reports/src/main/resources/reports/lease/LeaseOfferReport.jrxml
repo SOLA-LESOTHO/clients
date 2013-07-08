@@ -113,6 +113,7 @@
 	<field name="lesseesAndMaritalStatus" class="java.lang.String">
 		<fieldDescription><![CDATA[lesseesAndMaritalStatus]]></fieldDescription>
 	</field>
+	<field name="groundRentRemaining" class="java.lang.String"/>
 	<title>
 		<band height="205" splitType="Stretch">
 			<staticText>
@@ -191,7 +192,7 @@ Fax: +266 2231 0905]]></text>
 "Land Administration office" +
 "</font>",
 $F{applicantName}, $F{applicationNumber}, $F{applicationDate}, $F{parcelLandUse}, 
-$F{parcelCode}, $F{parcelAddress}, $F{parcelOfficialArea}, $F{groundRent}
+$F{parcelCode}, $F{parcelAddress}, $F{parcelOfficialArea}, $F{groundRentRemaining}
 )]]></textFieldExpression>
 			</textField>
 		</band>
