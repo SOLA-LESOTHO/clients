@@ -126,6 +126,8 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String GROUND_RENT_PROPERTY = "groundRent";
     public static final String LAND_USE_TYPE_PROPERTY = "landUseType";
     public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
+    public static final String LAND_USABLE_PROPERTY = "landUsable";
+    public static final String PERSONAL_LEVY_PROPERTY = "personalLevy";
     
     private String baUnitId;
     private String nr;
@@ -181,6 +183,12 @@ public class RrrBean extends AbstractTransactionedBean {
     
     @NotNull(message = ClientMessage.LEASE_GROUND_RENT_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
     private BigDecimal groundRent;
+    
+    @NotNull(message = ClientMessage.LEASE_USABLE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    private BigDecimal landUsable;
+    
+    @NotNull(message = ClientMessage.LEASE_PERSONAL_LEVY_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    private BigDecimal personalLevy;
     
     private BigDecimal stampDuty;
     private BigDecimal transferDuty;
@@ -650,7 +658,25 @@ public class RrrBean extends AbstractTransactionedBean {
         }
     }
 
+    public BigDecimal getLandUsable() {
+        return landUsable;
+    }
 
+    public void setLandUsable(BigDecimal landUsable) {
+        BigDecimal oldValue = this.landUsable;
+        this.landUsable = landUsable;
+        propertySupport.firePropertyChange(LAND_USABLE_PROPERTY, oldValue, this.landUsable);
+    }
+
+    public BigDecimal getPersonalLevy() {
+        return personalLevy;
+    }
+
+    public void setPersonalLevy(BigDecimal personalLevy) {
+        BigDecimal oldValue = this.personalLevy;
+        this.personalLevy = personalLevy;
+        propertySupport.firePropertyChange(PERSONAL_LEVY_PROPERTY, oldValue, this.personalLevy);
+    }
 
     public CadastreObjectBean getCadastreObject() {
         return cadastreObject;
