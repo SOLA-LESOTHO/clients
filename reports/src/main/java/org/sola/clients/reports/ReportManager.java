@@ -37,10 +37,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
-import org.sola.clients.beans.administrative.BaUnitBean;
-import org.sola.clients.beans.administrative.LeaseReportBean;
-import org.sola.clients.beans.administrative.DisputeBean;
-import org.sola.clients.beans.administrative.RrrReportBean;
+import org.sola.clients.beans.administrative.*;
 import org.sola.clients.beans.application.*;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.system.BrReportBean;
@@ -286,15 +283,11 @@ public class ReportManager {
      *
      * @param appNumber Application number
      */
-    public static JasperPrint getConsentReport(RrrReportBean reportBean, 
+    public static JasperPrint getConsentReport(ConsentBean consentBean, 
             String conditionText,
             String expirationDate,
             String amount,
-            String rightholder1,
-            String rightholder2,
             String lessees_marital_status,
-            String recipient1,
-            String recipient2,
             String recipients_marital_status,
             String transactionType
             ) {
@@ -303,31 +296,22 @@ public class ReportManager {
         
         String comma1 = ", ";
         String comma2 = ", ";
-        if (rightholder1.isEmpty() || rightholder2.isEmpty()){
-            comma1 = "";
-        }
-        if (recipient1.isEmpty() || recipient2.isEmpty()){
-            comma2 = "";
-        }
+
         if (amount.isEmpty() || amount.equals("")){
                 amount = "0.00";
             }
-        
-        inputParameters.put("TRANSACTION_TYPE", transactionType);
-        inputParameters.put("NAME_FIRSTPART", reportBean.getBaUnit().getNameFirstpart());
-        inputParameters.put("NAME_LASTPART", reportBean.getBaUnit().getNameLastpart());
+                
+        inputParameters.put("NAME_FIRSTPART", consentBean.getBaUnit().getNameFirstpart());
+        inputParameters.put("NAME_LASTPART", consentBean.getBaUnit().getNameLastpart());
         inputParameters.put("DUE_DATE", expirationDate);
         inputParameters.put("CONDITION_TEXT", conditionText);        
-        inputParameters.put("LESSEES", rightholder1 + comma1 + rightholder2);
         inputParameters.put("LESSEES_MARITAL_STATUS", lessees_marital_status);
-        inputParameters.put("RECIPIENTS", recipient1 + comma2 + recipient2);
         inputParameters.put("RECIPIENTS_MARITAL_STATUS", recipients_marital_status);
-        inputParameters.put("CONSIDERATION_AMOUNT", amount);   
-        inputParameters.put("FEE", reportBean.getService().getBaseFee().toString());
-        inputParameters.put("RECEIPT_NUMBER", reportBean.getApplication().getReceiptRef());
+        inputParameters.put("CONSIDERATION_AMOUNT", amount);
+        inputParameters.put("TRANSACTION_TYPE", transactionType);
 
-        RrrReportBean[] beans = new RrrReportBean[1];        
-        beans[0] = reportBean;
+        ConsentBean[] beans = new ConsentBean[1];        
+        beans[0] = consentBean;
 
         
         JRDataSource jds = new JRBeanArrayDataSource(beans);
