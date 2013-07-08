@@ -51,6 +51,7 @@ import org.sola.clients.beans.application.ApplicationPropertyBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
+import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
@@ -84,7 +85,6 @@ import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
-import org.sola.clients.swing.desktop.administrative.DisputePanelForm;
 import org.sola.clients.swing.desktop.administrative.LeasePreparationForm;
 import org.sola.clients.swing.ui.administrative.BaUnitSearchPanel;
 
@@ -541,6 +541,36 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     /**
+     * Opens Consent Panel
+     */
+    private void openConsentForm(final ApplicationServiceBean service,
+            final BaUnitSearchResultBean applicationProperty) {
+        // Run consent service
+        if (applicationProperty != null) {
+            SolaTask t = new SolaTask<Void, Void>() {
+
+                @Override
+                public Void doTask() {
+                    if (appBean.getFilteredPropertyList().size() == 0) {
+                        MessageUtility.displayMessage(ClientMessage.APPLICATION_PARCELS_LIST_EMPTY);
+                        return null;
+                    }
+
+                    if (applicationProperty.getId() != null) {
+                        BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(applicationProperty.getId());
+                        setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCREGISTRATION));
+                        ConsentPanel form = new ConsentPanel(baUnitBean, appBean, service, service.getRequestType().getDisplayValue());
+                        getMainContentPanel().addPanel(form, MainContentPanel.CARD_CONSENT, true);
+                    }
+
+                    return null;
+                }
+            };
+            TaskManager.getInstance().runTask(t);
+        }
+    }
+
+    /**
      * Opens dialog form to display status change result for application or
      * service.
      */
@@ -595,7 +625,7 @@ public class ApplicationPanel extends ContentPanel {
         }
     }
 
-    private void openLeasePreparation(final LeaseBean lease, 
+    private void openLeasePreparation(final LeaseBean lease,
             final ApplicationServiceBean service, final boolean readOnly) {
         SolaTask t = new SolaTask<Void, Void>() {
 
@@ -638,25 +668,36 @@ public class ApplicationPanel extends ContentPanel {
             } // Consent service
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CONSENT)) {
                 // Run consent service
-                SolaTask t = new SolaTask<Void, Void>() {
+                
+                if (appBean.getFilteredPropertyList().size() == 0) {
+                    MessageUtility.displayMessage(ClientMessage.APPLICATION_PARCELS_LIST_EMPTY);
+                }                                                
+                        
+                if (appBean.getPropertyList().getFilteredList().size() == 1) {
 
-                    @Override
-                    public Void doTask() {
-                        //
-                        BaUnitSearchResultBean applicationProperty = appBean.getFilteredPropertyList().get(0);
-                        if (applicationProperty.getId() != null) {
-                            
-                            BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(applicationProperty.getId());
-                            
-                            
-                            setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCREGISTRATION));
-                            ConsentPanel form = new ConsentPanel(baUnitBean, appBean, service, RrrBean.RRR_ACTION.NEW, service.getRequestType().getDisplayValue());
-                            getMainContentPanel().addPanel(form, MainContentPanel.CARD_CONSENT, true);
+                    BaUnitSearchResultBean applicationProperty = appBean.getFilteredPropertyList().get(0);
+                    openConsentForm(service, applicationProperty);
+                }
+                else if (appBean.getPropertyList().getFilteredList().size() > 1) {
+                    PropertiesList propertyListForm = new PropertiesList(appBean.getPropertyList());
+                    propertyListForm.setLocationRelativeTo(this);
+
+                    propertyListForm.addPropertyChangeListener(new PropertyChangeListener() {
+
+                        @Override
+                        public void propertyChange(PropertyChangeEvent evt) {
+                            if (evt.getPropertyName().equals(PropertiesList.SELECTED_PROPERTY)
+                                    && evt.getNewValue() != null) {
+                                BaUnitSearchResultBean property = (BaUnitSearchResultBean) evt.getNewValue();
+                                ((JDialog) evt.getSource()).dispose();
+                                openConsentForm(service, property);
+                            }
                         }
-                        return null;
-                    }
-                };
-                TaskManager.getInstance().runTask(t);
+                    });
+
+                    propertyListForm.setVisible(true);
+                }
+
             } // Document copy request
             else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_DOCUMENT_COPY)) {
                 SolaTask t = new SolaTask<Void, Void>() {
@@ -721,7 +762,7 @@ public class ApplicationPanel extends ContentPanel {
                             @Override
                             public void propertyChange(PropertyChangeEvent evt) {
                                 if (evt.getPropertyName().equals(LeaseListDialog.LEASE_SELECTED)) {
-                                    openLeasePreparation((LeaseBean)evt.getNewValue(), service, readOnly);
+                                    openLeasePreparation((LeaseBean) evt.getNewValue(), service, readOnly);
                                 }
                             }
                         });
