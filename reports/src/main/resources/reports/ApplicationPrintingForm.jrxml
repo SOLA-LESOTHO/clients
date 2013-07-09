@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Application printing form" pageWidth="595" pageHeight="842" columnWidth="548" leftMargin="27" rightMargin="20" topMargin="24" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.LodgementReport" uuid="51dd7421-4983-421f-8b54-6200db545dd1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="298"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset2" uuid="5cf8b6fe-e677-4c23-9432-ed6170816206">
 		<field name="serviceName" class="java.lang.String">
 			<fieldDescription><![CDATA[requestType.displayValue]]></fieldDescription>
@@ -82,15 +82,6 @@
 	</field>
 	<field name="preferredCommunicationWay" class="java.lang.String">
 		<fieldDescription><![CDATA[contactPerson.preferredCommunication.displayValue]]></fieldDescription>
-	</field>
-	<field name="registrationFee" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[registrationFee]]></fieldDescription>
-	</field>
-	<field name="stampDuty" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[stampDuty]]></fieldDescription>
-	</field>
-	<field name="groundRent" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[groundRent]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -367,7 +358,7 @@ Fax: +266 2231 0905
 				<reportElement uuid="fcf85536-f2b4-4a78-bf30-e7b0f55c3657" positionType="Float" x="11" y="363" width="529" height="1"/>
 			</line>
 			<textField>
-				<reportElement uuid="e77c0547-3c20-47d0-8736-9732acac4e06" positionType="Float" mode="Transparent" x="11" y="556" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF">
+				<reportElement uuid="e77c0547-3c20-47d0-8736-9732acac4e06" positionType="Float" mode="Transparent" x="11" y="514" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{WHICH_CALLER}.equals( "R" )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
@@ -377,7 +368,7 @@ Fax: +266 2231 0905
 				<textFieldExpression><![CDATA[$R{receipt}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement uuid="0b40f108-e8ea-4537-b85b-3822f0ef3916" positionType="Float" x="111" y="530" width="429" height="56">
+				<reportElement uuid="0b40f108-e8ea-4537-b85b-3822f0ef3916" positionType="Float" x="111" y="488" width="429" height="56">
 					<printWhenExpression><![CDATA[$P{WHICH_CALLER}.equals( "R" )]]></printWhenExpression>
 				</reportElement>
 			</rectangle>
@@ -426,34 +417,6 @@ Fax: +266 2231 0905
 						<font fontName="SansSerif" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$R{fee}]]></textFieldExpression>
-				</textField>
-				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-					<reportElement uuid="f98f4bf2-9b57-4476-906f-c99c68e0c588" positionType="Float" x="172" y="420" width="125" height="20"/>
-					<textElement textAlignment="Right">
-						<font fontName="SansSerif" size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{registrationFee}.toPlainString()]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="d465e6f2-626a-49e9-80ac-3bb46f44c1c9" positionType="Float" x="11" y="420" width="138" height="20"/>
-					<textElement markup="none">
-						<font fontName="SansSerif" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$R{registrationFee}]]></textFieldExpression>
-				</textField>
-				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-					<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="172" y="473" width="125" height="21"/>
-					<textElement textAlignment="Right">
-						<font fontName="SansSerif" size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{groundRent}.toPlainString()]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="6dcc5a99-5f50-48a4-a7e9-8878e50a3e05" positionType="Float" x="11" y="474" width="138" height="20"/>
-					<textElement markup="none">
-						<font fontName="SansSerif" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$R{groundRent}]]></textFieldExpression>
 				</textField>
 			</elementGroup>
 			<componentElement>
@@ -523,28 +486,14 @@ Fax: +266 2231 0905
 				<reportElement uuid="d1c9fa57-1767-42c8-89b4-62c11e21e3dd" x="7" y="33" width="529" height="1" forecolor="#333333"/>
 			</line>
 			<textField>
-				<reportElement uuid="6dcc5a99-5f50-48a4-a7e9-8878e50a3e05" positionType="Float" x="11" y="446" width="138" height="20"/>
-				<textElement markup="none">
-					<font fontName="SansSerif" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{stampDuty}]]></textFieldExpression>
-			</textField>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-				<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="172" y="446" width="125" height="21"/>
-				<textElement textAlignment="Right">
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{stampDuty}.toPlainString()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="6dcc5a99-5f50-48a4-a7e9-8878e50a3e05" positionType="Float" x="11" y="501" width="138" height="20"/>
+				<reportElement uuid="6dcc5a99-5f50-48a4-a7e9-8878e50a3e05" positionType="Float" x="11" y="432" width="138" height="20"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-				<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="172" y="500" width="125" height="21"/>
+				<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="172" y="431" width="125" height="21"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>

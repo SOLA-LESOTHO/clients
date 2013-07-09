@@ -71,10 +71,7 @@ public class ApplicationServiceBean extends ApplicationServiceSummaryBean {
     private Date lodgingDatetime;
     private BigDecimal valueFee;
     private String concatenatedName;
-    private BigDecimal groundRent;
     private BigDecimal serviceFee;
-    private BigDecimal stampDuty;
-    private BigDecimal transferDuty;
 
     /** 
      * Creates object's instance and initializes the following beans, which are 
@@ -206,15 +203,7 @@ public class ApplicationServiceBean extends ApplicationServiceSummaryBean {
         propertySupport.firePropertyChange(VALUE_FEE_PROPERTY, old, value);
     }
     
-    public BigDecimal getGroundRent() {
-        return groundRent;
-    }
-	
-    public void setGroundRent(BigDecimal value) {
-        BigDecimal old = groundRent;
-        groundRent = value;
-        propertySupport.firePropertyChange(GROUND_RENT_PROPERTY, old, value);
-    }
+
 	
 	
     public BigDecimal getServiceFee() {
@@ -228,26 +217,7 @@ public class ApplicationServiceBean extends ApplicationServiceSummaryBean {
     }
 	
 
-    public BigDecimal getStampDuty() {
-        return stampDuty;
-    }
-	
-    public void setStampDuty(BigDecimal value) {
-        BigDecimal old = stampDuty;
-        stampDuty = value;
-        propertySupport.firePropertyChange(STAMP_DUTY_PROPERTY, old, value);
-    }
-	
-
-    public BigDecimal getTransferDuty() {
-        return transferDuty;
-    }
-	
-    public void setTransferDuty(BigDecimal value) {
-        BigDecimal old = transferDuty;
-        transferDuty = value;
-        propertySupport.firePropertyChange(TRANSFER_DUTY_PROPERTY, old, value);
-    }
+   
 
     /** Cancels service */
     public List<ValidationResultBean> cancel() {

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Application status report" pageWidth="595" pageHeight="842" columnWidth="548" leftMargin="27" rightMargin="20" topMargin="24" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.ApplicationStatusReport" uuid="fa81ad38-fe18-4ec4-a9b1-695d6da0e7d9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="336"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#006633"/>
@@ -135,15 +135,6 @@
 	</field>
 	<field name="status" class="java.lang.String">
 		<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
-	</field>
-	<field name="stampDuty" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[stampDuty]]></fieldDescription>
-	</field>
-	<field name="registrationFee" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[registrationFee]]></fieldDescription>
-	</field>
-	<field name="groundRent" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[groundRent]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -443,39 +434,18 @@ Fax: +266 2231 0905
 					<textFieldExpression><![CDATA[$R{fee}]]></textFieldExpression>
 				</textField>
 				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-					<reportElement uuid="80b756b2-54b8-4602-9210-669ee8f8477c" positionType="Float" x="123" y="459" width="90" height="20"/>
-					<textElement>
-						<font fontName="SansSerif" size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{registrationFee}.toPlainString()]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="9ac42b20-4d71-40a8-b9b0-03a7971786b5" positionType="Float" x="123" y="440" width="90" height="20"/>
-					<textElement markup="none">
-						<font fontName="SansSerif" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$R{registrationFee}]]></textFieldExpression>
-				</textField>
-				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-					<reportElement uuid="ea7d95ca-0ced-4f9b-9bc4-456bbd76e1ef" positionType="Float" x="434" y="459" width="90" height="21"/>
+					<reportElement uuid="ea7d95ca-0ced-4f9b-9bc4-456bbd76e1ef" positionType="Float" x="129" y="459" width="90" height="21"/>
 					<textElement>
 						<font fontName="SansSerif" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{totalFee}.toPlainString()]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="869bc72b-78da-42bc-bd73-38ab7f931ba0" positionType="Float" x="434" y="440" width="90" height="20"/>
+					<reportElement uuid="869bc72b-78da-42bc-bd73-38ab7f931ba0" positionType="Float" x="129" y="440" width="90" height="20"/>
 					<textElement markup="none">
 						<font fontName="SansSerif" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$R{total}]]></textFieldExpression>
-				</textField>
-				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-					<reportElement uuid="80b756b2-54b8-4602-9210-669ee8f8477c" positionType="Float" x="225" y="458" width="90" height="20"/>
-					<textElement>
-						<font fontName="SansSerif" size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{stampDuty}.toPlainString()]]></textFieldExpression>
 				</textField>
 			</elementGroup>
 			<componentElement>
@@ -645,27 +615,6 @@ Fax: +266 2231 0905
 					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{title}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="9ac42b20-4d71-40a8-b9b0-03a7971786b5" positionType="Float" x="225" y="439" width="90" height="20"/>
-				<textElement markup="none">
-					<font fontName="SansSerif" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{stampDuty}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="9ac42b20-4d71-40a8-b9b0-03a7971786b5" positionType="Float" x="330" y="440" width="90" height="20"/>
-				<textElement markup="none">
-					<font fontName="SansSerif" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{groundRent}]]></textFieldExpression>
-			</textField>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-				<reportElement uuid="80b756b2-54b8-4602-9210-669ee8f8477c" positionType="Float" x="330" y="459" width="90" height="20"/>
-				<textElement>
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{groundRent}.toPlainString()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
