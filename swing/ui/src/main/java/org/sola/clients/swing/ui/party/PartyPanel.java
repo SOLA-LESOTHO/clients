@@ -32,9 +32,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Locale;
 import javax.swing.JTextField;
+import javax.validation.groups.Default;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartyRoleBean;
+import org.sola.clients.beans.party.validation.PartyIndividualValidationGroup;
 import org.sola.clients.beans.referencedata.CommunicationTypeListBean;
 import org.sola.clients.beans.referencedata.GenderTypeListBean;
 import org.sola.clients.beans.referencedata.IdTypeListBean;
@@ -263,7 +265,11 @@ public class PartyPanel extends javax.swing.JPanel {
     }
     
     public boolean validateParty(boolean showMessage){
-        return partyBean.validate(showMessage).size() < 1;
+        if(partyBean.getTypeCode().equals(individualString)){
+            return partyBean.validate(showMessage, Default.class, PartyIndividualValidationGroup.class).size() < 1;
+        } else {
+            return partyBean.validate(showMessage).size() < 1;
+        }
     }
     
     public boolean saveParty(){
@@ -301,8 +307,8 @@ public class PartyPanel extends javax.swing.JPanel {
         labName = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        labLastName = new javax.swing.JLabel();
         txtLastName = new javax.swing.JTextField();
+        labName2 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         labAddress = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
@@ -313,8 +319,8 @@ public class PartyPanel extends javax.swing.JPanel {
         labIdref = new javax.swing.JLabel();
         txtIdref = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
-        lblGender = new javax.swing.JLabel();
         cbxGender = new javax.swing.JComboBox();
+        labName1 = new javax.swing.JLabel();
         groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
         fullPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -442,7 +448,7 @@ public class PartyPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roleTableScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                .addComponent(roleTableScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
         );
 
         jPanel10.setName("jPanel10"); // NOI18N
@@ -463,6 +469,11 @@ public class PartyPanel extends javax.swing.JPanel {
 
         txtFirstName.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtFirstName.setHorizontalAlignment(JTextField.LEADING);
+        txtFirstName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFirstNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -484,10 +495,6 @@ public class PartyPanel extends javax.swing.JPanel {
 
         jPanel5.setName("jPanel5"); // NOI18N
 
-        labLastName.setText(bundle.getString("ApplicationForm.labLastName.text")); // NOI18N
-        labLastName.setIconTextGap(1);
-        labLastName.setName("labLastName"); // NOI18N
-
         txtLastName.setName("txtLastName"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.lastName}"), txtLastName, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -496,17 +503,22 @@ public class PartyPanel extends javax.swing.JPanel {
         txtLastName.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtLastName.setHorizontalAlignment(JTextField.LEADING);
 
+        labName2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
+        labName2.setText(bundle.getString("PartyPanel.labName2.text")); // NOI18N
+        labName2.setIconTextGap(1);
+        labName2.setName(bundle.getString("PartyPanel.labName2.name")); // NOI18N
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
             .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+            .addComponent(labName2, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(labLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labName2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -608,10 +620,6 @@ public class PartyPanel extends javax.swing.JPanel {
 
         jPanel8.setName("jPanel8"); // NOI18N
 
-        lblGender.setText(bundle.getString("PartyPanel.labGender.text")); // NOI18N
-        lblGender.setToolTipText(bundle.getString("PartyPanel.labGender.toolTipText")); // NOI18N
-        lblGender.setName("labGender"); // NOI18N
-
         cbxGender.setBackground(new java.awt.Color(226, 244, 224));
         cbxGender.setName("cbxGender"); // NOI18N
         cbxGender.setRenderer(new SimpleComboBoxRenderer("getDisplayValue"));
@@ -622,17 +630,28 @@ public class PartyPanel extends javax.swing.JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${partyBean.genderType}"), cbxGender, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
+        cbxGender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxGenderActionPerformed(evt);
+            }
+        });
+
+        labName1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
+        labName1.setText(bundle.getString("PartyPanel.labName1.text")); // NOI18N
+        labName1.setIconTextGap(1);
+        labName1.setName(bundle.getString("PartyPanel.labName1.name")); // NOI18N
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblGender, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
             .addComponent(cbxGender, 0, 148, Short.MAX_VALUE)
+            .addComponent(labName1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(lblGender, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labName1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -921,7 +940,7 @@ public class PartyPanel extends javax.swing.JPanel {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(labPreferredWay)
-                .addGap(0, 29, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
             .addComponent(cbxCommunicationWay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
@@ -1033,6 +1052,14 @@ public class PartyPanel extends javax.swing.JPanel {
         removeRole();
     }//GEN-LAST:event_menuRemoveRoleActionPerformed
 
+    private void cbxGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxGenderActionPerformed
+
+    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFirstNameActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel basicPanel;
     private javax.swing.JButton btnAddRole;
@@ -1079,12 +1106,12 @@ public class PartyPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labFax;
     private javax.swing.JLabel labIdType;
     private javax.swing.JLabel labIdref;
-    private javax.swing.JLabel labLastName;
     private javax.swing.JLabel labMobile;
     private javax.swing.JLabel labName;
+    private javax.swing.JLabel labName1;
+    private javax.swing.JLabel labName2;
     private javax.swing.JLabel labPhone;
     private javax.swing.JLabel labPreferredWay;
-    private javax.swing.JLabel lblGender;
     private javax.swing.JMenuItem menuRemoveRole;
     private org.sola.clients.beans.referencedata.PartyRoleTypeListBean partyRoleTypes;
     private javax.swing.JPopupMenu popupRoles;

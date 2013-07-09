@@ -28,8 +28,10 @@
 package org.sola.clients.beans.party;
 
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.application.ApplicationBean;
@@ -38,6 +40,7 @@ import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.party.validation.PartyAddressCheck;
 import org.sola.clients.beans.party.validation.PartyIdTypeCheck;
+import org.sola.clients.beans.party.validation.PartyIndividualValidationGroup;
 import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
@@ -89,7 +92,10 @@ public class PartyBean extends PartySummaryBean {
     @Length(max = 50, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_ALIAS, payload=Localized.class)
     private String alias;
     private AddressBean addressBean;
+    
+    @NotNull (message = ClientMessage.CHECK_NOTNULL_GENDER, payload=Localized.class,  groups = PartyIndividualValidationGroup.class)
     private GenderTypeBean genderTypeBean;
+    
     private IdTypeBean idTypeBean;
     private CommunicationTypeBean communicationTypeBean;
     private SolaList<PartyRoleBean> roleList;
@@ -198,22 +204,28 @@ public class PartyBean extends PartySummaryBean {
     }
 
     public GenderTypeBean getGenderType() {
-        if (genderTypeBean == null) {
-            genderTypeBean = new GenderTypeBean();
-        }
         return genderTypeBean;
     }
 
     public void setGenderType(GenderTypeBean genderTypeBean) {
-        this.setJointRefDataBean(getGenderType(), genderTypeBean, GENDER_TYPE_PROPERTY);
+        this.genderTypeBean = genderTypeBean;
+        propertySupport.firePropertyChange(GENDER_TYPE_PROPERTY, null, this.genderTypeBean);
     }
 
     public String getGenderCode() {
+        if(getGenderType()==null){
+            return null;
+        }
         return getGenderType().getCode();
     }
 
     public void setGenderCode(String value) {
-        String oldValue = getGenderType().getCode();
+        String oldValue;
+        if(getGenderType()==null){
+            oldValue = null;
+        } else{
+            oldValue = getGenderType().getCode();
+        }
         setGenderType(CacheManager.getBeanByCode(CacheManager.getGenderTypes(), value));
         propertySupport.firePropertyChange(GENDER_TYPE_CODE_PROPERTY, oldValue, value);
     }
