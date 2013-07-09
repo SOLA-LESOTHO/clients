@@ -42,7 +42,7 @@ import org.sola.webservices.transferobjects.AbstractCodeTO;
  * For more information on reference tables, check data dictionary.
  */
 public abstract class AbstractCodeBean extends AbstractBindingBean {
-
+    
     public static final String CODE_PROPERTY = "code";
     public static final String STATUS_PROPERTY = "status";
     public static final String DESCRIPTION_PROPERTY = "description";

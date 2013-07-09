@@ -113,4 +113,15 @@ public class BaUnitSummaryBean extends AbstractTransactionedBean {
         }
         this.setJointRefDataBean(this.baUnitType, baUnitType, BA_UNIT_TYPE_PROPERTY);
     }
+    
+    public String getCode() {
+        String result = "";
+        if(nameFirstpart!=null){
+            result = nameFirstpart;
+            if(nameLastpart!=null){
+                result += "-" + nameLastpart;
+            }
+        }
+        return result;
+    }
 }

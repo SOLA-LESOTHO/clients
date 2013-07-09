@@ -35,6 +35,8 @@ import org.sola.clients.beans.AbstractCodeBean;
  * For more information see data dictionary <b>Administrative</b> schema.
  */
 public class BaUnitRelTypeBean  extends AbstractCodeBean {
+    public static final String CODE_PRIOR_TITLE_PROPERTY = "priorTitle";
+    
     public BaUnitRelTypeBean(){
         super();
     }

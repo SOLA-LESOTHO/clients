@@ -32,7 +32,6 @@ package org.sola.clients.swing.desktop.administrative;
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.ImageIcon;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.Bindings;
 import org.sola.clients.beans.administrative.*;
@@ -50,6 +49,7 @@ import org.sola.clients.swing.desktop.cadastre.CadastreObjectSearchForm;
 import org.sola.clients.swing.gis.ui.controlsbundle.ControlsBundleForBaUnit;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
+import org.sola.clients.swing.ui.administrative.BaUnitSearchPanel;
 import org.sola.clients.swing.ui.cadastre.CadastreObjectsDialog;
 import org.sola.clients.swing.ui.cadastre.CadastreObjectsSearchPanel;
 import org.sola.clients.swing.ui.renderers.*;
@@ -123,6 +123,7 @@ public class PropertyPanel extends ContentPanel {
         customizeForm();
 
         rrrTypes.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(RrrTypeListBean.SELECTED_RRR_TYPE_PROPERTY)) {
@@ -132,6 +133,7 @@ public class PropertyPanel extends ContentPanel {
         });
 
         baUnitBean1.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(BaUnitBean.SELECTED_RIGHT_PROPERTY)) {
@@ -167,12 +169,9 @@ public class PropertyPanel extends ContentPanel {
         customizeParentPropertyButtons();
         customizeChildPropertyButtons();
         customizeHistoricRightsViewButton();
-
-        btnNext.setVisible(false);
-        btnNext.setEnabled(false);
     }
 
-    private void setFormHeader(){
+    private void setFormHeader() {
         if (baUnitBean1.getNameFirstpart() != null && baUnitBean1.getNameLastpart() != null) {
             headerPanel.setTitleText(String.format(
                     resourceBundle.getString("PropertyPanel.existingProperty.Text"),
@@ -180,7 +179,7 @@ public class PropertyPanel extends ContentPanel {
         } else {
             headerPanel.setTitleText(resourceBundle.getString("PropertyPanel.newProperty.Text"));
         }
-        
+
         if (applicationBean != null && applicationService != null) {
             headerPanel.setTitleText(String.format("%s, %s",
                     headerPanel.getTitleText(),
@@ -188,57 +187,38 @@ public class PropertyPanel extends ContentPanel {
                     applicationService.getRequestType().getDisplayValue(), applicationBean.getNr())));
         }
     }
-    
-    /**
-     * Shows {@link NewPropertyWizardPanel} to select parent property.
-     */
-    private void showNewTitleWizard(boolean showMessage) {
-        if (baUnitBean1 == null || (baUnitBean1.getStatusCode() != null
-                && !baUnitBean1.getStatusCode().equals(StatusConstants.PENDING))) {
-            return;
-        }
 
-        if (!showMessage || (showMessage && MessageUtility.displayMessage(ClientMessage.BAUNIT_SELECT_EXISTING_PROPERTY) == MessageUtility.BUTTON_ONE)) {
-            // Open selection form
-            if (getMainContentPanel() != null) {
-                if (newPropertyWizardListener == null) {
-                    newPropertyWizardListener = new PropertyChangeListener() {
-                        @Override
-                        public void propertyChange(PropertyChangeEvent evt) {
-                            if (evt.getPropertyName().equals(NewPropertyWizardPanel.SELECTED_RESULT_PROPERTY)) {
-                                if (addParentProperty((Object[]) evt.getNewValue())) {
-                                }
+    /**
+     * Search for parent property objects.
+     */
+    private void searchParentProperties() {
+        SolaTask t = new SolaTask<Void, Void>() {
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTYSEARCH));
+                BaUnitSearchForm form = new BaUnitSearchForm();
+                form.getSearchPanel().setShowSelectButton(true);
+                form.getSearchPanel().addPropertyChangeListener(new PropertyChangeListener() {
+
+                    @Override
+                    public void propertyChange(PropertyChangeEvent evt) {
+                        if(evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)){
+                            BaUnitSearchResultBean result = (BaUnitSearchResultBean)evt.getNewValue();
+                            if(!result.getStatusCode().equals(StatusConstants.HISTORIC)){
+                                MessageUtility.displayMessage(ClientMessage.BAUNIT_MUST_HAVE_HISTORIC_STATUS);
+                            } else {
+                                baUnitBean1.addParentBaUnit(result);
+                                getMainContentPanel().closePanel(MainContentPanel.CARD_BAUNIT_SEARCH);
                             }
                         }
-                    };
-                }
-
-                SolaTask t = new SolaTask<Void, Void>() {
-                    @Override
-                    public Void doTask() {
-                        setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTYLINK));
-                        boolean allowSelection = true;
-                        if (applicationService != null) {
-                            allowSelection = !applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE);
-                        }
-
-                        NewPropertyWizardPanel newPropertyWizardPanel = new NewPropertyWizardPanel(applicationBean, allowSelection);
-                        newPropertyWizardPanel.addPropertyChangeListener(newPropertyWizardListener);
-                        getMainContentPanel().addPanel(newPropertyWizardPanel, MainContentPanel.CARD_NEW_PROPERTY_WIZARD, true);
-                        return null;
                     }
-                };
-                TaskManager.getInstance().runTask(t);
+                });
+                
+                getMainContentPanel().addPanel(form, MainContentPanel.CARD_BAUNIT_SEARCH, true);
+                return null;
             }
-        }
-
-    }
-
-    public void showPriorTitileMessage() {
-        if ((baUnitBean1.getNameFirstpart() == null || baUnitBean1.getNameFirstpart().length() < 1)
-                && (baUnitBean1.getNameLastpart() == null || baUnitBean1.getNameLastpart().length() < 1)) {
-            showNewTitleWizard(true);
-        }
+        };
+        TaskManager.getInstance().runTask(t);
     }
 
     /**
@@ -354,10 +334,10 @@ public class PropertyPanel extends ContentPanel {
      */
     private void customizeParcelButtons() {
         // Allows manage parcel selection only for users with lease management right and if BaUnit state is pending
-        boolean enabled =  !readOnly && 
-                SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE) &&
-                (StringUtility.isEmpty(baUnitBean1.getStatusCode()) || 
-                baUnitBean1.getStatusCode().equals(StatusConstants.PENDING));
+        boolean enabled = !readOnly
+                && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE)
+                && (StringUtility.isEmpty(baUnitBean1.getStatusCode())
+                || baUnitBean1.getStatusCode().equals(StatusConstants.PENDING));
         btnSearchParcel.setEnabled(enabled);
         btnAddParcelFromApplication.setEnabled(enabled);
     }
@@ -424,11 +404,11 @@ public class PropertyPanel extends ContentPanel {
         RrrTypeBean selectedRrrType = rrrTypes.getSelectedRrrType();
         boolean enabled = selectedRrrType != null && selectedRrrType.getCode() != null
                 && !readOnly && isActionAllowed(RrrTypeActionConstants.NEW);
-        if(enabled){
+        if (enabled) {
             // Check if lease already in the list
-            if(selectedRrrType.getCode().equals(RrrBean.CODE_LEASE)){
-                for(RrrBean rrr: baUnitBean1.getRrrFilteredList()){
-                    if(StringUtility.empty(rrr.getTypeCode()).equals(RrrBean.CODE_LEASE)){
+            if (selectedRrrType.getCode().equals(RrrBean.CODE_LEASE)) {
+                for (RrrBean rrr : baUnitBean1.getRrrFilteredList()) {
+                    if (StringUtility.empty(rrr.getTypeCode()).equals(RrrBean.CODE_LEASE)) {
                         enabled = false;
                         break;
                     }
@@ -515,22 +495,24 @@ public class PropertyPanel extends ContentPanel {
         return result;
     }
 
-    /** 
-     * Returns true if cadastre object attached on the BaUnit, otherwise false. 
-     * @param showMessage Indicates whether to show a warning message if cadastre object isn't attached.
+    /**
+     * Returns true if cadastre object attached on the BaUnit, otherwise false.
+     *
+     * @param showMessage Indicates whether to show a warning message if
+     * cadastre object isn't attached.
      */
-    private boolean isCadastreObjectExists(boolean showMessage){
-        if(baUnitBean1.getCadastreObject()!=null && 
-                !baUnitBean1.getCadastreObject().toString().equals("")){
+    private boolean isCadastreObjectExists(boolean showMessage) {
+        if (baUnitBean1.getCadastreObject() != null
+                && !baUnitBean1.getCadastreObject().toString().equals("")) {
             return true;
         }
-        if(showMessage){
+        if (showMessage) {
             MessageUtility.displayMessage(ClientMessage.BAUNIT_SELECT_PARCEL);
             tabsMain.setSelectedComponent(pnlPlot);
         }
         return false;
     }
-    
+
     /**
      * Removes selected right from the list of rights.
      */
@@ -603,10 +585,10 @@ public class PropertyPanel extends ContentPanel {
      * further form customization.
      */
     private void openRightForm(RrrBean rrrBean, RrrBean.RRR_ACTION action) {
-        if(!isCadastreObjectExists(true)){
+        if (!isCadastreObjectExists(true)) {
             return;
         }
-        
+
         if (action == RrrBean.RRR_ACTION.NEW && rrrTypes.getSelectedRrrType() == null) {
             return;
         }
@@ -628,7 +610,7 @@ public class PropertyPanel extends ContentPanel {
                 }
             }
         };
-        
+
         ContentPanel panel;
         String cardName = MainContentPanel.CARD_SIMPLE_RIGHT;
         String rrrCode = rrrBean.getRrrType().getCode();
@@ -686,6 +668,7 @@ public class PropertyPanel extends ContentPanel {
         }
 
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
+
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
@@ -730,6 +713,7 @@ public class PropertyPanel extends ContentPanel {
     private void openParcelSearch() {
         CadastreObjectSearchForm form = new CadastreObjectSearchForm();
         form.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsSearchPanel.SELECTED_CADASTRE_OBJECT)) {
@@ -747,6 +731,7 @@ public class PropertyPanel extends ContentPanel {
     private void openPropertyForm(final RelatedBaUnitInfoBean relatedBaUnit) {
         if (relatedBaUnit != null && relatedBaUnit.getRelatedBaUnit() != null) {
             SolaTask t = new SolaTask<Void, Void>() {
+
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTY));
@@ -780,6 +765,7 @@ public class PropertyPanel extends ContentPanel {
                 applicationBean.getCadastreObjectFilteredList(), MainForm.getInstance(), true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsDialog.SELECT_CADASTRE_OBJECT)) {
@@ -880,8 +866,6 @@ public class PropertyPanel extends ContentPanel {
         btnOpenChild = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         tableChildBaUnits = new javax.swing.JTable();
-        pnlNextButton = new javax.swing.JPanel();
-        btnNext = new javax.swing.JButton();
         mapPanel = new javax.swing.JPanel();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
 
@@ -1587,16 +1571,8 @@ public class PropertyPanel extends ContentPanel {
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${filteredParentBaUnits}");
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, eLProperty, tableParentBaUnits);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${relatedBaUnit.name}"));
-        columnBinding.setColumnName("Related Ba Unit.name");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${relatedBaUnit.nameFirstpart}"));
-        columnBinding.setColumnName("Related Ba Unit.name Firstpart");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${relatedBaUnit.nameLastpart}"));
-        columnBinding.setColumnName("Related Ba Unit.name Lastpart");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${relatedBaUnit.code}"));
+        columnBinding.setColumnName("Related Ba Unit.code");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${baUnitRelType.displayValue}"));
@@ -1612,11 +1588,9 @@ public class PropertyPanel extends ContentPanel {
         bindingGroup.addBinding(binding);
 
         jScrollPane3.setViewportView(tableParentBaUnits);
-        tableParentBaUnits.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PropertyPanel.tableParentBaUnits.columnModel.title0_1")); // NOI18N
-        tableParentBaUnits.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertyPanel.tableParentBaUnits.columnModel.title1_1")); // NOI18N
-        tableParentBaUnits.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.tableParentBaUnits.columnModel.title2_1")); // NOI18N
-        tableParentBaUnits.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertyPanel.jTable1.columnModel.title4")); // NOI18N
-        tableParentBaUnits.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("PropertyPanel.jTable1.columnModel.title3_1")); // NOI18N
+        tableParentBaUnits.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PropertyPanel.tableParentBaUnits.columnModel.title1_1")); // NOI18N
+        tableParentBaUnits.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertyPanel.jTable1.columnModel.title4")); // NOI18N
+        tableParentBaUnits.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.jTable1.columnModel.title3_1")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1630,7 +1604,7 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel8Layout.createSequentialGroup()
                 .add(jToolBar6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
         );
 
         jPanel14.add(jPanel8);
@@ -1669,16 +1643,8 @@ public class PropertyPanel extends ContentPanel {
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${filteredChildBaUnits}");
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, eLProperty, tableChildBaUnits);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${relatedBaUnit.name}"));
-        columnBinding.setColumnName("Related Ba Unit.name");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${relatedBaUnit.nameFirstpart}"));
-        columnBinding.setColumnName("Related Ba Unit.name Firstpart");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${relatedBaUnit.nameLastpart}"));
-        columnBinding.setColumnName("Related Ba Unit.name Lastpart");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${relatedBaUnit.code}"));
+        columnBinding.setColumnName("Related Ba Unit.code");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${baUnitRelType.displayValue}"));
@@ -1694,11 +1660,9 @@ public class PropertyPanel extends ContentPanel {
         bindingGroup.addBinding(binding);
 
         jScrollPane7.setViewportView(tableChildBaUnits);
-        tableChildBaUnits.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PropertyPanel.tableChildBaUnits.columnModel.title0_1")); // NOI18N
-        tableChildBaUnits.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertyPanel.tableChildBaUnits.columnModel.title1_1")); // NOI18N
-        tableChildBaUnits.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.tableChildBaUnits.columnModel.title2_1")); // NOI18N
-        tableChildBaUnits.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertyPanel.tableChildBaUnits.columnModel.title3_1")); // NOI18N
-        tableChildBaUnits.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("PropertyPanel.tableChildBaUnits.columnModel.title4")); // NOI18N
+        tableChildBaUnits.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PropertyPanel.tableChildBaUnits.columnModel.title1_1")); // NOI18N
+        tableChildBaUnits.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertyPanel.tableChildBaUnits.columnModel.title3_1")); // NOI18N
+        tableChildBaUnits.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.tableChildBaUnits.columnModel.title4")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1712,31 +1676,10 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel5Layout.createSequentialGroup()
                 .add(jToolBar7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
         );
 
         jPanel14.add(jPanel5);
-
-        pnlNextButton.setName(bundle.getString("PropertyPanel.pnlNextButton.name_2")); // NOI18N
-
-        org.jdesktop.layout.GroupLayout pnlNextButtonLayout = new org.jdesktop.layout.GroupLayout(pnlNextButton);
-        pnlNextButton.setLayout(pnlNextButtonLayout);
-        pnlNextButtonLayout.setHorizontalGroup(
-            pnlNextButtonLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
-        );
-        pnlNextButtonLayout.setVerticalGroup(
-            pnlNextButtonLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 34, Short.MAX_VALUE)
-        );
-
-        btnNext.setText(bundle.getString("PropertyPanel.btnNext.text_1")); // NOI18N
-        btnNext.setName(bundle.getString("PropertyPanel.btnNext.name_1")); // NOI18N
-        btnNext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNextActionPerformed(evt);
-            }
-        });
 
         org.jdesktop.layout.GroupLayout pnlPriorPropertiesLayout = new org.jdesktop.layout.GroupLayout(pnlPriorProperties);
         pnlPriorProperties.setLayout(pnlPriorPropertiesLayout);
@@ -1744,25 +1687,15 @@ public class PropertyPanel extends ContentPanel {
             pnlPriorPropertiesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlPriorPropertiesLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(pnlPriorPropertiesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(pnlPriorPropertiesLayout.createSequentialGroup()
-                        .add(10, 10, 10)
-                        .add(pnlNextButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnNext))
-                    .add(jPanel14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jPanel14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlPriorPropertiesLayout.setVerticalGroup(
             pnlPriorPropertiesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlPriorPropertiesLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 293, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(pnlPriorPropertiesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(pnlNextButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnNext))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .add(jPanel14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.pnlPriorProperties.TabConstraints.tabTitle"), pnlPriorProperties); // NOI18N
@@ -1840,7 +1773,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_formComponentShown
 
     private void btnAddParentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddParentActionPerformed
-        showNewTitleWizard(false);
+        searchParentProperties();
     }//GEN-LAST:event_btnAddParentActionPerformed
 
     private void btnRemoveParentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveParentActionPerformed
@@ -1929,11 +1862,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
         this.mapControl.setCadastreObject(baUnitBean1.getCadastreObject());
     }//GEN-LAST:event_mapPanelComponentShown
 
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        tabsMain.setEnabled(true);
-        tabsMain.setSelectedIndex(tabsMain.indexOfComponent(pnlPlot));
-    }//GEN-LAST:event_btnNextActionPerformed
-
     private void btnViewHistoricRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHistoricRightActionPerformed
         if (baUnitBean1.getSelectedHistoricRight() != null) {
             openRightForm(baUnitBean1.getSelectedHistoricRight(), RrrBean.RRR_ACTION.VIEW);
@@ -1963,7 +1891,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JButton btnCreateRight;
     private javax.swing.JButton btnEditRight;
     private javax.swing.JButton btnExtinguish;
-    private javax.swing.JButton btnNext;
     private javax.swing.JButton btnOpenChild;
     private javax.swing.JButton btnOpenParent;
     private javax.swing.JButton btnRemoveNotation;
@@ -2026,7 +1953,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JMenuItem menuRemoveRight;
     private javax.swing.JMenuItem menuVaryRight;
     private javax.swing.JMenuItem menuViewRight;
-    private javax.swing.JPanel pnlNextButton;
     private javax.swing.JPanel pnlPlot;
     private javax.swing.JPanel pnlPriorProperties;
     private javax.swing.JPopupMenu popupChildBaUnits;

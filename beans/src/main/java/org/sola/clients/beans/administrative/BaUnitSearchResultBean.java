@@ -45,6 +45,7 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     public static final String RIGHTHOLDERS_PROPERTY = "rightholders";
     public static final String REGISTRATION_NUMBER_PROPERTY = "registrationNumber";
     public static final String REGISTRATION_DATE_PROPERTY = "registrationDate";
+    public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
     
     private String id;
     private String nameFirstPart;
@@ -53,6 +54,7 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     private String rightholders;
     private String registrationNumber;
     private Date registrationDate;
+    private String leaseNumber;
     
     public BaUnitSearchResultBean(){
         super();
@@ -147,5 +149,15 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
             number = number + " - " + getNameLastPart();
         }
         return number;
+    }
+
+    public String getLeaseNumber() {
+        return leaseNumber;
+    }
+
+    public void setLeaseNumber(String leaseNumber) {
+        String oldValue = this.leaseNumber;
+        this.leaseNumber = leaseNumber;
+        propertySupport.firePropertyChange(LEASE_NUMBER_PROPERTY, oldValue, this.leaseNumber);
     }
 }

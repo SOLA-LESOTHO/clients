@@ -408,8 +408,8 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         columnBinding.setColumnName("Rightholders");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${registrationNumber}"));
-        columnBinding.setColumnName("Registration Number");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${leaseNumber}"));
+        columnBinding.setColumnName("Lease Number");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${registrationDate}"));

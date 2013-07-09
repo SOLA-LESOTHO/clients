@@ -28,7 +28,7 @@
           <Component id="headerPanel1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="baUnitSearchPanelExt1" max="32767" attributes="0"/>
+              <Component id="baUnitSearchPanelExt1" pref="673" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>

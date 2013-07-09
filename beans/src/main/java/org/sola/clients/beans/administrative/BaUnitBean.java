@@ -45,6 +45,7 @@ import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.clients.beans.referencedata.BaUnitRelTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.referencedata.TypeActionBean;
 import org.sola.clients.beans.source.SourceBean;
@@ -673,5 +674,41 @@ public class BaUnitBean extends BaUnitSummaryBean {
         return TypeConverters.TransferObjectToBean(
                 WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitId),
                 BaUnitAreaBean.class, null);
+    }
+    
+    /** Adds new parent BaUnit */
+    public void addParentBaUnit(BaUnitSearchResultBean searchResult){
+        if(searchResult==null){
+            return;
+        }
+        
+        for(RelatedBaUnitInfoBean parentInfo : getParentBaUnits()){
+            if(parentInfo.getBaUnitId()!=null && parentInfo.getRelatedBaUnit()!=null &&
+                    parentInfo.getRelatedBaUnit().getId().equals(searchResult.getId())){
+                return;
+            }
+        }
+        
+        for(RelatedBaUnitInfoBean childInfo : getChildBaUnits()){
+            if(childInfo.getBaUnitId()!=null && childInfo.getRelatedBaUnit()!=null &&
+                    childInfo.getRelatedBaUnit().getId().equals(searchResult.getId())){
+                return;
+            }
+        }
+        
+        RelatedBaUnitInfoBean newParent = new RelatedBaUnitInfoBean();
+        BaUnitSummaryBean newBaUnit = new BaUnitSummaryBean();
+        
+        newBaUnit.setId(searchResult.getId());
+        newBaUnit.setNameFirstpart(searchResult.getNameFirstPart());
+        newBaUnit.setNameLastpart(searchResult.getNameLastPart());
+        newBaUnit.setStatusCode(searchResult.getStatusCode());
+        
+        newParent.setBaUnitId(getId());
+        newParent.setRelatedBaUnit(newBaUnit);
+        newParent.setRelatedBaUnitId(searchResult.getId());
+        newParent.setRelationCode(BaUnitRelTypeBean.CODE_PRIOR_TITLE_PROPERTY);
+        
+        getParentBaUnits().addAsNew(newParent);
     }
 }

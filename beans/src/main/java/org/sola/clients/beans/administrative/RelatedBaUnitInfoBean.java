@@ -103,7 +103,7 @@ public class RelatedBaUnitInfoBean extends AbstractVersionedBean {
     public BaUnitRelTypeBean getBaUnitRelType() {
         return baUnitRelType;
     }
-
+    
     public void setBaUnitRelType(BaUnitRelTypeBean baUnitRelType) {
         this.baUnitRelType = baUnitRelType;
         if (this.baUnitRelType == null) {

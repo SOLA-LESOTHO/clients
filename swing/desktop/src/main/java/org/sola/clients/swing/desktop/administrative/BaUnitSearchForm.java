@@ -47,6 +47,11 @@ public class BaUnitSearchForm extends ContentPanel {
         baUnitSearchPanelExt1.clickFind();
     }
     
+     /** Returns underlying search panel. */
+     public BaUnitSearchPanelExt getSearchPanel(){
+         return baUnitSearchPanelExt1;
+     }
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -72,7 +77,7 @@ public class BaUnitSearchForm extends ContentPanel {
             .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(baUnitSearchPanelExt1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(baUnitSearchPanelExt1, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
