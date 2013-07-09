@@ -166,7 +166,6 @@ public class PropertyPanel extends ContentPanel {
         customizeParcelButtons();
         customizeParentPropertyButtons();
         customizeChildPropertyButtons();
-        customizeTerminationButton();
         customizeHistoricRightsViewButton();
 
         btnNext.setVisible(false);
@@ -347,37 +346,6 @@ public class PropertyPanel extends ContentPanel {
         }
         btnAddNotation.setEnabled(!readOnly);
         menuRemoveNotation.setEnabled(btnRemoveNotation.isEnabled());
-    }
-
-    /**
-     * Enables or disables termination button, depending on the form state.
-     */
-    private void customizeTerminationButton() {
-        boolean enabled = !readOnly;
-
-        // Check BaUnit status to be current
-        if (baUnitBean1.getStatusCode() == null || !baUnitBean1.getStatusCode().equals(StatusConstants.CURRENT)) {
-            enabled = false;
-        }
-
-        // Check RequestType to have cancel action.
-        if (applicationService == null || applicationService.getRequestType() == null
-                || applicationService.getRequestType().getTypeActionCode() == null
-                || !applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_CANCEL_PROPERTY)) {
-            enabled = false;
-        }
-
-        // Determine what should be shown on the button, terminate or cancelling of termination.
-        if (baUnitBean1.getPendingActionCode() != null && applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_CANCEL_PROPERTY)) {
-            // Show cancel
-            btnTerminate.setIcon(new ImageIcon(getClass().getResource("/images/common/undo.png")));
-            btnTerminate.setText(resourceBundle.getString("PropertyPanel.btnTerminate.text2"));
-        } else {
-            // Show terminate
-            btnTerminate.setIcon(new ImageIcon(getClass().getResource("/images/common/stop.png")));
-            btnTerminate.setText(resourceBundle.getString("PropertyPanel.btnTerminate.text"));
-        }
-        btnTerminate.setEnabled(enabled);
     }
 
     /**
@@ -759,36 +727,6 @@ public class PropertyPanel extends ContentPanel {
         saveBaUnitState();
     }
 
-    private String getTerminateMessage() {
-        String whichMessage = ClientMessage.BAUNIT_CONFIRM_TERMINATION;
-        for (int i = 0; i < baUnitBean1.getRrrFilteredList().size(); i++) {
-            if (baUnitBean1.getRrrFilteredList().get(i).getStatus().getCode().equals(StatusConstants.CURRENT)) {
-                whichMessage = ClientMessage.BAUNIT_CURRENT_RRR_EXIST_CONFIRM_TERMINATION;
-                return whichMessage;
-            }
-        }
-        return whichMessage;
-    }
-
-    private void terminateBaUnit() {
-        if (baUnitBean1.getPendingActionCode() != null && baUnitBean1.getPendingActionCode().equals(TypeActionBean.CODE_CANCEL)) {
-            saveBaUnit();
-            baUnitBean1.cancelBaUnitTermination();
-            MessageUtility.displayMessage(ClientMessage.BAUNIT_TERMINATION_CANCELED);
-            customizeForm();
-            saveBaUnitState();
-        } else {
-            String whichMessage = getTerminateMessage();
-            if (MessageUtility.displayMessage(whichMessage) == MessageUtility.BUTTON_ONE) {
-                saveBaUnit();
-                baUnitBean1.terminateBaUnit(applicationService.getId());
-                MessageUtility.displayMessage(ClientMessage.BAUNIT_TERMINATED);
-                customizeForm();
-                saveBaUnitState();
-            }
-        }
-    }
-
     private void openParcelSearch() {
         CadastreObjectSearchForm form = new CadastreObjectSearchForm();
         form.addPropertyChangeListener(new PropertyChangeListener() {
@@ -878,7 +816,6 @@ public class PropertyPanel extends ContentPanel {
         menuOpenChildBaUnit = new javax.swing.JMenuItem();
         jToolBar5 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
-        btnTerminate = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
         jLabel4 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
@@ -1079,19 +1016,6 @@ public class PropertyPanel extends ContentPanel {
             }
         });
         jToolBar5.add(btnSave);
-
-        btnTerminate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/stop.png"))); // NOI18N
-        btnTerminate.setText(bundle.getString("PropertyPanel.btnTerminate.text")); // NOI18N
-        btnTerminate.setFocusable(false);
-        btnTerminate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnTerminate.setName("btnTerminate"); // NOI18N
-        btnTerminate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnTerminate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTerminateActionPerformed(evt);
-            }
-        });
-        jToolBar5.add(btnTerminate);
 
         jSeparator7.setName(bundle.getString("PropertyPanel.jSeparator7.name")); // NOI18N
         jToolBar5.add(jSeparator7);
@@ -1947,10 +1871,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
         btnOpenChildActionPerformed(evt);
     }//GEN-LAST:event_menuOpenChildBaUnitActionPerformed
 
-    private void btnTerminateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminateActionPerformed
-        terminateBaUnit();
-    }//GEN-LAST:event_btnTerminateActionPerformed
-
     private void btnViewRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRightActionPerformed
         if (baUnitBean1.getSelectedRight() != null) {
             openRightForm(baUnitBean1.getSelectedRight(), RrrBean.RRR_ACTION.VIEW);
@@ -2051,7 +1971,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JButton btnRemoveRight;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearchParcel;
-    private javax.swing.JButton btnTerminate;
     private javax.swing.JButton btnViewHistoricRight;
     private javax.swing.JButton btnViewRight;
     private org.sola.clients.swing.ui.cadastre.ParcelPanel cadastreObject;

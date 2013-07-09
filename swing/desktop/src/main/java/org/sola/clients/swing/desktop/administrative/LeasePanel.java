@@ -159,7 +159,7 @@ public class LeasePanel extends ContentPanel {
 
         boolean enabled = rrrAction != RrrBean.RRR_ACTION.VIEW;
         boolean regEnabled = enabled && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_REGISTER_LEASE);
-        boolean leaseEnabled = enabled && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
+        boolean leaseEnabled = enabled && rrrAction != RrrBean.RRR_ACTION.CANCEL && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
         boolean partyListEnabled = leaseEnabled || (regEnabled && isLeaseTransfer());
         
         // Common fields for registration and lease management
