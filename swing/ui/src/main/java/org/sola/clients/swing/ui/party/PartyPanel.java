@@ -129,7 +129,7 @@ public class PartyPanel extends javax.swing.JPanel {
 
     private GenderTypeListBean createGenderTypes() {
         if (genderTypes == null) {
-            genderTypes = new GenderTypeListBean(true);
+            genderTypes = new GenderTypeListBean(false);
         }
         return genderTypes;
     }

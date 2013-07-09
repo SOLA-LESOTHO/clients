@@ -113,9 +113,8 @@ public class PartyPanelForm extends ContentPanel {
      * in read only mode or not.
      * @param closeOnSave Indicates whether to close the form upon save action
      * takes place.
-     */
-    public PartyPanelForm(boolean savePartyOnAction, PartySummaryBean partySummaryBean,
-            boolean readOnly, boolean closeOnSave) {
+    */
+    public PartyPanelForm(boolean savePartyOnAction, PartySummaryBean partySummaryBean, boolean readOnly, boolean closeOnSave) {
         this.savePartyOnAction = savePartyOnAction;
         this.closeOnSave = closeOnSave;
         this.readOnly = readOnly;
