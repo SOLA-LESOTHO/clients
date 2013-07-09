@@ -750,16 +750,16 @@ public class RrrBean extends AbstractTransactionedBean {
     
     /** Calculates ground rent fee for attached CadastreObject. */
     public void calculateGroundRent(CadastreObjectBean co){
-        setGroundRent(RrrBean.calcGroundRent(co));
+        setGroundRent(RrrBean.calcGroundRent(co, personalLevy, landUsable));
     }
     
     /** Calculates ground rent fee for the given CadastreObject. */
-    public static BigDecimal calcGroundRent(CadastreObjectBean co){
+    public static BigDecimal calcGroundRent(CadastreObjectBean co, BigDecimal personalLevy, BigDecimal landUsable){
         if(co==null){
             return BigDecimal.ZERO;
         }
         return WSManager.getInstance().getAdministrative().calculateGroundRent(
-                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class));
+                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class), personalLevy, landUsable);
     }
     
     /**
