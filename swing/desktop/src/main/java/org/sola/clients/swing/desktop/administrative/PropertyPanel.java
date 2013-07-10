@@ -72,7 +72,6 @@ public class PropertyPanel extends ContentPanel {
     private ControlsBundleForBaUnit mapControl = null;
     private boolean readOnly = false;
     java.util.ResourceBundle resourceBundle;
-    private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
 
     /**
@@ -219,65 +218,6 @@ public class PropertyPanel extends ContentPanel {
             }
         };
         TaskManager.getInstance().runTask(t);
-    }
-
-    /**
-     * Populates rights, parcels and parent Properties lists from provided
-     * result object.
-     *
-     * @param selectedResult Array of selected result from the wizard form.
-     * First item of array contains selected {@link BaUnitBean}, second item
-     * contains {@link BaUnitRelTypeBean}.
-     */
-    private boolean addParentProperty(Object[] selectedResult) {
-        if (selectedResult == null) {
-            return false;
-        }
-
-        BaUnitBean selectedBaUnit = (BaUnitBean) selectedResult[0];
-        BaUnitRelTypeBean baUnitRelType = (BaUnitRelTypeBean) selectedResult[1];
-        this.whichBaUnitSelected = selectedBaUnit;
-        // Check relation type to be same as on the list.
-        for (RelatedBaUnitInfoBean parent : baUnitBean1.getFilteredParentBaUnits()) {
-            if (parent.getRelationCode() != null
-                    && !parent.getRelationCode().equals(baUnitRelType.getCode())) {
-                MessageUtility.displayMessage(ClientMessage.BAUNIT_WRONG_RELATION_TYPE);
-                return false;
-            }
-        }
-
-        // Check if relation already exists
-        for (RelatedBaUnitInfoBean parent : baUnitBean1.getParentBaUnits()) {
-            if (parent.getRelatedBaUnitId() != null && parent.getRelatedBaUnitId().equals(selectedBaUnit.getId())) {
-                MessageUtility.displayMessage(ClientMessage.BAUNIT_HAS_SELECTED_PARENT_BA_UNIT);
-                return false;
-            }
-        }
-
-        // Go througth the rights and add them, avoiding duplications
-        for (RrrBean rrr : selectedBaUnit.getSelectedRrrs(true)) {
-            boolean exists = false;
-            for (RrrBean currentRrr : baUnitBean1.getRrrList()) {
-                if (rrr.getId().equals(currentRrr.getId())) {
-                    exists = true;
-                    break;
-                }
-            }
-            if (!exists) {
-                baUnitBean1.getRrrList().addAsNew(rrr);
-            }
-        }
-
-        // Create relation
-        RelatedBaUnitInfoBean relatedBuUnit = new RelatedBaUnitInfoBean();
-        relatedBuUnit.setBaUnitId(baUnitBean1.getId());
-        relatedBuUnit.setBaUnitRelType(baUnitRelType);
-        relatedBuUnit.setRelatedBaUnit(selectedBaUnit);
-        relatedBuUnit.setRelatedBaUnitId(selectedBaUnit.getId());
-        baUnitBean1.getParentBaUnits().addAsNew(relatedBuUnit);
-
-        tabsMain.setSelectedIndex(tabsMain.indexOfComponent(pnlPriorProperties));
-        return true;
     }
 
     /**
@@ -673,7 +613,6 @@ public class PropertyPanel extends ContentPanel {
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
 
-
                 if (baUnitID != null && !baUnitID.equals("")) {
                     baUnitBean1.saveBaUnit(applicationService.getId());
                 } else {
@@ -695,19 +634,6 @@ public class PropertyPanel extends ContentPanel {
             }
         };
         TaskManager.getInstance().runTask(t);
-    }
-
-    private void saveBaUnit() {
-        if (baUnitBean1.validate(true).size() > 0) {
-            return;
-        }
-
-        if (baUnitID != null && !baUnitID.equals("")) {
-            baUnitBean1.saveBaUnit(applicationService.getId());
-        } else {
-            baUnitBean1.createBaUnit(applicationService.getId());
-        }
-        saveBaUnitState();
     }
 
     private void openParcelSearch() {
@@ -735,7 +661,7 @@ public class PropertyPanel extends ContentPanel {
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTY));
-                    BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(relatedBaUnit.getBaUnitId());
+                    BaUnitBean baUnitBean = BaUnitBean.getBaUnitsById(relatedBaUnit.getRelatedBaUnitId());
                     PropertyPanel propertyPnl = new PropertyPanel(null, null, baUnitBean, true);
                     getMainContentPanel().addPanel(propertyPnl,
                             MainContentPanel.CARD_PROPERTY_PANEL + "_"
@@ -858,14 +784,14 @@ public class PropertyPanel extends ContentPanel {
         btnAddParent = new javax.swing.JButton();
         btnRemoveParent = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tableParentBaUnits = new javax.swing.JTable();
+        tableParentBaUnits = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
         jPanel5 = new javax.swing.JPanel();
         jToolBar7 = new javax.swing.JToolBar();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnOpenChild = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        tableChildBaUnits = new javax.swing.JTable();
+        tableChildBaUnits = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
         mapPanel = new javax.swing.JPanel();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
 
@@ -1960,10 +1886,10 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JPopupMenu popupParentBaUnits;
     private javax.swing.JPopupMenu popupRights;
     private org.sola.clients.beans.referencedata.RrrTypeListBean rrrTypes;
-    private javax.swing.JTable tableChildBaUnits;
+    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableChildBaUnits;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableNotations;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableOwnership;
-    private javax.swing.JTable tableParentBaUnits;
+    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableParentBaUnits;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRights;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRightsHistory;
     private javax.swing.JTabbedPane tabsMain;
