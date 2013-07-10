@@ -220,7 +220,13 @@ public class ReferenceDataManagementPanel extends ContentPanel {
                     GenderTypeBean.class, (List) refDataList);
             CacheManager.remove(CacheManager.GENDER_TYPES_KEY);
             refDataTOClass = GenderTypeTO.class;
-        } else if (refDataClass == PartyTypeBean.class) {
+        } 
+         else if (refDataClass == LegalTypeBean.class) {
+            TypeConverters.TransferObjectListToBeanList(WSManager.getInstance().getReferenceDataService().getLegalTypes(null),
+                    LegalTypeBean.class, (List) refDataList);
+            CacheManager.remove(CacheManager.LEGAL_TYPES_KEY);
+            refDataTOClass = LegalTypeTO.class;
+        }else if (refDataClass == PartyTypeBean.class) {
             TypeConverters.TransferObjectListToBeanList(WSManager.getInstance().getReferenceDataService().getPartyTypes(null),
                     PartyTypeBean.class, (List) refDataList);
             CacheManager.remove(CacheManager.PARTY_TYPE_CODES_KEY);

@@ -54,7 +54,7 @@ public final class CacheManager {
     /**
      * Cache key of the {@link LegalTypeBean} collection.
      */
-    public static final String LEGAL_TYPE_KEY = LegalTypeBean.class.getName() + LIST_POSTFIX;
+    public static final String LEGAL_TYPES_KEY = LegalTypeBean.class.getName() + LIST_POSTFIX;
     /**
      * Cache key of the {@link RequestTypeBean} collection.
      */
@@ -278,7 +278,7 @@ public final class CacheManager {
     public static List<LegalTypeBean> getLegalTypes() {
         return getCachedBeanList(LegalTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
-                GET_LEGAL_TYPES, LEGAL_TYPE_KEY);
+                GET_LEGAL_TYPES, LEGAL_TYPES_KEY);
     }
 
     public static List<ApplicationFormBean> getApplicationForms() {
