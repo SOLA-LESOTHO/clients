@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5ec07a5-2423-4ec6-92b7-61d1440c1b25">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="12"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="applicantName" class="java.lang.String">
+		<fieldDescription><![CDATA[applicantName]]></fieldDescription>
+	</field>
+	<field name="application" class="org.sola.clients.beans.application.ApplicationBean">
+		<fieldDescription><![CDATA[application]]></fieldDescription>
+	</field>
+	<field name="applicationDate" class="java.lang.String">
+		<fieldDescription><![CDATA[applicationDate]]></fieldDescription>
+	</field>
+	<field name="applicationNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[applicationNumber]]></fieldDescription>
+	</field>
+	<field name="cadastreObject" class="org.sola.clients.beans.cadastre.CadastreObjectBean">
+		<fieldDescription><![CDATA[cadastreObject]]></fieldDescription>
+	</field>
+	<field name="checkSum" class="java.lang.String">
+		<fieldDescription><![CDATA[checkSum]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="entityAction" class="org.sola.webservices.transferobjects.EntityAction">
+		<fieldDescription><![CDATA[entityAction]]></fieldDescription>
+	</field>
+	<field name="freeText" class="java.lang.String">
+		<fieldDescription><![CDATA[freeText]]></fieldDescription>
+	</field>
+	<field name="groundRent" class="java.lang.String">
+		<fieldDescription><![CDATA[groundRent]]></fieldDescription>
+	</field>
+	<field name="lease" class="org.sola.clients.beans.administrative.RrrBean">
+		<fieldDescription><![CDATA[lease]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionDate]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionDay]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationDate]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationDay]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="leaseRegistrationNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseRegistrationNumber]]></fieldDescription>
+	</field>
+	<field name="leaseStartDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartDate]]></fieldDescription>
+	</field>
+	<field name="leaseStartDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartDay]]></fieldDescription>
+	</field>
+	<field name="leaseStartMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="leaseTerm" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseTerm]]></fieldDescription>
+	</field>
+	<field name="leaseTermWord" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseTermWord]]></fieldDescription>
+	</field>
+	<field name="lesseeAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseeAddress]]></fieldDescription>
+	</field>
+	<field name="lesseeMaritalStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseeMaritalStatus]]></fieldDescription>
+	</field>
+	<field name="lesseePrivate" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[lesseePrivate]]></fieldDescription>
+	</field>
+	<field name="lessees" class="java.lang.String">
+		<fieldDescription><![CDATA[lessees]]></fieldDescription>
+	</field>
+	<field name="lesseesAndMaritalStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseesAndMaritalStatus]]></fieldDescription>
+	</field>
+	<field name="parcelAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelAddress]]></fieldDescription>
+	</field>
+	<field name="parcelCode" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelCode]]></fieldDescription>
+	</field>
+	<field name="parcelLandUse" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelLandUse]]></fieldDescription>
+	</field>
+	<field name="parcelMapRef" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelMapRef]]></fieldDescription>
+	</field>
+	<field name="parcelOfficialArea" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelOfficialArea]]></fieldDescription>
+	</field>
+	<field name="parcelType" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelType]]></fieldDescription>
+	</field>
+	<field name="savedHash" class="java.lang.String">
+		<fieldDescription><![CDATA[savedHash]]></fieldDescription>
+	</field>
+	<field name="service" class="org.sola.clients.beans.application.ApplicationServiceBean">
+		<fieldDescription><![CDATA[service]]></fieldDescription>
+	</field>
+	<field name="serviceName" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<image>
+				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="205" y="0" width="149" height="51"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="397" y="13" width="70" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[Lease number: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="c660fe3a-a402-4619-9945-5a94d5ee3ff9" x="467" y="13" width="74" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leaseRegistrationNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="12" y="13" width="70" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<text><![CDATA[SD09 (v1.0)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="12" y="63" width="529" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SURRENDER OF A LEASE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="8" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="415" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2" positionType="Float" x="12" y="0" width="529" height="20"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"<b>THIS SURRENDER</b> is made between:  %s", 
+$F{lessees}
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2" positionType="Float" x="12" y="20" width="529" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Time New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"OF: %s",
+$F{lesseeAddress}
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2" positionType="Float" x="12" y="40" width="529" height="20"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"Hereinafter referred to as the <b>Lessee</b>,"+
+" of the one part, and the <b>Commissioner of Lands</b>,"+
+" hereinafter referred to as 'the State' of the other part."
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="12" y="60" width="70" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[WHEREAS:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2" positionType="Float" x="12" y="80" width="529" height="20"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"1.	This deed is supplemental to a registered lease number: <b>%s</b>" +
+"<p></p>" +
+"2.	  issued by the <b>Commissioner of Lands.</b>" +
+"<p></p>" +
+"3.	At the expiration of the term of the said lease the right of reversion is vested in the State." +
+"<p></p>" +
+"4.	The lessee has agreed as from the date of the execution of this deed and with no consideration " +
+"passing between the parties to surrender the said lease to the State.",
+$F{parcelCode}
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="12" y="100" width="529" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOW THIS DEED WITNESSETH AS FOLLOWS:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2" positionType="Float" x="12" y="120" width="529" height="20"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"5.	The lessee as holder of the said lease hereby assigns and surrenders " +
+"to the State all the property demised by the said lease to the intent that " +
+"the term of years deemed to be granted by the lease may merge and be extinguished." +
+"<p></p>" +
+"6.	The State hereby releases the lessee from all liabilities, claims and demands arising from the said lease."
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2" positionType="Float" x="12" y="140" width="529" height="20"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"<b>Thus done, signed and executed</b> on this " +
+"<b>%s</b> day of <b>%s</b> at Maseru, " +
+"and lessee acknowledges that he/she " +
+"knows and understands the contents herein.",
+$F{leaseExecutionDay}, $F{leaseExecutionMonthAndYear}
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="12" y="176" width="227" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[..................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="12" y="196" width="227" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Commissioner of Lands
+Land Administration Authority]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="341" y="176" width="200" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[..................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="341" y="196" width="40" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Lessee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="441" y="196" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Signature]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="341" y="234" width="200" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[..................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="341" y="254" width="68" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Witness]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="441" y="254" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Signature]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="341" y="274" width="200" height="28"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Name: ......................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="441" y="354" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Prepared in triplicate]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2" positionType="Float" x="12" y="302" width="317" height="20"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"Registration number:" +
+"Registration date:" +
+"Registration fee: <b>M</b>" +
+"Stamp duty: <b>M</b>"
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
