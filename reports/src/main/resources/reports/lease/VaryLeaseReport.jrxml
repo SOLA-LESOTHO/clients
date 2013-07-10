@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54d24e81-cfe2-4298-8e0a-d893d22644a4">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="applicantName" class="java.lang.String">
+		<fieldDescription><![CDATA[applicantName]]></fieldDescription>
+	</field>
+	<field name="application" class="org.sola.clients.beans.application.ApplicationBean">
+		<fieldDescription><![CDATA[application]]></fieldDescription>
+	</field>
+	<field name="applicationDate" class="java.lang.String">
+		<fieldDescription><![CDATA[applicationDate]]></fieldDescription>
+	</field>
+	<field name="applicationNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[applicationNumber]]></fieldDescription>
+	</field>
+	<field name="cadastreObject" class="org.sola.clients.beans.cadastre.CadastreObjectBean">
+		<fieldDescription><![CDATA[cadastreObject]]></fieldDescription>
+	</field>
+	<field name="checkSum" class="java.lang.String">
+		<fieldDescription><![CDATA[checkSum]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="entityAction" class="org.sola.webservices.transferobjects.EntityAction">
+		<fieldDescription><![CDATA[entityAction]]></fieldDescription>
+	</field>
+	<field name="freeText" class="java.lang.String">
+		<fieldDescription><![CDATA[freeText]]></fieldDescription>
+	</field>
+	<field name="groundRent" class="java.lang.String">
+		<fieldDescription><![CDATA[groundRent]]></fieldDescription>
+	</field>
+	<field name="lease" class="org.sola.clients.beans.administrative.RrrBean">
+		<fieldDescription><![CDATA[lease]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionDate]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionDay]]></fieldDescription>
+	</field>
+	<field name="leaseExecutionMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExecutionMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationDate]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationDay]]></fieldDescription>
+	</field>
+	<field name="leaseExpirationMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseExpirationMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="leaseRegistrationNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseRegistrationNumber]]></fieldDescription>
+	</field>
+	<field name="leaseStartDate" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartDate]]></fieldDescription>
+	</field>
+	<field name="leaseStartDay" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartDay]]></fieldDescription>
+	</field>
+	<field name="leaseStartMonthAndYear" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseStartMonthAndYear]]></fieldDescription>
+	</field>
+	<field name="leaseTerm" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseTerm]]></fieldDescription>
+	</field>
+	<field name="leaseTermWord" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseTermWord]]></fieldDescription>
+	</field>
+	<field name="lesseeAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseeAddress]]></fieldDescription>
+	</field>
+	<field name="lesseeMaritalStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseeMaritalStatus]]></fieldDescription>
+	</field>
+	<field name="lesseePrivate" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[lesseePrivate]]></fieldDescription>
+	</field>
+	<field name="lessees" class="java.lang.String">
+		<fieldDescription><![CDATA[lessees]]></fieldDescription>
+	</field>
+	<field name="lesseesAndMaritalStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[lesseesAndMaritalStatus]]></fieldDescription>
+	</field>
+	<field name="parcelAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelAddress]]></fieldDescription>
+	</field>
+	<field name="parcelCode" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelCode]]></fieldDescription>
+	</field>
+	<field name="parcelLandUse" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelLandUse]]></fieldDescription>
+	</field>
+	<field name="parcelMapRef" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelMapRef]]></fieldDescription>
+	</field>
+	<field name="parcelOfficialArea" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelOfficialArea]]></fieldDescription>
+	</field>
+	<field name="parcelType" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelType]]></fieldDescription>
+	</field>
+	<field name="savedHash" class="java.lang.String">
+		<fieldDescription><![CDATA[savedHash]]></fieldDescription>
+	</field>
+	<field name="service" class="org.sola.clients.beans.application.ApplicationServiceBean">
+		<fieldDescription><![CDATA[service]]></fieldDescription>
+	</field>
+	<field name="serviceName" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105" splitType="Stretch">
+			<image>
+				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="203" y="0" width="149" height="51"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="442" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[FORM LF 12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="442" y="41" width="100" height="30"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[Email: info@laa.org.ls
+Web: www.laa.org.ls]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="12" y="11" width="100" height="79"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[P.O. Box 11856
+Lerotholi Road
+Maseru 100, Lesotho
+Tel: +266 2232 2376
+Fax: +266 2226 8071]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="45bb9b83-f1b5-40f1-b1ac-4fc4d0ed0cb6" x="14" y="96" width="528" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#006699"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="54358b23-3269-4850-9194-32afc146bd6c" x="14" y="0" width="528" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Variation of a Lease]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="424" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="12" width="528" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[To Whom it May Concern That:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="14" y="42" width="528" height="20"/>
+				<textElement markup="html">
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"(i)	This deed is supplemental/compensation to lease No %s  as held by %s"+
+"<p></p>"+
+"(ii)	The Minister of Local Government and Chieftainship has agreed on <b>VARIATION</b>"+
+"  pursuant to Section 42 of The Land Act 2010 to the variation of the lease No %s  in the following manner:",
+$F{parcelCode},
+$F{lessees},
+$F{parcelCode}
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="37f8f830-7edf-4d7e-b37c-52b055a002c5" positionType="Float" x="46" y="72" width="496" height="20"/>
+				<textElement markup="html">
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"(a)	The purpose for which the leased land shall be used is <b>COMMERCIAL</b>"+
+"(b)	The annual ground rent now reserved under this lease shall mean Maloti M %s"+ "effective from the  %s .day of  %s"+
+"(c)	The lease shall now expire at the end of a  sixty (%s) year term to be measured"+ 
+"from the %s  day of %s.",
+$F{groundRent}, $F{leaseStartDay}, $F{leaseStartMonthAndYear}, $F{leaseTermWord}, $F{leaseTerm}, 
+$F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear}
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="103" width="528" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Other Conditions]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1b3cc18d-7dff-47b8-a4ec-960c1a6cf2c9" positionType="Float" x="14" y="123" width="528" height="20"/>
+				<textElement markup="html">
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"(iii)	No variations shall be deemed to affect the said Lease No %s  unless expressly stated in this deed.",
+$F{parcelCode}
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="157" width="528" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Witness.....................................................................Lessee..................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="177" width="528" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Name.........................................................................Name...................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="256" width="281" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Date: ...............................................................20..............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="370" y="256" width="172" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="370" y="276" width="172" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[COMMISSIONER OF LANDS]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="9a496f59-7dc7-4ed9-a0cc-d7f72e9824e6" x="14" y="308" width="528" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineColor="#006699"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="328" width="78" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Stamp duty of M ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="187" y="328" width="214" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[and registration fees of M ………………………]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="442" y="328" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[paid on]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="358" width="281" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Revenue Receipt No.……………………………………………]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="295" y="358" width="226" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[dated ………………………….…………………………………]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
