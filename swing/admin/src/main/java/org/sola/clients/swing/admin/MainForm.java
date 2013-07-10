@@ -131,6 +131,7 @@ public class MainForm extends javax.swing.JFrame {
         menuGenders = new javax.swing.JMenuItem();
         menuPartyRoleType = new javax.swing.JMenuItem();
         menuPartyType = new javax.swing.JMenuItem();
+        menuItmLegalType = new javax.swing.JMenuItem();
         menuSystem = new javax.swing.JMenu();
         menuBRSeverityType = new javax.swing.JMenuItem();
         menuBRValidationTargetType = new javax.swing.JMenuItem();
@@ -488,6 +489,16 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuParty.add(menuPartyType);
 
+        menuItmLegalType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
+        menuItmLegalType.setText(bundle.getString("MainForm.menuItmLegalType.text")); // NOI18N
+        menuItmLegalType.setName(bundle.getString("MainForm.menuItmLegalType.name")); // NOI18N
+        menuItmLegalType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItmLegalTypeActionPerformed(evt);
+            }
+        });
+        menuParty.add(menuItmLegalType);
+
         menuRefData.add(menuParty);
 
         menuSystem.setText(bundle.getString("MainForm.menuSystem.text")); // NOI18N
@@ -720,6 +731,10 @@ public class MainForm extends javax.swing.JFrame {
         manageApplicationForms();
     }//GEN-LAST:event_menuAppFormActionPerformed
 
+    private void menuItmLegalTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItmLegalTypeActionPerformed
+        manageLegalTypes();
+    }//GEN-LAST:event_menuItmLegalTypeActionPerformed
+
     /** Opens application form management panel. */
     private void manageApplicationForms() {
         openReferenceDataPanel(ApplicationFormBean.class, menuAppForm.getText());
@@ -867,6 +882,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuGroups;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuIdTypes;
+    private javax.swing.JMenuItem menuItmLegalType;
     private javax.swing.JMenuItem menuLodgementReport;
     private javax.swing.JMenuItem menuMortgageTypes;
     private javax.swing.JMenu menuParty;
@@ -893,5 +909,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel statusPanel;
     private org.sola.clients.swing.common.tasks.TaskPanel taskPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private void manageLegalTypes() {
+        openReferenceDataPanel(LegalTypeBean.class, menuItmLegalType.getText());
+    }
 
 }
