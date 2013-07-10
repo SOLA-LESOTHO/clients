@@ -32,6 +32,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JFormattedTextField;
 import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
+import org.sola.clients.beans.party.PartySummaryListBean;
 import org.sola.clients.swing.ui.address.AddressDialog;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
@@ -108,7 +109,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         cbxEstateType.setEnabled(enabledAll);
         txtSurveyDate.setEnabled(enabledAll);
         txtSurveyFee.setEnabled(enabledAll);
-        txtSurveyor.setEnabled(enabledAll);
+        //txtSurveyor.setEnabled(enabledAll);
         txtParcelSurveyRef.setEnabled(enabledAll);
         btnSurveyDate.setEnabled(enabledAll);
         txtRemarks.setEnabled(enabledAll);
@@ -196,6 +197,16 @@ public class ParcelPanel extends javax.swing.JPanel {
         customizeForm();
     }
     
+    /**
+     * This method is used by the form designer to create the list of agents.
+     */
+    private PartySummaryListBean createPartySummaryList() {
+        PartySummaryListBean surveyorList = new PartySummaryListBean();
+        surveyorList.FillSurveyors(true);
+        return surveyorList;
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -208,6 +219,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         menuRemove1 = new org.sola.clients.swing.common.menuitems.MenuRemove();
         landGradeTypeListBean1 = new org.sola.clients.beans.referencedata.LandGradeTypeListBean();
         roadClassTypeListBean1 = new org.sola.clients.beans.referencedata.RoadClassTypeListBean();
+        partySummaryList = createPartySummaryList();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -226,7 +238,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         txtParcelSurveyRef = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtSurveyor = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox();
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtSurveyDate = new javax.swing.JFormattedTextField();
@@ -453,9 +465,12 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel3.setText(bundle.getString("ParcelPanel.jLabel3.text")); // NOI18N
         jLabel3.setName(bundle.getString("ParcelPanel.jLabel3.name")); // NOI18N
 
-        txtSurveyor.setName(bundle.getString("ParcelPanel.txtSurveyor.name")); // NOI18N
+        jComboBox1.setName(bundle.getString("ParcelPanel.jComboBox1.name")); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.surveyor}"), txtSurveyor, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${partySummaryList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySummaryList, eLProperty, jComboBox1);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.surveyor}"), jComboBox1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel9Layout = new org.jdesktop.layout.GroupLayout(jPanel9);
@@ -465,14 +480,14 @@ public class ParcelPanel extends javax.swing.JPanel {
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel3)
                 .add(0, 99, Short.MAX_VALUE))
-            .add(txtSurveyor)
+            .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtSurveyor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanel9);
@@ -821,6 +836,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox cbxLandGrade;
     private javax.swing.JComboBox cbxRoadClass;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
@@ -855,6 +871,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     private org.sola.clients.swing.common.menuitems.MenuAdd menuAdd1;
     private org.sola.clients.swing.common.menuitems.MenuEdit menuEdit1;
     private org.sola.clients.swing.common.menuitems.MenuRemove menuRemove1;
+    private org.sola.clients.beans.party.PartySummaryListBean partySummaryList;
     private javax.swing.JPopupMenu popUpAddresses;
     private org.sola.clients.beans.referencedata.RoadClassTypeListBean roadClassTypeListBean1;
     private javax.swing.JFormattedTextField txtArea;
@@ -864,7 +881,6 @@ public class ParcelPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea txtRemarks;
     private javax.swing.JFormattedTextField txtSurveyDate;
     private javax.swing.JFormattedTextField txtSurveyFee;
-    private javax.swing.JTextField txtSurveyor;
     private javax.swing.JFormattedTextField txtValuationAmount;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
