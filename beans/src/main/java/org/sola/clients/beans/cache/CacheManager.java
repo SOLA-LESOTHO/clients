@@ -52,6 +52,10 @@ public final class CacheManager {
     private static final String LIST_POSTFIX = "_LIST";
     private static final String MAP_POSTFIX = "_MAP";
     /**
+     * Cache key of the {@link LegalTypeBean} collection.
+     */
+    public static final String LEGAL_TYPE_KEY = LegalTypeBean.class.getName() + LIST_POSTFIX;
+    /**
      * Cache key of the {@link RequestTypeBean} collection.
      */
     public static final String REQUEST_TYPES_KEY = RequestTypeBean.class.getName() + LIST_POSTFIX;
@@ -226,6 +230,7 @@ public final class CacheManager {
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
     public static final String APPLICATION_FORM_PREFIX_KEY = ApplicationFormWithBinaryBean.class.getName() + "_CODE_";
     public static final String ROAD_CLASS_TYPE_CODES_KEY = RoadClassTypeBean.class.getName() + LIST_POSTFIX;
+    private static final String GET_LEGAL_TYPES = "getLegalTypes";
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
@@ -268,6 +273,12 @@ public final class CacheManager {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_BR_VALIDATION_TARGET_TYPES, BR_VALIDATION_TARGET_TYPE_KEY);
+    }
+
+    public static List<LegalTypeBean> getLegalTypes() {
+        return getCachedBeanList(LegalTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_LEGAL_TYPES, LEGAL_TYPE_KEY);
     }
 
     public static List<ApplicationFormBean> getApplicationForms() {
