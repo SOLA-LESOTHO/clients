@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54d24e81-cfe2-4298-8e0a-d893d22644a4">
 	<property name="ireport.zoom" value="1.0000000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="88"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -160,6 +160,9 @@ Fax: +266 2226 8071]]></text>
 			</line>
 		</band>
 	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
 	<columnHeader>
 		<band height="29" splitType="Stretch">
 			<staticText>
@@ -210,7 +213,7 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear}
 )]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="14" y="103" width="528" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="103" width="528" height="20"/>
 				<textElement>
 					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -227,76 +230,76 @@ $F{parcelCode}
 )]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="14" y="157" width="528" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="157" width="528" height="20"/>
 				<textElement>
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Witness.....................................................................Lessee..................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="14" y="177" width="528" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="177" width="528" height="20"/>
 				<textElement>
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Name.........................................................................Name...................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="14" y="256" width="281" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="256" width="281" height="20"/>
 				<textElement>
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Date: ...............................................................20..............]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="370" y="256" width="172" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="370" y="256" width="172" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[________________________________________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="370" y="276" width="172" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="370" y="276" width="172" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[COMMISSIONER OF LANDS]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="9a496f59-7dc7-4ed9-a0cc-d7f72e9824e6" positionType="Float" x="14" y="308" width="528" height="1"/>
+				<reportElement uuid="9a496f59-7dc7-4ed9-a0cc-d7f72e9824e6" x="14" y="308" width="528" height="1"/>
 				<graphicElement>
 					<pen lineWidth="1.5" lineColor="#006699"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="14" y="328" width="78" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="328" width="78" height="20"/>
 				<textElement>
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Stamp duty of M ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="187" y="328" width="214" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="187" y="328" width="214" height="20"/>
 				<textElement>
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[and registration fees of M ………………………]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="442" y="328" width="100" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="442" y="328" width="100" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[paid on]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="14" y="358" width="281" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="358" width="281" height="20"/>
 				<textElement>
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Revenue Receipt No.……………………………………………]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" positionType="Float" x="295" y="358" width="226" height="20"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="295" y="358" width="226" height="20"/>
 				<textElement>
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
@@ -304,4 +307,13 @@ $F{parcelCode}
 			</staticText>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>
