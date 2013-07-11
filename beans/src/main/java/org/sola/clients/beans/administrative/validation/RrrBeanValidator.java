@@ -29,6 +29,7 @@
  */
 package org.sola.clients.beans.administrative.validation;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -89,6 +90,20 @@ public class RrrBeanValidator implements ConstraintValidator<RrrBeanCheck, RrrBe
                 constraintContext.buildConstraintViolationWithTemplate(
                         (MessageUtility.getLocalizedMessageText(
                         ClientMessage.CHECK_SUBLEASE_MORTGAGE_CONSENT))).addConstraintViolation();
+            }
+        }
+        
+        //Mortgage
+        if (RrrBean.CODE_MORTGAGE.equals(rrrBean.getTypeCode())){
+            // Check mortgage ranking
+            if(rrrBean.getMortgageRanking()!=null && rrrBean.getMortgageRanking().compareTo(Integer.valueOf(0))!=0){
+                if(rrrBean.getMortgageRanking().compareTo(Integer.valueOf(0))<0 || 
+                    rrrBean.getMortgageRanking().compareTo(Integer.valueOf(10))>=0){
+                result = false;
+                constraintContext.buildConstraintViolationWithTemplate(
+                        (MessageUtility.getLocalizedMessageText(
+                        ClientMessage.MORTGAGE_RANK_RANGE_ERROR))).addConstraintViolation();
+                }
             }
         }
         return result;
