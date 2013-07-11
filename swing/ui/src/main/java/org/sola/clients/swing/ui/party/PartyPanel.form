@@ -310,8 +310,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labName" alignment="0" pref="148" max="32767" attributes="0"/>
-                          <Component id="txtFirstName" alignment="0" pref="148" max="32767" attributes="0"/>
+                          <Component id="labName" alignment="0" pref="107" max="32767" attributes="0"/>
+                          <Component id="txtFirstName" alignment="0" pref="107" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -368,8 +368,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtLastName" pref="148" max="32767" attributes="0"/>
-                          <Component id="labName2" pref="148" max="32767" attributes="0"/>
+                          <Component id="txtLastName" pref="107" max="32767" attributes="0"/>
+                          <Component id="labName2" pref="107" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -422,8 +422,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labAddress" alignment="0" pref="148" max="32767" attributes="0"/>
-                          <Component id="txtAddress" alignment="0" pref="148" max="32767" attributes="0"/>
+                          <Component id="labAddress" alignment="0" pref="107" max="32767" attributes="0"/>
+                          <Component id="txtAddress" alignment="0" pref="107" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -471,8 +471,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labIdType" alignment="0" pref="148" max="32767" attributes="0"/>
-                          <Component id="cbxIdType" alignment="0" pref="148" max="32767" attributes="0"/>
+                          <Component id="labIdType" alignment="0" pref="107" max="32767" attributes="0"/>
+                          <Component id="cbxIdType" alignment="0" pref="107" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -523,8 +523,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labIdref" alignment="0" pref="148" max="32767" attributes="0"/>
-                          <Component id="txtIdref" alignment="0" pref="148" max="32767" attributes="0"/>
+                          <Component id="labIdref" alignment="0" pref="107" max="32767" attributes="0"/>
+                          <Component id="txtIdref" alignment="0" pref="107" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -567,8 +567,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbxGender" pref="148" max="32767" attributes="0"/>
-                          <Component id="labName1" pref="148" max="32767" attributes="0"/>
+                          <Component id="cbxGender" pref="107" max="32767" attributes="0"/>
+                          <Component id="labName1" pref="107" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -615,6 +615,60 @@
                         <Property name="iconTextGap" type="int" value="1"/>
                         <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/sola/clients/swing/ui/party/Bundle.properties" key="PartyPanel.labName1.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="jPanel20">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="org/sola/clients/swing/ui/party/Bundle.properties" key="PartyPanel.jPanel20.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtLegalStatus" max="32767" attributes="0"/>
+                          <Component id="labName3" pref="107" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="labName3" min="-2" pref="21" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtLegalStatus" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="14" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextField" name="txtLegalStatus">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/sola/clients/swing/ui/party/Bundle.properties" key="PartyPanel.txtLegalStatus.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                      </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="text" source="Form" sourcePath="${partyBean.legalType}" target="txtLegalStatus" targetPath="text" updateStrategy="0" immediately="false">
+                          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                        </BindingProperty>
+                      </BindingProperties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="labName3">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/images/common/red_asterisk.gif"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/sola/clients/swing/ui/party/Bundle.properties" key="PartyPanel.labName3.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                        <Property name="iconTextGap" type="int" value="1"/>
+                        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/sola/clients/swing/ui/party/Bundle.properties" key="PartyPanel.labName3.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                     </Component>
