@@ -18,16 +18,13 @@ package org.sola.clients.beans.administrative;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import org.codehaus.stax2.ri.typed.NumberUtil;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.party.PartyBean;
-import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.common.DateUtility;
 import org.sola.common.NumberToWords;
-import org.sola.common.NumberUtility;
 import org.sola.common.StringUtility;
 
 /**
@@ -131,7 +128,7 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for application number.
      */
     public String getApplicationNumber() {
-        return StringUtility.empty(getApplication().getNr());
+        return StringUtility.empty(getApplication().getApplicationNumberFormatted());
     }
 
     /**
@@ -151,6 +148,80 @@ public class LeaseReportBean extends AbstractBindingBean {
         return "";
     }
 
+    /**
+     * Returns total payment for the lease including service fee, stamp duty, 
+     * remaining ground rent and registration fee. 
+     */
+    public String getTotalLeaseFee(){
+        BigDecimal serviceFee = BigDecimal.ZERO;
+        BigDecimal regFee = BigDecimal.ZERO;
+        BigDecimal stampDuty = BigDecimal.ZERO;
+        BigDecimal remGroundRent = BigDecimal.valueOf(getLease().getGroundRentRemaining());
+        
+        if(getService()!=null && getService().getServiceFee()!=null){
+            serviceFee = getService().getServiceFee();
+        }
+        if(getLease()!=null && getLease().getRegistrationFee()!=null){
+            regFee = getLease().getRegistrationFee();
+        }
+        if(getLease()!=null && getLease().getStampDuty()!=null){
+            stampDuty = getLease().getStampDuty();
+        }
+        
+        BigDecimal totalFee = serviceFee.add(regFee).add(stampDuty).add(remGroundRent);
+        if(totalFee.compareTo(BigDecimal.ZERO)!=0){
+            return "M " + totalFee.toPlainString();
+        } else {
+            return "NIL";
+        }
+    }
+    
+    /** Shortcut to the service fee. */
+    public String getServiceFee(){
+        if(getService()!=null && getService().getServiceFee()!=null){
+            return "M " + getService().getServiceFee().toPlainString();
+        }
+        return "NIL";
+    }
+    
+    /** Shortcut to the registration fee. */
+    public String getRegistrationFee(){
+        if(getLease()!=null && getLease().getRegistrationFee()!=null){
+            return "M " + getLease().getRegistrationFee().toPlainString();
+        }
+        return "NIL";
+    }
+    
+    /** Shortcut to stamp duty. */
+    public String getStampDuty(){
+        if(getLease()!=null && getLease().getStampDuty()!=null){
+            return "M " + getLease().getStampDuty().toPlainString();
+        }
+        return "NIL";
+    }
+    
+    /**
+     * Shortcut for the ground rent.
+     */
+    public String getGroundRent() {
+        if (getLease().getGroundRent() != null && getLease().getGroundRent().compareTo(BigDecimal.ZERO) > 0) {
+            return "M " + getLease().getGroundRent().toPlainString();
+        } else {
+            return "NIL";
+        }
+    }
+    
+    /**
+     * Calculated remaining ground rent.
+     */
+    public String getGroundRentRemaining() {
+        if (getLease().getGroundRentRemaining() > 0) {
+            return "M " + String.valueOf(getLease().getGroundRentRemaining());
+        } else {
+            return "NIL";
+        }
+    }
+    
     /**
      * Shortcut for service name.
      */
@@ -333,28 +404,6 @@ public class LeaseReportBean extends AbstractBindingBean {
         Calendar cal = Calendar.getInstance();
         cal.setTime(getLease().getStartDate());
         return new SimpleDateFormat("MMMMM").format(cal.getTime()) + " " + String.valueOf(cal.get(Calendar.YEAR));
-    }
-
-    /**
-     * Shortcut for the ground rent.
-     */
-    public String getGroundRent() {
-        if (getLease().getGroundRent() != null && getLease().getGroundRent().compareTo(BigDecimal.ZERO) > 0) {
-            return "M" + getLease().getGroundRent().toPlainString();
-        } else {
-            return "NIL";
-        }
-    }
-    
-    /**
-     * Calculated remaining ground rent.
-     */
-    public String getGroundRentRemaining() {
-        if (getLease().getGroundRentRemaining() > 0) {
-            return "M" + String.valueOf(getLease().getGroundRentRemaining());
-        } else {
-            return "NIL";
-        }
     }
 
     /**

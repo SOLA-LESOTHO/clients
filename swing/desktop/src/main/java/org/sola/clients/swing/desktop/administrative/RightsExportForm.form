@@ -43,7 +43,7 @@
   <SubComponents>
     <Component class="org.sola.clients.swing.ui.HeaderPanel" name="headerPanel1">
       <Properties>
-        <Property name="titleText" type="java.lang.String" value="Rights export"/>
+        <Property name="titleText" type="java.lang.String" value="Finance Export"/>
       </Properties>
     </Component>
     <Component class="org.sola.clients.swing.ui.administrative.RightsExportPanel" name="rightsExportPanel1">

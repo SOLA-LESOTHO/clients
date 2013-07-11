@@ -119,6 +119,17 @@ public class ApplicationSummaryBean extends AbstractIdBean {
     public String getNr() {
         return nr;
     }
+    
+    public String getApplicationNumberFormatted() {
+        String result = "";
+        if(getNr()!=null){
+            result = getNr();
+        }
+        if(result.length()>4){
+            result = result.substring(0, 4) + "-" + result.substring(4);
+        }
+        return result;
+    }
 
     public void setNr(String nr) {
         String old = this.nr;

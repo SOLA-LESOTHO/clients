@@ -39,7 +39,7 @@ public class RightsExportForm extends ContentPanel {
 
         setHeaderPanel(headerPanel1);
 
-        headerPanel1.setTitleText("Rights export");
+        headerPanel1.setTitleText("Finance Export");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
