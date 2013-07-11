@@ -52,25 +52,17 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODE_REG_POWER_OF_ATTORNEY = "regnPowerOfAttorney";
     public static final String CODE_CANCEL_POWER_OF_ATTORNEY = "cnclPowerOfAttorney";
     public static final String CODE_REG_STANDARD_DOCUMENT = "regnStandardDocument";
-    public static final String CODE_NEW_APARTMENT = "newApartment";
-    public static final String CODE_NEW_FREEHOLD = "newFreehold";
-    public static final String CODE_NEW_OWNERSHIP = "newOwnership";
-    public static final String CODE_NEW_STATE = "newState";
     public static final String CODE_REGISTER_LEASE = "registerLease";
-    public static final String CODE_NEW_DIGITAL_TITLE = "newDigitalTitle";
     public static final String CODE_TITLE_SERACH = "titleSearch";
     public static final String CODE_DOCUMENT_COPY = "documentCopy";
     public static final String CODE_SERVICE_ENQUIRY = "serviceEnquiry";
-    public static final String CODE_CANCEL_PROPERTY = "cancelProperty";
     public static final String CODE_SYSTEMATIC_REGISTRATION = "systematicRegn";
     public static final String CODE_DISPUTE = "dispute";
     public static final String CODE_OTHER_DEEDS = "regnDeeds";
     public static final String CODE_SERVITUDE ="servitude";
     public static final String CODE_BOND_DEED ="regNotBond";
     public static final String CODE_CANCEL_BOND ="cnclNotBond";
-
     public static final String CODE_CANCEL_MORTGAGE = "cancelMortBonds";
-
     public static final String CODE_CONSENT = "consentApplication";
    
     public static final String NR_DAYS_TO_COMPLETE_PROPERTY = "nrDaysToComplete";
