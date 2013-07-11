@@ -198,7 +198,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     }
     
     /**
-     * This method is used by the form designer to create the list of agents.
+     * This method is used by the form designer to create the list of Surveyors.
      */
     private PartySummaryListBean createPartySummaryList() {
         PartySummaryListBean surveyorList = new PartySummaryListBean();
@@ -238,7 +238,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         txtParcelSurveyRef = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cbxSurveyor = new javax.swing.JComboBox();
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtSurveyDate = new javax.swing.JFormattedTextField();
@@ -465,13 +465,11 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel3.setText(bundle.getString("ParcelPanel.jLabel3.text")); // NOI18N
         jLabel3.setName(bundle.getString("ParcelPanel.jLabel3.name")); // NOI18N
 
-        jComboBox1.setName(bundle.getString("ParcelPanel.jComboBox1.name")); // NOI18N
+        cbxSurveyor.setName(bundle.getString("ParcelPanel.cbxSurveyor.name")); // NOI18N
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${partySummaryList}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySummaryList, eLProperty, jComboBox1);
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySummaryList, eLProperty, cbxSurveyor);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.surveyor}"), jComboBox1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout jPanel9Layout = new org.jdesktop.layout.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -480,14 +478,14 @@ public class ParcelPanel extends javax.swing.JPanel {
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel3)
                 .add(0, 99, Short.MAX_VALUE))
-            .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(cbxSurveyor, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel3)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
-                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(cbxSurveyor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanel9);
@@ -835,8 +833,8 @@ public class ParcelPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox cbxEstateType;
     private javax.swing.JComboBox cbxLandGrade;
     private javax.swing.JComboBox cbxRoadClass;
+    private javax.swing.JComboBox cbxSurveyor;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
