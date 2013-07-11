@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,8 +32,6 @@ import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.common.DateUtility;
-import org.sola.common.messaging.ClientMessage;
-import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.search.RightsExportParamsTO;
 
@@ -184,62 +183,54 @@ public class RightsExportResultListBean extends AbstractBindingBean {
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             out = new BufferedWriter(fw);
             int i = list.size();
-            
+
             // Add header
-            out.write("PayeeID;"
-                        + "PayeeName;"
-                        + "PayeeLastName;"
-                        + "PayeeFullName;"
-                        + "PayeeGender;"
-                        + "PayeeBirthday;"
-                        + "PayeeAddress;"
-                        + "PayeePhone;"
-                        + "PayeeMobile;"
-                        + "PayeeEmail;"
-                        + "PayeeIdTypeName;"
-                        + "PayeeIdNumber;"
-                        + "BaUnitId;"
-                        + "ParcelNumber;"
-                        + "ParcelArea;"
-                        + "ParcelAreaFormatted;"
-                        + "RightID;"
-                        + "RightType;"
-                        + "RightRegistrationNumber;"
-                        + "RightTrackingNumber;"
-                        + "RightholdersFormatted;"
-                        + "PaymentAmount;"
-                        + "RightRegistrationDate;"
-                        + "RightExpirationDate;"
-                        + "RightStatusDate;"
-                        + "RightStatus;");
+            out.write("PayorID;"
+                    + "PayorName;"
+                    + "PayorLastName;"
+                    + "PayorFullName;"
+                    + "PayorGender;"
+                    + "PayorBirthday;"
+                    + "PayorAddress;"
+                    + "PayorPhone;"
+                    + "PayorMobile;"
+                    + "PayorEmail;"
+                    + "PayorIdTypeName;"
+                    + "PayorIdNumber;"
+                    + "TitleId;"
+                    + "ParcelNumber;"
+                    + "ParcelArea;"
+                    + "ParcelAreaFormatted;"
+                    + "RightID;"
+                    + "RightTrackingNumber;"
+                    + "RightType;"
+                    + "RightRegistrationNumber;"
+                    + "RightRegistrationDate;"
+                    + "LeaseNumber;"
+                    + "RightStartDate;"
+                    + "RightExpirationDate;"
+                    + "RightExecutionDate;"
+                    + "RightholdersFormatted;"
+                    + "LeaseGroundRent;"
+                    + "StampDuty;"
+                    + "LeaseTransferDuty;"
+                    + "RightRegistrationFee;"
+                    + "LeasePersonalLevy;"
+                    + "LeaseLandUsable;"
+                    + "LeaseLandUseCode;"
+                    + "RightStatusDate;"
+                    + "RightStatus;");
             out.newLine();
-            
+
             for (RightsExportResultBean right : list) {
                 i = i - 1;
-                String rightRegDate = "";
-                String rightExpDate = "";
-                String payeeBirthDate = "";
-                String rightStatusDate = "";
-                
-                if (right.getRightRegistrationDate() != null) {
-                    rightRegDate = DateUtility.simpleFormat(right.getRightRegistrationDate(), "yyyy-MM-dd");
-                }
-                if (right.getRightExpirationDate() != null) {
-                    rightExpDate = DateUtility.simpleFormat(right.getRightExpirationDate(), "yyyy-MM-dd");
-                }
-                if (right.getPayeeBirthDate() != null) {
-                    payeeBirthDate = DateUtility.simpleFormat(right.getPayeeBirthDate(), "yyyy-MM-dd");
-                }
-                if (right.getRightStatusDate() != null) {
-                    rightStatusDate = DateUtility.simpleFormat(right.getRightStatusDate(), "yyyy-MM-dd");
-                }
-                
+
                 out.write(formatString(right.getPayeeId()) + ";"
                         + formatString(right.getPayeeName()) + ";"
                         + formatString(right.getPayeeLastName()) + ";"
                         + formatString(right.getPayeeFullName()) + ";"
                         + formatString(right.getPayeeGender()) + ";"
-                        + formatString(payeeBirthDate) + ";"
+                        + formatDate(right.getPayeeBirthDate()) + ";"
                         + formatString(right.getPayeeAddress()) + ";"
                         + formatString(right.getPayeePhone()) + ";"
                         + formatString(right.getPayeeMobile()) + ";"
@@ -251,14 +242,23 @@ public class RightsExportResultListBean extends AbstractBindingBean {
                         + formatString(right.getParcelArea().toPlainString()) + ";"
                         + formatString(right.getParcelAreaFormatted()) + ";"
                         + formatString(right.getRightId()) + ";"
+                        + formatString(right.getRightTrackingNumber()) + ";"
                         + formatString(right.getRightType()) + ";"
                         + formatString(right.getRightRegistrationNumber()) + ";"
-                        + formatString(right.getRightTrackingNumber()) + ";"
+                        + formatDate(right.getRightRegistrationDate()) + ";"
+                        + formatString(right.getLeaseNumber()) + ";"
+                        + formatDate(right.getStartDate()) + ";"
+                        + formatDate(right.getRightExpirationDate()) + ";"
+                        + formatDate(right.getExecutionDate()) + ";"
                         + formatString(right.getRightholdersFormatted()) + ";"
-                        + formatString(right.getPaymentAmount().toPlainString()) + ";"
-                        + formatString(rightRegDate) + ";"
-                        + formatString(rightExpDate) + ";"
-                        + formatString(rightStatusDate) + ";"
+                        + formatString(right.getGroundRent().toPlainString()) + ";"
+                        + formatString(right.getStampDuty().toPlainString()) + ";"
+                        + formatString(right.getTransferDuty().toPlainString()) + ";"
+                        + formatString(right.getRegistrationFee().toPlainString()) + ";"
+                        + formatString(right.getPersonalLevy().toPlainString()) + ";"
+                        + formatString(right.getLandUsable().toPlainString()) + ";"
+                        + formatString(right.getLandUseCode()) + ";"
+                        + formatDate(right.getRightStatusDate()) + ";"
                         + formatString(right.getRightStatus()) + ";");
                 if (i > 0) {
                     out.newLine();
@@ -278,11 +278,18 @@ public class RightsExportResultListBean extends AbstractBindingBean {
         }
     }
 
-    private String formatString(String str) {
-        if(str == null){
+    private String formatDate(Date date) {
+        if (date == null) {
             return "";
         }
-        
+        return DateUtility.simpleFormat(date, "yyyy-MM-dd");
+    }
+
+    private String formatString(String str) {
+        if (str == null) {
+            return "";
+        }
+
         if (str.contains("\"") || str.contains(";")) {
             str = str.replace("\"", "\"\"");
             str = "\"" + str + "\"";

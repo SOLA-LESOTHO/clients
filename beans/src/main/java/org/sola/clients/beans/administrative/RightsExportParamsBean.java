@@ -17,6 +17,7 @@ package org.sola.clients.beans.administrative;
 
 import java.util.Date;
 import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.RrrTypeBean;
 
 /**
@@ -26,6 +27,7 @@ public class RightsExportParamsBean extends AbstractBindingBean {
     public static final String DATE_FROM_PROPERTY = "dateFrom";
     public static final String DATE_TO_PROPERTY = "dateTo";
     public static final String RIGHT_TYPE_PROPERTY = "rightType";
+    public static final String RIGHT_TYPE_CODE_PROPERTY = "rightTypeCode";
     
     private Date dateFrom;
     private Date dateTo;
@@ -61,6 +63,15 @@ public class RightsExportParamsBean extends AbstractBindingBean {
         } else {
             return getRightType().getCode();
         }
+    }
+    
+    public void setRightTypeCode(String rightTypeCode){
+        String oldValue = null;
+        if(getRightType()!=null){
+            oldValue = getRightType().getCode();
+        } 
+        setRightType(CacheManager.getBeanByCode(CacheManager.getRrrTypes(), rightTypeCode));
+        propertySupport.firePropertyChange(RIGHT_TYPE_CODE_PROPERTY, oldValue, rightTypeCode);
     }
     
     public RrrTypeBean getRightType() {

@@ -159,8 +159,10 @@ public class LeasePanel extends ContentPanel {
 
         boolean enabled = rrrAction != RrrBean.RRR_ACTION.VIEW;
         boolean regEnabled = enabled && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_REGISTER_LEASE);
-        boolean leaseEnabled = enabled && rrrAction != RrrBean.RRR_ACTION.CANCEL && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
-        boolean partyListEnabled = leaseEnabled || (regEnabled && isLeaseTransfer());
+        boolean leaseEnabled = enabled && !isLeaseTransfer() && 
+                rrrAction != RrrBean.RRR_ACTION.CANCEL && 
+                SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
+        boolean partyListEnabled = leaseEnabled || (enabled && isLeaseTransfer());
         
         // Common fields for registration and lease management
         btnSave.setEnabled(enabled);
@@ -185,14 +187,17 @@ public class LeasePanel extends ContentPanel {
         txtDueDate.setEnabled(leaseEnabled);
         partyList.setReadOnly(!partyListEnabled);
         btnCalculateGroundRent.setEnabled(leaseEnabled);
-        btnPrintLease.setEnabled(leaseEnabled);
-        btnPrintLeaseOffer.setEnabled(leaseEnabled);
-        btnPrintRejectionLetter.setEnabled(leaseEnabled);
         btnStartDate.setEnabled(leaseEnabled);
         btnExpirationDate.setEnabled(leaseEnabled);
         btnExecutionDate.setEnabled(leaseEnabled);
         btnNextPaymentDate.setEnabled(leaseEnabled);
         cbxLandUse.setEnabled(leaseEnabled);
+        
+        menuLease.setEnabled(leaseEnabled);
+        menuRejectionLetter.setEnabled(leaseEnabled);
+        menuOfferLetter.setEnabled(leaseEnabled);
+        menuLeaseSurrender.setEnabled(leaseEnabled);//rrrAction == RrrBean.RRR_ACTION.CANCEL
+        menuLeaseVary.setEnabled(leaseEnabled);//
         
         if (txtNotationText.isEnabled() && txtNotationText.getText().equals("") 
                 && rrrAction != RrrBean.RRR_ACTION.VIEW && appService != null) {
@@ -306,6 +311,20 @@ public class LeasePanel extends ContentPanel {
         }
     }
 
+    private void printLeaseSurrender() {
+        final LeaseReportBean reportBean = prepareReportBean();
+        if (reportBean != null) {
+            showReport(ReportManager.getLeaseSurrenderReport(reportBean));
+        }
+    }
+    
+    private void printLeaseVary() {
+        final LeaseReportBean reportBean = prepareReportBean();
+        if (reportBean != null) {
+            showReport(ReportManager.getLeaseVaryReport(reportBean));
+        }
+    }
+    
     private void printOfferLetter() {
         final LeaseReportBean reportBean = prepareReportBean();
         if (reportBean != null) {
@@ -445,14 +464,18 @@ public class LeasePanel extends ContentPanel {
         menuEditCondition = new org.sola.clients.swing.common.menuitems.MenuEdit();
         menuRemoveCondition = new org.sola.clients.swing.common.menuitems.MenuRemove();
         landUseTypes = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
+        popupPrints = new javax.swing.JPopupMenu();
+        menuOfferLetter = new javax.swing.JMenuItem();
+        menuRejectionLetter = new javax.swing.JMenuItem();
+        menuLease = new javax.swing.JMenuItem();
+        menuLeaseSurrender = new javax.swing.JMenuItem();
+        menuLeaseVary = new javax.swing.JMenuItem();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        btnPrintLeaseOffer = new org.sola.clients.swing.common.buttons.BtnPrint();
-        btnPrintLease = new org.sola.clients.swing.common.buttons.BtnPrint();
-        btnPrintRejectionLetter = new org.sola.clients.swing.common.buttons.BtnPrint();
+        dropDownButton2 = new org.sola.clients.swing.common.controls.DropDownButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jLabel1 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
@@ -554,9 +577,54 @@ public class LeasePanel extends ContentPanel {
         });
         popupConditions.add(menuRemoveCondition);
 
+        menuOfferLetter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
+        menuOfferLetter.setText(bundle.getString("LeasePanel.menuOfferLetter.text")); // NOI18N
+        menuOfferLetter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuOfferLetterActionPerformed(evt);
+            }
+        });
+        popupPrints.add(menuOfferLetter);
+
+        menuRejectionLetter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
+        menuRejectionLetter.setText(bundle.getString("LeasePanel.menuRejectionLetter.text")); // NOI18N
+        menuRejectionLetter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRejectionLetterActionPerformed(evt);
+            }
+        });
+        popupPrints.add(menuRejectionLetter);
+
+        menuLease.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
+        menuLease.setText(bundle.getString("LeasePanel.menuLease.text")); // NOI18N
+        menuLease.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLeaseActionPerformed(evt);
+            }
+        });
+        popupPrints.add(menuLease);
+
+        menuLeaseSurrender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
+        menuLeaseSurrender.setText(bundle.getString("LeasePanel.menuLeaseSurrender.text")); // NOI18N
+        menuLeaseSurrender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLeaseSurrenderActionPerformed(evt);
+            }
+        });
+        popupPrints.add(menuLeaseSurrender);
+
+        menuLeaseVary.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
+        menuLeaseVary.setText(bundle.getString("LeasePanel.menuLeaseVary.text")); // NOI18N
+        menuLeaseVary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLeaseVaryActionPerformed(evt);
+            }
+        });
+        popupPrints.add(menuLeaseVary);
+
         setHeaderPanel(headerPanel);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
         headerPanel.setTitleText(bundle.getString("SimpleOwhershipPanel.headerPanel.titleText")); // NOI18N
 
         jToolBar1.setFloatable(false);
@@ -574,29 +642,12 @@ public class LeasePanel extends ContentPanel {
         jToolBar1.add(filler1);
         jToolBar1.add(jSeparator1);
 
-        btnPrintLeaseOffer.setText(bundle.getString("LeasePanel.btnPrintLeaseOffer.text")); // NOI18N
-        btnPrintLeaseOffer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintLeaseOfferActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnPrintLeaseOffer);
-
-        btnPrintLease.setText(bundle.getString("LeasePanel.btnPrintLease.text")); // NOI18N
-        btnPrintLease.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintLeaseActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnPrintLease);
-
-        btnPrintRejectionLetter.setText(bundle.getString("LeasePanel.btnPrintRejectionLetter.text")); // NOI18N
-        btnPrintRejectionLetter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintRejectionLetterActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnPrintRejectionLetter);
+        dropDownButton2.setText(bundle.getString("LeasePanel.dropDownButton2.text")); // NOI18N
+        dropDownButton2.setComponentPopupMenu(popupPrints);
+        dropDownButton2.setFocusable(false);
+        dropDownButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        dropDownButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(dropDownButton2);
         jToolBar1.add(jSeparator2);
 
         jLabel1.setText(bundle.getString("SimpleOwhershipPanel.jLabel1.text")); // NOI18N
@@ -1385,21 +1436,30 @@ public class LeasePanel extends ContentPanel {
         removeCondition();
     }//GEN-LAST:event_menuRemoveConditionActionPerformed
 
-    private void btnPrintLeaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintLeaseActionPerformed
-        printLease();
-    }//GEN-LAST:event_btnPrintLeaseActionPerformed
-
-    private void btnPrintLeaseOfferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintLeaseOfferActionPerformed
-        printOfferLetter();
-    }//GEN-LAST:event_btnPrintLeaseOfferActionPerformed
-
-    private void btnPrintRejectionLetterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintRejectionLetterActionPerformed
-        printRejectionLetter();
-    }//GEN-LAST:event_btnPrintRejectionLetterActionPerformed
-
     private void btnEditConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditConditionActionPerformed
         editCondition();
     }//GEN-LAST:event_btnEditConditionActionPerformed
+
+    private void menuOfferLetterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOfferLetterActionPerformed
+        printOfferLetter();
+    }//GEN-LAST:event_menuOfferLetterActionPerformed
+
+    private void menuLeaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLeaseActionPerformed
+        printLease();
+    }//GEN-LAST:event_menuLeaseActionPerformed
+
+    private void menuRejectionLetterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRejectionLetterActionPerformed
+        printRejectionLetter();
+    }//GEN-LAST:event_menuRejectionLetterActionPerformed
+
+    private void menuLeaseSurrenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLeaseSurrenderActionPerformed
+        printLeaseSurrender();
+    }//GEN-LAST:event_menuLeaseSurrenderActionPerformed
+
+    private void menuLeaseVaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLeaseVaryActionPerformed
+        printLeaseVary();
+    }//GEN-LAST:event_menuLeaseVaryActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.swing.common.buttons.BtnAdd btnAddCodition;
     private javax.swing.JButton btnCalculateGroundRent;
@@ -1407,15 +1467,13 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JButton btnExecutionDate;
     private javax.swing.JButton btnExpirationDate;
     private javax.swing.JButton btnNextPaymentDate;
-    private org.sola.clients.swing.common.buttons.BtnPrint btnPrintLease;
-    private org.sola.clients.swing.common.buttons.BtnPrint btnPrintLeaseOffer;
-    private org.sola.clients.swing.common.buttons.BtnPrint btnPrintRejectionLetter;
     private javax.swing.JButton btnRegistrationDate;
     private org.sola.clients.swing.common.buttons.BtnRemove btnRemoveCondition;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnStartDate;
     private javax.swing.JComboBox cbxLandUse;
     private org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel documentsManagementPanel;
+    private org.sola.clients.swing.common.controls.DropDownButton dropDownButton2;
     private javax.swing.Box.Filler filler1;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     private org.sola.clients.swing.ui.GroupPanel groupPanel2;
@@ -1475,9 +1533,15 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JLabel lblStatus;
     private org.sola.clients.swing.common.menuitems.MenuAdd menuAddCondition;
     private org.sola.clients.swing.common.menuitems.MenuEdit menuEditCondition;
+    private javax.swing.JMenuItem menuLease;
+    private javax.swing.JMenuItem menuLeaseSurrender;
+    private javax.swing.JMenuItem menuLeaseVary;
+    private javax.swing.JMenuItem menuOfferLetter;
+    private javax.swing.JMenuItem menuRejectionLetter;
     private org.sola.clients.swing.common.menuitems.MenuRemove menuRemoveCondition;
     private org.sola.clients.swing.desktop.party.PartyListExtPanel partyList;
     private javax.swing.JPopupMenu popupConditions;
+    private javax.swing.JPopupMenu popupPrints;
     private org.sola.clients.beans.administrative.RrrBean rrrBean;
     private javax.swing.JFormattedTextField txtDueDate;
     private javax.swing.JFormattedTextField txtExecutionDate;

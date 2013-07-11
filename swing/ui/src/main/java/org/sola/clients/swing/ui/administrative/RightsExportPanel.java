@@ -5,10 +5,14 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.filechooser.FileFilter;
 import org.sola.clients.beans.administrative.RightsExportResultBean;
 import org.sola.clients.beans.administrative.RightsExportResultListBean;
+import org.sola.clients.beans.administrative.RrrBean;
+import org.sola.clients.beans.referencedata.RrrTypeBean;
 import org.sola.clients.beans.referencedata.RrrTypeListBean;
+import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
@@ -59,7 +63,6 @@ public class RightsExportPanel extends javax.swing.JPanel {
     }
 
     private void clean() {
-        cbxRightType.setSelectedIndex(0);
         txtDateFrom.setValue(null);
         txtDateTo.setValue(null);
         rightsExportResults.getRightsList().clear();
@@ -70,10 +73,12 @@ public class RightsExportPanel extends javax.swing.JPanel {
 
     private void search() {
         SolaTask t = new SolaTask<Void, Void>() {
-
+            
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SEARCH_RIGHTS));
+                // Set type to lease
+                rightsExportParams.setRightTypeCode(RrrBean.CODE_LEASE);
                 rightsExportResults.search(rightsExportParams);
                 return null;
             }
@@ -98,8 +103,16 @@ public class RightsExportPanel extends javax.swing.JPanel {
         if (list == null || list.size() < 1) {
             return;
         }
-
-        JFileChooser jfc = new JFileChooser();
+        
+        File f = new File("//hr-fmsmain/SOLAexports");
+        JFileChooser jfc;
+                
+        if(f.exists()){
+            jfc = new JFileChooser(f);
+        } else {
+            jfc = new JFileChooser();
+        }
+        
         jfc.removeChoosableFileFilter(jfc.getFileFilter());
         jfc.setAcceptAllFileFilterUsed(false);
         jfc.setFileFilter(new FileFilter() {
@@ -166,6 +179,11 @@ public class RightsExportPanel extends javax.swing.JPanel {
         TaskManager.getInstance().runTask(t);
     }
 
+    private void showCalendar(JFormattedTextField dateField) {
+        CalendarForm calendar = new CalendarForm(null, true, dateField);
+        calendar.setVisible(true);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -176,9 +194,6 @@ public class RightsExportPanel extends javax.swing.JPanel {
         rightsExportResults = new org.sola.clients.beans.administrative.RightsExportResultListBean();
         rrrTypes = createRightTypes();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        cbxRightType = new javax.swing.JComboBox();
         jPanel9 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -190,9 +205,11 @@ public class RightsExportPanel extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtDateFrom = new javax.swing.JFormattedTextField();
+        btnRegDateFrom = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtDateTo = new javax.swing.JFormattedTextField();
+        btnRegDateTo = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableRightResults = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
         jToolBar1 = new javax.swing.JToolBar();
@@ -214,34 +231,9 @@ public class RightsExportPanel extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/administrative/Bundle"); // NOI18N
-        jLabel1.setText(bundle.getString("RightsExportPanel.jLabel1.text")); // NOI18N
-
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${rrrTypeBeanList}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrTypes, eLProperty, cbxRightType);
-        bindingGroup.addBinding(jComboBoxBinding);
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rightsExportParams, org.jdesktop.beansbinding.ELProperty.create("${rightType}"), cbxRightType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(cbxRightType, 0, 156, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxRightType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         jPanel9.setLayout(new java.awt.GridLayout(1, 2, 10, 0));
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/ui/administrative/Bundle"); // NOI18N
         jLabel5.setText(bundle.getString("RightsExportPanel.jLabel5.text")); // NOI18N
 
         btnSearch.setText(bundle.getString("RightsExportPanel.btnSearch.text")); // NOI18N
@@ -306,22 +298,36 @@ public class RightsExportPanel extends javax.swing.JPanel {
         txtDateFrom.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
         txtDateFrom.setText(bundle.getString("RightsExportPanel.txtDateFrom.text")); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rightsExportParams, org.jdesktop.beansbinding.ELProperty.create("${dateFrom}"), txtDateFrom, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rightsExportParams, org.jdesktop.beansbinding.ELProperty.create("${dateFrom}"), txtDateFrom, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
+
+        btnRegDateFrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnRegDateFrom.setText(bundle.getString("RightsExportPanel.btnRegDateFrom.text")); // NOI18N
+        btnRegDateFrom.setBorder(null);
+        btnRegDateFrom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegDateFromActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(txtDateFrom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRegDateFrom))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegDateFrom)))
         );
 
         jPanel10.add(jPanel4);
@@ -334,21 +340,36 @@ public class RightsExportPanel extends javax.swing.JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rightsExportParams, org.jdesktop.beansbinding.ELProperty.create("${dateTo}"), txtDateTo, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
+        btnRegDateTo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnRegDateTo.setText(bundle.getString("RightsExportPanel.btnRegDateTo.text")); // NOI18N
+        btnRegDateTo.setBorder(null);
+        btnRegDateTo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegDateToActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(0, 29, Short.MAX_VALUE))
-            .addComponent(txtDateTo)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 25, Short.MAX_VALUE))
+                    .addComponent(txtDateTo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRegDateTo))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRegDateTo)
+                    .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel10.add(jPanel5);
@@ -358,28 +379,28 @@ public class RightsExportPanel extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${rightsList}");
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${rightsList}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rightsExportResults, eLProperty, tableRightResults);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${checked}"));
         columnBinding.setColumnName("Checked");
         columnBinding.setColumnClass(Boolean.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightType}"));
+        columnBinding.setColumnName("Right Type");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${parcelNumber}"));
         columnBinding.setColumnName("Parcel Number");
         columnBinding.setColumnClass(String.class);
@@ -392,13 +413,21 @@ public class RightsExportPanel extends javax.swing.JPanel {
         columnBinding.setColumnName("Payee Full Name");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightRegistrationDate}"));
-        columnBinding.setColumnName("Right Registration Date");
-        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${leaseNumber}"));
+        columnBinding.setColumnName("Lease Number");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightRegistrationNumber}"));
         columnBinding.setColumnName("Right Registration Number");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightRegistrationDate}"));
+        columnBinding.setColumnName("Right Registration Date");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${startDate}"));
+        columnBinding.setColumnName("Start Date");
+        columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightExpirationDate}"));
         columnBinding.setColumnName("Right Expiration Date");
@@ -423,23 +452,26 @@ public class RightsExportPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tableRightResults);
         tableRightResults.getColumnModel().getColumn(0).setMaxWidth(25);
         tableRightResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title0_1")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tableRightResults.getColumnModel().getColumn(1).setMaxWidth(200);
-        tableRightResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title4")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title12")); // NOI18N
         tableRightResults.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tableRightResults.getColumnModel().getColumn(2).setMaxWidth(150);
-        tableRightResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title2_1")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title1_1")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tableRightResults.getColumnModel().getColumn(4).setMaxWidth(120);
-        tableRightResults.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title6")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title9")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(6).setPreferredWidth(100);
-        tableRightResults.getColumnModel().getColumn(6).setMaxWidth(120);
-        tableRightResults.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title5")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title3_1")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title7")); // NOI18N
-        tableRightResults.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title8")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(2).setMaxWidth(200);
+        tableRightResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title4")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tableRightResults.getColumnModel().getColumn(3).setMaxWidth(150);
+        tableRightResults.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title2_1")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title1_1")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title10")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title9")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(7).setPreferredWidth(100);
+        tableRightResults.getColumnModel().getColumn(7).setMaxWidth(120);
+        tableRightResults.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title6")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title11")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(9).setPreferredWidth(100);
+        tableRightResults.getColumnModel().getColumn(9).setMaxWidth(120);
+        tableRightResults.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title5")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(10).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title3_1")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(11).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title7")); // NOI18N
+        tableRightResults.getColumnModel().getColumn(12).setHeaderValue(bundle.getString("RightsExportPanel.tableRightResults.columnModel.title8")); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -488,7 +520,7 @@ public class RightsExportPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -509,14 +541,23 @@ public class RightsExportPanel extends javax.swing.JPanel {
     private void btnExportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportAllActionPerformed
         export(rightsExportResults.getRightsList());
     }//GEN-LAST:event_btnExportAllActionPerformed
+
+    private void btnRegDateFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegDateFromActionPerformed
+        showCalendar(txtDateFrom);
+    }//GEN-LAST:event_btnRegDateFromActionPerformed
+
+    private void btnRegDateToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegDateToActionPerformed
+        showCalendar(txtDateTo);
+    }//GEN-LAST:event_btnRegDateToActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClean;
     private javax.swing.JButton btnExportAll;
     private javax.swing.JButton btnExportSelected;
+    private javax.swing.JButton btnRegDateFrom;
+    private javax.swing.JButton btnRegDateTo;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox cbxRightType;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -525,7 +566,6 @@ public class RightsExportPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
