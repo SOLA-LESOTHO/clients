@@ -621,7 +621,6 @@ public class ApplicationPanel extends ContentPanel {
             // Power of attorney or other type document registration
             if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_POWER_OF_ATTORNEY)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_STANDARD_DOCUMENT)
-                    || requestType.equalsIgnoreCase(RequestTypeBean.CODE_OTHER_DEEDS)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CANCEL_POWER_OF_ATTORNEY)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_BOND_DEED)
                     || requestType.equalsIgnoreCase(RequestTypeBean.CODE_CANCEL_BOND)) {
@@ -686,7 +685,9 @@ public class ApplicationPanel extends ContentPanel {
                 };
                 TaskManager.getInstance().runTask(t);
             }// Cadastre print
-            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_PRINT)) {
+            else if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_CADASTRE_PRINT) ||
+                    requestType.equalsIgnoreCase(RequestTypeBean.CODE_MAP_SALE) ||
+                    requestType.equalsIgnoreCase(RequestTypeBean.CODE_SURVEY_PLAN_COPY)) {
                 SolaTask t = new SolaTask<Void, Void>() {
 
                     @Override

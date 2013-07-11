@@ -45,6 +45,7 @@ import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
 import org.sola.clients.beans.administrative.validation.RrrValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.reports.ReportManager;
@@ -244,10 +245,12 @@ public class LeasePanel extends ContentPanel {
     // Returns true is service type affects change of lessee
     private boolean isLeaseTransfer(){
         if(appService!=null && appService.getRequestTypeCode()!=null){
-            // TODO: Put service code checks
-//            if(appService.getRequestTypeCode().equals(RequestTypeBean.CODE_REGISTER_LEASE)){
-//                return true;
-//            }
+            String typeCode = appService.getRequestTypeCode();
+            if(typeCode.equals(RequestTypeBean.CODE_ENDORSEMENT) || 
+                    typeCode.equals(RequestTypeBean.CODE_NAME_CHANGE) ||
+                    typeCode.equals(RequestTypeBean.CODE_LEASE_TRANSFER)){
+                return true;
+            }
         }
         return false;
     }
