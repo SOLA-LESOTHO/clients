@@ -100,6 +100,8 @@ public class PartyBean extends PartySummaryBean {
     private CommunicationTypeBean communicationTypeBean;
     private SolaList<PartyRoleBean> roleList;
     private transient PartyRoleBean selectedRole;
+    
+    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_LEGAL_STATUS, payload = Localized.class)
     private String legalType;
     
     /** 
