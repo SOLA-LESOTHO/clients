@@ -131,6 +131,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
     public static final String LAND_USABLE_PROPERTY = "landUsable";
     public static final String PERSONAL_LEVY_PROPERTY = "personalLevy";
+    public static final String MORTGAGE_TERM_PROPERTY = "mortgageTerm";
     
     private String baUnitId;
     private String nr;
@@ -150,6 +151,7 @@ public class RrrBean extends AbstractTransactionedBean {
     @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTAGAETYPE, payload = Localized.class, groups = {MortgageValidationGroup.class})
     private MortgageTypeBean mortgageType;
     private BigDecimal mortgageInterestRate;
+    @NotNull(message = ClientMessage.MORTGAGE_RANK_IS_EMPTY, groups={MortgageValidationGroup.class}, payload = Localized.class)
     private Integer mortgageRanking;
     private Double share;
     private SolaList<SourceBean> sourceList;
@@ -202,7 +204,7 @@ public class RrrBean extends AbstractTransactionedBean {
     private transient LeaseSpecialConditionBean selectedSpecialCondition;
     @NotNull(message = ClientMessage.LEASE_LAND_USE_IS_NULL, groups={LeaseValidationGroup.class}, payload = Localized.class)
     private LandUseTypeBean landUseType;
-
+    private Integer mortgageTerm = Integer.valueOf(0);
     public RrrBean() {
         super();
         sourceList = new SolaList();
@@ -754,6 +756,22 @@ public class RrrBean extends AbstractTransactionedBean {
         this.subplotValid = subplotValid;
     }
 
+    public Integer getMortgageTerm() {
+        return mortgageTerm;
+    }
+
+    public void setMortgageTerm(Integer mortgageTerm) {
+        Integer oldValue = this.mortgageTerm;
+        this.mortgageTerm = mortgageTerm;
+        propertySupport.firePropertyChange(MORTGAGE_TERM_PROPERTY, oldValue, this.mortgageTerm);
+       if((getRegistrationDate() != null) && (mortgageTerm.compareTo(Integer.valueOf(0)) > 0)){
+            Calendar startDateCal = Calendar.getInstance();
+            startDateCal.setTime(getRegistrationDate());
+            startDateCal.add(Calendar.YEAR, mortgageTerm);
+            setExpirationDate(startDateCal.getTime());
+        }
+    }
+
     public void addOrUpdateRightholder(PartyBean rightholder) {
         if (rightholder != null && rightHolderList != null) {
             if (rightHolderList.contains(rightholder)) {
@@ -801,16 +819,17 @@ public class RrrBean extends AbstractTransactionedBean {
     
     /** Calculates ground rent fee for attached CadastreObject. */
     public void calculateGroundRent(CadastreObjectBean co){
-        setGroundRent(RrrBean.calcGroundRent(co, personalLevy, landUsable));
+        setGroundRent(RrrBean.calcGroundRent(co, personalLevy, landUsable, getLandUseCode()));
     }
     
     /** Calculates ground rent fee for the given CadastreObject. */
-    public static BigDecimal calcGroundRent(CadastreObjectBean co, BigDecimal personalLevy, BigDecimal landUsable){
+    public static BigDecimal calcGroundRent(CadastreObjectBean co, BigDecimal personalLevy, BigDecimal landUsable, String landUseCode){
         if(co==null){
             return BigDecimal.ZERO;
         }
         return WSManager.getInstance().getAdministrative().calculateGroundRent(
-                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class), personalLevy, landUsable);
+                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class), 
+                                                   personalLevy, landUsable, landUseCode);
     }
     
     /**

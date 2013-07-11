@@ -279,13 +279,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="46" max="32767" attributes="0"/>
+                              <EmptySpace pref="95" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtExpiryDate" max="32767" attributes="1"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnSubmissionDateFrom1" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="txtMortgageTerm" alignment="0" max="32767" attributes="1"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -293,10 +289,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnSubmissionDateFrom1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtExpiryDate" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="txtMortgageTerm" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -314,38 +307,16 @@
                         <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="txtExpiryDate">
+                    <Component class="javax.swing.JFormattedTextField" name="txtMortgageTerm">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="FormattersFactory.getInstance().getDateFormatterFactory()" type="code"/>
+                          <Connection code="FormattersFactory.getInstance().getIntegerFormatterFactory()" type="code"/>
                         </Property>
-                        <Property name="name" type="java.lang.String" value="txtExpiryDate" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="txtMortgageTerm" noResource="true"/>
                       </Properties>
                       <BindingProperties>
-                        <BindingProperty name="value" source="rrrBean" sourcePath="${expirationDate}" target="txtExpiryDate" targetPath="value" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="value" source="rrrBean" sourcePath="${mortgageTerm}" target="txtMortgageTerm" targetPath="value" updateStrategy="0" immediately="false"/>
                       </BindingProperties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtExpiryDateActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnSubmissionDateFrom1">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/images/common/calendar.png"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="MortgagePanel.btnSubmissionDateFrom1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
-                        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="MortgagePanel.btnSubmissionDateFrom1.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmissionDateFrom1ActionPerformed"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -408,9 +379,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="86" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="browseLender" alignment="0" pref="137" max="32767" attributes="0"/>
+                          <Component id="browseLender" alignment="0" pref="139" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -623,6 +594,9 @@
                 </Container>
                 <Container class="javax.swing.JPanel" name="jPanel4">
                   <Properties>
+                    <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="MortgagePanel.jPanel4.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                    </Property>
                     <Property name="name" type="java.lang.String" value="jPanel4" noResource="true"/>
                   </Properties>
 
