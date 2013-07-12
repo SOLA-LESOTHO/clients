@@ -21,7 +21,7 @@
 	<parameter name="FEE" class="java.lang.String"/>
 	<parameter name="RECEIPT_NUMBER" class="java.lang.String"/>
 	<parameter name="TRANSACTION_TYPE" class="java.lang.String"/>
-	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="USER_NAME" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -238,7 +238,7 @@ Lesotho]]></text>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[_______________________________________]]></text>
+				<text><![CDATA[--------------------------------------------------------------]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="141" width="46" height="20"/>
@@ -259,7 +259,7 @@ Lesotho]]></text>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{USER_NAME}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM, yyyy" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="67" y="171" width="141" height="20"/>
@@ -279,22 +279,20 @@ Lesotho]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" positionType="Float" x="10" y="43" width="534" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false" isUnderline="true"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "Kindly find attached herewith Lessee’s copy of a lease relating to Plot No  <b>%s</b> situated at  " +
-"" +
 "<b>%s</b>  for your endorsement of an heir." +
-"" +
+"<p></p>" +
 "Please find attached the minutes from the Land Allocation Authority supporting the endorsement." +
-"" +
+"<p></p>" +
 "Kindly endorse the said Lease No <b>%s</b> in the name of  <b>%s</b>  " +
-"" +
 "who is heir  as per the minutes from the Land Allocation Authority.",
 $F{leaseRegistrationNumber},
 $F{parcelAddress},
-$F{leaseRegistrationNumber},
+$F{parcelCode},
 $F{lessees}
 )]]></textFieldExpression>
 			</textField>

@@ -334,6 +334,13 @@ public class LeasePanel extends ContentPanel {
             showReport(ReportManager.getLeaseOfferReport(reportBean));
         }
     }
+    
+    private void printSuccessionReport() {
+        final LeaseReportBean reportBean = prepareReportBean();
+        if (reportBean != null) {
+            showReport(ReportManager.getSuccessionReport(reportBean));
+        }
+    }
 
     private void printRejectionLetter() {
         final LeaseReportBean reportBean = prepareReportBean();
@@ -473,6 +480,7 @@ public class LeasePanel extends ContentPanel {
         menuLease = new javax.swing.JMenuItem();
         menuLeaseSurrender = new javax.swing.JMenuItem();
         menuLeaseVary = new javax.swing.JMenuItem();
+        menuEndorseSuccession = new javax.swing.JMenuItem();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
@@ -625,6 +633,15 @@ public class LeasePanel extends ContentPanel {
             }
         });
         popupPrints.add(menuLeaseVary);
+
+        menuEndorseSuccession.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
+        menuEndorseSuccession.setText(bundle.getString("LeasePanel.menuEndorseSuccession.text")); // NOI18N
+        menuEndorseSuccession.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEndorseSuccessionActionPerformed(evt);
+            }
+        });
+        popupPrints.add(menuEndorseSuccession);
 
         setHeaderPanel(headerPanel);
 
@@ -1463,6 +1480,10 @@ public class LeasePanel extends ContentPanel {
         printLeaseVary();
     }//GEN-LAST:event_menuLeaseVaryActionPerformed
 
+    private void menuEndorseSuccessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEndorseSuccessionActionPerformed
+        printSuccessionReport();
+    }//GEN-LAST:event_menuEndorseSuccessionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.swing.common.buttons.BtnAdd btnAddCodition;
     private javax.swing.JButton btnCalculateGroundRent;
@@ -1536,6 +1557,7 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JLabel lblStatus;
     private org.sola.clients.swing.common.menuitems.MenuAdd menuAddCondition;
     private org.sola.clients.swing.common.menuitems.MenuEdit menuEditCondition;
+    private javax.swing.JMenuItem menuEndorseSuccession;
     private javax.swing.JMenuItem menuLease;
     private javax.swing.JMenuItem menuLeaseSurrender;
     private javax.swing.JMenuItem menuLeaseVary;

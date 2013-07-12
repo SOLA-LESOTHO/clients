@@ -274,6 +274,30 @@ public class ReportManager {
             return null;
         }
     }
+    
+    /**
+     * Generates and displays <b>Lease Vary</b> report.
+     *
+     * @param reportBean RRR report bean containing all required information to
+     * build the report.
+     */
+    public static JasperPrint getSuccessionReport(LeaseReportBean reportBean) {
+        HashMap inputParameters = new HashMap();
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
+        LeaseReportBean[] beans = new LeaseReportBean[1];
+        beans[0] = reportBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/lease/SuccessionReport.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }    
 
     /**
      * Generates and displays <b>Application payment receipt</b>.
