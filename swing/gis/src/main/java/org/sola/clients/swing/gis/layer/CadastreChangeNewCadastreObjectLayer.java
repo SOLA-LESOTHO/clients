@@ -44,10 +44,7 @@ import org.sola.clients.swing.gis.beans.CadastreObjectBean;
 import org.sola.clients.swing.gis.beans.CadastreObjectListBean;
 import org.sola.clients.swing.gis.beans.SpatialBean;
 import org.sola.clients.swing.gis.ui.control.CadastreObjectListDialog;
-import org.sola.clients.swing.gis.ui.control.CadastreObjectListPanel;
 import org.sola.common.WindowUtility;
-import org.sola.common.messaging.GisMessage;
-import org.sola.common.messaging.MessageUtility;
 
 /**
  * Layer that has the features of the new cadastre objects during the cadastre change
@@ -64,7 +61,7 @@ public class CadastreChangeNewCadastreObjectLayer
     private static final String LAYER_NAME = "new_cadastre_object";
     private static final String LAYER_STYLE_RESOURCE = "parcel_new.xml";
     private static final String LAYER_ATTRIBUTE_DEFINITION =
-            String.format("%s:String,%s:String,%s:Double,%s:Double",
+            String.format("%s:String,%s:String,%s:java.math.BigDecimal,%s:java.math.BigDecimal",
             LAYER_FIELD_FIRST_PART, LAYER_FIELD_LAST_PART,
             LAYER_FIELD_OFFICIAL_AREA, LAYER_FIELD_CALCULATED_AREA);
     private Integer firstPartGenerator = 0;
