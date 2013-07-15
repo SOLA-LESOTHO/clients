@@ -832,6 +832,22 @@ public class RrrBean extends AbstractTransactionedBean {
                                                    personalLevy, landUsable, landUseCode);
     }
     
+     /** Calculates ground rent fee for attached CadastreObject. */
+    public void calculateStampDuty(CadastreObjectBean cadastreObject){
+        setStampDuty(calcStampDuty(cadastreObject, this));
+    }
+    
+    public  BigDecimal calcStampDuty(CadastreObjectBean co, RrrBean rrr){
+        
+        if(co==null){
+            return BigDecimal.ZERO;
+        }
+        
+        return WSManager.getInstance().getAdministrative().calculateStampDuty(
+                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class),
+                TypeConverters.BeanToTrasferObject(rrr, RrrTO.class));
+    }
+    
     /**
      * Generates new ID, RowVerion and RowID.
      *
