@@ -38,6 +38,8 @@ import org.sola.clients.beans.referencedata.PartyRoleTypeBean;
  * <br />This bean is used as a part of {@link PartyBean}.
  */
 public class PartyRoleBean extends AbstractVersionedBean{
+    public static final String CODE_ACCOUNT_HOLDER_PROPERTY = "accountHolder";
+    
     public static final String ROLE_CODE_PROPERTY = "roleCode";
     public static final String ROLE_PROPERTY = "role";
     

@@ -19,7 +19,8 @@ import java.math.BigDecimal;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.sola.clients.beans.administrative.RrrBean;
-import org.sola.clients.beans.party.PartySummaryBean;
+import org.sola.clients.beans.party.PartyBean;
+import org.sola.clients.beans.party.PartyRoleBean;
 import org.sola.common.StringUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -58,10 +59,22 @@ public class LeaseBeanValidator implements ConstraintValidator<LeaseBeanCheck, R
             }
         }
 
-        // Check lessees to be of the same type
+        // Check lessees to be of the same type and one lessee to be accountHolder role (payor)
+        int accountHolders = 0;
+        
         if (value.getFilteredRightHolderList().size() > 0) {
             String lesseeType = value.getFilteredRightHolderList().get(0).getTypeCode();
-            for (PartySummaryBean lessee : value.getFilteredRightHolderList()) {
+            for (PartyBean lessee : value.getFilteredRightHolderList()) {
+                
+                // Check account holder role
+                if(lessee.getFilteredRoleList()!=null && lessee.getFilteredRoleList().size()>0){
+                    for(PartyRoleBean role : lessee.getFilteredRoleList()){
+                        if(role.getRoleCode().equals(PartyRoleBean.CODE_ACCOUNT_HOLDER_PROPERTY)){
+                            accountHolders+=1;
+                        }
+                    }
+                }
+                
                 if (!StringUtility.empty(lessee.getTypeCode()).equals(lesseeType)) {
                     result = false;
                     context.buildConstraintViolationWithTemplate(
@@ -71,7 +84,14 @@ public class LeaseBeanValidator implements ConstraintValidator<LeaseBeanCheck, R
                 lesseeType = lessee.getTypeCode();
             }
         }
-
+        
+        if(accountHolders!=1){
+            result = false;
+            context.buildConstraintViolationWithTemplate(
+                    (MessageUtility.getLocalizedMessageText(
+                    ClientMessage.LEASE_LESSEE_ACCOUNT_HOLDER_MISSING))).addConstraintViolation();
+        }
+        
         return result;
     }
 }

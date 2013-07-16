@@ -843,7 +843,7 @@ public class RrrBean extends AbstractTransactionedBean {
             return BigDecimal.ZERO;
         }
         
-        return WSManager.getInstance().getAdministrative().calculateStampDuty(
+        return WSManager.getInstance().getAdministrative().calculateDutyOnGroundRent(
                 TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class),
                 TypeConverters.BeanToTrasferObject(rrr, RrrTO.class));
     }
