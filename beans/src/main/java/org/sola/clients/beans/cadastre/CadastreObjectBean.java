@@ -46,7 +46,7 @@ import org.sola.webservices.transferobjects.EntityAction;
  */
 public class CadastreObjectBean extends CadastreObjectSummaryBean {
 
-    
+    public static final String SUBPLOT_TYPE = "subplot";
     public static final String GEOM_POLYGON_PROPERTY = "geomPolygon";
     public static final String SELECTED_PROPERTY = "selected";
     public static final String PENDING_STATUS = "pending";

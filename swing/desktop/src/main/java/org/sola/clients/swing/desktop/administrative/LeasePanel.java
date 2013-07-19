@@ -29,14 +29,19 @@
  */
 package org.sola.clients.swing.desktop.administrative;
 
+import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Date;
 import java.util.Map;
 import javax.swing.JFormattedTextField;
 import javax.validation.groups.Default;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.geotools.map.extended.layer.ExtendedLayer;
 import org.geotools.swing.extended.exception.InitializeMapException;
+import org.geotools.swing.extended.util.GeometryUtility;
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.Bindings;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.LeaseReportBean;
 import org.sola.clients.beans.administrative.LeaseSpecialConditionBean;
@@ -45,6 +50,8 @@ import org.sola.clients.beans.administrative.validation.LeaseValidationGroup;
 import org.sola.clients.beans.administrative.validation.RrrValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
+import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
 import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.security.SecurityBean;
@@ -60,8 +67,11 @@ import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.clients.swing.common.controls.CalendarForm;
+import org.sola.clients.swing.desktop.cadastre.CadastreObjectSearchForm;
 import org.sola.clients.swing.desktop.party.PartyListExtPanel;
 import org.sola.clients.swing.gis.ui.control.MapFeatureImageGenerator;
+import org.sola.clients.swing.ui.MainContentPanel;
+import org.sola.clients.swing.ui.cadastre.CadastreObjectsSearchPanel;
 import org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer;
 import org.sola.clients.swing.ui.reports.FreeTextDialog;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
@@ -81,6 +91,7 @@ public class LeasePanel extends ContentPanel {
     private RrrBean.RRR_ACTION rrrAction;
     private BaUnitBean baUnit;
     private ControlsBundleForBaUnit mapControl;
+    private boolean zoomedToPlot = false;
     public static final String UPDATED_RRR = "updatedRRR";
 
     private DocumentsManagementExtPanel createDocumentsPanel() {
@@ -130,7 +141,6 @@ public class LeasePanel extends ContentPanel {
 
     private void postInit() {
         rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(RrrBean.SELECTED_SPECIAL_CONDITION_PROPERTY)) {
@@ -139,16 +149,32 @@ public class LeasePanel extends ContentPanel {
             }
         });
 
+        if (isSublease()) {
+            // Load the cadastre object if not already set
+            if (rrrBean.getCadastreObjectId() != null && rrrBean.getCadastreObject() == null) {
+                rrrBean.setCadastreObject(CadastreObjectBean.getCadastreObject(
+                        rrrBean.getCadastreObjectId()));
+                zoomedToPlot = false;
+            }
+
+            // Create the binding between the Parcel Details panel and the Cadastre Object on the rrrBean
+            org.jdesktop.beansbinding.Binding binding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE,
+                    rrrBean, org.jdesktop.beansbinding.ELProperty.create("${cadastreObject}"),
+                    parcelPanel1, org.jdesktop.beansbinding.BeanProperty.create("cadastreObjectBean"), "parcelDetailsBinding");
+            bindingGroup.addBinding(binding);
+            bindingGroup.bind();
+        }
+
         customizeForm();
         saveRrrState();
     }
 
     private void customizeForm() {
         headerPanel.setTitleText(rrrBean.getRrrType().getDisplayValue());
-        if(!StringUtility.isEmpty(rrrBean.getLeaseNumber())){
+        if (!StringUtility.isEmpty(rrrBean.getLeaseNumber())) {
             headerPanel.setTitleText(headerPanel.getTitleText() + " #" + rrrBean.getLeaseNumber());
         }
-        
+
         if (rrrAction == RrrBean.RRR_ACTION.NEW) {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                     ClientMessage.GENERAL_LABELS_CREATE_AND_CLOSE).getMessage());
@@ -160,11 +186,11 @@ public class LeasePanel extends ContentPanel {
 
         boolean enabled = rrrAction != RrrBean.RRR_ACTION.VIEW;
         boolean regEnabled = enabled && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_REGISTER_LEASE);
-        boolean leaseEnabled = enabled && !isLeaseTransfer() && 
-                rrrAction != RrrBean.RRR_ACTION.CANCEL && 
-                SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
+        boolean leaseEnabled = enabled && !isLeaseTransfer()
+                && rrrAction != RrrBean.RRR_ACTION.CANCEL
+                && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
         boolean partyListEnabled = leaseEnabled || (enabled && isLeaseTransfer());
-        
+
         // Common fields for registration and lease management
         btnSave.setEnabled(enabled);
         txtStampDuty.setEnabled(enabled);
@@ -193,18 +219,27 @@ public class LeasePanel extends ContentPanel {
         btnExecutionDate.setEnabled(leaseEnabled);
         btnNextPaymentDate.setEnabled(leaseEnabled);
         cbxLandUse.setEnabled(leaseEnabled);
-        
+
         menuLease.setEnabled(leaseEnabled);
         menuRejectionLetter.setEnabled(leaseEnabled);
         menuOfferLetter.setEnabled(leaseEnabled);
         menuLeaseSurrender.setEnabled(rrrAction == RrrBean.RRR_ACTION.CANCEL);
         menuLeaseVary.setEnabled(leaseEnabled);//
-        
-        if (txtNotationText.isEnabled() && txtNotationText.getText().equals("") 
+
+        if (!isSublease()) {
+            // Remove the tabs for sublease
+            jTabbedPane1.removeTabAt(jTabbedPane1.indexOfComponent(subplotTabPanel));
+            jTabbedPane1.removeTabAt(jTabbedPane1.indexOfComponent(mapTabPanel));
+        } else {
+            btnAddSubplot.setEnabled(enabled);
+            btnRemoveSubplot.setEnabled(enabled);
+        }
+
+        if (txtNotationText.isEnabled() && txtNotationText.getText().equals("")
                 && rrrAction != RrrBean.RRR_ACTION.VIEW && appService != null) {
             txtNotationText.setText(appService.getRequestType().getNotationTemplate());
         }
-        
+
         customizeConditionButtons();
     }
 
@@ -231,7 +266,12 @@ public class LeasePanel extends ContentPanel {
             this.rrrBean = rrrBean.makeCopyByAction(rrrAction);
         }
 
-        if ((StringUtility.empty(this.rrrBean.getStatusCode()).equals("")
+        if (isSublease()) {
+            if (this.rrrBean.getLeaseNumber() == null
+                    || this.rrrBean.getLeaseNumber().trim().isEmpty()) {
+                this.rrrBean.setLeaseNumber(generateSubleaseNumber());
+            }
+        } else if ((StringUtility.empty(this.rrrBean.getStatusCode()).equals("")
                 || this.rrrBean.getStatusCode().equals(StatusConstants.PENDING))
                 && baUnit != null && baUnit.getCadastreObject() != null) {
             this.rrrBean.setLeaseNumber(baUnit.getCadastreObject().toString());
@@ -241,14 +281,14 @@ public class LeasePanel extends ContentPanel {
             this.rrrBean.setPrimary(true);
         }
     }
-    
+
     // Returns true is service type affects change of lessee
-    private boolean isLeaseTransfer(){
-        if(appService!=null && appService.getRequestTypeCode()!=null){
+    private boolean isLeaseTransfer() {
+        if (appService != null && appService.getRequestTypeCode() != null) {
             String typeCode = appService.getRequestTypeCode();
-            if(typeCode.equals(RequestTypeBean.CODE_ENDORSEMENT) || 
-                    typeCode.equals(RequestTypeBean.CODE_NAME_CHANGE) ||
-                    typeCode.equals(RequestTypeBean.CODE_LEASE_TRANSFER)){
+            if (typeCode.equals(RequestTypeBean.CODE_ENDORSEMENT)
+                    || typeCode.equals(RequestTypeBean.CODE_NAME_CHANGE)
+                    || typeCode.equals(RequestTypeBean.CODE_LEASE_TRANSFER)) {
                 return true;
             }
         }
@@ -258,9 +298,27 @@ public class LeasePanel extends ContentPanel {
     private boolean saveRrr() {
         boolean validated;
 
+        if (isSublease()) {
+            // Configures validations for used by sublease
+            if (rrrBean.getLeaseExpiryDate() == null) {
+                // Set data for the sublease expiration date validation
+                rrrBean.setLeaseExpiryDate(getMaxSubLeaseExpiryDate());
+            }
+
+            if (rrrBean.getCadastreObject() != null && baUnit.getCadastreObject() != null) {
+                // Check the subplot area is within the area of the lease. Must be done
+                // here as the validation bean must not have a dependency to GeometryUtility.
+                rrrBean.setSubplotValid(
+                        GeometryUtility.getGeometryFromWkb(baUnit.getCadastreObject().getGeomPolygon()).buffer(1).contains(
+                        GeometryUtility.getGeometryFromWkb(rrrBean.getCadastreObject().getGeomPolygon())));
+            } else {
+                rrrBean.setSubplotValid(true);
+            }
+        }
+
         // If user has only lease management role
-        if (SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE) && 
-                !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_REGISTER_LEASE)) {
+        if (SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE)
+                && !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_REGISTER_LEASE)) {
             validated = rrrBean.validate(true, Default.class, LeaseValidationGroup.class).size() < 1;
         } else {
             // Otherwise check all rules
@@ -320,21 +378,21 @@ public class LeasePanel extends ContentPanel {
             showReport(ReportManager.getLeaseSurrenderReport(reportBean));
         }
     }
-    
+
     private void printLeaseVary() {
         final LeaseReportBean reportBean = prepareReportBean();
         if (reportBean != null) {
             showReport(ReportManager.getLeaseVaryReport(reportBean));
         }
     }
-    
+
     private void printOfferLetter() {
         final LeaseReportBean reportBean = prepareReportBean();
         if (reportBean != null) {
             showReport(ReportManager.getLeaseOfferReport(reportBean));
         }
     }
-    
+
     private void printSuccessionReport() {
         final LeaseReportBean reportBean = prepareReportBean();
         if (reportBean != null) {
@@ -352,7 +410,6 @@ public class LeasePanel extends ContentPanel {
             WindowUtility.centerForm(form);
 
             form.addPropertyChangeListener(new PropertyChangeListener() {
-
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     if (evt.getPropertyName().equals(FreeTextDialog.TEXT_TO_SAVE)) {
@@ -413,7 +470,6 @@ public class LeasePanel extends ContentPanel {
         }
 
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
@@ -427,7 +483,6 @@ public class LeasePanel extends ContentPanel {
     private void addCondition() {
         LeaseSpecialConditionDialog form = new LeaseSpecialConditionDialog(null, null, true);
         form.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(LeaseSpecialConditionDialog.LEASE_CONDITION_SAVED)) {
@@ -446,7 +501,6 @@ public class LeasePanel extends ContentPanel {
         LeaseSpecialConditionDialog form = new LeaseSpecialConditionDialog(
                 (LeaseSpecialConditionBean) rrrBean.getSelectedSpecialCondition().copy(), null, true);
         form.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(LeaseSpecialConditionDialog.LEASE_CONDITION_SAVED)) {
@@ -461,6 +515,122 @@ public class LeasePanel extends ContentPanel {
         if (MessageUtility.displayMessage(ClientMessage.CONFIRM_REMOVE_RECORD) == MessageUtility.BUTTON_ONE) {
             rrrBean.removeSelectedCondition();
         }
+    }
+
+    // Returns true if the rrrtype is sublease
+    private boolean isSublease() {
+        return RrrBean.CODE_SUBLEASE.equals(rrrBean.getTypeCode());
+    }
+
+    /**
+     * Determines the max expiry date for the sublease by obtaining the getting
+     * the expiry date of the primary lease. Used for validation of the sublease
+     * expiry date.
+     *
+     * @return
+     */
+    private Date getMaxSubLeaseExpiryDate() {
+        Date result = null;
+        // Check for any pending leases first as the expiry date on the
+        // pending lease will be the one that gets applied at registration
+        for (RrrBean bean : baUnit.getRrrFilteredList()) {
+            if (RrrBean.CODE_LEASE.equals(bean.getTypeCode())
+                    && StatusConstants.PENDING.equals(bean.getStatusCode())) {
+                result = bean.getExpirationDate();
+                break;
+            }
+        }
+        // Check for the current lease
+        if (result == null) {
+            for (RrrBean bean : baUnit.getRrrFilteredList()) {
+                if (RrrBean.CODE_LEASE.equals(bean.getTypeCode())
+                        && StatusConstants.CURRENT.equals(bean.getStatusCode())) {
+                    result = bean.getExpirationDate();
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Determines the sublease number based on the number of subleases that are
+     * already on the lease.
+     *
+     * @return
+     */
+    private String generateSubleaseNumber() {
+        String result = null;
+        if (baUnit.getCadastreObject().toString() != null) {
+            int count = 0;
+
+            for (RrrBean bean : baUnit.getRrrFilteredList()) {
+                if (RrrBean.CODE_SUBLEASE.equals(bean.getTypeCode())) {
+                    count++;
+                }
+            }
+            count++;
+            result = String.format("%s-%s", baUnit.getCadastreObject().toString(),
+                    String.format("%03d", count));
+        }
+
+        return result;
+    }
+
+    /**
+     * Opens the CO Search form so the user can search for the subplot parcel
+     */
+    private void addSubplot() {
+        CadastreObjectSearchForm form = new CadastreObjectSearchForm();
+        form.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals(CadastreObjectsSearchPanel.SELECTED_CADASTRE_OBJECT)) {
+                    rrrBean.setCadastreObject(CadastreObjectBean.getCadastreObject(
+                            ((CadastreObjectSummaryBean) evt.getNewValue()).getId()));
+
+                    if (rrrBean.getCadastreObject() != null) {
+                        rrrBean.setCadastreObjectId(rrrBean.getCadastreObject().getId());
+                        if (CadastreObjectBean.SUBPLOT_TYPE.equals(rrrBean.getCadastreObject().getTypeCode())) {
+                            // This is a subplot, so set the sublease number to match the subplot number. 
+                            rrrBean.setLeaseNumber(rrrBean.getCadastreObject().toString());
+                        }
+                    } else {
+                        rrrBean.setCadastreObjectId(null);
+                    }
+                    zoomedToPlot = false;
+                }
+            }
+        });
+        getMainContentPanel().addPanel(form, MainContentPanel.CARD_PARCEL_SEARCH, true);
+    }
+
+    /**
+     * Clears the selected subplot for the sublease
+     */
+    private void removeSubplot() {
+        rrrBean.setCadastreObject(null);
+        rrrBean.setCadastreObjectId(null);
+        zoomedToPlot = false;
+    }
+
+    /**
+     * Focuses the map on the subplot if one exists otherwise zooms the map to
+     * the area of the lease.
+     */
+    private void zoomToPlot() {
+        if (!zoomedToPlot && rrrBean.getCadastreObject() != null) {
+            // Highlight the subplot on the map
+            this.mapControl.setCadastreObject(rrrBean.getCadastreObject());
+        } else if (!zoomedToPlot && baUnit.getCadastreObject() != null) {
+            // Zoom to the area of the lease, but do not highlight anything
+            // as there is no subplot defined (i.e. remove the lease area 
+            // after the zoom to action. 
+            this.mapControl.setCadastreObject(baUnit.getCadastreObject());
+            this.mapControl.setCadastreObject(null);
+            this.mapControl.refresh(true);
+        }
+        zoomedToPlot = true;
     }
 
     @SuppressWarnings("unchecked")
@@ -566,6 +736,12 @@ public class LeasePanel extends ContentPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtNotationText = new javax.swing.JTextField();
+        subplotTabPanel = new javax.swing.JPanel();
+        jToolBar2 = new javax.swing.JToolBar();
+        btnAddSubplot = new org.sola.clients.swing.common.buttons.BtnAdd();
+        btnRemoveSubplot = new org.sola.clients.swing.common.buttons.BtnRemove();
+        parcelPanel1 = new org.sola.clients.swing.ui.cadastre.ParcelPanel();
+        mapTabPanel = new javax.swing.JPanel();
 
         menuAddCondition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -644,6 +820,11 @@ public class LeasePanel extends ContentPanel {
         popupPrints.add(menuEndorseSuccession);
 
         setHeaderPanel(headerPanel);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         headerPanel.setTitleText(bundle.getString("SimpleOwhershipPanel.headerPanel.titleText")); // NOI18N
 
@@ -690,15 +871,15 @@ public class LeasePanel extends ContentPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(groupPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
-            .addComponent(partyList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+            .addComponent(groupPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+            .addComponent(partyList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(groupPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(partyList, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                .addComponent(partyList, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2);
@@ -709,15 +890,15 @@ public class LeasePanel extends ContentPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(groupPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
-            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+            .addComponent(groupPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(groupPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3);
@@ -1074,7 +1255,7 @@ public class LeasePanel extends ContentPanel {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1086,7 +1267,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1140,7 +1321,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -1149,7 +1330,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1245,7 +1426,7 @@ public class LeasePanel extends ContentPanel {
             .addComponent(groupPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 266, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1331,7 +1512,7 @@ public class LeasePanel extends ContentPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addGap(0, 313, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(txtNotationText)
         );
         jPanel4Layout.setVerticalGroup(
@@ -1378,20 +1559,84 @@ public class LeasePanel extends ContentPanel {
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(bundle.getString("LeasePanel.jPanel22.TabConstraints.tabTitle"), jPanel22); // NOI18N
+
+        jToolBar2.setFloatable(false);
+        jToolBar2.setRollover(true);
+
+        btnAddSubplot.setText(bundle.getString("LeasePanel.btnAddSubplot.text")); // NOI18N
+        btnAddSubplot.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAddSubplot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddSubplotActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnAddSubplot);
+
+        btnRemoveSubplot.setText(bundle.getString("LeasePanel.btnRemoveSubplot.text")); // NOI18N
+        btnRemoveSubplot.setToolTipText(bundle.getString("LeasePanel.btnRemoveSubplot.toolTipText")); // NOI18N
+        btnRemoveSubplot.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRemoveSubplot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveSubplotActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnRemoveSubplot);
+
+        javax.swing.GroupLayout subplotTabPanelLayout = new javax.swing.GroupLayout(subplotTabPanel);
+        subplotTabPanel.setLayout(subplotTabPanelLayout);
+        subplotTabPanelLayout.setHorizontalGroup(
+            subplotTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subplotTabPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(subplotTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(parcelPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                    .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        subplotTabPanelLayout.setVerticalGroup(
+            subplotTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subplotTabPanelLayout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(parcelPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab(bundle.getString("LeasePanel.subplotTabPanel.TabConstraints.tabTitle"), subplotTabPanel); // NOI18N
+
+        mapTabPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                mapTabPanelComponentShown(evt);
+            }
+        });
+
+        javax.swing.GroupLayout mapTabPanelLayout = new javax.swing.GroupLayout(mapTabPanel);
+        mapTabPanel.setLayout(mapTabPanelLayout);
+        mapTabPanelLayout.setHorizontalGroup(
+            mapTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 732, Short.MAX_VALUE)
+        );
+        mapTabPanelLayout.setVerticalGroup(
+            mapTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 473, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab(bundle.getString("LeasePanel.mapTabPanel.TabConstraints.tabTitle"), mapTabPanel); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1484,8 +1729,37 @@ public class LeasePanel extends ContentPanel {
         printSuccessionReport();
     }//GEN-LAST:event_menuEndorseSuccessionActionPerformed
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        if (this.mapControl == null && isSublease()) {
+            this.mapControl = new ControlsBundleForBaUnit();
+            if (applicationBean != null) {
+                this.mapControl.setApplicationId(this.applicationBean.getId());
+            }
+            this.mapTabPanel.setLayout(new BorderLayout());
+            this.mapTabPanel.add(this.mapControl, BorderLayout.CENTER);
+        }
+    }//GEN-LAST:event_formComponentShown
+
+    private void mapTabPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mapTabPanelComponentShown
+        if (isSublease()) {
+            zoomToPlot();
+        }
+    }//GEN-LAST:event_mapTabPanelComponentShown
+
+    private void btnAddSubplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSubplotActionPerformed
+        if (isSublease()) {
+            addSubplot();
+        }
+    }//GEN-LAST:event_btnAddSubplotActionPerformed
+
+    private void btnRemoveSubplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveSubplotActionPerformed
+        if (isSublease()) {
+            removeSubplot();
+        }
+    }//GEN-LAST:event_btnRemoveSubplotActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.swing.common.buttons.BtnAdd btnAddCodition;
+    private org.sola.clients.swing.common.buttons.BtnAdd btnAddSubplot;
     private javax.swing.JButton btnCalculateGroundRent;
     private org.sola.clients.swing.common.buttons.BtnEdit btnEditCondition;
     private javax.swing.JButton btnExecutionDate;
@@ -1493,6 +1767,7 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JButton btnNextPaymentDate;
     private javax.swing.JButton btnRegistrationDate;
     private org.sola.clients.swing.common.buttons.BtnRemove btnRemoveCondition;
+    private org.sola.clients.swing.common.buttons.BtnRemove btnRemoveSubplot;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnStartDate;
     private javax.swing.JComboBox cbxLandUse;
@@ -1552,9 +1827,11 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles jTableWithDefaultStyles1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypes;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JPanel mapTabPanel;
     private org.sola.clients.swing.common.menuitems.MenuAdd menuAddCondition;
     private org.sola.clients.swing.common.menuitems.MenuEdit menuEditCondition;
     private javax.swing.JMenuItem menuEndorseSuccession;
@@ -1564,10 +1841,12 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JMenuItem menuOfferLetter;
     private javax.swing.JMenuItem menuRejectionLetter;
     private org.sola.clients.swing.common.menuitems.MenuRemove menuRemoveCondition;
+    private org.sola.clients.swing.ui.cadastre.ParcelPanel parcelPanel1;
     private org.sola.clients.swing.desktop.party.PartyListExtPanel partyList;
     private javax.swing.JPopupMenu popupConditions;
     private javax.swing.JPopupMenu popupPrints;
     private org.sola.clients.beans.administrative.RrrBean rrrBean;
+    private javax.swing.JPanel subplotTabPanel;
     private javax.swing.JFormattedTextField txtDueDate;
     private javax.swing.JFormattedTextField txtExecutionDate;
     private javax.swing.JFormattedTextField txtExpirationDate;
