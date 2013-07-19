@@ -1846,7 +1846,7 @@ public class ApplicationPanel extends ContentPanel {
             .addComponent(txtStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(labStatus)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
