@@ -563,7 +563,7 @@ public class PropertyPanel extends ContentPanel {
                     mapControl);
             cardName = MainContentPanel.CARD_LEASE;
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_SUBLEASE)) {
-            panel = new SubleasePanel(baUnitBean1, rrrBean, applicationBean, applicationService, action);
+            panel = new LeasePanel(baUnitBean1, rrrBean, applicationBean, applicationService, action, null);
             cardName = MainContentPanel.CARD_SUBLEASE;
         } else if (rrrCode.equalsIgnoreCase(RrrBean.CODE_AGRI_ACTIVITY)
                 || rrrCode.equalsIgnoreCase(RrrBean.CODE_COMMON_OWNERSHIP)
