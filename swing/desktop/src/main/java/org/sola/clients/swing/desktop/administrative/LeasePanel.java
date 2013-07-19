@@ -197,7 +197,7 @@ public class LeasePanel extends ContentPanel {
         menuLease.setEnabled(leaseEnabled);
         menuRejectionLetter.setEnabled(leaseEnabled);
         menuOfferLetter.setEnabled(leaseEnabled);
-        menuLeaseSurrender.setEnabled(leaseEnabled);//rrrAction == RrrBean.RRR_ACTION.CANCEL
+        menuLeaseSurrender.setEnabled(rrrAction == RrrBean.RRR_ACTION.CANCEL);
         menuLeaseVary.setEnabled(leaseEnabled);//
         
         if (txtNotationText.isEnabled() && txtNotationText.getText().equals("") 
