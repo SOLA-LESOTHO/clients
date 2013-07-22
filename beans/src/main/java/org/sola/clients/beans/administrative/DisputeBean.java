@@ -37,6 +37,8 @@ import org.sola.webservices.transferobjects.EntityAction;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.converters.TypeConverters;
@@ -47,12 +49,15 @@ import org.sola.clients.beans.referencedata.DisputeTypeBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.controls.SolaObservableList;
+import org.sola.clients.beans.administrative.validation.DisputeCheck;
+import org.sola.clients.beans.validation.Localized;
+import org.sola.common.messaging.ClientMessage;
 
 /**
  *
  * LAA Additions thoriso
  */
+@DisputeCheck
 public class DisputeBean extends AbstractTransactionedBean {
 
     public static final String DISP_ID_PROPERTY = "id";
@@ -66,6 +71,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String PLOT_LOCATION_PROPERTY = "plotLocation";
     public static final String PLOT_NUMBER_PROPERTY = "plotNumber";
     public static final String CASE_TYPE_PROPERTY = "caseType";
+    public static final String DISPUTE_DESCRIPTION_PROPERTY = "disputeDescription";
     public static final String PRIMARY_RESPONDENT_PROPERTY = "primaryRespondent";
     public static final String ACTION_REQUIRED_PROPERTY = "actionRequired";
     public static final String SELECTED_CATEGORY_PROPERTY = "selectedCategory";
@@ -74,6 +80,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String BEAN_PROPERTY = "bean";
     public static final String SELECTED_COMMENTS_PROPERTY = "selectedComments";
     public static final String SELECTED_PARTY_PROPERTY = "selectedParty";
+    
     private String id;
     private String nr;
     private Date lodgementDate;
@@ -84,6 +91,8 @@ public class DisputeBean extends AbstractTransactionedBean {
     private String leaseNumber;
     private String plotLocation;
     private String plotNumber;
+    private String disputeDescription;
+    //@NotNull(message = ClientMessage.CHECK_NOTNULL_MORTGAGEAMOUNT, payload = Localized.class)
     private String caseType;
     private boolean primaryRespondent;
     private String actionRequired;
@@ -116,18 +125,9 @@ public class DisputeBean extends AbstractTransactionedBean {
         this.setId(null);
         this.setDisputeCommentsList(null);
         this.setDisputePartyList(null);
+        this.setDisputeDescription(null);
         
 
-    }
-
-    public void updateCheckList(List<DisputesCommentsBean> commentsList) {
-        if (commentsList != null ) {
-      
-            for (Iterator<DisputesCommentsBean> it = commentsList.iterator(); it.hasNext();) {
-                DisputesCommentsBean disputesCommentsBean = it.next();
-
-            }
-        }
     }
 
     public SolaList<DisputesCommentsBean> getDisputeCommentsList() {
@@ -158,6 +158,19 @@ public class DisputeBean extends AbstractTransactionedBean {
         return selectedComment;
     }
 
+    public void loadComments(){
+        int sizeDispCommList = disputeCommentsList.size();
+        
+        for (int i = 0; i < sizeDispCommList; i++) {
+            if (disputeCommentsList.get(i).getDisputeNr().equals(bean.getNr())) {
+                getDisputeCommentsList().addAsNew(disputeCommentsList.get(i));
+            }
+        }
+
+        //getDisputeCommentsList().clear();
+       // TypeConverters.TransferObjectListToBeanList(disputeCommentsList, null, null);
+    }
+    
     public void addDisputeComment(DisputesCommentsBean disputeComment) {
         if (getDisputeCommentsList() != null && disputeComment != null
                 && disputeComment.getEntityAction() != EntityAction.DELETE
@@ -214,10 +227,10 @@ public class DisputeBean extends AbstractTransactionedBean {
                 && disputeParty.getEntityAction() != EntityAction.DELETE
                 && disputeParty.getEntityAction() != EntityAction.DISASSOCIATE) {
 
-            for (DisputePartyBean co : getDisputePartyList()) {
-                if (co.getId() != null && disputeParty.getId() != null && co.getId().equals(disputeParty.getId())) {
-                    if (co.getEntityAction() == EntityAction.DELETE || co.getEntityAction() == EntityAction.DISASSOCIATE) {
-                        co.setEntityAction(null);
+            for (DisputePartyBean pb : getDisputePartyList()) {
+                if (pb.getId() != null && disputeParty.getId() != null && pb.getId().equals(disputeParty.getId())) {
+                    if (pb.getEntityAction() == EntityAction.DELETE || pb.getEntityAction() == EntityAction.DISASSOCIATE) {
+                        pb.setEntityAction(null);
                     }
                     return;
                 }
@@ -265,13 +278,23 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public String getDisputeCategoryCode() {
-        return getDisputeCategory().getCode();
+        if (disputeCategoryCode != null) {
+            return disputeCategoryCode.getCode();
+        } else {
+            return null;
+        }
     }
 
-    public void setDisputeCategoryCode(String value) {
-        String oldValue = getDisputeCategory().getCode();
-        setDisputeCategory(CacheManager.getBeanByCode(CacheManager.getDisputeCategory(), value));
-        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY, oldValue, value);
+    public void setDisputeCategoryCode(String disputeCategoryCode) {
+        String oldValue = null;
+        if (this.disputeCategoryCode != null) {
+            oldValue = this.disputeCategoryCode.getCode();
+            return;
+        }
+
+        setDisputeCategory(CacheManager.getBeanByCode(
+                CacheManager.getDisputeCategory(), disputeCategoryCode));
+        propertySupport.firePropertyChange(DISPUTE_TYPE_PROPERTY, oldValue, disputeCategoryCode);
     }
 
     public DisputeCategoryBean getDisputeCategory() {
@@ -282,7 +305,10 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public void setDisputeCategory(DisputeCategoryBean disputeCategory) {
-        this.setJointRefDataBean(getDisputeCategory(), disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+        if (this.disputeCategoryCode == null) {
+            this.disputeCategoryCode = new DisputeCategoryBean();
+        }
+        this.setJointRefDataBean(this.disputeCategoryCode, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
     }
 
     public String getUserId() {
@@ -378,7 +404,14 @@ public class DisputeBean extends AbstractTransactionedBean {
         primaryRespondent = value;
         propertySupport.firePropertyChange(PRIMARY_RESPONDENT_PROPERTY, old, primaryRespondent);
     }
-    
+
+    public String getDisputeDescription() {
+        return disputeDescription;
+    }
+
+    public void setDisputeDescription(String disputeDescription) {
+        this.disputeDescription = disputeDescription;
+    }
     
     public String getPlotLocation() {
         return plotLocation;
@@ -415,10 +448,9 @@ public class DisputeBean extends AbstractTransactionedBean {
             setPlotNumber(cadastreObjectBean.getNameFirstpart() + "-" + cadastreObjectBean.getNameLastpart());
         }
     }
-
+    
     public void assignDispute(DisputeSearchResultBean disputeSearchResultBean) {
         if (disputeSearchResultBean.getId() != null) {
-            //String disputeId = disputeSearchResultBean.getId();
             DisputeTO dispute = TypeConverters.BeanToTrasferObject(disputeSearchResultBean, DisputeTO.class);
             DisputeBean disputeBean = TypeConverters.TransferObjectToBean(dispute, DisputeBean.class, this);
             setBean(disputeBean);

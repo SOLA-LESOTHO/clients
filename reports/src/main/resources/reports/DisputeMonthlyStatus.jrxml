@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DisputeMonthlyStatus" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e8c8c674-42e2-40de-9fbf-a23eee501dd3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="category" class="java.lang.String">
+		<fieldDescription><![CDATA[disputeCategory.displayValue]]></fieldDescription>
+	</field>
+	<field name="disputeDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[disputeDescription]]></fieldDescription>
+	</field>
+	<field name="statusCode" class="java.lang.String">
+		<fieldDescription><![CDATA[statusCode]]></fieldDescription>
+	</field>
+	<field name="lodgementDate" class="java.util.Date">
+		<fieldDescription><![CDATA[lodgementDate]]></fieldDescription>
+	</field>
+	<field name="nr" class="java.lang.String">
+		<fieldDescription><![CDATA[nr]]></fieldDescription>
+	</field>
+	<field name="plotLocation" class="java.lang.String">
+		<fieldDescription><![CDATA[plotLocation]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.String">
+		<fieldDescription><![CDATA[disputeType.displayValue]]></fieldDescription>
+	</field>
+	<title>
+		<band height="179" splitType="Stretch">
+			<image>
+				<reportElement uuid="5f83db26-c318-4e82-9f4e-d49d2fd20adf" x="639" y="0" width="163" height="64"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="65adee1a-6dc0-4145-bf3f-962113ae6ae9" x="707" y="100" width="95" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Lesotho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d416e0e3-83cf-414d-b334-35ed88081f65" x="707" y="115" width="95" height="52"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Web: www.laa.org.ls
+Email: info@laa.org.ls
+Tel: +266 2232 2376
+Fax: +266 2231 0905]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ff558a90-050e-4d8f-8a16-a147bee2b7a2" x="707" y="64" width="95" height="36"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Lerotholi Road
+PO Box 11856, 
+Maseru 100]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8103576a-aaad-4d70-b61b-29145d46e866" x="0" y="12" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISPUTE MONTHLY STATUS]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="a27a9a16-7d59-4c7b-a6cb-4735605690ac" x="161" y="32" width="528" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="74">
+			<staticText>
+				<reportElement uuid="6bf1648c-3c58-4250-9bb5-d77bfbbaa8e2" x="82" y="51" width="52" height="20"/>
+				<textElement/>
+				<text><![CDATA[Dispute Nr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72b4da55-6613-4cf6-9250-40543ff01b37" x="0" y="39" width="56" height="32"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Lodgement Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3d5ba891-5e98-4f4a-8f63-18aedeb5f6ec" x="143" y="51" width="54" height="20"/>
+				<textElement/>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="07ad91bd-555e-4b59-9a31-ca139b0ac1b2" x="243" y="51" width="54" height="20"/>
+				<textElement/>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dc5839c9-25f4-482f-89ec-1a2cad7a793a" x="340" y="51" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a9f95fbc-b5bf-44b3-a837-295c146924a1" x="624" y="51" width="57" height="20"/>
+				<textElement/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b0d0d55e-46af-4531-8ef9-58e1975b29d0" x="700" y="51" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Plot Location]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="21845322-6d19-4a97-9b9c-f636e228a9b9" x="0" y="71" width="802" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement uuid="416ccdc3-d712-459c-a555-9b5f166ea9c6" x="0" y="4" width="76" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lodgementDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7a659a73-4023-4d8d-90ff-3dc9c77f3472" x="82" y="4" width="52" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32b7b918-4eb9-4610-8d9f-dda88fa4aa29" x="143" y="4" width="94" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d897711a-f890-46d9-b1e0-90c0ea941d4e" x="340" y="0" width="195" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{disputeDescription}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="75efbc7a-0b9c-4255-baa9-1f1b84187890" x="624" y="4" width="70" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{statusCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d893d4e3-30bb-4c87-9984-0c622ade42f1" x="700" y="4" width="100" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{plotLocation}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="7cc32381-1f96-4ffe-8fd8-a377733c04c0" x="0" y="21" width="802" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="765ef04c-becb-4a5e-926a-9724c9e09c19" x="243" y="1" width="91" height="19"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="9" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

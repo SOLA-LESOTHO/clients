@@ -27,20 +27,38 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
+package org.sola.clients.beans.administrative.validation;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import javax.validation.Constraint;
+import javax.validation.Payload;
+
+@Target({TYPE, METHOD, FIELD, ANNOTATION_TYPE})
+@Retention(RUNTIME)
+@Constraint(validatedBy = DisputeCommentsValidator.class)
+@Documented
 /**
- *
- * LAA Addition thoriso
+ * Class level constraint annotation for the {@link ApplicationBean} class
  */
-package org.sola.clients.beans.administrative;
+public @interface DisputeCommentsCheck {
 
-import org.sola.clients.beans.AbstractBindingBean;
+    /**
+     * Error message in case of constraint violation
+     */
+    String message() default "";
 
-public class DisputeSearchResultBean extends DisputeBean {
+    /**
+     * Array of interfaces, defining evaluation groups
+     */
+    Class<?>[] groups() default {};
 
-  
-    public DisputeSearchResultBean() {
-        super();
-    }
-
-   
+    /**
+     * Used by clients of the Bean Validation API to assign custom payload
+     * objects to a constraint
+     */
+    Class<? extends Payload>[] payload() default {};
 }

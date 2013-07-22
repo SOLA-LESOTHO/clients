@@ -34,10 +34,16 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.sola.clients.beans.administrative.*;
+import org.sola.clients.beans.administrative.BaUnitBean;
+import org.sola.clients.beans.administrative.LeaseReportBean;
+import org.sola.clients.beans.administrative.DisputeBean;
+import org.sola.clients.beans.administrative.DisputeSearchResultBean;
+import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.system.BrReportBean;
@@ -94,8 +100,7 @@ public class ReportManager {
         beans[0] = dispBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
-        inputParameters.put("WHICH_CALLER", "N");
-
+        
         try {
             return JasperFillManager.fillReport(
                     ReportManager.class.getResourceAsStream("/reports/DisputeConfirmation.jasper"),
@@ -106,8 +111,96 @@ public class ReportManager {
             return null;
         }
     }
+    
+     public static JasperPrint getDisputeMonthlyStatus(List<DisputeSearchResultBean> disputeSearchResultBean) {
+        //List<DisputeBean> dispBeans
+        HashMap inputParameters = new HashMap();
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        DisputeSearchResultBean[] beans =  disputeSearchResultBean.toArray(new DisputeSearchResultBean[0]); 
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
+        
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/DisputeMonthlyStatus.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
+     
+     public static JasperPrint getDisputeMonthlyReport(List<DisputeSearchResultBean> disputeSearchResultBean,
+             Date startDate,
+             Date endDate,
+             String numDisputes,
+             String pendingDisputes,
+             String completeDisputes,
+             String sporadic,
+             String regular,
+             String unregistered,
+             String numCourtCases,
+             String pendingCourtCases,
+             String completeCourtCases,
+             String primaryRespond,
+             String numPrimaryRespondPending) {
+        HashMap inputParameters = new HashMap();
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("NUM_DISPUTES", numDisputes);
+        inputParameters.put("PENDING_DISPUTES", pendingDisputes);
+        inputParameters.put("COMPLETE_DISPUTES", completeDisputes);
+        inputParameters.put("SPORADIC_DISPUTES", sporadic);
+        inputParameters.put("REGULAR_DISPUTES", regular);
+        inputParameters.put("UNREG_DISPUTES", unregistered);
+        inputParameters.put("NUM_COURT_CASES", numCourtCases);
+        inputParameters.put("PENDING_COURT", pendingCourtCases);
+        inputParameters.put("COMPLETE_COURT", completeCourtCases);
+        inputParameters.put("PRIMARY_RESPOND", primaryRespond);
+        inputParameters.put("PRIMARY_RESPOND_PENDING", completeCourtCases);
+        //inputParameters.put("USER", );
+        DisputeSearchResultBean[] beans =  disputeSearchResultBean.toArray(new DisputeSearchResultBean[0]); 
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
+        
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/DisputeMonthlyReport.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
+     
+     public static JasperPrint getDisputeStatisticsReport(List<DisputeSearchResultBean> disputeSearchResultBean,
+             String startDate,
+             String endDate,
+             String numDisputes,
+             String averageDays) {
+        HashMap inputParameters = new HashMap();
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("START_DATE", startDate);
+        inputParameters.put("END_DATE", endDate);
+        inputParameters.put("NUM_DISPUTES", numDisputes);
+        inputParameters.put("AVRG_DAYS_DISPUTES", averageDays);
+        DisputeSearchResultBean[] beans =  disputeSearchResultBean.toArray(new DisputeSearchResultBean[0]); 
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
+        
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/DisputeStatistics.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
     /**
-     * Generates and displays <b>Application status report</b>.
+     * Generates and displays <b>Application m report</b>.
      *
      * @param appBean Application bean containing data for the report.
      */
