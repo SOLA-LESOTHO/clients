@@ -72,6 +72,7 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     private RoadClassTypeBean roadClassType;
     private BigDecimal surveyFee;
     private String valuationZone;
+    private boolean hasLease;
     
     public CadastreObjectSummaryBean(){
         super();
@@ -171,6 +172,14 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(REMARKS_PROPERTY, oldValue, this.remarks);
     }
 
+    public boolean isHasLease() {
+        return hasLease;
+    }
+
+    public void setHasLease(boolean hasLease) {
+        this.hasLease = hasLease;
+    }
+    
     public Date getSurveyDate() {
         return surveyDate;
     }

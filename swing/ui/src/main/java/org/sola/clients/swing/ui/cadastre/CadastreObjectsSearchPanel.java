@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
+import org.sola.clients.swing.ui.renderers.BooleanCellRenderer;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -261,6 +262,10 @@ public class CadastreObjectsSearchPanel extends JPanel {
         columnBinding.setColumnName("Status.display Value");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${hasLease}"));
+        columnBinding.setColumnName("Has Lease");
+        columnBinding.setColumnClass(Boolean.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjects, org.jdesktop.beansbinding.ELProperty.create("${selectedCadastreObject}"), tableCadastreObjects, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -273,6 +278,10 @@ public class CadastreObjectsSearchPanel extends JPanel {
         tableCadastreObjects.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title8")); // NOI18N
         tableCadastreObjects.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title4")); // NOI18N
         tableCadastreObjects.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title5")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(7).setPreferredWidth(80);
+        tableCadastreObjects.getColumnModel().getColumn(7).setMaxWidth(80);
+        tableCadastreObjects.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title7_1")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(7).setCellRenderer(new BooleanCellRenderer());
 
         jLabel4.setText(bundle.getString("CadastreObjectsSearchPanel.jLabel4.text")); // NOI18N
 

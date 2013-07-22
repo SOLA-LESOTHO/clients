@@ -5,8 +5,8 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
-import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
+import org.sola.clients.swing.ui.renderers.BooleanCellRenderer;
 
 /**
  * Shows list of cadastre objects and allows to select one.
@@ -137,6 +137,10 @@ public class CadastreObjectsDialog extends javax.swing.JDialog {
         columnBinding.setColumnName("Status.display Value");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${hasLease}"));
+        columnBinding.setColumnName("Has Lease");
+        columnBinding.setColumnClass(Boolean.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedCadastreObject}"), jTableWithDefaultStyles1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -150,6 +154,10 @@ public class CadastreObjectsDialog extends javax.swing.JDialog {
         jTableWithDefaultStyles1.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title4")); // NOI18N
         jTableWithDefaultStyles1.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title3_1")); // NOI18N
         jTableWithDefaultStyles1.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title5")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(8).setPreferredWidth(80);
+        jTableWithDefaultStyles1.getColumnModel().getColumn(8).setMaxWidth(80);
+        jTableWithDefaultStyles1.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title8")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(8).setCellRenderer(new BooleanCellRenderer());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

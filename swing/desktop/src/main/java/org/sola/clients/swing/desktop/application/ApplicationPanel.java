@@ -2374,6 +2374,10 @@ public class ApplicationPanel extends ContentPanel {
         columnBinding.setColumnName("Land Grade Type.display Value");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${hasLease}"));
+        columnBinding.setColumnName("Has Lease");
+        columnBinding.setColumnClass(Boolean.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${selectedCadastreObject}"), tableParcels, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -2386,6 +2390,10 @@ public class ApplicationPanel extends ContentPanel {
         tableParcels.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title4")); // NOI18N
         tableParcels.getColumnModel().getColumn(3).setPreferredWidth(50);
         tableParcels.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title5_1")); // NOI18N
+        tableParcels.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tableParcels.getColumnModel().getColumn(4).setMaxWidth(80);
+        tableParcels.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tableParcels.columnModel.title4_1")); // NOI18N
+        tableParcels.getColumnModel().getColumn(4).setCellRenderer(new BooleanCellRenderer());
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
