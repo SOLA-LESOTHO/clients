@@ -27,6 +27,7 @@ package org.sola.clients.swing.common.converters;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Locale;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 import org.jdesktop.beansbinding.Converter;
@@ -62,7 +63,9 @@ public class BigDecimalMoneyConverter extends Converter<BigDecimal, Object> {
      * property of the JFormattedTextField to {@code BigDecimalMoneyConverter.getEditFormatterFactory()}
      */
     public static DefaultFormatterFactory getEditFormatterFactory() {
-        NumberFormatter displayFormat = new NumberFormatter(DecimalFormat.getCurrencyInstance());
+	Locale loc;
+        loc = Locale.forLanguageTag("st-LS-x-lvariant-LS");
+        NumberFormatter displayFormat = new NumberFormatter(DecimalFormat.getCurrencyInstance(loc));
         NumberFormatter editFormat = new NumberFormatter(DecimalFormat.getNumberInstance());
         return new DefaultFormatterFactory(displayFormat, displayFormat, editFormat);
     }
