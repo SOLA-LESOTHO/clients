@@ -93,7 +93,7 @@ public class PartyBean extends PartySummaryBean {
     private String alias;
     private AddressBean addressBean;
     
-    @NotNull (message = ClientMessage.CHECK_NOTNULL_GENDER, payload=Localized.class,  groups = PartyIndividualValidationGroup.class)
+    @NotNull (message = ClientMessage.CHECK_NOTNULL_GENDER, payload=Localized.class, groups = PartyIndividualValidationGroup.class)
     private GenderTypeBean genderTypeBean;
     
     private IdTypeBean idTypeBean;
@@ -101,7 +101,7 @@ public class PartyBean extends PartySummaryBean {
     private SolaList<PartyRoleBean> roleList;
     private transient PartyRoleBean selectedRole;
     
-    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_LEGAL_STATUS, payload = Localized.class)
+    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_LEGAL_STATUS, groups = PartyIndividualValidationGroup.class, payload = Localized.class)
     private String legalType;
     
     /** 

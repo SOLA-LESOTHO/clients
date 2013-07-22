@@ -64,7 +64,7 @@ import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
  * model. Could be populated from the {@link RrrTO} object.
  */
 @RrrBeanCheck
-@LeaseBeanCheck
+@LeaseBeanCheck(groups={LeaseValidationGroup.class})
 public class RrrBean extends AbstractTransactionedBean {
 
     public enum RRR_ACTION {
@@ -151,7 +151,6 @@ public class RrrBean extends AbstractTransactionedBean {
     @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTAGAETYPE, payload = Localized.class, groups = {MortgageValidationGroup.class})
     private MortgageTypeBean mortgageType;
     private BigDecimal mortgageInterestRate;
-    @NotNull(message = ClientMessage.MORTGAGE_RANK_IS_EMPTY, groups={MortgageValidationGroup.class}, payload = Localized.class)
     private Integer mortgageRanking;
     private Double share;
     private SolaList<SourceBean> sourceList;
