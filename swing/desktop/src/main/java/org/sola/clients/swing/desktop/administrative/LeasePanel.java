@@ -468,6 +468,11 @@ public class LeasePanel extends ContentPanel {
             MessageUtility.displayMessage(ClientMessage.LEASE_SELECT_PLOT);
             return;
         }
+        
+        if (rrrBean.getLandUseCode() == null) {
+            MessageUtility.displayMessage(ClientMessage.LEASE_SELECT_LAND_USE);
+            return;
+        }
 
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
             @Override

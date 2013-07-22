@@ -2053,7 +2053,7 @@ public class ApplicationPanel extends ContentPanel {
         jPanel17.setName(bundle.getString("ApplicationPanel.jPanel17.name")); // NOI18N
 
         formTxtServiceFee.setEditable(false);
-        formTxtServiceFee.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        formTxtServiceFee.setFormatterFactory(BigDecimalMoneyConverter.getEditFormatterFactory());
         formTxtServiceFee.setInheritsPopupMenu(true);
         formTxtServiceFee.setName("formTxtServiceFee"); // NOI18N
 
@@ -2091,7 +2091,7 @@ public class ApplicationPanel extends ContentPanel {
         jPanel18.setName(bundle.getString("ApplicationPanel.jPanel18.name")); // NOI18N
 
         formTxtFee.setEditable(false);
-        formTxtFee.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        formTxtFee.setFormatterFactory(BigDecimalMoneyConverter.getEditFormatterFactory());
         formTxtFee.setName("formTxtFee"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${totalFee}"), formTxtFee, org.jdesktop.beansbinding.BeanProperty.create("value"));
