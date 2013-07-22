@@ -758,8 +758,11 @@ public class ApplicationPanel extends ContentPanel {
                 // Ticket #30 Two Stage Processing Lease Services
                 String serviceId = service.getId();
                 if (requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_LEASE)
-                        || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_SUBLEASE)) {
-                    // Registration on Lease and Registration on Sublease are special 
+                        || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_ENDORSEMENT)
+                        || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_NAME_CHANGE)
+                        || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_VARY_LEASE)
+                        || requestType.equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_RENEWAL_LEASE)) {
+                    // Registration on Lease, Endorsement, Name Change and Renewal of lease are special 
                     // services that should reference the property record updated by the
                     // previous service. 
                     for (ApplicationServiceBean bean : appBean.getServiceList()) {
