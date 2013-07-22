@@ -40,6 +40,7 @@ import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.cadastre.SpatialValueAreaBean;
 import org.sola.clients.beans.controls.SolaList;
+import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
@@ -94,7 +95,7 @@ public class CadastreObjectBean extends SpatialBean {
     private String nameLastpart;
     private CadastreObjectTypeBean cadastreObjectType;
     private Date surveyDate;
-    private String surveyor;
+    private PartySummaryBean surveyor;
     private String remarks;
     private LandGradeTypeBean landGradeType;
     private RoadClassTypeBean roadClassType;
@@ -385,14 +386,13 @@ public class CadastreObjectBean extends SpatialBean {
         propertySupport.firePropertyChange(SURVEY_DATE_PROPERTY, oldValue, this.surveyDate);
     }
 
-    public String getSurveyor() {
+    public PartySummaryBean getSurveyor() {
         return surveyor;
     }
 
-    public void setSurveyor(String surveyor) {
-        String oldValue = this.surveyor;
-        this.surveyor = surveyor;
-        propertySupport.firePropertyChange(SURVEYOR_PROPERTY, oldValue, this.surveyor);
+    public void setSurveyor(PartySummaryBean value) {
+        surveyor = value;
+        propertySupport.firePropertyChange(SURVEYOR_PROPERTY, null, value);
     }
 
     public BigDecimal getValuationAmount() {
