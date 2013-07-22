@@ -35,6 +35,7 @@ package org.sola.clients.beans.administrative;
 
 import java.util.Date;
 import org.sola.clients.beans.AbstractTransactionedBean;
+import org.sola.clients.beans.administrative.validation.DisputeCommentsCheck;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.services.boundary.wsclients.WSManager;
@@ -42,6 +43,7 @@ import org.sola.webservices.transferobjects.administrative.DisputeCommentsTO;
 import org.sola.clients.beans.referencedata.DisputeActionBean;
 import org.sola.clients.beans.referencedata.OtherAuthoritiesBean;
 
+@DisputeCommentsCheck
 public class DisputesCommentsBean extends DisputeBean {
 
     public static final String DISPUTE_NR_PROPERTY = "disputeNr";
@@ -51,6 +53,7 @@ public class DisputesCommentsBean extends DisputeBean {
     public static final String COMMENTS = "commnets";
     public static final String UPDATED_BY = "updatedBy";
     public static final String SELECTED_AUTHORITY_PROPERTY = "selectedAuthority";
+    public static final String SELECTED_COMMENTS_PROPERTY = "selectedComments";
     
     
     private String disputeNr;
@@ -72,7 +75,7 @@ public class DisputesCommentsBean extends DisputeBean {
         this.setOtherAuthoritiesCode(null);
         this.setComments(null);
         this.setUpdatedBy(null);
-
+        
     }
 
     public String getComments() {
@@ -106,11 +109,9 @@ public class DisputesCommentsBean extends DisputeBean {
 
     public void setDisputeActionCode(String disputeActionCode) {
         String oldValue = null;
-        if (disputeActionCode != null) {
+        if (this.disputeActionCode != null) {
             oldValue = this.disputeActionCode.getCode();
-
             return;
-
         }
         setDisputeAction(CacheManager.getBeanByCode(
                 CacheManager.getDisputeAction(), disputeActionCode));
@@ -134,26 +135,24 @@ public class DisputesCommentsBean extends DisputeBean {
     }
 
     public String getOtherAuthoritiesCode() {
-        if (otherAuthoritiesCode != null) {
-            return otherAuthoritiesCode.getCode();
+        if (this.otherAuthoritiesCode != null) {
+            return this.otherAuthoritiesCode.getCode();
         } else {
             return null;
         }
     }
 
-    public void setOtherAuthoritiesCode(String OtherAuthoritiesCode) {
+    public void setOtherAuthoritiesCode(String otherAuthoritiesCode) {
         String oldValue = null;
-        if (otherAuthoritiesCode != null) {
-            oldValue = otherAuthoritiesCode.getCode();
-
+        if (this.otherAuthoritiesCode != null) {
+            oldValue = this.otherAuthoritiesCode.getCode();
             return;
-
         }
         setOtherAuthorities(CacheManager.getBeanByCode(
-                CacheManager.getOtherAuthorities(), OtherAuthoritiesCode));
+                CacheManager.getOtherAuthorities(), otherAuthoritiesCode));
 
         propertySupport.firePropertyChange(OTHER_AUTHORITIES_PROPERTY,
-                oldValue, OtherAuthoritiesCode);
+                oldValue, otherAuthoritiesCode);
     }
 
     public OtherAuthoritiesBean getOtherAuthorities() {

@@ -224,6 +224,10 @@ public final class CacheManager {
      * Cache key of the {@link OtherAuthoritiesBean} collection.
      */
     public static final String OTHER_AUTHORITIES_CODES_KEY = OtherAuthoritiesBean.class.getName() + LIST_POSTFIX;
+    /**
+     * Cache key of the {@link DisputeReportsBean} collection.
+     */
+    public static final String DISPUTE_REPORTS_CODES_KEY = DisputeReportsBean.class.getName() + LIST_POSTFIX;
 
     
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
@@ -264,6 +268,7 @@ public final class CacheManager {
     private static final String GET_DISPUTE_CATEGORY = "getDisputeCategory";
     private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
+    private static final String GET_DISPUTE_REPORTS = "getDisputeReports";
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
     private static final String GET_APPLICATION_FORMS = "getApplicationForms";
     private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";      
@@ -528,6 +533,11 @@ public final class CacheManager {
                 GET_OTHER_AUTHORITIES, OTHER_AUTHORITIES_CODES_KEY);
     }
     
+    public static List<DisputeReportsBean> getDisputeReports() {
+        return getCachedBeanList(DisputeReportsBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_DISPUTE_REPORTS, DISPUTE_REPORTS_CODES_KEY);
+    }
 
     /**
      * Generic method to create cached list of the beans, representing reference

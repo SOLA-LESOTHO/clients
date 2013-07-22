@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DisputeMonthlyReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4b4ceebd-e9d8-48b5-9645-8a6c3e047fa9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="132"/>
+	<parameter name="DISPUTE_TYPE" class="java.lang.String"/>
+	<parameter name="NUM_DISPUTES" class="java.lang.String"/>
+	<parameter name="PENDING_DISPUTES" class="java.lang.String"/>
+	<parameter name="COMPLETE_DISPUTES" class="java.lang.String"/>
+	<parameter name="SPORADIC_DISPUTES" class="java.lang.String"/>
+	<parameter name="REGULAR_DISPUTES" class="java.lang.String"/>
+	<parameter name="UNREG_DISPUTES" class="java.lang.String"/>
+	<parameter name="NUM_COURT_CASES" class="java.lang.String"/>
+	<parameter name="PENDING_COURT" class="java.lang.String"/>
+	<parameter name="COMPLETE_COURT" class="java.lang.String"/>
+	<parameter name="PRIMARY_RESPOND" class="java.lang.String"/>
+	<parameter name="PRIMARY_RESPOND_PENDING" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nr" class="java.lang.String">
+		<fieldDescription><![CDATA[nr]]></fieldDescription>
+	</field>
+	<field name="caseType" class="java.lang.String">
+		<fieldDescription><![CDATA[caseType]]></fieldDescription>
+	</field>
+	<field name="primaryRespondent" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[primaryRespondent]]></fieldDescription>
+	</field>
+	<field name="completiondate" class="java.util.Date">
+		<fieldDescription><![CDATA[completiondate]]></fieldDescription>
+	</field>
+	<field name="code" class="java.lang.String">
+		<fieldDescription><![CDATA[disputeType.code]]></fieldDescription>
+	</field>
+	<variable name="nr_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{nr}]]></variableExpression>
+	</variable>
+	<variable name="primaryRespondent_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{primaryRespondent}]]></variableExpression>
+	</variable>
+	<variable name="completiondate_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{completiondate}]]></variableExpression>
+	</variable>
+	<variable name="completiondate_2" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{completiondate}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="228" splitType="Stretch">
+			<image>
+				<reportElement uuid="5f83db26-c318-4e82-9f4e-d49d2fd20adf" x="392" y="0" width="163" height="64"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="65adee1a-6dc0-4145-bf3f-962113ae6ae9" x="460" y="100" width="95" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Lesotho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d416e0e3-83cf-414d-b334-35ed88081f65" x="460" y="115" width="95" height="52"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Web: www.laa.org.ls
+Email: info@laa.org.ls
+Tel: +266 2232 2376
+Fax: +266 2231 0905]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ff558a90-050e-4d8f-8a16-a147bee2b7a2" x="460" y="64" width="95" height="36"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Lerotholi Road
+PO Box 11856, 
+Maseru 100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8103576a-aaad-4d70-b61b-29145d46e866" x="0" y="196" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISPUTE MONTHLY REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="244">
+			<staticText>
+				<reportElement uuid="aeb84fbb-f02a-4905-a9f7-cafd120b8b2b" x="0" y="0" width="336" height="20"/>
+				<textElement/>
+				<text><![CDATA[Number of court cases served on LAA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="012b776b-7f6c-498d-9fdb-9901da55c72e" x="0" y="16" width="336" height="20"/>
+				<textElement/>
+				<text><![CDATA[Court cases where LAA is a primary respondent]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fda06871-ec5b-40cb-9a72-819698979bff" x="0" y="36" width="336" height="20"/>
+				<textElement/>
+				<text><![CDATA[Court cases completed this month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74920cb4-c943-41dc-9271-826d1fd37fce" x="0" y="56" width="336" height="20"/>
+				<textElement/>
+				<text><![CDATA[Court cases pending this month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6866aecb-2d5b-487e-bc73-21388a3061c4" x="0" y="76" width="336" height="20"/>
+				<textElement/>
+				<text><![CDATA[Number of LAA primary respondents pending at the end of the month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fac55d8b-aeef-4934-90c5-17729bb7b3d1" x="256" y="120" width="81" height="20"/>
+				<textElement/>
+				<text><![CDATA[Sporadic ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7303cfe9-23d9-467f-a659-38cdeaaceacf" x="256" y="140" width="81" height="20"/>
+				<textElement/>
+				<text><![CDATA[Regularisation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fd163f19-3af3-40c4-bec0-7b6924be5d26" x="0" y="120" width="256" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total number of disputes in the following categories :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e38813b0-a73f-46fa-bb70-760ee764b02e" x="256" y="160" width="81" height="20"/>
+				<textElement/>
+				<text><![CDATA[Unregistered]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="331a7972-1807-42d4-9eee-4d404aa77898" x="0" y="180" width="337" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total number of pending disputes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0643e885-03d0-4f95-9404-ae1b6282afe2" x="0" y="200" width="337" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total number of completed disputes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4899e83f-a496-4658-98c5-b431e0f4bfaa" x="0" y="220" width="337" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total number of disputes reffered to ADR]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="d1a10716-5800-4bc8-b826-1da05901493b" x="0" y="18" width="555" height="1"/>
+			</line>
+			<textField evaluationTime="Page">
+				<reportElement uuid="eb088e93-0389-4dbe-854a-7d0aa12fe0fc" x="347" y="2" width="63" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{nr_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="a05b84f9-e9c0-4e1d-bf29-f2e6c743f7f0" x="0" y="36" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="a76de65f-6f25-46db-91ce-12538c0c3a3e" x="0" y="56" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="7769bab8-4388-4c3b-ac7b-a9a8e440e522" x="0" y="76" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="8704dfad-4568-4dcd-946d-9627ff1ecb85" x="0" y="96" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="ef811d53-5bb9-47d0-8e73-0848f0c9ab7a" x="256" y="140" width="299" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="4e109d92-6d18-41d7-9b41-f41eb08a9cb1" x="256" y="160" width="299" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="be03d8fd-530f-44f4-a454-19888d159089" x="0" y="180" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="80772b7d-dc1c-46ac-a278-ff15e2e5da58" x="0" y="200" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="b736b8ea-8acc-4d03-bd6c-dd8ace40d13e" x="0" y="219" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="9ca33e39-bb20-4f18-8714-eb1179657213" x="0" y="240" width="555" height="1"/>
+			</line>
+			<textField pattern="">
+				<reportElement uuid="34464665-1ebf-4841-ad99-30b6f6228d51" x="347" y="36" width="63" height="19"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{COMPLETE_COURT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8e2150d5-7fcf-4fbd-a8d6-a408ecf2dc35" x="347" y="56" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{PENDING_COURT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="296d0f0d-9045-4cc3-9ffc-515bb1fcfd7f" x="347" y="121" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{SPORADIC_DISPUTES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7d2206c6-3d1e-46d4-abad-a0aaba2865bd" x="347" y="141" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REGULAR_DISPUTES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3931bf92-08a6-49c1-aaa7-e52912421c67" x="347" y="161" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{UNREG_DISPUTES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c038ef13-c4fe-400b-b363-6dc3c76238b1" x="347" y="181" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{PENDING_DISPUTES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="227aea29-01e4-4216-9fb0-2601c8f6b742" x="347" y="199" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{COMPLETE_DISPUTES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="766335b2-ead7-4099-bfdc-daf40749f3e6" x="347" y="16" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{PRIMARY_RESPOND}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="50e360d3-8884-4fcd-9538-8587b51733a7" x="347" y="76" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{PRIMARY_RESPOND_PENDING}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="6"/>
+	</detail>
+	<pageFooter>
+		<band height="7" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

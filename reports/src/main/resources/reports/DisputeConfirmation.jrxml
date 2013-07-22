@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="disputeConfirmation" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="disputeConfirmation" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="713ee3ee-20ee-409b-a910-b1fc7bd694eb">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="57"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -43,49 +43,18 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Disputes">
-		<queryString>
-			<![CDATA[]]>
-		</queryString>
-		<field name="disputeCategoryCode" class="java.lang.String">
-			<fieldDescription><![CDATA[disputeCategoryCode]]></fieldDescription>
-		</field>
-		<field name="disputeTypeCode" class="java.lang.String">
-			<fieldDescription><![CDATA[disputeTypeCode]]></fieldDescription>
-		</field>
-		<field name="leaseNumber" class="java.lang.String">
-			<fieldDescription><![CDATA[leaseNumber]]></fieldDescription>
-		</field>
-		<field name="lodgementDate" class="java.util.Date">
-			<fieldDescription><![CDATA[lodgementDate]]></fieldDescription>
-		</field>
-		<field name="nr" class="java.lang.String">
-			<fieldDescription><![CDATA[nr]]></fieldDescription>
-		</field>
-		<field name="plotLocation" class="java.lang.String">
-			<fieldDescription><![CDATA[plotLocation]]></fieldDescription>
-		</field>
-		<field name="plotNumber" class="java.lang.String">
-			<fieldDescription><![CDATA[plotNumber]]></fieldDescription>
-		</field>
-	</subDataset>
-	<subDataset name="Comments">
-		<queryString>
-			<![CDATA[]]>
-		</queryString>
-		<field name="comments" class="java.lang.String">
-			<fieldDescription><![CDATA[comments]]></fieldDescription>
-		</field>
-		<field name="disputeNr" class="java.lang.String">
-			<fieldDescription><![CDATA[disputeNr]]></fieldDescription>
-		</field>
-	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="lodgementDate" class="java.util.Date">
-		<fieldDescription><![CDATA[lodgementDate]]></fieldDescription>
+	<field name="disputeDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[disputeDescription]]></fieldDescription>
+	</field>
+	<field name="disputeCategory" class="java.lang.String">
+		<fieldDescription><![CDATA[disputeCategory.description]]></fieldDescription>
+	</field>
+	<field name="disputeType" class="java.lang.String">
+		<fieldDescription><![CDATA[disputeType.description]]></fieldDescription>
 	</field>
 	<field name="nr" class="java.lang.String">
 		<fieldDescription><![CDATA[nr]]></fieldDescription>
@@ -93,36 +62,27 @@
 	<field name="plotLocation" class="java.lang.String">
 		<fieldDescription><![CDATA[plotLocation]]></fieldDescription>
 	</field>
-	<field name="plotNumber" class="java.lang.String">
-		<fieldDescription><![CDATA[plotNumber]]></fieldDescription>
-	</field>
-	<field name="leaseNumber" class="java.lang.String">
-		<fieldDescription><![CDATA[leaseNumber]]></fieldDescription>
-	</field>
-	<field name="disputeCategoryCode" class="java.lang.String">
-		<fieldDescription><![CDATA[disputeCategoryCode]]></fieldDescription>
-	</field>
-	<field name="disputeTypeCode" class="java.lang.String">
-		<fieldDescription><![CDATA[disputeTypeCode]]></fieldDescription>
+	<field name="lodgementDate" class="java.util.Date">
+		<fieldDescription><![CDATA[lodgementDate]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="317" splitType="Stretch">
+		<band height="432" splitType="Stretch">
 			<image>
-				<reportElement x="392" y="0" width="163" height="64"/>
+				<reportElement uuid="5f83db26-c318-4e82-9f4e-d49d2fd20adf" x="392" y="0" width="163" height="64"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="460" y="100" width="95" height="15"/>
+				<reportElement uuid="65adee1a-6dc0-4145-bf3f-962113ae6ae9" x="460" y="100" width="95" height="15"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Lesotho]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="460" y="115" width="95" height="52"/>
+				<reportElement uuid="d416e0e3-83cf-414d-b334-35ed88081f65" x="460" y="115" width="95" height="52"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -132,7 +92,7 @@ Tel: +266 2232 2376
 Fax: +266 2231 0905]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="460" y="64" width="95" height="36"/>
+				<reportElement uuid="ff558a90-050e-4d8f-8a16-a147bee2b7a2" x="460" y="64" width="95" height="36"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -141,83 +101,99 @@ PO Box 11856,
 Maseru 100]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="181" width="552" height="20"/>
+				<reportElement uuid="8103576a-aaad-4d70-b61b-29145d46e866" x="3" y="181" width="552" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DISPUTE LODGEMENT CONFIRMATION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="255" width="114" height="16"/>
+				<reportElement uuid="d871dfdd-1131-436e-bc25-b1e9924d2e81" x="6" y="290" width="114" height="16"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lodgement Date :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="218" width="114" height="20"/>
+				<reportElement uuid="daf3660e-e3b3-43f6-a6ab-7b262ad25315" x="9" y="253" width="114" height="20"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dispute Number:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="352" y="255" width="87" height="20"/>
+				<reportElement uuid="16f1a792-58aa-4a7d-86a0-9f79b5e7979c" x="358" y="290" width="87" height="20"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Plot Number : ]]></text>
+				<text><![CDATA[Plot Location : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="289" width="114" height="20"/>
+				<reportElement uuid="2fcce756-d74a-4a26-8461-afe4004ade3f" x="9" y="324" width="114" height="20"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dispute Category :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="352" y="289" width="87" height="20"/>
+				<reportElement uuid="9f44104f-2df1-45f0-9899-1de32ffbf312" x="358" y="324" width="87" height="20"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dispute Type :]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement x="0" y="0" width="95" height="16"/>
+				<reportElement uuid="31cb8dfd-f7f6-45a3-b0c6-226134f9e33f" x="0" y="0" width="95" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="117" y="218" width="100" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
+			<line>
+				<reportElement uuid="04852a0c-8204-48e2-b6db-6141199f7cf0" x="67" y="212" width="418" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="6a886f6e-a57c-41ca-8c49-394babbd2e75" x="67" y="363" width="418" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="2fcce756-d74a-4a26-8461-afe4004ade3f" x="223" y="377" width="114" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
 				</textElement>
+				<text><![CDATA[Dispute Desription]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8e6e7390-ac7b-44b9-a560-d755953b5438" x="123" y="253" width="100" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{nr}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="117" y="289" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{disputeCategoryCode}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="439" y="255" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{plotNumber}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="439" y="289" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{disputeTypeCode}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="117" y="255" width="100" height="20"/>
+			<textField pattern="dd MMM yyyy">
+				<reportElement uuid="01235974-5b93-4f79-91b3-722c1800db9b" x="120" y="290" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{lodgementDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bb53b819-fad5-40d2-987b-dfcab567e55d" x="445" y="290" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{plotLocation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b5e60c25-c5e6-4f72-8d82-a0935fba8d57" x="120" y="324" width="150" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{disputeCategory}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dda99c43-a982-464f-8ef3-f52ab126d300" x="0" y="412" width="555" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{disputeDescription}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7238bd21-a0cd-45cf-8e41-7815099685a9" x="445" y="324" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{disputeType}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="5" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
@@ -229,6 +205,6 @@ Maseru 100]]></text>
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="4" splitType="Stretch"/>
+		<band height="8" splitType="Stretch"/>
 	</summary>
 </jasperReport>
