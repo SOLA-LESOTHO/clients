@@ -82,7 +82,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="jToolBar1" pref="1247" max="32767" attributes="0"/>
+                      <Component id="jToolBar1" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -110,7 +110,7 @@
         <Property name="floatable" type="boolean" value="false"/>
         <Property name="rollover" type="boolean" value="true"/>
         <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jToolBar1.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jToolBar1.name_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
 
@@ -122,7 +122,7 @@
               <Image iconType="3" name="/images/common/new.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnnewDispute.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnnewDispute.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -144,7 +144,7 @@
               <Image iconType="3" name="/images/common/save.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnSaveDispute.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnSaveDispute.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -166,7 +166,7 @@
               <Image iconType="3" name="/images/common/search.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnsearchDispute.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnsearchDispute.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -188,7 +188,7 @@
               <Image iconType="3" name="/images/common/lock.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jButton2.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jButton2.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -356,333 +356,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-<<<<<<< HEAD
-                <Container class="javax.swing.JPanel" name="jPanel6">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jPanel6.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                  </Properties>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                    <Property name="columns" type="int" value="3"/>
-                    <Property name="horizontalGap" type="int" value="10"/>
-                    <Property name="rows" type="int" value="1"/>
-                    <Property name="verticalGap" type="int" value="5"/>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JPanel" name="jPanel7">
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="363" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="txtupdateDate" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtupdateDate" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel4">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel4.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JFormattedTextField" name="txtupdateDate">
-                          <Properties>
-                            <Property name="editable" type="boolean" value="false"/>
-                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.txtupdateDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="value" source="disputesCommentsBean1" sourcePath="${updateDate}" target="txtupdateDate" targetPath="value" updateStrategy="0" immediately="false"/>
-                          </BindingProperties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel21">
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="317" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="dbxdisputeAction1" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="dbxdisputeAction1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel7">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel7.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel7.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="dbxdisputeAction1">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.dbxdisputeAction1.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="elements" source="disputeAction" sourcePath="${disputeActionListBean}" target="dbxdisputeAction1" targetPath="elements" updateStrategy="0" immediately="false"/>
-                            <BindingProperty name="selectedItem" source="disputesCommentsBean1" sourcePath="${disputeAction}" target="dbxdisputeAction1" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
-                          </BindingProperties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel22">
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel6" alignment="0" pref="390" max="32767" attributes="0"/>
-                                      <Component id="dbxotherAuthorities1" alignment="1" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="dbxotherAuthorities1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel6">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel6.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel6.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="dbxotherAuthorities1">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.dbxotherAuthorities1.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="elements" source="otherAuthorities" sourcePath="${otherAuthoritiesListBean}" target="dbxotherAuthorities1" targetPath="elements" updateStrategy="0" immediately="false"/>
-                            <BindingProperty name="selectedItem" source="disputesCommentsBean1" sourcePath="${otherAuthorities}" target="dbxotherAuthorities1" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
-                          </BindingProperties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel26">
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                    <Property name="columns" type="int" value="1"/>
-                    <Property name="horizontalGap" type="int" value="5"/>
-                    <Property name="rows" type="int" value="2"/>
-                    <Property name="verticalGap" type="int" value="10"/>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JPanel" name="jPanel37">
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel8" max="32767" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jScrollPane3" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel8" min="-2" pref="14" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" min="-2" pref="52" max="-2" attributes="0"/>
-                                  <EmptySpace pref="16" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel8">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel8.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel8.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JEditorPane" name="txtDisputeComments">
-                              <BindingProperties>
-                                <BindingProperty name="text" source="disputesCommentsBean1" sourcePath="${comments}" target="txtDisputeComments" targetPath="text" updateStrategy="0" immediately="false">
-                                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-                                </BindingProperty>
-                              </BindingProperties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel38">
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="groupPanel2" pref="1210" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane4" pref="1212" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="groupPanel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane4" min="-2" pref="61" max="-2" attributes="0"/>
-                                  <EmptySpace pref="12" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="org.sola.clients.swing.ui.GroupPanel" name="groupPanel2">
-                          <Properties>
-                            <Property name="titleText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.groupPanel2.titleText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JTable" name="jTable2">
-                              <Properties>
-                                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                                  <TableColumnModel selectionModel="0">
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                        <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jTable2.columnModel.title0_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                                      </Title>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                        <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jTable2.columnModel.title1_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                                      </Title>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                  </TableColumnModel>
-                                </Property>
-                                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                                </Property>
-                              </Properties>
-                              <BindingProperties>
-                                <BindingProperty name="elements" source="disputeBean1" sourcePath="${filteredDisputeCommentsList}" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
-                                  <Subbinding sourcePath="${updateDate}">
-                                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
-                                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                                  </Subbinding>
-                                  <Subbinding sourcePath="${comments}">
-                                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                                  </Subbinding>
-                                </BindingProperty>
-                                <BindingProperty name="selectedElement" source="disputeBean1" sourcePath="${selectedComment}" target="jTable2" targetPath="selectedElement" updateStrategy="0" immediately="false">
-                                  <BindingParameter name="IGNORE_ADJUSTING" value="N"/>
-                                </BindingProperty>
-                              </BindingProperties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-=======
->>>>>>> working
                 <Container class="javax.swing.JPanel" name="jPanel8">
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
@@ -702,10 +375,10 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="lblPlotNumber" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="542" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="307" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="0" pref="514" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Component id="btnSearchPlot" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -714,7 +387,7 @@
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtcadastreId" pref="510" max="32767" attributes="0"/>
+                                      <Component id="txtcadastreId" pref="274" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -787,11 +460,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="lblPlotLocation" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
-                                          <EmptySpace min="0" pref="540" max="32767" attributes="0"/>
-=======
                                           <EmptySpace min="0" pref="290" max="32767" attributes="0"/>
->>>>>>> working
                                       </Group>
                                       <Component id="txtplotLocation" alignment="0" max="32767" attributes="0"/>
                                   </Group>
@@ -856,8 +525,8 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="dbxdisputeCategory" pref="287" max="32767" attributes="0"/>
-                                          <Component id="lblLeaseCategory1" pref="288" max="32767" attributes="0"/>
+                                          <Component id="dbxdisputeCategory" pref="170" max="32767" attributes="0"/>
+                                          <Component id="lblLeaseCategory1" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -908,8 +577,8 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="dbxdisputeType" pref="287" max="32767" attributes="0"/>
-                                          <Component id="jLabel3" pref="288" max="32767" attributes="0"/>
+                                          <Component id="dbxdisputeType" pref="170" max="32767" attributes="0"/>
+                                          <Component id="jLabel3" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -956,17 +625,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel5" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txtrrrId" pref="550" max="32767" attributes="0"/>
-=======
                               <Group type="102" attributes="0">
->>>>>>> working
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
@@ -1017,9 +676,6 @@
                               <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jButton3.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1243,11 +899,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jPanel10" max="32767" attributes="0"/>
-<<<<<<< HEAD
-                                          <Component id="jPanel14" pref="1240" max="32767" attributes="2"/>
-=======
                                           <Component id="jPanel14" pref="0" max="32767" attributes="2"/>
->>>>>>> working
                                       </Group>
                                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   </Group>
@@ -1453,11 +1105,7 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" attributes="0">
                                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
-                                                      <EmptySpace min="0" pref="365" max="32767" attributes="0"/>
-=======
                                                       <EmptySpace min="0" pref="212" max="32767" attributes="0"/>
->>>>>>> working
                                                   </Group>
                                                   <Group type="102" attributes="0">
                                                       <Component id="txtName" max="32767" attributes="0"/>
@@ -1482,7 +1130,7 @@
                                     <Component class="javax.swing.JLabel" name="jLabel11">
                                       <Properties>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel11.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel11.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                       </Properties>
                                     </Component>
@@ -1509,15 +1157,7 @@
                                       <Layout>
                                         <DimensionLayout dim="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnClear" pref="178" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                              </Group>
-=======
                                               <Component id="btnClear" alignment="0" pref="121" max="32767" attributes="0"/>
->>>>>>> working
                                           </Group>
                                         </DimensionLayout>
                                         <DimensionLayout dim="1">
@@ -1534,7 +1174,7 @@
                                         <Component class="javax.swing.JButton" name="btnClear">
                                           <Properties>
                                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnClear.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnClear.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                             </Property>
                                           </Properties>
                                           <Events>
@@ -1548,15 +1188,7 @@
                                       <Layout>
                                         <DimensionLayout dim="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnSearch" pref="178" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                              </Group>
-=======
                                               <Component id="btnSearch" alignment="0" pref="121" max="32767" attributes="0"/>
->>>>>>> working
                                           </Group>
                                         </DimensionLayout>
                                         <DimensionLayout dim="1">
@@ -1573,7 +1205,7 @@
                                         <Component class="javax.swing.JButton" name="btnSearch">
                                           <Properties>
                                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnSearch.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                             </Property>
                                           </Properties>
                                           <Events>
@@ -1592,13 +1224,6 @@
                                           <Group type="102" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="btncomplainant" pref="249" max="32767" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="btnrespondent" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-=======
                                                   <Group type="102" attributes="0">
                                                       <Component id="btncomplainant" min="-2" pref="97" max="-2" attributes="0"/>
                                                       <EmptySpace max="32767" attributes="0"/>
@@ -1608,7 +1233,6 @@
                                                   <Group type="102" attributes="0">
                                                       <Component id="jLabel14" min="-2" pref="207" max="-2" attributes="0"/>
                                                       <EmptySpace max="32767" attributes="0"/>
->>>>>>> working
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -1632,14 +1256,14 @@
                                     <Component class="javax.swing.JLabel" name="jLabel14">
                                       <Properties>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel14.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jLabel14.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JRadioButton" name="btncomplainant">
                                       <Properties>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btncomplainant.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btncomplainant.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                       </Properties>
                                       <Events>
@@ -1649,7 +1273,7 @@
                                     <Component class="javax.swing.JRadioButton" name="btnrespondent">
                                       <Properties>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnrespondent.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.btnrespondent.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                       </Properties>
                                       <Events>
@@ -1735,8 +1359,8 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jToolBar2" pref="1250" max="32767" attributes="0"/>
-                      <Component id="documentsPanel" pref="1252" max="32767" attributes="0"/>
+                      <Component id="jToolBar2" pref="781" max="32767" attributes="0"/>
+                      <Component id="documentsPanel" pref="781" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -1888,7 +1512,7 @@
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane5" alignment="0" pref="1212" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane5" alignment="0" pref="741" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -2061,7 +1685,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="210" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="93" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtdisputeNumber" alignment="1" max="32767" attributes="0"/>
                           </Group>
@@ -2115,7 +1739,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblLodgementDate" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="207" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="90" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtlodgementDate" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -2169,7 +1793,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel10" min="-2" pref="74" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="212" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtstatus" alignment="0" max="32767" attributes="0"/>
                           </Group>
