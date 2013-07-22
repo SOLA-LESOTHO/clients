@@ -744,7 +744,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         applicationsMain.add(btnSetPassword);
 
-        btnAccessDisputeForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/flag.png"))); // NOI18N
+        btnAccessDisputeForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/disputes.png"))); // NOI18N
         btnAccessDisputeForm.setText(bundle.getString("MainForm.btnAccessDisputeForm.text_1")); // NOI18N
         btnAccessDisputeForm.setFocusable(false);
         btnAccessDisputeForm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

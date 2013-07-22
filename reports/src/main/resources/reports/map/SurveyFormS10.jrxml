@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SurveyFormS10" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b33ed423-3b2e-412a-8601-7b555621315d">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="284"/>
+	<property name="ireport.y" value="305"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="APP_NUMBER" class="java.lang.String"/>
 	<queryString>
@@ -36,6 +36,9 @@
 		<fieldDescription><![CDATA[surveyDate]]></fieldDescription>
 	</field>
 	<field name="addressString" class="java.lang.String"/>
+	<field name="fullName" class="java.lang.String">
+		<fieldDescription><![CDATA[surveyor.fullName]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -280,7 +283,7 @@ Fax: +266 2231 0905]]></text>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{surveyor}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fullName}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="2c0bd867-ef64-4e6a-9b4a-5aebca0dfc5a" x="14" y="114" width="203" height="20"/>
@@ -310,7 +313,7 @@ Fax: +266 2231 0905]]></text>
 				</textElement>
 				<text><![CDATA[M]]></text>
 			</staticText>
-			<textField pattern="dd MMMMM yyyy">
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
 				<reportElement uuid="7f0b19b2-3da4-473b-a135-7f58e89fef29" x="103" y="384" width="433" height="20"/>
 				<textElement>
 					<font size="12"/>

@@ -224,9 +224,16 @@ public final class CacheManager {
      */
     public static final String OTHER_AUTHORITIES_CODES_KEY = OtherAuthoritiesBean.class.getName() + LIST_POSTFIX;
     /**
+<<<<<<< HEAD
      * Cache key of the {@link LandUseTypeBean} collection.
      */
     public static final String LAND_USE_TYPE_CODES_KEY = LandUseTypeBean.class.getName() + LIST_POSTFIX;
+    /*
+     * Cache key of the {@link DisputeReportsBean} collection.
+     */
+    public static final String DISPUTE_REPORTS_CODES_KEY = DisputeReportsBean.class.getName() + LIST_POSTFIX;
+
+    
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
     public static final String APPLICATION_FORM_PREFIX_KEY = ApplicationFormWithBinaryBean.class.getName() + "_CODE_";
     public static final String ROAD_CLASS_TYPE_CODES_KEY = RoadClassTypeBean.class.getName() + LIST_POSTFIX;
@@ -264,6 +271,7 @@ public final class CacheManager {
     private static final String GET_DISPUTE_CATEGORY = "getDisputeCategory";
     private static final String GET_DISPUTE_STATUS = "getDisputeStatus";
     private static final String GET_DISPUTE_TYPE = "getDisputeType";
+    private static final String GET_DISPUTE_REPORTS = "getDisputeReports";
     private static final String GET_OTHER_AUTHORITIES = "getOtherAuthorities";
     private static final String GET_APPLICATION_FORMS = "getApplicationForms";
     private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
@@ -538,6 +546,12 @@ public final class CacheManager {
         return getCachedBeanList(LandUseTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_LAND_USE_TYPES, LAND_USE_TYPE_CODES_KEY);
+    }
+    
+    public static List<DisputeReportsBean> getDisputeReports() {
+        return getCachedBeanList(DisputeReportsBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_DISPUTE_REPORTS, DISPUTE_REPORTS_CODES_KEY);
     }
 
     /**

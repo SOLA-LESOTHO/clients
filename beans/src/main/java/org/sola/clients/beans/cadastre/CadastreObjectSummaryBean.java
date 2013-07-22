@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.CadastreObjectTypeBean;
 import org.sola.clients.beans.referencedata.LandGradeTypeBean;
 import org.sola.clients.beans.referencedata.RoadClassTypeBean;
@@ -65,7 +66,7 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     @NotNull(message =  ClientMessage.CHECK_NOTNULL_CADOBJTYPE, payload=Localized.class)
     private CadastreObjectTypeBean cadastreObjectType;
     private Date surveyDate;
-    private String surveyor;
+    private PartySummaryBean surveyor;
     private String remarks;
     private LandGradeTypeBean landGradeType;
     private RoadClassTypeBean roadClassType;
@@ -180,13 +181,13 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(SURVEY_DATE_PROPERTY, oldValue, this.surveyDate);
     }
 
-    public String getSurveyor() {
+    public PartySummaryBean getSurveyor() {
         return surveyor;
     }
 
-    public void setSurveyor(String surveyor) {
-        String oldValue = this.surveyor;
-        this.surveyor = surveyor;
+    public void setSurveyor(PartySummaryBean value) {        
+        PartySummaryBean oldValue = this.surveyor;
+        this.surveyor = value;
         propertySupport.firePropertyChange(SURVEYOR_PROPERTY, oldValue, this.surveyor);
     }
 

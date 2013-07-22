@@ -42,7 +42,6 @@ public class RightsExportPanel extends javax.swing.JPanel {
 
     private void postInit() {
         rightsExportResults.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(RightsExportResultListBean.LIST_ITEM_CHECKED)) {
@@ -73,7 +72,6 @@ public class RightsExportPanel extends javax.swing.JPanel {
 
     private void search() {
         SolaTask t = new SolaTask<Void, Void>() {
-            
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SEARCH_RIGHTS));
@@ -103,20 +101,19 @@ public class RightsExportPanel extends javax.swing.JPanel {
         if (list == null || list.size() < 1) {
             return;
         }
-        
+
         File f = new File("//hr-fmsmain/SOLAexports");
         JFileChooser jfc;
-                
+
         if(f.exists()){
             jfc = new JFileChooser(f);
         } else {
             jfc = new JFileChooser();
         }
-        
+
         jfc.removeChoosableFileFilter(jfc.getFileFilter());
         jfc.setAcceptAllFileFilterUsed(false);
         jfc.setFileFilter(new FileFilter() {
-
             @Override
             public boolean accept(File f) {
                 String extension = FileUtility.getFileExtension(f);
@@ -140,9 +137,9 @@ public class RightsExportPanel extends javax.swing.JPanel {
         if (result == JFileChooser.CANCEL_OPTION) {
             return;
         }
-        
+
         final File file;
-        if(jfc.getSelectedFile().getPath().endsWith("." + FileUtility.csv)){
+        if (jfc.getSelectedFile().getPath().endsWith("." + FileUtility.csv)) {
             file = jfc.getSelectedFile();
         } else {
             file = new File(jfc.getSelectedFile().getPath() + "." + FileUtility.csv);
@@ -167,8 +164,8 @@ public class RightsExportPanel extends javax.swing.JPanel {
 
             @Override
             public void taskDone() {
-                if (ex!=null) {
-                    MessageUtility.displayMessage(ClientMessage.BAUNIT_RIGHTS_EXPORT_FAILED, 
+                if (ex != null) {
+                    MessageUtility.displayMessage(ClientMessage.BAUNIT_RIGHTS_EXPORT_FAILED,
                             new Object[]{ex.getMessage()});
                 } else if (get()) {
                     lblRecords.setText(String.valueOf(rightsExportResults.getRightsList().size()));
@@ -183,7 +180,7 @@ public class RightsExportPanel extends javax.swing.JPanel {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -549,7 +546,6 @@ public class RightsExportPanel extends javax.swing.JPanel {
     private void btnRegDateToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegDateToActionPerformed
         showCalendar(txtDateTo);
     }//GEN-LAST:event_btnRegDateToActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClean;
     private javax.swing.JButton btnExportAll;

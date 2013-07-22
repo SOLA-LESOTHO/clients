@@ -34,82 +34,69 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import org.sola.clients.beans.administrative.DisputeBean;
+import org.sola.clients.beans.administrative.DisputesCommentsBean;
 import org.sola.clients.beans.administrative.validation.DisputeCheck;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
-public class DisputeValidator implements ConstraintValidator<DisputeCheck, DisputeBean> {
+/**
+ *
+ * @author 17R
+ */
+public class DisputeCommentsValidator implements ConstraintValidator<DisputeCommentsCheck, DisputesCommentsBean> {
 
     @Override
-    public void initialize(DisputeCheck constraintAnnotation) {
+    public void initialize(DisputeCommentsCheck constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(DisputeBean disputeBean, ConstraintValidatorContext context) {
-        if (disputeBean == null) {
+    public boolean isValid(DisputesCommentsBean disputeCommentsBean, ConstraintValidatorContext context) {
+        if (disputeCommentsBean == null) {
             return true;
         }
 
         boolean result = true;
         context.disableDefaultConstraintViolation();
 
-        if (disputeBean.getCaseType() == null) {
-            result = false;
+        if (disputeCommentsBean != null) {
 
-            context.buildConstraintViolationWithTemplate(
-                    MessageUtility.getLocalizedMessageText(
-                    ClientMessage.DISPUTE_CHOOSE_RIGHT_FUNCTIONALITY)).addConstraintViolation();
-        }
-        
-        if (disputeBean.getCaseType() != null) {
-            
-            if (disputeBean.getCaseType().equals("Dispute")) {
-                if (disputeBean.getDisputeCategory().getCode()== (null)) {
+            if (disputeCommentsBean.getDisputeNr() == null) {
+
+
+                result = false;
+
+                context.buildConstraintViolationWithTemplate(
+                        MessageUtility.getLocalizedMessageText(
+                        ClientMessage.DISPUTE_NUMBER)).addConstraintViolation();
+
+            } else if (disputeCommentsBean.getDisputeNr() != null) {
+
+                if (disputeCommentsBean.getDisputeAction().getCode() == null) {
+                    result = false;
+
+                    context.buildConstraintViolationWithTemplate(
+                            MessageUtility.getLocalizedMessageText(
+                            ClientMessage.DISPUTE_ACTION)).addConstraintViolation();
+
+                } else if (disputeCommentsBean.getOtherAuthorities().getCode() == null) {
 
                     result = false;
 
                     context.buildConstraintViolationWithTemplate(
                             MessageUtility.getLocalizedMessageText(
-                            ClientMessage.DISPUTE_CAPTURE_CATEGORY_OR_TYPE_FIRST)).addConstraintViolation();
-
-                } else if (disputeBean.getDisputeType().getCode() == null) {
+                            ClientMessage.DISPUTE_REFERRED_AUTHORITY)).addConstraintViolation();
+                } else if (disputeCommentsBean.getComments() == null) {
 
                     result = false;
 
                     context.buildConstraintViolationWithTemplate(
                             MessageUtility.getLocalizedMessageText(
-                            ClientMessage.DISPUTE_CAPTURE_CATEGORY_OR_TYPE_FIRST)).addConstraintViolation();
-                    
-                } else if (disputeBean.getPlotLocation() == null){
-                    
-                    result = false;
+                            ClientMessage.DISPUTE_COMMENTS)).addConstraintViolation();
 
-                    context.buildConstraintViolationWithTemplate(
-                            MessageUtility.getLocalizedMessageText(
-                            ClientMessage.DISPUTE_LOCATION_REQUIRED)).addConstraintViolation();
-                } else if (disputeBean.getDisputeDescription() == null) {
-                    
-                    result = false;
-
-                    context.buildConstraintViolationWithTemplate(
-                            MessageUtility.getLocalizedMessageText(
-                            ClientMessage.DISPUTE_DESCRIPTION)).addConstraintViolation();
-                    
                 }
 
-            } else if (disputeBean.getCaseType().equals("Court Process")){
-                if (disputeBean.getActionRequired() == null){
-
-                    result = false;
-
-                    context.buildConstraintViolationWithTemplate(
-                            MessageUtility.getLocalizedMessageText(
-                            ClientMessage.DISPUTE_COURT_ACTION_REQUIRED)).addConstraintViolation(); 
-                }
             }
         }
-
         return result;
     }
 }
