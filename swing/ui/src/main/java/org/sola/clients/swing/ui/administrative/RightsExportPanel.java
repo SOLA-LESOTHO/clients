@@ -116,6 +116,10 @@ public class RightsExportPanel extends javax.swing.JPanel {
         jfc.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
+                if(f.isDirectory()){
+                    return true;
+                }
+                
                 String extension = FileUtility.getFileExtension(f);
                 if (extension != null) {
                     if (extension.equalsIgnoreCase(FileUtility.csv)) {
