@@ -74,6 +74,7 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODE_REG_ON_NAME_CHANGE = "regOnNameChange";
     public static final String CODE_REG_ON_VARY_LEASE = "regOnVaryLease";
     public static final String CODE_REG_ON_RENEWAL_LEASE = "regOnRenwalLease";
+    public static final String CODE_REG_ON_SURRENDER_LEASE = "regOnSurrenderLease";
    
     public static final String NR_DAYS_TO_COMPLETE_PROPERTY = "nrDaysToComplete";
     public static final String NR_PROPERTIES_REQUIRED_PROPERTY = "nrPropertiesRequired";
