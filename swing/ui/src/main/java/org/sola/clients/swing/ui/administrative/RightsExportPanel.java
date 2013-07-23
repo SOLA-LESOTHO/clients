@@ -3,20 +3,26 @@ package org.sola.clients.swing.ui.administrative;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.filechooser.FileFilter;
+import org.exolab.castor.types.DateTime;
 import org.sola.clients.beans.administrative.RightsExportResultBean;
 import org.sola.clients.beans.administrative.RightsExportResultListBean;
 import org.sola.clients.beans.administrative.RrrBean;
-import org.sola.clients.beans.referencedata.RrrTypeBean;
 import org.sola.clients.beans.referencedata.RrrTypeListBean;
 import org.sola.clients.swing.common.controls.CalendarForm;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.common.FileUtility;
+import org.sola.common.StringUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -42,6 +48,7 @@ public class RightsExportPanel extends javax.swing.JPanel {
 
     private void postInit() {
         rightsExportResults.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(RightsExportResultListBean.LIST_ITEM_CHECKED)) {
@@ -71,7 +78,15 @@ public class RightsExportPanel extends javax.swing.JPanel {
     }
 
     private void search() {
+        if (rightsExportParams.getDateFrom() != null && rightsExportParams.getDateTo() != null) {
+            if (rightsExportParams.getDateFrom().after(rightsExportParams.getDateTo())) {
+                MessageUtility.displayMessage(ClientMessage.GENERAL_ERRORS_DATE_FROM_GRATER_DATE_TO);
+                return;
+            }
+        }
+
         SolaTask t = new SolaTask<Void, Void>() {
+
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SEARCH_RIGHTS));
@@ -102,60 +117,61 @@ public class RightsExportPanel extends javax.swing.JPanel {
             return;
         }
 
-        File f = new File("//hr-fmsmain/SOLAexports");
-        JFileChooser jfc;
-
-        if(f.exists()){
-            jfc = new JFileChooser(f);
-        } else {
-            jfc = new JFileChooser();
-        }
-
-        jfc.removeChoosableFileFilter(jfc.getFileFilter());
-        jfc.setAcceptAllFileFilterUsed(false);
-        jfc.setFileFilter(new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                if(f.isDirectory()){
-                    return true;
-                }
-                
-                String extension = FileUtility.getFileExtension(f);
-                if (extension != null) {
-                    if (extension.equalsIgnoreCase(FileUtility.csv)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-                return false;
-            }
-
-            @Override
-            public String getDescription() {
-                return "CSV files";
-            }
-        });
-
-        int result = jfc.showSaveDialog(this);
-        if (result == JFileChooser.CANCEL_OPTION) {
-            return;
-        }
-
-        final File file;
-        if (jfc.getSelectedFile().getPath().endsWith("." + FileUtility.csv)) {
-            file = jfc.getSelectedFile();
-        } else {
-            file = new File(jfc.getSelectedFile().getPath() + "." + FileUtility.csv);
-        }
-
         SolaTask t = new SolaTask<Boolean, Void>() {
+
             Exception ex = null;
 
             @Override
             public Boolean doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_EXPORT_RIGHTS));
                 try {
+                    File f = new File("//hr-fmsmain/SOLAexports");
+                    JFileChooser jfc;
+
+                    if (f.exists()) {
+                        jfc = new JFileChooser(f);
+                    } else {
+                        jfc = new JFileChooser();
+                    }
+
+                    jfc.removeChoosableFileFilter(jfc.getFileFilter());
+                    jfc.setAcceptAllFileFilterUsed(false);
+                    jfc.setFileFilter(new FileFilter() {
+
+                        @Override
+                        public boolean accept(File f) {
+                            if (f.isDirectory()) {
+                                return true;
+                            }
+
+                            String extension = FileUtility.getFileExtension(f);
+                            if (extension != null) {
+                                if (extension.equalsIgnoreCase(FileUtility.csv)) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            return false;
+                        }
+
+                        @Override
+                        public String getDescription() {
+                            return "CSV files";
+                        }
+                    });
+
+                    int result = jfc.showSaveDialog(null);
+                    if (result == JFileChooser.CANCEL_OPTION) {
+                        return false;
+                    }
+
+                    final File file;
+                    if (jfc.getSelectedFile().getPath().endsWith("." + FileUtility.csv)) {
+                        file = jfc.getSelectedFile();
+                    } else {
+                        file = new File(jfc.getSelectedFile().getPath() + "." + FileUtility.csv);
+                    }
                     if (!rightsExportResults.exportToCsv(file, list)) {
                         return false;
                     }
@@ -358,7 +374,7 @@ public class RightsExportPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(0, 25, Short.MAX_VALUE))
+                        .addGap(0, 29, Short.MAX_VALUE))
                     .addComponent(txtDateTo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegDateTo))
