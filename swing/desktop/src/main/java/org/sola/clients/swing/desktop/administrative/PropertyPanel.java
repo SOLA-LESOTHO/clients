@@ -643,8 +643,16 @@ public class PropertyPanel extends ContentPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsSearchPanel.SELECTED_CADASTRE_OBJECT)) {
-                    baUnitBean1.setCadastreObject(CadastreObjectBean.getCadastreObject(
-                            ((CadastreObjectSummaryBean) evt.getNewValue()).getId()));
+                    CadastreObjectSummaryBean selection = (CadastreObjectSummaryBean) evt.getNewValue();
+                    if(selection.isHasLease()){
+                        MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_LEASE);
+                    } else {
+                        if(selection.getStatusCode().equals(StatusConstants.HISTORIC)){
+                            MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_HISTORIC_STATUS);
+                        } else {
+                            baUnitBean1.setCadastreObject(CadastreObjectBean.getCadastreObject(selection.getId()));
+                        }
+                    }
                 }
             }
         });
@@ -695,8 +703,16 @@ public class PropertyPanel extends ContentPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsDialog.SELECT_CADASTRE_OBJECT)) {
-                    baUnitBean1.setCadastreObject(CadastreObjectBean.getCadastreObject(
-                            ((CadastreObjectSummaryBean) evt.getNewValue()).getId()));
+                    CadastreObjectSummaryBean selection = (CadastreObjectSummaryBean) evt.getNewValue();
+                    if(selection.isHasLease()){
+                        MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_LEASE);
+                    } else {
+                        if(selection.getStatusCode().equals(StatusConstants.HISTORIC)){
+                            MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_HISTORIC_STATUS);
+                        } else {
+                            baUnitBean1.setCadastreObject(CadastreObjectBean.getCadastreObject(selection.getId()));
+                        }
+                    }
                 }
             }
         });
