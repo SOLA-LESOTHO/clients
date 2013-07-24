@@ -105,11 +105,6 @@ public class DisputeBean extends AbstractTransactionedBean {
 
     public DisputeBean() {
         super();
-        //disputeCommentsList = new SolaList<DisputesCommentsBean>();
-        //disputePartyList = new SolaList<DisputePartyBean>();
-        //selectedComment = new DisputesCommentsBean();
-        //selectedParty = new DisputePartyBean(); 
-
     }
 
     public void clean() {
@@ -149,7 +144,6 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public void setSelectedComment(DisputesCommentsBean selectedComment) {
-        //DisputesCommentsBean oldValue = this.selectedComment;
         this.selectedComment = selectedComment;
         propertySupport.firePropertyChange(SELECTED_COMMENTS_PROPERTY, null, this.selectedComment);
     }

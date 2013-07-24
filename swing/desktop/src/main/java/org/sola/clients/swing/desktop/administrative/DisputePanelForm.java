@@ -121,27 +121,9 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void createNewDispute() {
-        disputeBean1.setId(null);
-        disputeBean1.setLodgementDate(null);
-        disputeBean1.setNr(null);
-        disputeBean1.setStatusCode(null);
-        disputeBean1.setPlotNumber(null);
-        disputeBean1.setPlotLocation(null);
-        disputeBean1.setLeaseNumber(null);
-        disputeBean1.setDisputeCategory(null);
-        disputeBean1.setDisputeDescription(null);
-        disputeBean1.setDisputeType(null);
-        disputesCommentsBean1.setUpdateDate(null);
-        disputesCommentsBean1.setDisputeAction(null);
-        disputesCommentsBean1.setOtherAuthorities(null);
-        disputesCommentsBean1.setComments(null);
-        disputesCommentsBean1.setDisputeNr(null);
-        disputesCommentsBean1.setId(null);
-        disputePartyBean1.setId(null);
-        disputePartyBean1.setDisputeNr(null);
-        disputePartyBean1.setPartyId(null);
-        disputePartyBean1.setPartyRole(null);
-        disputePartyBean1.setPartyName(null);
+        disputeBean1 = new DisputeBean();
+        disputesCommentsBean1 = new DisputesCommentsBean();
+        disputePartyBean1 = new DisputePartyBean();
         clearForm();
         saveDisputeState();
     }
@@ -230,7 +212,6 @@ public class DisputePanelForm extends ContentPanel {
             disputeBean1.saveDispute();
             MessageUtility.displayMessage(ClientMessage.DISPUTE_CLOSED);
         }
-
     }
 
     private void saveDispute(final boolean showMessage, final boolean closeOnSave) {
@@ -656,6 +637,7 @@ public class DisputePanelForm extends ContentPanel {
         partySearchResult = new org.sola.clients.beans.party.PartySearchResultListBean();
         cadastreObjectSearch = new org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean();
         disputePartyBean1 = new org.sola.clients.beans.administrative.DisputePartyBean();
+        disputePanelForm1 = new org.sola.clients.swing.desktop.administrative.DisputePanelForm();
         jToolBar1 = new javax.swing.JToolBar();
         btnnewDispute = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -1279,7 +1261,7 @@ public class DisputePanelForm extends ContentPanel {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addGap(0, 212, Short.MAX_VALUE))
+                        .addGap(0, 132, Short.MAX_VALUE))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addComponent(txtName)
                         .addContainerGap())))
@@ -1976,6 +1958,7 @@ public class DisputePanelForm extends ContentPanel {
     private org.sola.clients.beans.referencedata.DisputeActionListBean disputeAction;
     private org.sola.clients.beans.administrative.DisputeBean disputeBean1;
     private org.sola.clients.beans.referencedata.DisputeCategoryListBean disputeCategory;
+    private org.sola.clients.swing.desktop.administrative.DisputePanelForm disputePanelForm1;
     private org.sola.clients.beans.administrative.DisputePartyBean disputePartyBean1;
     private org.sola.clients.beans.referencedata.DisputeStatusListBean disputeStatus;
     private org.sola.clients.beans.referencedata.DisputeTypeListBean disputeType;
