@@ -46,7 +46,7 @@
 				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LEASE REJECTION LETTER]]></text>
+				<text><![CDATA[CONSENT REJECTION LETTER]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy HH:mm">
 				<reportElement uuid="eb489c4a-4752-4e29-87c9-6ebc079921b7" x="10" y="39" width="105" height="19"/>
