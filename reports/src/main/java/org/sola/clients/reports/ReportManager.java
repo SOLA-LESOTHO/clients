@@ -96,6 +96,8 @@ public class ReportManager {
         HashMap inputParameters = new HashMap();
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LODGEMENTDATE",dispBean.getLodgementDate());
+        inputParameters.put("DISPUTE_CATEGORY",dispBean.getDisputeCategory().getDisplayValue());
+        inputParameters.put("DISPUTE_TYPE",dispBean.getDisputeType().getDisplayValue());
         DisputeBean[] beans = new DisputeBean[1];
         beans[0] = dispBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="disputeConfirmation" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="713ee3ee-20ee-409b-a910-b1fc7bd694eb">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="57"/>
+	<property name="ireport.y" value="134"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -44,6 +44,8 @@
 		</box>
 	</style>
 	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="DISPUTE_CATEGORY" class="java.lang.String"/>
+	<parameter name="DISPUTE_TYPE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -122,7 +124,7 @@ Maseru 100]]></text>
 				<text><![CDATA[Dispute Number:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="16f1a792-58aa-4a7d-86a0-9f79b5e7979c" x="358" y="290" width="87" height="20"/>
+				<reportElement uuid="16f1a792-58aa-4a7d-86a0-9f79b5e7979c" x="337" y="290" width="87" height="20"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -136,7 +138,7 @@ Maseru 100]]></text>
 				<text><![CDATA[Dispute Category :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9f44104f-2df1-45f0-9899-1de32ffbf312" x="358" y="324" width="87" height="20"/>
+				<reportElement uuid="9f44104f-2df1-45f0-9899-1de32ffbf312" x="337" y="324" width="87" height="20"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -154,11 +156,11 @@ Maseru 100]]></text>
 				<reportElement uuid="6a886f6e-a57c-41ca-8c49-394babbd2e75" x="67" y="363" width="418" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="2fcce756-d74a-4a26-8461-afe4004ade3f" x="223" y="377" width="114" height="20"/>
+				<reportElement uuid="2fcce756-d74a-4a26-8461-afe4004ade3f" x="204" y="377" width="168" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dispute Desription]]></text>
+				<text><![CDATA[DISPUTE DESCRIPTION]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="8e6e7390-ac7b-44b9-a560-d755953b5438" x="123" y="253" width="100" height="20"/>
@@ -171,14 +173,9 @@ Maseru 100]]></text>
 				<textFieldExpression><![CDATA[$F{lodgementDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="bb53b819-fad5-40d2-987b-dfcab567e55d" x="445" y="290" width="100" height="20"/>
+				<reportElement uuid="bb53b819-fad5-40d2-987b-dfcab567e55d" x="424" y="290" width="131" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{plotLocation}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="b5e60c25-c5e6-4f72-8d82-a0935fba8d57" x="120" y="324" width="150" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{disputeCategory}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="dda99c43-a982-464f-8ef3-f52ab126d300" x="0" y="412" width="555" height="20"/>
@@ -186,9 +183,14 @@ Maseru 100]]></text>
 				<textFieldExpression><![CDATA[$F{disputeDescription}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7238bd21-a0cd-45cf-8e41-7815099685a9" x="445" y="324" width="100" height="20"/>
+				<reportElement uuid="d30adf96-4151-4f2f-afa9-92aae95e7adc" x="123" y="324" width="139" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{disputeType}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DISPUTE_CATEGORY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d201d9c3-b0c7-4e80-81e7-f271397dc329" x="424" y="324" width="131" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{DISPUTE_TYPE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
