@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
 	<property name="ireport.zoom" value="1.1289478601075549"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="96"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
@@ -154,7 +154,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{LESSEES_MARITAL_STATUS}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="87" y="135" width="457" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
@@ -189,7 +189,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TRANSACTION_TYPE}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="85" y="95" width="470" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
@@ -293,21 +293,16 @@ $P{CONDITION_TEXT}
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="81408da3-fe84-4a70-a9f0-8c01ac489131" x="73" y="170" width="14" height="20">
-					<printWhenExpression><![CDATA[$P{FEE} != null]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Right" markup="none">
-					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[M]]></text>
-			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="87" y="170" width="122" height="20"/>
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="70" y="170" width="236" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{serviceFee}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format(
+"M " +
+"%s",
+$F{serviceFee}
+)]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="92" y="200" width="134" height="20"/>

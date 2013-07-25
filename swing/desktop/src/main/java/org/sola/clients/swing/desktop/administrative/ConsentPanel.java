@@ -23,18 +23,15 @@ import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.ConsentBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
-import org.sola.clients.beans.party.PartyBean;
-import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.controls.CalendarForm;
-import org.sola.clients.swing.common.tasks.SolaTask;
-import org.sola.clients.swing.common.tasks.TaskManager;
+import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.party.PartyListExtPanel;
-import org.sola.clients.swing.desktop.party.PartyPanelForm;
-import org.sola.clients.swing.desktop.party.PartySearchPanelForm;
 import org.sola.clients.swing.ui.ContentPanel;
-import org.sola.clients.swing.ui.MainContentPanel;
+import org.sola.clients.swing.ui.reports.FreeTextDialog;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
+import org.sola.common.DateUtility;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -100,7 +97,8 @@ public class ConsentPanel extends ContentPanel {
         consentBean.setReceiptNumber(appBean.getReceiptRef());
         consentBean.setRightholders(consentBean.getRightHolders());
         consentBean.setRecipients(consentBean.getRecipients());
-
+        String address = consentBean.getBaUnit().getCadastreObject().getAddressString();
+        consentBean.setParcelAddress(address);
     }
 
     private void showCalendar(JFormattedTextField dateField) {
@@ -115,8 +113,8 @@ public class ConsentPanel extends ContentPanel {
             return;
 
         }
-        
-        if (txtExpirationDate.getText().isEmpty() || txtExpirationDate.getText() == null){
+
+        if (txtExpirationDate.getText().isEmpty() || txtExpirationDate.getText() == null) {
             MessageUtility.displayMessage(ClientMessage.CONSENT_PROVIDE_EXPIRATION);
             return;
         }
@@ -132,6 +130,33 @@ public class ConsentPanel extends ContentPanel {
         }
     }
 
+    private void printConsentRejectionLetter() {
+        consentBean.setRecipientList(persons.getPersonList());
+        if (consentBean != null) {
+            // Show free text form
+            FreeTextDialog form = new FreeTextDialog(
+                    MessageUtility.getLocalizedMessageText(ClientMessage.BAUNIT_LEASE_REJECTION_REASON_TITLE),
+                    null, MainForm.getInstance(), true);
+            WindowUtility.centerForm(form);
+
+            form.addPropertyChangeListener(new PropertyChangeListener() {
+
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+                    if (evt.getPropertyName().equals(FreeTextDialog.TEXT_TO_SAVE)) {
+                        consentBean.setFreeText((String) evt.getNewValue());
+                    }
+                }
+            });
+            form.setVisible(true);
+
+            consentBean.setTransactionType(txtTransactionType.getSelectedItem().toString());
+            consentBean.setLodgingDate(this.getApplicationDate());
+            consentBean.setServiceName(txtTransactionType.getSelectedItem().toString());
+            showReport(ReportManager.getConsentRejectionReport(consentBean, appBean));
+        }
+    }
+
     /**
      * Opens {@link ReportViewerForm} to display report.
      */
@@ -140,6 +165,13 @@ public class ConsentPanel extends ContentPanel {
         form.setLocationRelativeTo(this);
         form.setVisible(true);
 
+    }
+
+    /**
+     * Shortcut for application date, converted to string.
+     */
+    public String getApplicationDate() {
+        return DateUtility.getShortDateString(appBean.getLodgingDatetime(), true);
     }
 
     /**
@@ -162,6 +194,7 @@ public class ConsentPanel extends ContentPanel {
         jToolBar1 = new javax.swing.JToolBar();
         btnPrint = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
+        btnPrintRejection = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -250,6 +283,17 @@ public class ConsentPanel extends ContentPanel {
         });
         jToolBar1.add(btnPrint);
         jToolBar1.add(jSeparator1);
+
+        btnPrintRejection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
+        btnPrintRejection.setText("Print Rejection Letter");
+        btnPrintRejection.setFocusable(false);
+        btnPrintRejection.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrintRejection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintRejectionActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnPrintRejection);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel2.setText("Registration Date");
@@ -624,8 +668,13 @@ public class ConsentPanel extends ContentPanel {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         printConsentCertificate(txtConditionText.getText());
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void btnPrintRejectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintRejectionActionPerformed
+        printConsentRejectionLetter();
+    }//GEN-LAST:event_btnPrintRejectionActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
+    private javax.swing.JButton btnPrintRejection;
     private javax.swing.JButton btnSubmissionDateFrom;
     private javax.swing.JButton btnSubmissionDateFrom1;
     private org.sola.clients.beans.administrative.ConsentBean consentBean1;

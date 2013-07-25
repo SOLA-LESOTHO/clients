@@ -25,6 +25,7 @@ import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.validation.Localized;
+import org.sola.common.DateUtility;
 import org.sola.common.messaging.ClientMessage;
 
 /**
@@ -44,6 +45,11 @@ public class ConsentBean extends AbstractTransactionedBean{
     private String receiptNumber;
     private String recipients;
     private String rightholders;
+    private String freeText;
+    private String transactionType;
+    private String lodgingDate;
+    private String serviceName;
+    private String parcelAddress;
     
     public ConsentBean(){
         super();        
@@ -183,4 +189,59 @@ public class ConsentBean extends AbstractTransactionedBean{
         this.rightholders = rightholders;
     }
 
+    public String getFreeText() {
+        return freeText;
+    }
+
+    public void setFreeText(String freeText) {
+        if (freeText == null){
+            freeText = "";
+        }
+        this.freeText = freeText;
+    }
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType) {
+        if (transactionType == null) {
+            transactionType = "";
+        }
+        this.transactionType = transactionType;
+    }
+
+    public String getLodgingDate() {
+        return lodgingDate;
+    }
+
+    public void setLodgingDate(String lodgingDate) {
+        if (lodgingDate == null) {
+            lodgingDate = "";
+        }
+        this.lodgingDate = lodgingDate;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        if (serviceName == null) {
+            serviceName = "";
+        }
+        this.serviceName = serviceName;
+    }
+
+    public String getParcelAddress() {
+        return parcelAddress;
+    }
+
+    public void setParcelAddress(String parcelAddress) {
+        if (parcelAddress == null) {
+            parcelAddress = "";
+        }
+        this.parcelAddress = parcelAddress;
+    }
+    
 }
