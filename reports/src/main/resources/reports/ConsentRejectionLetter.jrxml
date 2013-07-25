@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="c4f5e391-9db4-4c23-a642-15bbd05b6a89">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="57"/>
+	<parameter name="USER_NAME" class="java.lang.String"/>
+	<parameter name="APPLICANT_NAME" class="java.lang.String"/>
+	<parameter name="APPLICATION_NUMBER" class="java.lang.String"/>
+	<parameter name="APPLICATION_DATE" class="java.lang.String"/>
+	<parameter name="TRANSACTION_TYPE" class="java.lang.String"/>
+	<parameter name="PARCEL_ADDRESS" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="freeText" class="java.lang.String">
+		<fieldDescription><![CDATA[freeText]]></fieldDescription>
+	</field>
+	<field name="rightHolders" class="java.lang.String">
+		<fieldDescription><![CDATA[rightHolders]]></fieldDescription>
+	</field>
+	<field name="leaseNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[leaseNumber]]></fieldDescription>
+	</field>
+	<field name="serviceFee" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[serviceFee]]></fieldDescription>
+	</field>
+	<field name="transactionType" class="java.lang.String">
+		<fieldDescription><![CDATA[transactionType]]></fieldDescription>
+	</field>
+	<field name="lodgingDate" class="java.lang.String">
+		<fieldDescription><![CDATA[lodgingDate]]></fieldDescription>
+	</field>
+	<field name="serviceName" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
+	</field>
+	<field name="parcelAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[parcelAddress]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="204" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b0a0dec8-5e4d-4a2f-8ae3-d04134544331" x="0" y="181" width="511" height="23"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSENT REJECTION LETTER]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy HH:mm">
+				<reportElement uuid="eb489c4a-4752-4e29-87c9-6ebc079921b7" x="10" y="39" width="105" height="19"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f5d1dee6-ce65-4b4a-8aa7-005981567da9" x="10" y="58" width="95" height="19"/>
+				<textElement/>
+				<text><![CDATA[Ref. number:]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="29ff5ec0-6ee9-4c9e-8d3f-8bd62d540c4a" x="320" y="0" width="188" height="64"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="7f6caea4-2eaa-459e-ac3a-d6e588a45845" x="404" y="64" width="104" height="35"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Lerotholi Road
+PO Box 11856, 
+Maseru 100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c58dc2a2-2d5e-4c0c-82e1-ebcd7d05d9b9" x="404" y="99" width="104" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lesotho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="724e65ca-5e69-4a7c-b000-af3decbbac16" x="404" y="111" width="104" height="47"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Web: www.laa.org.ls
+Email: info@laa.org.ls
+Tel: +266 2232 2376
+Fax: +266 2231 0905]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="215" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="1748a5e9-1690-4ae9-b0ce-8b62fa36f90e" x="15" y="25" width="477" height="190"/>
+				<textElement markup="html">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format(
+"<font size='4'>" +
+"Dear %s," +
+"<p></p>" +
+"This is to inform you, that your request made by application <b>#%s</b> on the date of %s to <b>CONSENT TO %s</b> " +
+"for the parcel <b>%s</b>, located at %s, was rejected with the following reason:" +
+"<p></p>" +
+"<i>%s</i>" +
+"<p></p>" +
+"<p></p>" +
+"Regards,<br />" +
+"Land Administration office" +
+"</font>",
+$P{APPLICANT_NAME}, $P{APPLICATION_NUMBER}, $F{lodgingDate}, $F{serviceName}, 
+$F{leaseNumber}, $F{parcelAddress}, $F{freeText}
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="3e6490f7-7993-4abe-b351-5f1bf019c388" x="13" y="13" width="66" height="16"/>
+				<textElement/>
+				<text><![CDATA[Prepared by:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8d8cc826-d8ba-42bd-81f8-c0c52e32ea5e" x="79" y="13" width="238" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{USER_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="aef2f5af-4681-4578-964b-5ef7fc762a0a" x="342" y="34" width="169" height="14"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Signature]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="1130dbff-9d3f-45be-9dc7-bb03a744b5a9" x="342" y="34" width="169" height="1"/>
+			</line>
+		</band>
+	</lastPageFooter>
+</jasperReport>

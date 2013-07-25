@@ -294,7 +294,7 @@ public class ReportManager {
             return null;
         }
     }
-
+         
     /**
      * Generates and displays <b>Lease</b> report.
      *
@@ -458,9 +458,6 @@ public class ReportManager {
             ) {
 
         HashMap inputParameters = new HashMap();
-        
-        String comma1 = ", ";
-        String comma2 = ", ";
 
         if (amount.isEmpty() || amount.equals("")){
                 amount = "0.00";
@@ -477,7 +474,6 @@ public class ReportManager {
 
         ConsentBean[] beans = new ConsentBean[1];        
         beans[0] = consentBean;
-
         
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         try {
@@ -491,6 +487,33 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Generates and displays <b>Consent offer</b> report.
+     *
+     * @param consentBean RRR report bean containing all required information to
+     * build the report.
+     */
+    public static JasperPrint getConsentRejectionReport(ConsentBean consentBean, ApplicationBean appBean) {
+        HashMap inputParameters = new HashMap();
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName()); 
+        inputParameters.put("APPLICANT_NAME", appBean.getContactPerson().getFullName());
+        inputParameters.put("APPLICATION_NUMBER", appBean.getApplicationNumberFormatted());
+        
+        ConsentBean[] beans = new ConsentBean[1];        
+        beans[0] = consentBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/ConsentRejectionLetter.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }   
+    
     /**
      * Generates and displays <b>BR Report</b>.
      */
