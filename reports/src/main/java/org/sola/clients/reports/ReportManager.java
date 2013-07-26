@@ -431,6 +431,8 @@ public class ReportManager {
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("APP_NUMBER", appNumber);
+        inputParameters.put("ROAD_CLASS", co.getRoadClassType().getTranslatedDisplayValue());
+        inputParameters.put("VALUATION_ZONE", co.getLandGradeType().getTranslatedDisplayValue());
         CadastreObjectBean[] beans = new CadastreObjectBean[1];
         beans[0] = co;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
