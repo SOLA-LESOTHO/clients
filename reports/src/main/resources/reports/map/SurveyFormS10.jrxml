@@ -2,9 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SurveyFormS10" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b33ed423-3b2e-412a-8601-7b555621315d">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="288"/>
+	<property name="ireport.y" value="171"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="APP_NUMBER" class="java.lang.String"/>
+	<parameter name="ROAD_CLASS" class="java.lang.String"/>
+	<parameter name="VALUATION_ZONE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -38,6 +40,12 @@
 	<field name="addressString" class="java.lang.String"/>
 	<field name="fullName" class="java.lang.String">
 		<fieldDescription><![CDATA[surveyor.fullName]]></fieldDescription>
+	</field>
+	<field name="roadClassCode" class="java.lang.String">
+		<fieldDescription><![CDATA[roadClassCode]]></fieldDescription>
+	</field>
+	<field name="valuationZone" class="java.lang.String">
+		<fieldDescription><![CDATA[valuationZone]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -123,7 +131,7 @@ Fax: +266 2231 0905]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="231" splitType="Stretch">
+		<band height="354" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="8faf4825-e27b-45a5-91d8-080d53b686e6" x="14" y="14" width="203" height="20"/>
 				<textElement>
@@ -160,7 +168,7 @@ Fax: +266 2231 0905]]></text>
 				<text><![CDATA[SURVEY FEES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="687a4002-09dc-4b1e-9610-d29ac026b7c3" x="14" y="188" width="89" height="20"/>
+				<reportElement uuid="687a4002-09dc-4b1e-9610-d29ac026b7c3" x="14" y="293" width="89" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -195,7 +203,7 @@ Fax: +266 2231 0905]]></text>
 				<textFieldExpression><![CDATA[$F{surveyFee}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="d1463b14-7328-473c-b3c2-f64a645a91c8" positionType="Float" x="117" y="188" width="419" height="38"/>
+				<reportElement uuid="d1463b14-7328-473c-b3c2-f64a645a91c8" positionType="Float" x="117" y="293" width="419" height="38"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -229,6 +237,34 @@ Fax: +266 2231 0905]]></text>
 				</textElement>
 				<text><![CDATA[M]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="2c0bd867-ef64-4e6a-9b4a-5aebca0dfc5a" x="14" y="174" width="203" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ZONE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="291db9bf-3ea1-4202-97c9-e48ad3b1873c" x="245" y="174" width="293" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{VALUATION_ZONE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2c0bd867-ef64-4e6a-9b4a-5aebca0dfc5a" x="14" y="194" width="203" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ROAD CLASS]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="291db9bf-3ea1-4202-97c9-e48ad3b1873c" x="245" y="194" width="293" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ROAD_CLASS}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="247">
 			<staticText>
