@@ -10,12 +10,11 @@ import org.sola.clients.beans.controls.SolaCodeList;
  */
 public class LegalTypeListBean extends AbstractBindingListBean {
     
-    public static final String SELECTED_LEGAL_TYPE_PROPERTY = "selectedLegalType";
-    private SolaCodeList<LegalTypeBean> legalTypes;
-    private LegalTypeBean selectedLegalType;
+     public static final String SELECTED_GENDERTYPE_PROPERTY = "selectedLegalType";
+    private SolaCodeList<LegalTypeBean> legalTypeListBean;
+    private LegalTypeBean selectedLegalTypeBean;
     
-    /** Default constructor. */
-    public LegalTypeListBean(){
+    public LegalTypeListBean() {
         this(false);
     }
     
@@ -24,8 +23,17 @@ public class LegalTypeListBean extends AbstractBindingListBean {
      * @param createDummy Indicates whether to add empty object on the list.
      */
     public LegalTypeListBean(boolean createDummy) {
+        this(createDummy, (String) null);
+    }
+    
+    /** 
+     * Creates object instance.
+     * @param createDummy Indicates whether to add empty object on the list.
+     * @param excludedCodes Codes, which should be skipped while filtering.
+     */
+    public LegalTypeListBean(boolean createDummy, String ... excludedCodes) {
         super();
-        legalTypes = new SolaCodeList<LegalTypeBean>();
+        legalTypeListBean = new SolaCodeList<LegalTypeBean>(excludedCodes);
         loadList(createDummy);
     }
     
@@ -34,24 +42,26 @@ public class LegalTypeListBean extends AbstractBindingListBean {
      * @param createDummy Indicates whether to add empty object on the list.
      */
     public final void loadList(boolean createDummy) {
-        loadCodeList(LegalTypeBean.class, legalTypes, 
+        loadCodeList(LegalTypeBean.class, legalTypeListBean, 
                 CacheManager.getLegalTypes(), createDummy);
     }
-
-    public ObservableList<LegalTypeBean> getLegalTypes() {
-        return legalTypes.getFilteredList();
+    
+    public ObservableList<LegalTypeBean> getLegalTypeList() {
+        return legalTypeListBean.getFilteredList();
     }
-
+    
+    public void setExcludedCodes(String ... codes){
+        legalTypeListBean.setExcludedCodes(codes);
+    }
+    
     public LegalTypeBean getSelectedLegalType() {
-        return selectedLegalType;
+        return selectedLegalTypeBean;
     }
 
-    public void setSelectedLegalType(LegalTypeBean selectedLegalType) {
-        this.selectedLegalType = selectedLegalType;
-        LegalTypeBean oldValue = this.selectedLegalType;
-        this.selectedLegalType = selectedLegalType;
-        propertySupport.firePropertyChange(SELECTED_LEGAL_TYPE_PROPERTY, 
-                oldValue, this.selectedLegalType);
+    public void setSelectedLegalType(LegalTypeBean value) {
+        selectedLegalTypeBean = value;
+        propertySupport.firePropertyChange(SELECTED_GENDERTYPE_PROPERTY, null, value);
     }
+
 }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package org.sola.clients.beans.referencedata;
-
+import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.webservices.transferobjects.referencedata.LegalTypeTO;
 
