@@ -104,6 +104,9 @@ public class PartyBean extends PartySummaryBean {
     @NotEmpty(message = ClientMessage.CHECK_NOTNULL_LEGAL_STATUS, groups = PartyIndividualValidationGroup.class, payload = Localized.class)
     private String legalType;
     
+    //@NotNull(message = ClientMessage.CHECK_NOTNULL_LEGAL_STATUS, groups = PartyIndividualValidationGroup.class, payload = Localized.class)
+    LegalTypeBean legalBean;
+    
     /** 
      * Default constructor to create party bean. Initializes 
      * {@link CommunicationTypeBean} as a part of this bean.
@@ -193,6 +196,15 @@ public class PartyBean extends PartySummaryBean {
         String oldValue = alias;
         alias = value;
         propertySupport.firePropertyChange(ALIAS_PROPERTY, oldValue, value);
+    }
+
+    public LegalTypeBean getLegalBean() {
+        return legalBean;
+    }
+
+    public void setLegalBean(LegalTypeBean legalBean) {
+        this.legalBean = legalBean;
+        setLegalType( legalBean.getDisplayValue());
     }
 
     public String getIdNumber() {

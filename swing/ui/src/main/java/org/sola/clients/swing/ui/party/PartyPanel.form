@@ -52,6 +52,8 @@
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createGenderTypes()"/>
       </AuxValues>
     </Component>
+    <Component class="org.sola.clients.beans.referencedata.LegalTypeListBean" name="legalTypes">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -127,10 +129,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="groupPanel1" max="32767" attributes="0"/>
+                          <Component id="groupPanel1" pref="0" max="32767" attributes="0"/>
                           <Component id="jPanel1" alignment="0" max="32767" attributes="3"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel10" max="32767" attributes="0"/>
+                              <Component id="jPanel10" pref="512" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -168,7 +170,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="roleTableScrollPanel" pref="937" max="32767" attributes="1"/>
+                      <Component id="roleTableScrollPanel" pref="0" max="32767" attributes="1"/>
                       <Group type="102" attributes="0">
                           <Component id="cbxPartyRoleTypes" min="-2" pref="170" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -307,7 +309,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labName" alignment="0" pref="208" max="32767" attributes="0"/>
+                          <Component id="labName" alignment="0" pref="160" max="32767" attributes="0"/>
                           <Component id="txtFirstName" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
@@ -365,8 +367,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtLastName" pref="208" max="32767" attributes="0"/>
-                          <Component id="labName2" pref="208" max="32767" attributes="0"/>
+                          <Component id="txtLastName" max="32767" attributes="0"/>
+                          <Component id="labName2" pref="160" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -419,8 +421,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbxGender" pref="208" max="32767" attributes="0"/>
-                          <Component id="labName1" pref="208" max="32767" attributes="0"/>
+                          <Component id="cbxGender" pref="160" max="32767" attributes="0"/>
+                          <Component id="labName1" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -482,8 +484,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtLegalStatus" max="32767" attributes="0"/>
-                          <Component id="labName3" pref="208" max="32767" attributes="0"/>
+                          <Component id="labName3" pref="160" max="32767" attributes="0"/>
+                          <Component id="cbxLegalStaus" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -491,25 +493,13 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labName3" min="-2" pref="21" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtLegalStatus" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbxLegalStaus" min="-2" pref="22" max="-2" attributes="0"/>
                               <EmptySpace pref="21" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JTextField" name="txtLegalStatus">
-                      <Properties>
-                        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/sola/clients/swing/ui/party/Bundle.properties" key="PartyPanel.txtLegalStatus.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                      </Properties>
-                      <BindingProperties>
-                        <BindingProperty name="text" source="Form" sourcePath="${partyBean.legalType}" target="txtLegalStatus" targetPath="text" updateStrategy="0" immediately="false">
-                          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-                        </BindingProperty>
-                      </BindingProperties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="labName3">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -524,6 +514,24 @@
                         </Property>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JComboBox" name="cbxLegalStaus">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="true"/>
+                        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/sola/clients/swing/ui/party/Bundle.properties" key="PartyPanel.cbxLegalStaus.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                        <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new SimpleComboBoxRenderer(&quot;getDisplayValue&quot;)" type="code"/>
+                        </Property>
+                      </Properties>
+                      <BindingProperties>
+                        <BindingProperty name="elements" source="legalTypes" sourcePath="${legalTypeList}" target="cbxLegalStaus" targetPath="elements" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="selectedItem" source="Form" sourcePath="${partyBean.legalBean}" target="cbxLegalStaus" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+                      </BindingProperties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxLegalStausActionPerformed"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="jPanel6">
@@ -534,8 +542,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labIdType" alignment="0" pref="208" max="32767" attributes="0"/>
-                          <Component id="cbxIdType" alignment="0" pref="208" max="32767" attributes="0"/>
+                          <Component id="labIdType" alignment="0" pref="160" max="32767" attributes="0"/>
+                          <Component id="cbxIdType" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -586,8 +594,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labIdref" alignment="0" pref="208" max="32767" attributes="0"/>
-                          <Component id="txtIdref" alignment="0" pref="208" max="32767" attributes="0"/>
+                          <Component id="labIdref" alignment="0" pref="160" max="32767" attributes="0"/>
+                          <Component id="txtIdref" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -721,7 +729,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel3" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="groupPanel2" alignment="0" pref="937" max="32767" attributes="0"/>
+                          <Component id="groupPanel2" alignment="0" max="32767" attributes="0"/>
                           <Component id="jPanel18" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -764,7 +772,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labFatherFirstName" min="-2" pref="125" max="-2" attributes="1"/>
-                              <EmptySpace pref="177" max="32767" attributes="0"/>
+                              <EmptySpace pref="130" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtFatherFirstName" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -811,7 +819,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labFatherLastName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="205" max="32767" attributes="0"/>
+                              <EmptySpace pref="158" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtFatherLastName" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -858,7 +866,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="labAlias" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="275" max="32767" attributes="0"/>
+                              <EmptySpace pref="228" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtAlias" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -919,7 +927,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labPhone" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="267" max="32767" attributes="0"/>
+                              <EmptySpace pref="220" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtPhone" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -973,7 +981,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labMobile" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="265" max="32767" attributes="0"/>
+                              <EmptySpace pref="218" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtMobile" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -1020,7 +1028,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labFax" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="282" max="32767" attributes="0"/>
+                              <EmptySpace pref="235" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtFax" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -1071,7 +1079,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labEmail" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="266" max="32767" attributes="0"/>
+                              <EmptySpace pref="219" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtEmail" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -1122,7 +1130,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="labPreferredWay" min="-2" max="-2" attributes="1"/>
-                              <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="111" max="32767" attributes="0"/>
                           </Group>
                           <Component id="cbxCommunicationWay" alignment="0" max="32767" attributes="3"/>
                       </Group>
