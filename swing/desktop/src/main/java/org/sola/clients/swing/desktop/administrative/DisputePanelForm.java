@@ -891,7 +891,7 @@ public class DisputePanelForm extends ContentPanel {
                         .addComponent(lblPlotNumber)
                         .addGap(0, 306, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
-                        .addGap(0, 903, Short.MAX_VALUE)
+                        .addGap(0, 1045, Short.MAX_VALUE)
                         .addComponent(btnSearchPlot)))
                 .addContainerGap())
             .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1144,7 +1144,7 @@ public class DisputePanelForm extends ContentPanel {
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jLabel11)
-                .addContainerGap(590, Short.MAX_VALUE))
+                .addContainerGap(729, Short.MAX_VALUE))
             .addComponent(txtName1)
         );
         jPanel17Layout.setVerticalGroup(
@@ -1219,7 +1219,7 @@ public class DisputePanelForm extends ContentPanel {
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addComponent(btncomplainant, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                        .addComponent(btncomplainant, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnrespondent, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1580,7 +1580,7 @@ public class DisputePanelForm extends ContentPanel {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnCourtProcess)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
