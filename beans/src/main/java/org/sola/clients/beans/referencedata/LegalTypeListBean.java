@@ -1,16 +1,19 @@
 package org.sola.clients.beans.referencedata;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractBindingListBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaCodeList;
+import org.sola.clients.beans.controls.SolaObservableList;
 
 /**
  * Holds list of {@link LegalTypeBean} objects.
  */
 public class LegalTypeListBean extends AbstractBindingListBean {
     
-     public static final String SELECTED_GENDERTYPE_PROPERTY = "selectedLegalType";
+    public static final String SELECTED_GENDERTYPE_PROPERTY = "selectedLegalType";
     private SolaCodeList<LegalTypeBean> legalTypeListBean;
     private LegalTypeBean selectedLegalTypeBean;
     
@@ -48,6 +51,18 @@ public class LegalTypeListBean extends AbstractBindingListBean {
     
     public ObservableList<LegalTypeBean> getLegalTypeList() {
         return legalTypeListBean.getFilteredList();
+    }
+    
+    public ArrayList<String> getDisplayValues() {
+       
+        ListIterator<LegalTypeBean> iterator =  legalTypeListBean.listIterator();
+        
+        ArrayList<String> dv = new ArrayList();
+        while(iterator.hasNext()){
+            dv.add( iterator.next().getDisplayValue());
+        }
+        
+        return dv;
     }
     
     public void setExcludedCodes(String ... codes){
