@@ -54,6 +54,9 @@
     <Property name="headerPanel" type="org.sola.clients.swing.ui.HeaderPanel" editor="org.netbeans.modules.form.ComponentChooserEditor">
       <ComponentRef name="pnlHeader"/>
     </Property>
+    <Property name="helpTopic" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+      <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.helpTopic" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+    </Property>
     <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
       <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
     </Property>
@@ -235,7 +238,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Disputes">
+              <JTabbedPaneConstraints tabName="&lt;DisputePanelForm.tabGeneralInfo.TabConstraints.tabTitle&gt;">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.tabGeneralInfo.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -248,7 +251,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="groupPanel1" alignment="0" max="32767" attributes="0"/>
                   <Component id="jToolBar3" max="32767" attributes="0"/>
-                  <Component id="jPanel8" alignment="0" pref="779" max="32767" attributes="0"/>
+                  <Component id="jPanel8" alignment="0" pref="2315" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -361,7 +364,7 @@
                                       <EmptySpace min="0" pref="306" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="277" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="903" max="32767" attributes="0"/>
                                       <Component id="btnSearchPlot" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -370,7 +373,7 @@
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtcadastreId" pref="273" max="32767" attributes="0"/>
+                                  <Component id="txtcadastreId" pref="1041" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -444,7 +447,7 @@
                                   <Component id="txtplotLocation" pref="364" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="lblPlotLocation" min="-2" pref="139" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="993" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -509,7 +512,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="dbxdisputeCategory" pref="170" max="32767" attributes="0"/>
-                                      <Component id="lblLeaseCategory1" pref="169" max="32767" attributes="0"/>
+                                      <Component id="lblLeaseCategory1" pref="553" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -560,7 +563,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="dbxdisputeType" pref="170" max="32767" attributes="0"/>
-                                      <Component id="jLabel3" pref="169" max="32767" attributes="0"/>
+                                      <Component id="jLabel3" pref="553" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -609,7 +612,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" pref="364" max="32767" attributes="0"/>
+                                  <Component id="jLabel5" pref="1132" max="32767" attributes="0"/>
                                   <Component id="txtrrrId" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -752,7 +755,7 @@
         <Container class="javax.swing.JPanel" name="jPanel9">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Parties">
+              <JTabbedPaneConstraints tabName="&lt;DisputePanelForm.jPanel9.TabConstraints.tabTitle&gt;">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jPanel9.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -876,7 +879,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="217" max="32767" attributes="0"/>
+                                          <EmptySpace pref="590" max="32767" attributes="0"/>
                                       </Group>
                                       <Component id="txtName1" alignment="0" max="32767" attributes="0"/>
                                   </Group>
@@ -916,7 +919,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="btnClear" min="-2" pref="108" max="-2" attributes="0"/>
-                                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                                          <EmptySpace pref="548" max="32767" attributes="0"/>
                                           <Component id="btnSearch" min="-2" pref="104" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -966,7 +969,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="btncomplainant" pref="91" max="32767" attributes="0"/>
+                                                  <Component id="btncomplainant" pref="436" max="32767" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="btnrespondent" min="-2" pref="126" max="-2" attributes="0"/>
                                               </Group>
@@ -1039,7 +1042,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jToolBar4" alignment="0" max="32767" attributes="2"/>
+                                  <Component id="jToolBar4" alignment="0" pref="2301" max="32767" attributes="2"/>
                                   <Component id="jScrollPane2" alignment="0" max="32767" attributes="2"/>
                               </Group>
                             </DimensionLayout>
@@ -1266,7 +1269,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Documents">
+              <JTabbedPaneConstraints tabName="&lt;DisputePanelForm.jPanel5.TabConstraints.tabTitle&gt;">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jPanel5.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -1277,7 +1280,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jToolBar2" pref="781" max="32767" attributes="0"/>
+                  <Component id="jToolBar2" pref="2315" max="32767" attributes="0"/>
                   <Component id="documentsPanel" pref="779" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -1389,7 +1392,7 @@
         <Container class="javax.swing.JPanel" name="jPanel18">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Court Process">
+              <JTabbedPaneConstraints tabName="&lt;DisputePanelForm.jPanel18.TabConstraints.tabTitle&gt;">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.jPanel18.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -1409,7 +1412,7 @@
                                   <Component id="jLabel10" min="-2" pref="149" max="-2" attributes="0"/>
                                   <Component id="cbxLAAPrimary" min="-2" pref="225" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="534" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="2070" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1493,7 +1496,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnDisputeMode" pref="76" max="32767" attributes="0"/>
+                          <Component id="btnDisputeMode" pref="268" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1567,7 +1570,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtdisputeNumber" alignment="0" pref="166" max="32767" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" pref="550" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1622,7 +1625,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblLodgementDate" alignment="0" pref="166" max="32767" attributes="0"/>
+                          <Component id="lblLodgementDate" alignment="0" pref="550" max="32767" attributes="0"/>
                           <Component id="txtlodgementDate" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1680,7 +1683,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtstatus" alignment="0" pref="166" max="32767" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" pref="550" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

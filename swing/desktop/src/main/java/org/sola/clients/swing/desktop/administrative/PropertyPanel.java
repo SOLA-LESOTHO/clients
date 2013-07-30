@@ -800,14 +800,14 @@ public class PropertyPanel extends ContentPanel {
         btnAddParent = new javax.swing.JButton();
         btnRemoveParent = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tableParentBaUnits = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
+        tableParentBaUnits = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jToolBar7 = new javax.swing.JToolBar();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnOpenChild = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        tableChildBaUnits = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
+        tableChildBaUnits = new javax.swing.JTable();
         mapPanel = new javax.swing.JPanel();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
 
@@ -1902,10 +1902,10 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JPopupMenu popupParentBaUnits;
     private javax.swing.JPopupMenu popupRights;
     private org.sola.clients.beans.referencedata.RrrTypeListBean rrrTypes;
-    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableChildBaUnits;
+    private javax.swing.JTable tableChildBaUnits;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableNotations;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableOwnership;
-    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableParentBaUnits;
+    private javax.swing.JTable tableParentBaUnits;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRights;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRightsHistory;
     private javax.swing.JTabbedPane tabsMain;
