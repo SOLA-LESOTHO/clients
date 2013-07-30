@@ -489,7 +489,7 @@ public class ReferenceDataManagementPanel extends ContentPanel {
             .addGroup(pnlRefDataListLayout.createSequentialGroup()
                 .addComponent(toolbarRefData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -499,7 +499,7 @@ public class ReferenceDataManagementPanel extends ContentPanel {
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(pnlRefDataList, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(pnlRefDataList, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -507,7 +507,7 @@ public class ReferenceDataManagementPanel extends ContentPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlRefDataList, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(pnlRefDataList, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
