@@ -53,16 +53,20 @@ public class LegalTypeListBean extends AbstractBindingListBean {
         return legalTypeListBean.getFilteredList();
     }
     
+    /** 
+     * Loads list of {@link LegalTypeBean.getDisplayValues()}.
+     * 
+     */
     public ArrayList<String> getDisplayValues() {
        
         ListIterator<LegalTypeBean> iterator =  legalTypeListBean.listIterator();
         
-        ArrayList<String> dv = new ArrayList();
+        ArrayList<String> displayVls = new ArrayList();
         while(iterator.hasNext()){
-            dv.add( iterator.next().getDisplayValue());
+            displayVls.add( iterator.next().getDisplayValue());
         }
         
-        return dv;
+        return displayVls;
     }
     
     public void setExcludedCodes(String ... codes){
