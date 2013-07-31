@@ -977,7 +977,7 @@ public class LeasePanel extends ContentPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(groupPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(partyList, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                .addComponent(partyList, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2);
@@ -996,7 +996,7 @@ public class LeasePanel extends ContentPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(groupPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3);
@@ -1017,7 +1017,7 @@ public class LeasePanel extends ContentPanel {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jLabel7)
-                .addGap(0, 48, Short.MAX_VALUE))
+                .addGap(0, 34, Short.MAX_VALUE))
             .addComponent(txtLeaseNumber)
         );
         jPanel12Layout.setVerticalGroup(
@@ -1053,7 +1053,7 @@ public class LeasePanel extends ContentPanel {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addComponent(jLabel9)
-                .addGap(0, 66, Short.MAX_VALUE))
+                .addGap(0, 58, Short.MAX_VALUE))
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addComponent(txtStartDate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1084,7 +1084,7 @@ public class LeasePanel extends ContentPanel {
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
                 .addComponent(jLabel17)
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
             .addComponent(txtLeaseTerm)
         );
         jPanel26Layout.setVerticalGroup(
@@ -1125,7 +1125,7 @@ public class LeasePanel extends ContentPanel {
                 .addComponent(btnExpirationDate))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel5)
-                .addGap(0, 42, Short.MAX_VALUE))
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1162,7 +1162,7 @@ public class LeasePanel extends ContentPanel {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addGap(0, 32, Short.MAX_VALUE))
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(txtExecutionDate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1195,7 +1195,7 @@ public class LeasePanel extends ContentPanel {
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addComponent(jLabel14)
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addGap(0, 64, Short.MAX_VALUE))
             .addComponent(cbxLandUse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel24Layout.setVerticalGroup(
@@ -1223,7 +1223,7 @@ public class LeasePanel extends ContentPanel {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addComponent(jLabel15)
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
             .addComponent(txtPersonalLevy)
         );
         jPanel20Layout.setVerticalGroup(
@@ -1251,7 +1251,7 @@ public class LeasePanel extends ContentPanel {
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addComponent(jLabel16)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
             .addComponent(txtUsableLand)
         );
         jPanel25Layout.setVerticalGroup(
@@ -1288,7 +1288,7 @@ public class LeasePanel extends ContentPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                     .addComponent(txtRent))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalculateGroundRent, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1328,7 +1328,7 @@ public class LeasePanel extends ContentPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel4)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(txtDueDate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1365,7 +1365,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1419,7 +1419,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -1428,7 +1428,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1452,7 +1452,7 @@ public class LeasePanel extends ContentPanel {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addComponent(jLabel11)
-                .addGap(0, 82, Short.MAX_VALUE))
+                .addGap(0, 72, Short.MAX_VALUE))
             .addComponent(txtStampDuty)
         );
         jPanel16Layout.setVerticalGroup(
@@ -1478,7 +1478,7 @@ public class LeasePanel extends ContentPanel {
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addComponent(jLabel13)
-                .addGap(0, 59, Short.MAX_VALUE))
+                .addGap(0, 45, Short.MAX_VALUE))
             .addComponent(txtRegistrationFee)
         );
         jPanel18Layout.setVerticalGroup(
@@ -1504,7 +1504,7 @@ public class LeasePanel extends ContentPanel {
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jLabel12)
-                .addGap(0, 71, Short.MAX_VALUE))
+                .addGap(0, 60, Short.MAX_VALUE))
             .addComponent(txtTransferDuty)
         );
         jPanel17Layout.setVerticalGroup(
@@ -1610,7 +1610,7 @@ public class LeasePanel extends ContentPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 253, Short.MAX_VALUE))
             .addComponent(txtNotationText)
         );
         jPanel4Layout.setVerticalGroup(
@@ -1657,7 +1657,7 @@ public class LeasePanel extends ContentPanel {
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addContainerGap(337, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(bundle.getString("LeasePanel.jPanel22.TabConstraints.tabTitle"), jPanel22); // NOI18N
@@ -1691,7 +1691,7 @@ public class LeasePanel extends ContentPanel {
             .addGroup(subplotTabPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(subplotTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(parcelPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                    .addComponent(parcelPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
                     .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1717,11 +1717,11 @@ public class LeasePanel extends ContentPanel {
         mapTabPanel.setLayout(mapTabPanelLayout);
         mapTabPanelLayout.setHorizontalGroup(
             mapTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 732, Short.MAX_VALUE)
+            .addGap(0, 728, Short.MAX_VALUE)
         );
         mapTabPanelLayout.setVerticalGroup(
             mapTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab(bundle.getString("LeasePanel.mapTabPanel.TabConstraints.tabTitle"), mapTabPanel); // NOI18N
@@ -1782,7 +1782,7 @@ public class LeasePanel extends ContentPanel {
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addComponent(groupPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(partyList1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                .addComponent(partyList1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
         );
 
         jPanel28.add(jPanel29);
@@ -1801,7 +1801,7 @@ public class LeasePanel extends ContentPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
                 .addComponent(groupPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(documentsManagementPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                .addComponent(documentsManagementPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
         );
 
         jPanel28.add(jPanel30);
@@ -1819,7 +1819,7 @@ public class LeasePanel extends ContentPanel {
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel32Layout.createSequentialGroup()
                 .addComponent(jLabel19)
-                .addGap(0, 48, Short.MAX_VALUE))
+                .addGap(0, 34, Short.MAX_VALUE))
             .addComponent(txtLeaseNumber1)
         );
         jPanel32Layout.setVerticalGroup(
@@ -1852,7 +1852,7 @@ public class LeasePanel extends ContentPanel {
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel33Layout.createSequentialGroup()
                 .addComponent(jLabel20)
-                .addGap(0, 66, Short.MAX_VALUE))
+                .addGap(0, 58, Short.MAX_VALUE))
             .addGroup(jPanel33Layout.createSequentialGroup()
                 .addComponent(txtStartDate1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1880,7 +1880,7 @@ public class LeasePanel extends ContentPanel {
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel34Layout.createSequentialGroup()
                 .addComponent(jLabel21)
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
             .addComponent(txtLeaseTerm1)
         );
         jPanel34Layout.setVerticalGroup(
@@ -1918,7 +1918,7 @@ public class LeasePanel extends ContentPanel {
                 .addComponent(btnExpirationDate1))
             .addGroup(jPanel35Layout.createSequentialGroup()
                 .addComponent(jLabel22)
-                .addGap(0, 42, Short.MAX_VALUE))
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1952,7 +1952,7 @@ public class LeasePanel extends ContentPanel {
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel36Layout.createSequentialGroup()
                 .addComponent(jLabel23)
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addGap(0, 32, Short.MAX_VALUE))
             .addGroup(jPanel36Layout.createSequentialGroup()
                 .addComponent(txtExecutionDate1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1979,7 +1979,7 @@ public class LeasePanel extends ContentPanel {
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel37Layout.createSequentialGroup()
                 .addComponent(jLabel24)
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addGap(0, 64, Short.MAX_VALUE))
             .addComponent(cbxLandUse1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel37Layout.setVerticalGroup(
@@ -2004,7 +2004,7 @@ public class LeasePanel extends ContentPanel {
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel38Layout.createSequentialGroup()
                 .addComponent(jLabel25)
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
             .addComponent(txtPersonalLevy1)
         );
         jPanel38Layout.setVerticalGroup(
@@ -2029,7 +2029,7 @@ public class LeasePanel extends ContentPanel {
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel39Layout.createSequentialGroup()
                 .addComponent(jLabel26)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
             .addComponent(txtUsableLand1)
         );
         jPanel39Layout.setVerticalGroup(
@@ -2063,7 +2063,7 @@ public class LeasePanel extends ContentPanel {
             jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel40Layout.createSequentialGroup()
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                     .addComponent(txtRent1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalculateGroundRent1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2100,7 +2100,7 @@ public class LeasePanel extends ContentPanel {
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel41Layout.createSequentialGroup()
                 .addComponent(jLabel28)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
             .addGroup(jPanel41Layout.createSequentialGroup()
                 .addComponent(txtDueDate1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2137,7 +2137,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2168,8 +2168,17 @@ public class LeasePanel extends ContentPanel {
         jToolBar5.add(btnRemoveCondition1);
 
         jTableWithDefaultStyles2.setComponentPopupMenu(popupConditions);
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${filteredLeaseSpecialConditionList}");
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, eLProperty, jTableWithDefaultStyles2);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${conditionText}"));
+        columnBinding.setColumnName("Condition Text");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
         jScrollPane4.setViewportView(jTableWithDefaultStyles2);
-        jTableWithDefaultStyles2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("LeasePanel.jTableWithDefaultStyles1.columnModel.title0")); // NOI18N
+        jTableWithDefaultStyles2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("LeasePanel.jTableWithDefaultStyles2.columnModel.title0")); // NOI18N
         jTableWithDefaultStyles2.getColumnModel().getColumn(0).setCellRenderer(new TableCellTextAreaRenderer());
 
         javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
@@ -2180,7 +2189,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel42Layout.setVerticalGroup(
@@ -2189,7 +2198,7 @@ public class LeasePanel extends ContentPanel {
                 .addContainerGap()
                 .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2210,7 +2219,7 @@ public class LeasePanel extends ContentPanel {
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel46Layout.createSequentialGroup()
                 .addComponent(jLabel29)
-                .addGap(0, 82, Short.MAX_VALUE))
+                .addGap(0, 72, Short.MAX_VALUE))
             .addComponent(txtStampDuty1)
         );
         jPanel46Layout.setVerticalGroup(
@@ -2233,7 +2242,7 @@ public class LeasePanel extends ContentPanel {
             jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel47Layout.createSequentialGroup()
                 .addComponent(jLabel30)
-                .addGap(0, 59, Short.MAX_VALUE))
+                .addGap(0, 45, Short.MAX_VALUE))
             .addComponent(txtRegistrationFee1)
         );
         jPanel47Layout.setVerticalGroup(
@@ -2256,7 +2265,7 @@ public class LeasePanel extends ContentPanel {
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel48Layout.createSequentialGroup()
                 .addComponent(jLabel31)
-                .addGap(0, 71, Short.MAX_VALUE))
+                .addGap(0, 60, Short.MAX_VALUE))
             .addComponent(txtTransferDuty1)
         );
         jPanel48Layout.setVerticalGroup(
@@ -2353,7 +2362,7 @@ public class LeasePanel extends ContentPanel {
             jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel52Layout.createSequentialGroup()
                 .addComponent(jLabel34)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 253, Short.MAX_VALUE))
             .addComponent(txtNotationText1)
         );
         jPanel52Layout.setVerticalGroup(
@@ -2400,7 +2409,7 @@ public class LeasePanel extends ContentPanel {
                 .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addContainerGap(337, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab(bundle.getString("LeasePanel.jPanel43.TabConstraints.tabTitle"), jPanel43); // NOI18N
@@ -2434,7 +2443,7 @@ public class LeasePanel extends ContentPanel {
             .addGroup(subplotTabPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(subplotTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(parcelPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                    .addComponent(parcelPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
                     .addComponent(jToolBar6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -2460,11 +2469,11 @@ public class LeasePanel extends ContentPanel {
         mapTabPanel1.setLayout(mapTabPanel1Layout);
         mapTabPanel1Layout.setHorizontalGroup(
             mapTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 732, Short.MAX_VALUE)
+            .addGap(0, 728, Short.MAX_VALUE)
         );
         mapTabPanel1Layout.setVerticalGroup(
             mapTabPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab(bundle.getString("LeasePanel.mapTabPanel1.TabConstraints.tabTitle"), mapTabPanel1); // NOI18N
@@ -2477,7 +2486,7 @@ public class LeasePanel extends ContentPanel {
             .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(contentPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         contentPanel1Layout.setVerticalGroup(
