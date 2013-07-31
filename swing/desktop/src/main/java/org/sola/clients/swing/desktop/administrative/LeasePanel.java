@@ -297,7 +297,7 @@ public class LeasePanel extends ContentPanel {
 
     private boolean saveRrr() {
         boolean validated;
-
+        WindowUtility.commitChanges(this);
         if (isSublease()) {
             // Configures validations for used by sublease
             if (rrrBean.getLeaseExpiryDate() == null) {

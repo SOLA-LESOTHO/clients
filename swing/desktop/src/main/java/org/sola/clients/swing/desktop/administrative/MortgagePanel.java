@@ -51,6 +51,7 @@ import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -184,6 +185,7 @@ public class MortgagePanel extends ContentPanel {
     }
 
     private boolean saveRrr() {
+        WindowUtility.commitChanges(this);
         if (rrrBean.validate(true, Default.class, MortgageValidationGroup.class).size() > 0) {
             return false;
         }

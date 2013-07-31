@@ -46,6 +46,7 @@ import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.TableCellListRenderer;
 import org.sola.clients.swing.ui.source.DocumentsManagementPanel;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -194,6 +195,7 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private boolean saveRrr() {
+        WindowUtility.commitChanges(this);
         if (rrrBean.validate(true, Default.class, OwnershipValidationGroup.class).size() < 1) {
             firePropertyChange(UPDATED_RRR, null, rrrBean);
             close();

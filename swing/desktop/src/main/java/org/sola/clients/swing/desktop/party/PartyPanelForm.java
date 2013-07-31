@@ -38,6 +38,7 @@ import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.common.RolesConstants;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -186,6 +187,7 @@ public class PartyPanelForm extends ContentPanel {
     }
 
     private void saveParty(final boolean allowClose) {
+        WindowUtility.commitChanges(this);
         if (savePartyOnAction) {
             SolaTask<Boolean, Boolean> t = new SolaTask<Boolean, Boolean>() {
 

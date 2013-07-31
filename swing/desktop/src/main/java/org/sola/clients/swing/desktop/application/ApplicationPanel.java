@@ -81,6 +81,7 @@ import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 //import org.sola.clients.swing.desktop.administrative.LeasePreparationForm;
 import org.sola.clients.swing.ui.administrative.BaUnitSearchPanel;
 import org.sola.clients.swing.ui.renderers.*;
+import org.sola.common.WindowUtility;
 
 /**
  * This form is used to create new application or edit existing one. <p>The
@@ -881,7 +882,7 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     private void saveApplication(final boolean closeOnSave) {
-
+        WindowUtility.commitChanges(this);
         if (!checkApplication()) {
             return;
         }

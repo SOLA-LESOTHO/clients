@@ -37,6 +37,7 @@ import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.source.DocumentsManagementPanel;
+import org.sola.common.WindowUtility;
 
 /**
  * Used to create and manage simple types of rights. {@link RrrBean} is used to bind the data on the form.
@@ -137,6 +138,7 @@ public class SimpleRightPanel extends ContentPanel {
     }
     
     private boolean saveRrr() {
+        WindowUtility.commitChanges(this);
         if (rrrBean.validate(true).size() <= 0) {
             firePropertyChange(UPDATED_RRR, null, rrrBean);
             close();

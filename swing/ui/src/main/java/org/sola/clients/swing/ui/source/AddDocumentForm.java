@@ -31,6 +31,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.source.SourceBean;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -126,6 +127,7 @@ public class AddDocumentForm extends javax.swing.JDialog {
     }
 
     private void addNewDocument(){
+        WindowUtility.commitChanges(this);
         if(documentPanel.validateDocument(true)){
             fireUpdatedSourceEvent((SourceBean)documentPanel.getDocument().copy());
             documentPanel.clearFields();
