@@ -250,8 +250,10 @@ public abstract class AbstractSpatialObjectLayer extends ExtendedLayerEditor {
      * @throws ParseException
      */
     protected SimpleFeature addFeatureFromBean(SpatialBean bean) throws ParseException {
-        return this.addFeature(bean.getRowId(), bean.getFeatureGeom(),
+        SimpleFeature f = this.addFeature(bean.getRowId(), bean.getFeatureGeom(),
                 bean.getValues(this.getAttributeNames()), false);
+        //bean.setFeatureGeom(bean.getFeatureGeom());
+        return f;
     }
 
     /**
@@ -320,7 +322,7 @@ public abstract class AbstractSpatialObjectLayer extends ExtendedLayerEditor {
         this.removedItems.clear();
         this.listBean.getBeanList().addAll((Collection) beanList);
     }
-
+    
     /**
      * It adds a feature. If fid is missing it is generated from a GUID generator.
      *
@@ -342,6 +344,7 @@ public abstract class AbstractSpatialObjectLayer extends ExtendedLayerEditor {
             fieldsWithValues = this.getFieldsWithValuesForNewFeatures(geom);
         }
         SimpleFeature addedFeature = super.addFeature(fid, geom, fieldsWithValues, refreshMap);
+        int srid = geom.getSRID();
         return addedFeature;
     }
 
