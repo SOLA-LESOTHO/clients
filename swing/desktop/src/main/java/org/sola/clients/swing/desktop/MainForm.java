@@ -953,6 +953,11 @@ public class MainForm extends javax.swing.JFrame {
 
         jmiContextHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/help.png"))); // NOI18N
         jmiContextHelp.setText(bundle.getString("MainForm.jmiContextHelp.text")); // NOI18N
+        jmiContextHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiContextHelpActionPerformed(evt);
+            }
+        });
         helpMenu.add(jmiContextHelp);
 
         menuBar.add(helpMenu);
@@ -1084,6 +1089,10 @@ public class MainForm extends javax.swing.JFrame {
     private void btnAccessDisputeFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccessDisputeFormActionPerformed
         openDispute();
     }//GEN-LAST:event_btnAccessDisputeFormActionPerformed
+
+    private void jmiContextHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiContextHelpActionPerformed
+        HelpUtility.getInstance().showTopic(HelpUtility.DEFAULT_HELP_TOPIC);
+    }//GEN-LAST:event_jmiContextHelpActionPerformed
 
     private void editPassword() {
         showPasswordPanel();
