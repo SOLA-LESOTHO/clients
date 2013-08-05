@@ -65,6 +65,7 @@ import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.common.RolesConstants;
+import org.sola.common.WindowUtility;
 import org.sola.common.help.HelpUtility;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
@@ -75,7 +76,6 @@ import org.sola.common.messaging.MessageUtility;
  */
 public class MainForm extends javax.swing.JFrame {
 
-    private Class<?> mainClass;
     public static final String MAIN_FORM_HEIGHT = "mainFormHeight";
     public static final String MAIN_FORM_WIDTH = "mainFormWitdh";
     public static final String MAIN_FORM_TOP = "mainFormTop";
@@ -183,12 +183,8 @@ public class MainForm extends javax.swing.JFrame {
      * Returns a singleton instance of {@link MainForm}.
      */
     public static MainForm getInstance(Class<?> mainClass) {
-        getInstance().mainClass = mainClass;
+        WindowUtility.preferenceClass = mainClass;
         return getInstance();
-    }
-
-    public Preferences getUserPreferences() {
-        return Preferences.userNodeForPackage(mainClass);
     }
 
     /**
@@ -262,9 +258,9 @@ public class MainForm extends javax.swing.JFrame {
         int x = ((dim.width) / 2) - (width / 2);
         int y = ((dim.height) / 2) - (height / 2);
 
-        if (mainClass != null) {
+        if (WindowUtility.hasUserPreferences()) {
             // Set the size of the screen
-            Preferences prefs = getUserPreferences();
+            Preferences prefs = WindowUtility.getUserPreferences();
             height = Integer.parseInt(prefs.get(MAIN_FORM_HEIGHT, Integer.toString(height)));
             width = Integer.parseInt(prefs.get(MAIN_FORM_WIDTH, Integer.toString(width)));
             y = Integer.parseInt(prefs.get(MAIN_FORM_TOP, Integer.toString(y)));
@@ -291,8 +287,8 @@ public class MainForm extends javax.swing.JFrame {
      * preference just before the screen is is closed.
      */
     private void preClose() {
-        if (mainClass != null) {
-            Preferences prefs = Preferences.userNodeForPackage(mainClass);
+        if (WindowUtility.hasUserPreferences()) {
+            Preferences prefs = WindowUtility.getUserPreferences();
             prefs.put(MAIN_FORM_HEIGHT, Integer.toString(this.getHeight()));
             prefs.put(MAIN_FORM_WIDTH, Integer.toString(this.getWidth()));
             prefs.put(MAIN_FORM_TOP, Integer.toString(this.getY()));
