@@ -79,7 +79,7 @@ public class DesktopApplication {
                         if (evt.getPropertyName().equals(LoginPanel.LOGIN_RESULT)) {
                             if (((Boolean) evt.getNewValue())) {
                                 loginForm.dispose();
-                                MainForm.getInstance().setVisible(true);
+                                MainForm.getInstance(DesktopApplication.class).setVisible(true);
                             }
                         }
                     }

@@ -32,6 +32,7 @@ package org.sola.clients.swing.ui.security;
 import java.awt.ComponentOrientation;
 import java.awt.event.KeyEvent;
 import java.util.Locale;
+import java.util.prefs.Preferences;
 import javax.swing.JRadioButton;
 import org.sola.clients.swing.common.config.ConfigurationManager;
 import org.sola.clients.swing.common.controls.LanguageCombobox;
@@ -46,6 +47,7 @@ import org.sola.common.messaging.MessageUtility;
 public class LoginPanel extends javax.swing.JPanel {
 
     public static final String LOGIN_RESULT = "loginResult";
+    public static final String USER_NAME = "defaultUserName";
     private Class<?> mainClass;
     protected JRadioButton previousButton;
 
@@ -77,10 +79,20 @@ public class LoginPanel extends javax.swing.JPanel {
         this.mainClass = mainClasss;
         initComponents();
         txtUsername.requestFocus();
+        
+         // Make the username sticky
+        if (mainClass != null) {
+            Preferences prefs = Preferences.userNodeForPackage(mainClass);
+            String userName = prefs.get(USER_NAME, "");
+            if (!userName.isEmpty()) {
+                txtUsername.setText(userName);
+                txtUserPassword.requestFocus();
+            }
+        }
 
         // TODO: REMOVE IN RELEASE!!!
-        txtUsername.setText("test");
-        txtUserPassword.setText("test");
+        //txtUsername.setText("test");
+        //txtUserPassword.setText("test");
     }
 
     /**
@@ -104,6 +116,10 @@ public class LoginPanel extends javax.swing.JPanel {
             @Override
             protected void taskDone() {
                 if (result) {
+                    if (mainClass != null) {
+                        Preferences prefs = Preferences.userNodeForPackage(mainClass);
+                        prefs.put(USER_NAME, txtUsername.getText());
+                    }
                     fireLoginEvent(true);
                 } else {
                     enablePanel(true);
@@ -140,7 +156,11 @@ public class LoginPanel extends javax.swing.JPanel {
      * Explicitely sets focus on user name text field.
      */
     public void setUserNameFocus() {
-        txtUsername.requestFocus();
+         if (!txtUsername.getText().isEmpty()) {
+            txtUserPassword.requestFocus();
+        } else {
+            txtUsername.requestFocus();
+        }
         this.getRootPane().setDefaultButton(btnLogin);
     }
 
