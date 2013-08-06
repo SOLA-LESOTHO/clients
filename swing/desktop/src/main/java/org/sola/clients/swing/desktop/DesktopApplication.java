@@ -37,12 +37,12 @@ import org.sola.clients.swing.ui.DesktopClientExceptionHandler;
 import org.sola.clients.swing.ui.security.LoginForm;
 import org.sola.clients.swing.ui.security.LoginPanel;
 import org.sola.common.WindowUtility;
-import org.sola.common.logging.LogUtility;
 
 /**
  * The main class of the application.
  */
 public class DesktopApplication {
+
     /**
      * Main method to run the application.
      *
@@ -50,6 +50,7 @@ public class DesktopApplication {
      */
     public static void main(String[] args) {
         // Show splash screen
+        WindowUtility.setMainAppClass(DesktopApplication.class);
         SplashForm splash = new SplashForm();
         WindowUtility.centerForm(splash);
         splash.setVisible(true);
@@ -63,23 +64,20 @@ public class DesktopApplication {
         splash.dispose();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
-                LocalizationManager.loadLanguage(DesktopApplication.class);
-                LogUtility.initialize(DesktopApplication.class);
+                LocalizationManager.loadLanguage();
                 LafManager.getInstance().setProperties("green");
 
-                final LoginForm loginForm = new LoginForm(DesktopApplication.class);
+                final LoginForm loginForm = new LoginForm();
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
-
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         if (evt.getPropertyName().equals(LoginPanel.LOGIN_RESULT)) {
                             if (((Boolean) evt.getNewValue())) {
                                 loginForm.dispose();
-                                MainForm.getInstance(DesktopApplication.class).setVisible(true);
+                                MainForm.getInstance().setVisible(true);
                             }
                         }
                     }

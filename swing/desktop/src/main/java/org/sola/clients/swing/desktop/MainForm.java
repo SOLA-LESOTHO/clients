@@ -180,14 +180,6 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     /**
-     * Returns a singleton instance of {@link MainForm}.
-     */
-    public static MainForm getInstance(Class<?> mainClass) {
-        WindowUtility.preferenceClass = mainClass;
-        return getInstance();
-    }
-
-    /**
      * Default constructor.
      */
     private MainForm() {
@@ -215,7 +207,7 @@ public class MainForm extends javax.swing.JFrame {
      * Create combobox with languages
      */
     private LanguageCombobox createLanguageCombobox() {
-        return new LanguageCombobox(MainForm.class);
+        return new LanguageCombobox();
     }
 
     /**
@@ -271,10 +263,10 @@ public class MainForm extends javax.swing.JFrame {
             if (width > dim.width || width < 200) {
                 width = dim.width - 20 - x;
             }
-            if (y > dim.height || y + height - 100 < 0) {
+            if (y + 10 > dim.height || y + height - 100 < 0) {
                 y = 5;
             }
-            if (x > dim.width || x + width - 100 < 0) {
+            if (x + 10 > dim.width || x + width - 100 < 0) {
                 x = 10;
             }
             this.setSize(width, height);
@@ -485,7 +477,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void setLanguage(String code, String country) {
-        LocalizationManager.setLanguage(DesktopApplication.class, code, country);
+        LocalizationManager.setLanguage(code, country);
         MessageUtility.displayMessage(ClientMessage.GENERAL_UPDATE_LANG);
     }
 
@@ -651,7 +643,6 @@ public class MainForm extends javax.swing.JFrame {
         menuView = new javax.swing.JMenu();
         menuLanguage = new javax.swing.JMenu();
         menuLangEN = new javax.swing.JMenuItem();
-        menuLangIT = new javax.swing.JMenuItem();
         menuLogLevel = new javax.swing.JMenu();
         menuAllLogLevel = new javax.swing.JMenuItem();
         menuDefaultLogLevel = new javax.swing.JMenuItem();
@@ -873,15 +864,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         menuLanguage.add(menuLangEN);
-
-        menuLangIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flags/it.jpg"))); // NOI18N
-        menuLangIT.setText(bundle.getString("MainForm.menuLangIT.text")); // NOI18N
-        menuLangIT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLangITActionPerformed(evt);
-            }
-        });
-        menuLanguage.add(menuLangIT);
 
         menuView.add(menuLanguage);
 
@@ -1106,10 +1088,6 @@ public class MainForm extends javax.swing.JFrame {
         setLanguage("en", "US");
     }//GEN-LAST:event_menuLangENActionPerformed
 
-    private void menuLangITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLangITActionPerformed
-        setLanguage("it", "IT");
-    }//GEN-LAST:event_menuLangITActionPerformed
-
     private void btnOpenBaUnitSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenBaUnitSearchActionPerformed
         searchBaUnit();
     }//GEN-LAST:event_btnOpenBaUnitSearchActionPerformed
@@ -1212,7 +1190,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuDocumentSearch;
     private javax.swing.JMenuItem menuExportRights;
     private javax.swing.JMenuItem menuLangEN;
-    private javax.swing.JMenuItem menuLangIT;
     private javax.swing.JMenu menuLanguage;
     private javax.swing.JMenuItem menuLodgementReport;
     private javax.swing.JMenu menuLogLevel;

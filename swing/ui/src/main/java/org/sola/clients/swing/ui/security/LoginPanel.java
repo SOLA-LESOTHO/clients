@@ -38,6 +38,7 @@ import org.sola.clients.swing.common.config.ConfigurationManager;
 import org.sola.clients.swing.common.controls.LanguageCombobox;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -48,26 +49,13 @@ public class LoginPanel extends javax.swing.JPanel {
 
     public static final String LOGIN_RESULT = "loginResult";
     public static final String USER_NAME = "defaultUserName";
-    private Class<?> mainClass;
     protected JRadioButton previousButton;
 
     /**
      * Create combobox with languages
      */
     private LanguageCombobox createLanguageCombobox() {
-        if (mainClass != null) {
-            return new LanguageCombobox(mainClass);
-        } else {
-            return new LanguageCombobox();
-        }
-    }
-
-    /**
-     * Default constructor.
-     */
-    public LoginPanel() {
-        initComponents();
-        txtUsername.requestFocus();
+        return new LanguageCombobox();
     }
 
     /**
@@ -75,24 +63,19 @@ public class LoginPanel extends javax.swing.JPanel {
      *
      * @param applicationMainClass
      */
-    public LoginPanel(Class<?> mainClasss) {
-        this.mainClass = mainClasss;
+    public LoginPanel() {
         initComponents();
         txtUsername.requestFocus();
-        
-         // Make the username sticky
-        if (mainClass != null) {
-            Preferences prefs = Preferences.userNodeForPackage(mainClass);
+
+        // Make the username sticky
+        if (WindowUtility.hasUserPreferences()) {
+            Preferences prefs = WindowUtility.getUserPreferences();
             String userName = prefs.get(USER_NAME, "");
             if (!userName.isEmpty()) {
                 txtUsername.setText(userName);
                 txtUserPassword.requestFocus();
             }
         }
-
-        // TODO: REMOVE IN RELEASE!!!
-        //txtUsername.setText("test");
-        //txtUserPassword.setText("test");
     }
 
     /**
@@ -100,7 +83,6 @@ public class LoginPanel extends javax.swing.JPanel {
      */
     private void login() {
         SolaTask t = new SolaTask<Boolean, Object>() {
-
             private boolean result = false;
 
             @Override
@@ -116,8 +98,8 @@ public class LoginPanel extends javax.swing.JPanel {
             @Override
             protected void taskDone() {
                 if (result) {
-                    if (mainClass != null) {
-                        Preferences prefs = Preferences.userNodeForPackage(mainClass);
+                    if (WindowUtility.hasUserPreferences()) {
+                        Preferences prefs = WindowUtility.getUserPreferences();
                         prefs.put(USER_NAME, txtUsername.getText());
                     }
                     fireLoginEvent(true);
@@ -156,7 +138,7 @@ public class LoginPanel extends javax.swing.JPanel {
      * Explicitely sets focus on user name text field.
      */
     public void setUserNameFocus() {
-         if (!txtUsername.getText().isEmpty()) {
+        if (!txtUsername.getText().isEmpty()) {
             txtUserPassword.requestFocus();
         } else {
             txtUsername.requestFocus();

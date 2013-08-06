@@ -61,6 +61,7 @@ import java.beans.PropertyChangeListener;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
 import org.sola.clients.swing.ui.security.LoginPanel;
+import org.sola.common.WindowUtility;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -76,6 +77,7 @@ public class AdminApplication {
      */
     public static void main(String[] args) {
         // Show splash screen
+        WindowUtility.setMainAppClass(AdminApplication.class);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         int x = ((dim.width) / 2);
         int y = ((dim.height) / 2);
@@ -101,11 +103,10 @@ public class AdminApplication {
                 int y = ((dim.height) / 2);
 
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
-                LocalizationManager.loadLanguage(AdminApplication.class);
-                LogUtility.initialize(AdminApplication.class);
+                LocalizationManager.loadLanguage();
                 LafManager.getInstance().setProperties("green");
 
-                final LoginForm loginForm = new LoginForm(AdminApplication.class);
+                final LoginForm loginForm = new LoginForm();
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
 
                     @Override
