@@ -188,6 +188,7 @@ public class MainForm extends javax.swing.JFrame {
 
         initComponents();
         HelpUtility.getInstance().registerHelpMenu(jmiContextHelp, HelpUtility.DEFAULT_HELP_TOPIC);
+        this.setTitle("SOLA Lesotho - " + LocalizationManager.getVersionNumber());
 
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

@@ -68,8 +68,15 @@ public class DesktopApplication {
             public void run() {
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
                 LocalizationManager.loadLanguage();
-                LafManager.getInstance().setProperties("green");
 
+                // Select the Look and Feel Theme based on whether this is 
+                // the production version or the test version of SOLA. 
+                if (LocalizationManager.isProductionHost()) {
+                    LafManager.getInstance().setProperties("green");
+                } else {
+                    LafManager.getInstance().setProperties("autumn");
+                }
+                
                 final LoginForm loginForm = new LoginForm();
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
                     @Override

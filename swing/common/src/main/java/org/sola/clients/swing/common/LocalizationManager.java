@@ -34,6 +34,7 @@ import java.util.Locale;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import org.sola.common.WindowUtility;
+import org.sola.common.logging.LogUtility;
 
 /**
  * Provides methods to manage languages and locales settings.
@@ -42,6 +43,10 @@ public class LocalizationManager {
 
     private static final String LANGUAGE = "language";
     private static final String COUNTRY = "country";
+    private static final String WEB_START_HOST_PROP = "SOLA_WEB_START_HOST";
+    private static final String PRODUCTION_HOST_NAME = "gismain";
+    private static final String PRODUCTION_HOST_IP = "";
+    private static final String SOLA_VERSION = "2.0";
 
     /**
      * Loads default language and country codes and sets {@link Locale} settings
@@ -100,7 +105,40 @@ public class LocalizationManager {
         } catch (BackingStoreException ex) {
             ex.printStackTrace();
         }
+    }
 
+    /**
+     * Determines if the application is connected to the production server or
+     * not based on the name of the Service Host. Uses the SOLA_WEB_START_HOST
+     * property to make this determination. This property can be set as a
+     * startup parameter for the JVM process. If the SOLA_WEB_START_HOST
+     * property is not set, the method assumes this is a development version and
+     * returns true to indicate a production implementation.
+     *
+     */
+    public static boolean isProductionHost() {
+        boolean result = false;
+        String host = System.getProperty(WEB_START_HOST_PROP);
+        LogUtility.log("Host Name = " + (host == null ? "Unknown" : host));
+        // If the host variable is not set then this is probably development
+        if (host == null || host.equalsIgnoreCase(PRODUCTION_HOST_NAME)
+                || host.equals(PRODUCTION_HOST_IP)) {
+            result = true;
+        }
+        return result;
+    }
+
+   /**
+    * Determines the version number for display based on whether this is a 
+    * production version of SOLA or a Test version. 
+    * @return 
+    */
+    public static String getVersionNumber() {
+        String result = "Test v" + SOLA_VERSION;
+        if (isProductionHost()) {
+            result = "LIVE v" + SOLA_VERSION;
+        }
+        return result;
     }
 
     /**
