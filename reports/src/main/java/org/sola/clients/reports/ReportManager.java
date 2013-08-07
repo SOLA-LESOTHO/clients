@@ -456,8 +456,6 @@ public class ReportManager {
             String conditionText,
             String expirationDate,
             String amount,
-            String lessees_marital_status,
-            String recipients_marital_status,
             String transactionType
             ) {
 
@@ -470,9 +468,7 @@ public class ReportManager {
         inputParameters.put("NAME_FIRSTPART", consentBean.getBaUnit().getNameFirstpart());
         inputParameters.put("NAME_LASTPART", consentBean.getBaUnit().getNameLastpart());
         inputParameters.put("DUE_DATE", expirationDate);
-        inputParameters.put("CONDITION_TEXT", conditionText);        
-        inputParameters.put("LESSEES_MARITAL_STATUS", lessees_marital_status);
-        inputParameters.put("RECIPIENTS_MARITAL_STATUS", recipients_marital_status);
+        inputParameters.put("CONDITION_TEXT", conditionText);
         inputParameters.put("CONSIDERATION_AMOUNT", amount);
         inputParameters.put("TRANSACTION_TYPE", transactionType);
 

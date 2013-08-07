@@ -33,8 +33,8 @@ import org.sola.common.messaging.ClientMessage;
  * @author Tokelo
  */
 @ConsentBeanCheck
-public class ConsentBean extends AbstractTransactionedBean{
-    
+public class ConsentBean extends AbstractTransactionedBean {
+
     private BaUnitBean baUnit;
     private RrrBean rightholderRrr;
     private String conditionText;
@@ -44,29 +44,31 @@ public class ConsentBean extends AbstractTransactionedBean{
     private BigDecimal serviceFee;
     private String receiptNumber;
     private String recipients;
+    private String recipientsMaritalStatus;
     private String rightholders;
+    private String rightholdersMaritalStatus;
     private String freeText;
     private String transactionType;
     private String lodgingDate;
     private String serviceName;
     private String parcelAddress;
-    
-    public ConsentBean(){
-        super();        
+
+    public ConsentBean() {
+        super();
         rightHolderList = new SolaList();
         baUnit = new BaUnitBean();
         rightholderRrr = new RrrBean();
     }
-    
+
     public void setConditionText(String conditionText) {
-        if (conditionText == null){
+        if (conditionText == null) {
             conditionText = "";
         }
         this.conditionText = conditionText;
     }
 
     public String getConditionText() {
-        if (conditionText == null){
+        if (conditionText == null) {
             conditionText = "";
         }
         return conditionText;
@@ -89,8 +91,8 @@ public class ConsentBean extends AbstractTransactionedBean{
     @Size(min = 1, groups = {MortgageValidationGroup.class}, message = ClientMessage.CHECK_SIZE_RIGHTHOLDERLIST, payload = Localized.class)
     public ObservableList<PartyBean> getFilteredRightHolderList() {
         return rightHolderList.getFilteredList();
-    }    
-    
+    }
+
     public SolaList<PartyBean> getRightHolderList() {
         return rightHolderList;
     }
@@ -118,9 +120,9 @@ public class ConsentBean extends AbstractTransactionedBean{
     public String getLeaseNumber() {
         return leaseNumber;
     }
-    
-    public void setLeaseNumber(String leaseNumber){
-        if (leaseNumber == null){
+
+    public void setLeaseNumber(String leaseNumber) {
+        if (leaseNumber == null) {
             leaseNumber = "";
         }
         this.leaseNumber = leaseNumber;
@@ -131,7 +133,7 @@ public class ConsentBean extends AbstractTransactionedBean{
     }
 
     public void setReceiptNumber(String receiptNumber) {
-        if (receiptNumber == null){
+        if (receiptNumber == null) {
             receiptNumber = "";
         }
         this.receiptNumber = receiptNumber;
@@ -141,45 +143,43 @@ public class ConsentBean extends AbstractTransactionedBean{
         return serviceFee;
     }
 
-    public void setServiceFee(BigDecimal serviceFee) {        
+    public void setServiceFee(BigDecimal serviceFee) {
         this.serviceFee = serviceFee;
     }
 
-    
-    
     public String getRecipients() {
         String lessess = "";
         if (this.getRecipientList() != null && this.getRecipientList().size() > 0) {
             for (PartySummaryBean party : this.getRecipientList()) {
                 if (lessess.equals("")) {
-                    lessess = party.getFullName();
+                    lessess = party.getFullName().toUpperCase();
                 } else {
-                    lessess = lessess + " AND " + party.getFullName();
+                    lessess = lessess + " and " + party.getFullName().toUpperCase();
                 }
             }
         }
-        return lessess.toUpperCase();        
-    }    
-    
+        return lessess;
+    }
+
     public void setRecipients(String recipients) {
         if (recipients == null) {
             recipients = "";
         }
         this.recipients = recipients;
-    }    
-    
-    public String getRightHolders(){
+    }
+
+    public String getRightHolders() {
         String lessors = "";
         if (this.getRightHolderList() != null && this.getRightHolderList().size() > 0) {
             for (PartySummaryBean party : this.getRightHolderList()) {
                 if (lessors.equals("")) {
-                    lessors = party.getFullName();
-                }else{
-                    lessors = lessors + " and " + party.getFullName();
+                    lessors = party.getFullName().toUpperCase();
+                } else {
+                    lessors = lessors + " and " + party.getFullName().toUpperCase();
                 }
             }
         }
-        return lessors.toUpperCase();        
+        return lessors;
     }
 
     public void setRightholders(String rightholders) {
@@ -189,12 +189,54 @@ public class ConsentBean extends AbstractTransactionedBean{
         this.rightholders = rightholders;
     }
 
+    public String getRecipientsMaritalStatus() {
+        String maritalStatus = "";
+        if (this.getRecipientList() != null && this.getRecipientList().size() > 0) {
+            for (PartySummaryBean party : this.getRecipientList()) {
+                if (maritalStatus.equals("")) {
+                    maritalStatus = party.getPartyBean().getLegalType();
+                } else {
+                    maritalStatus = maritalStatus + ", " + party.getPartyBean().getLegalType();
+                }
+            }
+        }
+        return maritalStatus.toUpperCase();
+    }
+
+    public void setRecipientsMaritalStatus(String recipientsMaritalStatus) {
+        if (recipientsMaritalStatus == null) {
+            recipientsMaritalStatus = "";
+        }
+        this.recipientsMaritalStatus = recipientsMaritalStatus;
+    }
+
+    public String getRightholdersMaritalStatus() {
+        String maritalStatus = "";
+        if (this.getRightHolderList() != null && this.getRightHolderList().size() > 0) {
+            for (PartySummaryBean party : this.getRightHolderList()) {
+                if (maritalStatus.equals("")) {
+                    maritalStatus = party.getPartyBean().getLegalType();
+                } else {
+                    maritalStatus = maritalStatus + ", " + party.getPartyBean().getLegalType();
+                }
+            }
+        }
+        return maritalStatus.toUpperCase();
+    }
+
+    public void setRightholdersMaritalStatus(String rightholdersMaritalStatus) {
+        if (rightholdersMaritalStatus == null) {
+            rightholdersMaritalStatus = "";
+        }
+        this.rightholdersMaritalStatus = rightholdersMaritalStatus;
+    }
+
     public String getFreeText() {
         return freeText;
     }
 
     public void setFreeText(String freeText) {
-        if (freeText == null){
+        if (freeText == null) {
             freeText = "";
         }
         this.freeText = freeText;
@@ -243,5 +285,4 @@ public class ConsentBean extends AbstractTransactionedBean{
         }
         this.parcelAddress = parcelAddress;
     }
-    
 }

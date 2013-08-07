@@ -40,6 +40,7 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.logging.Level;
+import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.application.ApplicationBean;
@@ -64,6 +65,7 @@ import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.common.RolesConstants;
+import org.sola.common.WindowUtility;
 import org.sola.common.help.HelpUtility;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
@@ -74,13 +76,16 @@ import org.sola.common.messaging.MessageUtility;
  */
 public class MainForm extends javax.swing.JFrame {
 
+    public static final String MAIN_FORM_HEIGHT = "mainFormHeight";
+    public static final String MAIN_FORM_WIDTH = "mainFormWitdh";
+    public static final String MAIN_FORM_TOP = "mainFormTop";
+    public static final String MAIN_FORM_LEFT = "mainFormLeft";
     private ApplicationSearchPanel searchApplicationPanel;
     private DocumentSearchForm searchDocPanel;
     private PartySearchPanelForm searchPartyPanel;
     private BaUnitSearchForm searchBaUnitPanel;
     // Create a variable holding the listener
     KeyAdapter keyAdapterAppSearch = new KeyAdapter() {
-
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -90,7 +95,6 @@ public class MainForm extends javax.swing.JFrame {
     };
     // Create a variable holding the listener
     KeyAdapter keyAdapterDocSearch = new KeyAdapter() {
-
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -100,7 +104,6 @@ public class MainForm extends javax.swing.JFrame {
     };
     // Create a variable holding the listener
     KeyAdapter keyAdapterBaUnitSearch = new KeyAdapter() {
-
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -110,7 +113,6 @@ public class MainForm extends javax.swing.JFrame {
     };
     // Create a variable holding the listener
     KeyAdapter keyAdapterPartySearch = new KeyAdapter() {
-
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -185,13 +187,18 @@ public class MainForm extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(imgURL).getImage());
 
         initComponents();
-        HelpUtility.getInstance().registerHelpMenu(jmiContextHelp, "overview");
+        HelpUtility.getInstance().registerHelpMenu(jmiContextHelp, HelpUtility.DEFAULT_HELP_TOPIC);
+        this.setTitle("SOLA Lesotho - " + LocalizationManager.getVersionNumber());
 
         this.addWindowListener(new java.awt.event.WindowAdapter() {
-
             @Override
             public void windowOpened(WindowEvent e) {
                 postInit();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                preClose();
             }
         });
 
@@ -201,7 +208,7 @@ public class MainForm extends javax.swing.JFrame {
      * Create combobox with languages
      */
     private LanguageCombobox createLanguageCombobox() {
-        return new LanguageCombobox(MainForm.class);
+        return new LanguageCombobox();
     }
 
     /**
@@ -210,12 +217,9 @@ public class MainForm extends javax.swing.JFrame {
      * has been opened. It helps to display form with no significant delays.
      */
     private void postInit() {
-        // Set center screen location 
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = ((dim.width) / 2);
-        int y = ((dim.height) / 2);
 
-        this.setLocation(x - (this.getWidth() / 2), y - (this.getHeight() / 2));
+        // Set screen size and location 
+        configureForm();
 
         // Customize buttons
         btnNewApplication.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_CREATE_APPS));
@@ -228,11 +232,61 @@ public class MainForm extends javax.swing.JFrame {
         menuNewApplication.setEnabled(btnNewApplication.isEnabled());
         menuExportRights.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_RIGHTS_EXPORT));
         btnAccessDisputeForm.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_DISPUTE_VIEW));
-        
+
         // Load dashboard
         openDashBoard();
 
         txtUserName.setText(SecurityBean.getCurrentUser().getUserName());
+    }
+
+    /**
+     * Sets the screen size and location based on the settings stored in the
+     * users preferences.
+     */
+    private void configureForm() {
+
+        int height = this.getHeight();
+        int width = this.getWidth();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = ((dim.width) / 2) - (width / 2);
+        int y = ((dim.height) / 2) - (height / 2);
+
+        if (WindowUtility.hasUserPreferences()) {
+            // Set the size of the screen
+            Preferences prefs = WindowUtility.getUserPreferences();
+            height = Integer.parseInt(prefs.get(MAIN_FORM_HEIGHT, Integer.toString(height)));
+            width = Integer.parseInt(prefs.get(MAIN_FORM_WIDTH, Integer.toString(width)));
+            y = Integer.parseInt(prefs.get(MAIN_FORM_TOP, Integer.toString(y)));
+            x = Integer.parseInt(prefs.get(MAIN_FORM_LEFT, Integer.toString(x)));
+            if (height > dim.height || height < 50) {
+                height = dim.height - 50 - y;
+            }
+            if (width > dim.width || width < 200) {
+                width = dim.width - 20 - x;
+            }
+            if (y + 10 > dim.height || y + height - 100 < 0) {
+                y = 5;
+            }
+            if (x + 10 > dim.width || x + width - 100 < 0) {
+                x = 10;
+            }
+            this.setSize(width, height);
+        }
+        this.setLocation(x, y);
+    }
+
+    /**
+     * Captures the screen size and location and saves them as the users
+     * preference just before the screen is is closed.
+     */
+    private void preClose() {
+        if (WindowUtility.hasUserPreferences()) {
+            Preferences prefs = WindowUtility.getUserPreferences();
+            prefs.put(MAIN_FORM_HEIGHT, Integer.toString(this.getHeight()));
+            prefs.put(MAIN_FORM_WIDTH, Integer.toString(this.getWidth()));
+            prefs.put(MAIN_FORM_TOP, Integer.toString(this.getY()));
+            prefs.put(MAIN_FORM_LEFT, Integer.toString(this.getX()));
+        }
     }
 
     private void setAllLogLevel() {
@@ -249,7 +303,6 @@ public class MainForm extends javax.swing.JFrame {
 
     private void openMap() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_MAP));
@@ -266,7 +319,6 @@ public class MainForm extends javax.swing.JFrame {
 
     private void searchApplications() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_APPSEARCH));
@@ -293,7 +345,6 @@ public class MainForm extends javax.swing.JFrame {
 
     private void searchBaUnit() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTYSEARCH));
@@ -316,7 +367,6 @@ public class MainForm extends javax.swing.JFrame {
 
     private void searchDocuments() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DOCUMENTSEARCH));
@@ -339,7 +389,6 @@ public class MainForm extends javax.swing.JFrame {
 
     private void openSearchParties() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PERSONSEARCH));
@@ -429,7 +478,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void setLanguage(String code, String country) {
-        LocalizationManager.setLanguage(DesktopApplication.class, code, country);
+        LocalizationManager.setLanguage(code, country);
         MessageUtility.displayMessage(ClientMessage.GENERAL_UPDATE_LANG);
     }
 
@@ -466,7 +515,8 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     /**
-     * Calls {@link MainForm#checkBeanState(org.sola.clients.beans.AbstractBindingBean)}
+     * Calls
+     * {@link MainForm#checkBeanState(org.sola.clients.beans.AbstractBindingBean)}
      * method to detect if there are any changes on the provided bean. If it
      * returns true, warning message is shown and the result of user selection
      * is returned. If user clicks <b>Yes</b> button to confirm saving changes,
@@ -491,7 +541,6 @@ public class MainForm extends javax.swing.JFrame {
      */
     public void openApplicationForm(final ApplicationBean app) {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_APP));
@@ -510,7 +559,6 @@ public class MainForm extends javax.swing.JFrame {
      */
     public void openApplicationForm(final String id) {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_APP));
@@ -527,7 +575,6 @@ public class MainForm extends javax.swing.JFrame {
      */
     public void openApplicationForm() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_APPNEW));
@@ -555,7 +602,6 @@ public class MainForm extends javax.swing.JFrame {
      */
     public void openDocumentViewForm(final PowerOfAttorneyBean powerOfAttorney) {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_DOCUMENT_FORM_OPENING));
@@ -598,7 +644,6 @@ public class MainForm extends javax.swing.JFrame {
         menuView = new javax.swing.JMenu();
         menuLanguage = new javax.swing.JMenu();
         menuLangEN = new javax.swing.JMenuItem();
-        menuLangIT = new javax.swing.JMenuItem();
         menuLogLevel = new javax.swing.JMenu();
         menuAllLogLevel = new javax.swing.JMenuItem();
         menuDefaultLogLevel = new javax.swing.JMenuItem();
@@ -821,15 +866,6 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuLanguage.add(menuLangEN);
 
-        menuLangIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flags/it.jpg"))); // NOI18N
-        menuLangIT.setText(bundle.getString("MainForm.menuLangIT.text")); // NOI18N
-        menuLangIT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLangITActionPerformed(evt);
-            }
-        });
-        menuLanguage.add(menuLangIT);
-
         menuView.add(menuLanguage);
 
         menuLogLevel.setText(bundle.getString("MainForm.menuLogLevel.text")); // NOI18N
@@ -953,6 +989,11 @@ public class MainForm extends javax.swing.JFrame {
 
         jmiContextHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/help.png"))); // NOI18N
         jmiContextHelp.setText(bundle.getString("MainForm.jmiContextHelp.text")); // NOI18N
+        jmiContextHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiContextHelpActionPerformed(evt);
+            }
+        });
         helpMenu.add(jmiContextHelp);
 
         menuBar.add(helpMenu);
@@ -1048,10 +1089,6 @@ public class MainForm extends javax.swing.JFrame {
         setLanguage("en", "US");
     }//GEN-LAST:event_menuLangENActionPerformed
 
-    private void menuLangITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLangITActionPerformed
-        setLanguage("it", "IT");
-    }//GEN-LAST:event_menuLangITActionPerformed
-
     private void btnOpenBaUnitSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenBaUnitSearchActionPerformed
         searchBaUnit();
     }//GEN-LAST:event_btnOpenBaUnitSearchActionPerformed
@@ -1085,6 +1122,10 @@ public class MainForm extends javax.swing.JFrame {
         openDispute();
     }//GEN-LAST:event_btnAccessDisputeFormActionPerformed
 
+    private void jmiContextHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiContextHelpActionPerformed
+        HelpUtility.getInstance().showTopic(HelpUtility.DEFAULT_HELP_TOPIC);
+    }//GEN-LAST:event_jmiContextHelpActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1094,7 +1135,6 @@ public class MainForm extends javax.swing.JFrame {
      */
     private void showPasswordPanel() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
 //                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_MAP));
@@ -1111,7 +1151,6 @@ public class MainForm extends javax.swing.JFrame {
 
     private void openDispute() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_DISFORM));
@@ -1152,7 +1191,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuDocumentSearch;
     private javax.swing.JMenuItem menuExportRights;
     private javax.swing.JMenuItem menuLangEN;
-    private javax.swing.JMenuItem menuLangIT;
     private javax.swing.JMenu menuLanguage;
     private javax.swing.JMenuItem menuLodgementReport;
     private javax.swing.JMenu menuLogLevel;

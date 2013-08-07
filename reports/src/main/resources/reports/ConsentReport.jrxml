@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
 	<property name="ireport.zoom" value="1.1289478601075549"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="48"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
@@ -38,6 +38,12 @@
 	</field>
 	<field name="rightHolders" class="java.lang.String">
 		<fieldDescription><![CDATA[rightHolders]]></fieldDescription>
+	</field>
+	<field name="recipientsMaritalStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[recipientsMaritalStatus]]></fieldDescription>
+	</field>
+	<field name="rightholdersMaritalStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[rightholdersMaritalStatus]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -152,7 +158,7 @@
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{LESSEES_MARITAL_STATUS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{rightholdersMaritalStatus}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="87" y="135" width="457" height="20"/>
@@ -166,7 +172,7 @@
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{RECIPIENTS_MARITAL_STATUS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{recipientsMaritalStatus}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="221" y="175" width="268" height="20"/>

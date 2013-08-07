@@ -27,6 +27,8 @@
  */
 package org.sola.clients.swing.desktop;
 
+import org.sola.clients.swing.common.LocalizationManager;
+
 /** Simple dialog form to display product information */
 public class AboutForm extends javax.swing.JDialog {
 
@@ -34,6 +36,7 @@ public class AboutForm extends javax.swing.JDialog {
         super(parent);
         initComponents();
         getRootPane().setDefaultButton(closeButton);
+        appVersionLabel.setText(LocalizationManager.getVersionNumber()); 
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -113,20 +116,18 @@ public class AboutForm extends javax.swing.JDialog {
                             .add(vendorLabel)
                             .add(homepageLabel))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(appVersionLabel)
-                            .add(appVendorLabel)
-                            .add(appHomepageLabel)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(appVersionLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(appHomepageLabel)
+                            .add(appVendorLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(0, 0, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(appTitleLabel)
-                                .add(44, 44, 44))
-                            .add(appDescLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
-                        .add(16, 16, 16)
+                        .add(appTitleLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 180, Short.MAX_VALUE)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
-                            .add(closeButton))))
+                            .add(closeButton)))
+                    .add(appDescLabel))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

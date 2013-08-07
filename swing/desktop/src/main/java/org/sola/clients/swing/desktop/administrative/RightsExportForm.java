@@ -39,7 +39,7 @@ public class RightsExportForm extends ContentPanel {
 
         setHeaderPanel(headerPanel1);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
-        setHelpTopic(bundle.getString("RightsExportForm")); // NOI18N
+        setHelpTopic(bundle.getString("RightsExportForm.helpTopic")); // NOI18N
 
         headerPanel1.setTitleText("Finance Export");
 

@@ -16,6 +16,7 @@ import org.sola.clients.swing.ui.DesktopClientExceptionHandler;
 import org.sola.clients.swing.ui.security.LoginForm;
 import org.sola.clients.swing.ui.security.LoginPanel;
 import org.sola.common.RolesConstants;
+import org.sola.common.WindowUtility;
 import org.sola.common.logging.LogUtility;
 
 /**
@@ -30,6 +31,7 @@ public class BulkOperationsApplication {
      */
     public static void main(String[] args) {
         // Show splash screen
+        WindowUtility.setMainAppClass(BulkOperationsApplication.class);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         int x = ((dim.width) / 2);
         int y = ((dim.height) / 2);
@@ -55,11 +57,10 @@ public class BulkOperationsApplication {
                 int y = ((dim.height) / 2);
 
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
-                LocalizationManager.loadLanguage(BulkOperationsApplication.class);
-                LogUtility.initialize(BulkOperationsApplication.class);
+                LocalizationManager.loadLanguage();
                 LafManager.getInstance().setProperties("green");
 
-                final LoginForm loginForm = new LoginForm(BulkOperationsApplication.class);
+                final LoginForm loginForm = new LoginForm();
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
 
                     @Override

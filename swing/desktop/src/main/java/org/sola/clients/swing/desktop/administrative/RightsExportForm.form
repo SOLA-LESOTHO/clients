@@ -6,7 +6,7 @@
       <ComponentRef name="headerPanel1"/>
     </Property>
     <Property name="helpTopic" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="RightsExportForm" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="RightsExportForm.helpTopic" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <AuxValues>
