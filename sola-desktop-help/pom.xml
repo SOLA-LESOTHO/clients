@@ -78,5 +78,11 @@
         </plugins>
         <finalName>${project.artifactId}</finalName>
     </build>
+    <description>Used to create a stub web site in Glassfish to host the SOLA Lesotho User Guide. 
+The user guide should be called SOLAUserGuide.pdf and updates to the User Guide
+should be copied to the root folder for this web site. Note that the context root for
+this site is sola/help. 
 
+The User Guide itself has been explicitly omitted from this project as it will quickly bloat
+the git repository. </description>
 </project>
