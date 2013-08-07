@@ -369,7 +369,8 @@ public class LeasePanel extends ContentPanel {
         if (rrrBean.validate(true, Default.class, LeaseValidationGroup.class).size() < 1) {
             final LeaseReportBean reportBean = prepareReportBean();
             if (reportBean != null) {
-                showReport(ReportManager.getLeaseReport(reportBean, createMapImage()));
+                //#79 - Plot diagram is not required (by law)
+                showReport(ReportManager.getLeaseReport(reportBean, null));
             }
         }
     }
