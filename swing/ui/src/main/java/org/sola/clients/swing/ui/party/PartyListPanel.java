@@ -7,11 +7,7 @@ import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.security.SecurityBean;
-import org.sola.clients.swing.common.tasks.SolaTask;
-import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.common.RolesConstants;
-import org.sola.common.messaging.ClientMessage;
-import org.sola.common.messaging.MessageUtility;
 import org.sola.webservices.transferobjects.EntityAction;
 
 /**
@@ -76,7 +72,7 @@ public class PartyListPanel extends javax.swing.JPanel {
     private void customizeButtons(){
         boolean enabled = selectedPerson!=null;
         boolean hasPartySaveRole = SecurityBean.isInRole(RolesConstants.PARTY_SAVE);
-        btnEdit.setEnabled(enabled && !readOnly && hasPartySaveRole);
+        btnEdit.setEnabled(enabled && !readOnly && hasPartySaveRole && !selectedPerson.isRightHolder());
         btnView.setEnabled(enabled);
         btnRemove.setEnabled(enabled && !readOnly);
         btnSearch.setEnabled(!readOnly);

@@ -41,6 +41,7 @@ import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
+import org.sola.clients.swing.ui.renderers.BooleanCellRenderer;
 import org.sola.common.RolesConstants;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -355,6 +356,7 @@ public class PartySearchPanel extends JPanel {
         tableSearchResults.getColumnModel().getColumn(2).setPreferredWidth(120);
         tableSearchResults.getColumnModel().getColumn(2).setMaxWidth(150);
         tableSearchResults.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PartySearchPanel.tableSearchResults.columnModel.title2_1")); // NOI18N
+        tableSearchResults.getColumnModel().getColumn(2).setCellRenderer(new BooleanCellRenderer());
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);

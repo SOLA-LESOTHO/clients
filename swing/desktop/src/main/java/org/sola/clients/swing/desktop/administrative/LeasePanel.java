@@ -216,7 +216,7 @@ public class LeasePanel extends ContentPanel {
         txtUsableLand.setEnabled(leaseEnabled);
         txtExpirationDate.setEnabled(leaseEnabled);
         txtExecutionDate.setEnabled(leaseEnabled);
-        txtRent.setEnabled(leaseEnabled);
+        //txtRent.setEnabled(leaseEnabled);
         txtDueDate.setEnabled(leaseEnabled);
         partyList.setReadOnly(!partyListEnabled);
         btnCalculateGroundRent.setEnabled(leaseEnabled);
@@ -1180,6 +1180,7 @@ public class LeasePanel extends ContentPanel {
 
         txtRent.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
         txtRent.setText(bundle.getString("LeasePanel.txtRent.text_1")); // NOI18N
+        txtRent.setEnabled(false);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${groundRent}"), txtRent, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
@@ -1264,7 +1265,7 @@ public class LeasePanel extends ContentPanel {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1613,7 +1614,7 @@ public class LeasePanel extends ContentPanel {
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(parcelPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(bundle.getString("LeasePanel.subplotTabPanel.TabConstraints.tabTitle"), subplotTabPanel); // NOI18N
