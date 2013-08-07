@@ -40,6 +40,7 @@ public class RightsExportResultBean extends AbstractBindingBean {
     private String rightRegistrationNumber;
     private Date rightExpirationDate;
     private BigDecimal groundRent;
+    private BigDecimal serviceFee;
     private BigDecimal stampDuty;
     private BigDecimal transferDuty;
     private BigDecimal registrationFee;
@@ -247,6 +248,17 @@ public class RightsExportResultBean extends AbstractBindingBean {
 
     public void setGroundRent(BigDecimal groundRent) {
         this.groundRent = groundRent;
+    }
+
+    public BigDecimal getServiceFee() {
+        if(serviceFee==null){
+            return BigDecimal.ZERO;
+        }
+        return serviceFee;
+    }
+
+    public void setServiceFee(BigDecimal serviceFee) {
+        this.serviceFee = serviceFee;
     }
 
     public BigDecimal getLandUsable() {
