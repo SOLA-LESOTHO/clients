@@ -17,6 +17,9 @@ package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFormattedTextField;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.administrative.BaUnitBean;
@@ -31,6 +34,7 @@ import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.reports.FreeTextDialog;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.common.DateUtility;
+import org.sola.common.NumberToWords;
 import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -40,7 +44,7 @@ import org.sola.common.messaging.MessageUtility;
  *
  */
 public class ConsentPanel extends ContentPanel {
-
+    
     private ConsentBean consentBean;
     private ApplicationBean appBean;
     private ApplicationServiceBean appService;
@@ -48,13 +52,12 @@ public class ConsentPanel extends ContentPanel {
     private String consentType;
     public static final String UPDATED_RRR = "updatedRRR";
     private PartyListExtPanel persons;
-
+    
     private PartyListExtPanel createPartyListPanel(String role) {
         if (role.equals("rightholder")) {
             return new PartyListExtPanel(consentBean.getRightHolderList());
         } else {
             persons = new PartyListExtPanel(consentBean.getRecipientList());
-            //return new PartyListExtPanel(consentBean.getRecipientList());
             return persons;
         }
     }
@@ -66,31 +69,30 @@ public class ConsentPanel extends ContentPanel {
         this.baUnitBean = baUnitBean;
         this.appBean = appBean;
         this.appService = appService;
-        //this.rrrAction = rrrAction;
         this.consentType = consentType;
         this.consentBean = new ConsentBean();
-
+        
         prepareConsentBean(baUnitBean);
         initComponents();
         postInit();
     }
-
+    
     private void postInit() {
         customizeForm();
     }
-
+    
     private void customizeForm() {
         headerPanel2.setTitleText(consentType + ": " + consentBean.getLeaseNumber());
     }
-
+    
     private void prepareConsentBean(BaUnitBean baUnit) {
-
+        
         if (baUnit == null) {
             consentBean = new ConsentBean();
         }
         consentBean.setBaUnit(baUnit);
         consentBean.setLeaseNumber(baUnit.getName());
-
+        
         consentBean.setRightholderRrr(baUnit.getPrimaryRight());
         consentBean.setRightHolderList(consentBean.getRightholderRrr().getRightHolderList());
         consentBean.setServiceFee(appService.getBaseFee());
@@ -99,35 +101,62 @@ public class ConsentPanel extends ContentPanel {
         consentBean.setRecipients(consentBean.getRecipients());
         String address = consentBean.getBaUnit().getCadastreObject().getAddressString();
         consentBean.setParcelAddress(address);
+        consentBean.setRegistrationDate(new Date());
+        consentBean.setRegistrationDay(new Date());
+        consentBean.setExpirationDate(new Date());
+        
+        consentBean1 = consentBean;
     }
-
+    
     private void showCalendar(JFormattedTextField dateField) {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
     }
-
+    
     private void printConsentCertificate(String txtConditionText) {
         consentBean.setRecipientList(persons.getPersonList());
-
+        
         if (consentBean.validate(true).size() > 0) {
-            return;
-
+            return;            
         }
-
+        
         if (txtExpirationDate.getText().isEmpty() || txtExpirationDate.getText() == null) {
             MessageUtility.displayMessage(ClientMessage.CONSENT_PROVIDE_EXPIRATION);
             return;
         }
-
+        
         if (consentBean != null) {
             showReport(ReportManager.getConsentReport(consentBean,
-                    txtConditionText,
-                    txtExpirationDate.getText(),
-                    txtRent.getText(),
+                    getConditionText(txtConditionText),
+                    txtExpirationDate.getText(),                   
+                    getRent(txtRent.getText()),
                     txtTransactionType.getSelectedItem().toString()));
         }
     }
-
+    
+        
+    private String getConditionText(String conditionText) {
+        if (conditionText == null || conditionText.equals("") || conditionText.length() == 0) {
+            conditionText = "[NONE]";
+        }
+        return conditionText;
+    }
+    
+    private String getRent(String rent) {
+        if (rent != null && !rent.equals("") && rent.length() != 0) {
+            return "M " + rent  + " ( " + getConsiderationAmountWord(rent) + " )";
+        }
+        return "M 0.00";
+    }
+    
+    /**
+     * Calculates and returns lease term in years transformed into words.
+     */
+    public String getConsiderationAmountWord(String amount) {
+        NumberToWords.DefaultProcessor processor = new NumberToWords.DefaultProcessor();
+        return processor.getName(amount);
+    }        
+    
     private void printConsentRejectionLetter() {
         consentBean.setRecipientList(persons.getPersonList());
         if (consentBean != null) {
@@ -136,9 +165,9 @@ public class ConsentPanel extends ContentPanel {
                     MessageUtility.getLocalizedMessageText(ClientMessage.BAUNIT_LEASE_REJECTION_REASON_TITLE),
                     null, MainForm.getInstance(), true);
             WindowUtility.centerForm(form);
-
+            
             form.addPropertyChangeListener(new PropertyChangeListener() {
-
+                
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     if (evt.getPropertyName().equals(FreeTextDialog.TEXT_TO_SAVE)) {
@@ -147,9 +176,9 @@ public class ConsentPanel extends ContentPanel {
                 }
             });
             form.setVisible(true);
-
+            
             consentBean.setTransactionType(txtTransactionType.getSelectedItem().toString());
-            consentBean.setLodgingDate(this.getApplicationDate());
+            consentBean.setLodgingDate(appBean.getLodgingDatetime());
             consentBean.setServiceName(txtTransactionType.getSelectedItem().toString());
             showReport(ReportManager.getConsentRejectionReport(consentBean, appBean));
         }
@@ -162,7 +191,7 @@ public class ConsentPanel extends ContentPanel {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setLocationRelativeTo(this);
         form.setVisible(true);
-
+        
     }
 
     /**
@@ -171,7 +200,7 @@ public class ConsentPanel extends ContentPanel {
     public String getApplicationDate() {
         return DateUtility.getShortDateString(appBean.getLodgingDatetime(), true);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -290,12 +319,15 @@ public class ConsentPanel extends ContentPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel2.setText("Registration Date");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, consentBean1, org.jdesktop.beansbinding.ELProperty.create("${rightholderRrr.registrationDate}"), txtRegistrationDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        txtRegistrationDate.setEditable(false);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, consentBean1, org.jdesktop.beansbinding.ELProperty.create("${consentDate}"), txtRegistrationDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
         btnSubmissionDateFrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
         btnSubmissionDateFrom.setText(bundle.getString("LeasePanel.btnSubmissionDateFrom.text")); // NOI18N
         btnSubmissionDateFrom.setBorder(null);
+        btnSubmissionDateFrom.setEnabled(false);
         btnSubmissionDateFrom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmissionDateFromActionPerformed(evt);
@@ -328,6 +360,9 @@ public class ConsentPanel extends ContentPanel {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel4.setText("Expiration Date");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, consentBean1, org.jdesktop.beansbinding.ELProperty.create("${expirationDate}"), txtExpirationDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
 
         btnSubmissionDateFrom1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
         btnSubmissionDateFrom1.setText(bundle.getString("LeasePanel.btnSubmissionDateFrom.text")); // NOI18N
@@ -424,7 +459,7 @@ public class ConsentPanel extends ContentPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(0, 244, Short.MAX_VALUE))
+                        .addGap(0, 20, Short.MAX_VALUE))
                     .addComponent(txtConditionText))
                 .addContainerGap())
         );
@@ -478,7 +513,7 @@ public class ConsentPanel extends ContentPanel {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(groupPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(rightHolderListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1131, Short.MAX_VALUE)
+                .addComponent(rightHolderListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -496,7 +531,7 @@ public class ConsentPanel extends ContentPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 1141, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -507,7 +542,7 @@ public class ConsentPanel extends ContentPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        groupPanel2.setTitleText("Recipients");
+        groupPanel2.setTitleText("Transferee");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -518,7 +553,7 @@ public class ConsentPanel extends ContentPanel {
                 .addContainerGap())
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(recipientListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1121, Short.MAX_VALUE)
+                .addComponent(recipientListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
         jPanel12Layout.setVerticalGroup(
@@ -577,34 +612,35 @@ public class ConsentPanel extends ContentPanel {
     private void menuAddOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddOwnerActionPerformed
         //
     }//GEN-LAST:event_menuAddOwnerActionPerformed
-
+    
     private void menuEditOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditOwnerActionPerformed
         //
     }//GEN-LAST:event_menuEditOwnerActionPerformed
-
+    
     private void menuRemoveOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveOwnerActionPerformed
         //
     }//GEN-LAST:event_menuRemoveOwnerActionPerformed
-
+    
     private void menuViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuViewOwnerActionPerformed
         //
     }//GEN-LAST:event_menuViewOwnerActionPerformed
-
+    
     private void btnSubmissionDateFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFromActionPerformed
         showCalendar(txtRegistrationDate);
     }//GEN-LAST:event_btnSubmissionDateFromActionPerformed
+        
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        printConsentCertificate(txtConditionText.getText());
+    }//GEN-LAST:event_btnPrintActionPerformed
+    
+    private void btnPrintRejectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintRejectionActionPerformed
+        printConsentRejectionLetter();
+    }//GEN-LAST:event_btnPrintRejectionActionPerformed
 
     private void btnSubmissionDateFrom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFrom1ActionPerformed
         showCalendar(txtExpirationDate);
     }//GEN-LAST:event_btnSubmissionDateFrom1ActionPerformed
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        printConsentCertificate(txtConditionText.getText());
-    }//GEN-LAST:event_btnPrintActionPerformed
-
-    private void btnPrintRejectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintRejectionActionPerformed
-        printConsentRejectionLetter();
-    }//GEN-LAST:event_btnPrintRejectionActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnPrintRejection;

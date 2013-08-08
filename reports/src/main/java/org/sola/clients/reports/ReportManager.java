@@ -460,13 +460,7 @@ public class ReportManager {
             ) {
 
         HashMap inputParameters = new HashMap();
-
-        if (amount.isEmpty() || amount.equals("")){
-                amount = "0.00";
-            }
                 
-        inputParameters.put("NAME_FIRSTPART", consentBean.getBaUnit().getNameFirstpart());
-        inputParameters.put("NAME_LASTPART", consentBean.getBaUnit().getNameLastpart());
         inputParameters.put("DUE_DATE", expirationDate);
         inputParameters.put("CONDITION_TEXT", conditionText);
         inputParameters.put("CONSIDERATION_AMOUNT", amount);

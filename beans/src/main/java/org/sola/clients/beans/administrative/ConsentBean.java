@@ -16,7 +16,10 @@
 package org.sola.clients.beans.administrative;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import javax.validation.constraints.Size;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.administrative.validation.ConsentBeanCheck;
@@ -25,7 +28,6 @@ import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.validation.Localized;
-import org.sola.common.DateUtility;
 import org.sola.common.messaging.ClientMessage;
 
 /**
@@ -33,8 +35,9 @@ import org.sola.common.messaging.ClientMessage;
  * @author Tokelo
  */
 @ConsentBeanCheck
-public class ConsentBean extends AbstractTransactionedBean {
+public final class ConsentBean extends AbstractTransactionedBean {
 
+    public static final String REGISTRATION_DATE_PROPERTY = "registrationDate";
     private BaUnitBean baUnit;
     private RrrBean rightholderRrr;
     private String conditionText;
@@ -52,12 +55,19 @@ public class ConsentBean extends AbstractTransactionedBean {
     private String lodgingDate;
     private String serviceName;
     private String parcelAddress;
+    private Date consentDate;
+    private String registrationDate;
+    private String registrationDay;
+    private String expirationDate;
 
     public ConsentBean() {
         super();
         rightHolderList = new SolaList();
         baUnit = new BaUnitBean();
         rightholderRrr = new RrrBean();
+        consentDate = new Date();
+        this.setExpirationDate(consentDate);
+        expirationDate = getExpirationDate();
     }
 
     public void setConditionText(String conditionText) {
@@ -257,11 +267,11 @@ public class ConsentBean extends AbstractTransactionedBean {
         return lodgingDate;
     }
 
-    public void setLodgingDate(String lodgingDate) {
+    public void setLodgingDate(Date lodgingDate) {
         if (lodgingDate == null) {
-            lodgingDate = "";
+            lodgingDate = new Date();
         }
-        this.lodgingDate = lodgingDate;
+        this.lodgingDate = DateFormatUtils.format(lodgingDate, "d MMMMM yyyy");
     }
 
     public String getServiceName() {
@@ -284,5 +294,52 @@ public class ConsentBean extends AbstractTransactionedBean {
             parcelAddress = "";
         }
         this.parcelAddress = parcelAddress;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = DateFormatUtils.format(registrationDate, "MMMMM yyyy");
+    }
+
+    public String getRegistrationDay() {
+        return registrationDay;
+    }
+
+    public void setRegistrationDay(Date registrationDay) {
+        this.registrationDay = DateFormatUtils.format(registrationDay, "dd");
+    }
+
+    public Date getConsentDate() {
+        return consentDate;
+    }
+
+    public void setConsentDay(Date consentDate) {
+        this.consentDate = consentDate;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    /*
+     * Expiration date for Consent Application is always the next 31st of March
+     */
+    public void setExpirationDate(Date expirationDate) {
+        Integer currentYear = Integer.parseInt(DateFormatUtils.format(expirationDate, "yyyy"));
+        Integer currentMonth = Integer.parseInt(DateFormatUtils.format(expirationDate, "M"));
+        
+        if (currentMonth > 3){
+            currentYear = currentYear + 1;
+        }
+        
+        Calendar oldExpirationDate = Calendar.getInstance();
+        oldExpirationDate.set(currentYear, 2, 31);
+        
+        Date newExpirationDate = oldExpirationDate.getTime();
+        this.expirationDate = DateFormatUtils.format(newExpirationDate, "d MMMMM yyyy");
+
     }
 }
