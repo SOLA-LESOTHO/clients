@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5ec07a5-2423-4ec6-92b7-61d1440c1b25">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="44"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -171,7 +171,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "<b>THIS SURRENDER</b> is made between:  <b>%s</b>", 
-$F{lessees}
+$F{lesseesAndMaritalStatus}
 )]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
@@ -195,7 +195,7 @@ $F{lesseeAddress}
 "<p></p>" +
 "<b>WHEREAS:</b>" +
 "<p></p>" +
-"1.	This deed is supplemental to a registered lease number: <b>%s</b>" +
+"1.	This deed is supplemental to a registered lease number: <b>%s</b> for a plot located at <b>%s</b>" +
 "<p></p>" +
 "2.	  issued by the <b>Commissioner of Lands</b>." +
 "<p></p>" +
@@ -210,10 +210,8 @@ $F{lesseeAddress}
 "demised by the said lease to the intent that the term of years deemed to be granted by the lease may merge and be extinguished." +
 "<p></p>" +
 "6.	The State hereby releases the lessee from all liabilities, claims and demands arising from the said lease." +
-"<p></p>" +
-"<b>Thus done, signed and executed</b> on this <b>%s</b> day of <b>%s</b> at Maseru, and lessee acknowledges that he/she knows and understands the contents herein.",
-$F{parcelCode},
-$F{leaseExecutionDay}, $F{leaseExecutionMonthAndYear}
+"<p></p>",
+$F{parcelCode}, $F{parcelAddress}
 )]]></textFieldExpression>
 			</textField>
 		</band>
