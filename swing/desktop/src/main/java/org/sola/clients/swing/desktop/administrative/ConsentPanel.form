@@ -228,8 +228,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="txtRegistrationDate">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
               <BindingProperties>
-                <BindingProperty name="value" source="consentBean1" sourcePath="${rightholderRrr.registrationDate}" target="txtRegistrationDate" targetPath="value" updateStrategy="0" immediately="false"/>
+                <BindingProperty name="value" source="consentBean1" sourcePath="${consentDate}" target="txtRegistrationDate" targetPath="value" updateStrategy="0" immediately="false"/>
               </BindingProperties>
             </Component>
             <Component class="javax.swing.JButton" name="btnSubmissionDateFrom">
@@ -243,6 +246,7 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmissionDateFromActionPerformed"/>
@@ -292,6 +296,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="txtExpirationDate">
+              <BindingProperties>
+                <BindingProperty name="value" source="consentBean1" sourcePath="${expirationDate}" target="txtExpirationDate" targetPath="value" updateStrategy="0" immediately="false"/>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JButton" name="btnSubmissionDateFrom1">
               <Properties>
@@ -406,7 +413,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="244" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtConditionText" max="32767" attributes="0"/>
                       </Group>
@@ -449,7 +456,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel11" pref="1141" max="32767" attributes="0"/>
+                  <Component id="jPanel11" pref="917" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -478,7 +485,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="groupPanel3" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="rightHolderListPanel" pref="1131" max="32767" attributes="0"/>
+                      <Component id="rightHolderListPanel" pref="907" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -547,7 +554,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="recipientListPanel" pref="1121" max="32767" attributes="0"/>
+                      <Component id="recipientListPanel" pref="897" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -566,7 +573,7 @@
           <SubComponents>
             <Component class="org.sola.clients.swing.ui.GroupPanel" name="groupPanel2">
               <Properties>
-                <Property name="titleText" type="java.lang.String" value="Recipients"/>
+                <Property name="titleText" type="java.lang.String" value="Transferee"/>
               </Properties>
             </Component>
             <Component class="org.sola.clients.swing.desktop.party.PartyListExtPanel" name="recipientListPanel">
