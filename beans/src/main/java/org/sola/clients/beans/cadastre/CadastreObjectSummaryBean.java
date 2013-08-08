@@ -17,6 +17,7 @@ package org.sola.clients.beans.cadastre;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -68,7 +69,11 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     private Date surveyDate;
     private PartySummaryBean surveyor;
     private String remarks;
+    @Valid
+    @NotNull(message=ClientMessage.CHECK_LAND_GRADE_NOT_NULL, payload=Localized.class)
     private LandGradeTypeBean landGradeType;
+    @Valid
+    @NotNull(message=ClientMessage.CHECK_ROAD_ACCESS_NOT_NULL, payload=Localized.class)
     private RoadClassTypeBean roadClassType;
     private BigDecimal surveyFee;
     private String valuationZone;

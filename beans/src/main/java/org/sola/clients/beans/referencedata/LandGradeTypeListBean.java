@@ -31,13 +31,14 @@ package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.AbstractBindingListBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
  * Holds the list of {@link LandGradeTypeBean} objects.
  */
-public class LandGradeTypeListBean extends AbstractBindingBean {
+public class LandGradeTypeListBean extends AbstractBindingListBean {
 
     public static final String SELECTED_LAND_GRADE_TYPE_PROPERTY = "selectedLandGradeType";
     private SolaCodeList<LandGradeTypeBean> landGradeTypeList;
@@ -48,10 +49,43 @@ public class LandGradeTypeListBean extends AbstractBindingBean {
      * {@link LandGradeTypeBean} &gt; with values from the cache.
      */
     public LandGradeTypeListBean() {
-        // Load from cache by default
-        landGradeTypeList = new SolaCodeList<LandGradeTypeBean>(CacheManager.getLandGradeTypes());
+        this(false);
     }
 
+    /**
+     * Creates object instance.
+     *
+     * @param createDummy Indicates whether to add empty object on the list.
+     */
+    public LandGradeTypeListBean(boolean createDummy) {
+        this(createDummy, (String) null);
+    }
+
+    /**
+     * Creates object instance.
+     *
+     * @param createDummy Indicates whether to add empty object on the list.
+     * @param excludedCodes Codes, which should be skipped while filtering.
+     */
+    public LandGradeTypeListBean(boolean createDummy, String... excludedCodes) {
+        super();
+        landGradeTypeList = new SolaCodeList<LandGradeTypeBean>(excludedCodes);
+        loadList(createDummy);
+    }
+
+    /**
+     * Loads list of {@link LandGradeTypeBean}.
+     *
+     * @param createDummy Indicates whether to add empty object on the list.
+     */
+    public final void loadList(boolean createDummy) {
+        loadCodeList(LandGradeTypeBean.class, landGradeTypeList, CacheManager.getLandGradeTypes(), createDummy);
+    }
+
+    public void setExcludedCodes(String ... codes){
+        landGradeTypeList.setExcludedCodes(codes);
+    }
+    
     public ObservableList<LandGradeTypeBean> getLandGradeTypeList() {
         return landGradeTypeList.getFilteredList();
     }
