@@ -626,7 +626,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel14Layout.createSequentialGroup()
                 .add(labLandUse1)
-                .add(0, 88, Short.MAX_VALUE))
+                .add(0, 119, Short.MAX_VALUE))
             .add(cbxLandGrade, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
