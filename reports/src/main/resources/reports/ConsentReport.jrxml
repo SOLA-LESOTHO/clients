@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
 	<property name="ireport.zoom" value="1.1289478601075549"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="240"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
@@ -45,6 +45,12 @@
 	<field name="rightholdersMaritalStatus" class="java.lang.String">
 		<fieldDescription><![CDATA[rightholdersMaritalStatus]]></fieldDescription>
 	</field>
+	<field name="registrationDate" class="java.lang.String">
+		<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
+	</field>
+	<field name="registrationDay" class="java.lang.String">
+		<fieldDescription><![CDATA[registrationDay]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -82,7 +88,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="258" splitType="Stretch">
+		<band height="301" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="21" width="534" height="20"/>
 				<textElement>
@@ -104,89 +110,12 @@
 				</textElement>
 				<text><![CDATA[Lease number: ]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="95" width="56" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Lessee(s): ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="115" width="113" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Lessee(s) marital status: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="135" width="60" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Recipient(s): ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="155" width="124" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Recipient(s) marital status: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="175" width="180" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Consideration, assessed value or rental:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="195" width="194" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[The transaction to be effected on or before: ]]></text>
-			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="99" y="75" width="445" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{leaseNumber}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="140" y="115" width="393" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{rightholdersMaritalStatus}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="87" y="135" width="457" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{recipients}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="151" y="155" width="393" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{recipientsMaritalStatus}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="221" y="175" width="268" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{CONSIDERATION_AMOUNT}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="222" y="195" width="311" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{DUE_DATE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="87" y="55" width="457" height="20"/>
@@ -196,30 +125,33 @@
 				<textFieldExpression><![CDATA[$P{TRANSACTION_TYPE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="85" y="95" width="470" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{rightHolders}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="27" y="215" width="528" height="34"/>
-				<textElement markup="styled">
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="27" y="95" width="517" height="193"/>
+				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
-"Special Condition to this consent: " + 
-"<style isBold='true'> %s </style>", 
+"<p>Lessee(s): <b>%s</b> </p> " +
+"<p></p>" +
+"<p>Lessee(s) marital status: <b>%s</b> </p> " +
+"<p></p>" +
+"<p>Recipient(s): <b>%s</b> </p> " +
+"<p></p>" +
+"<p>Recipient(s) marital status: <b>%s</b> </p> " +
+"<p></p>" +
+"<p>Consideration, assessed value or rental: <b>%s</b> </p> " +
+"<p></p>" +
+"<p>This transaction to be effected on or before: <b>%s</b> </p> " +
+"<p></p>" +
+"<p>Special Condition to this consent: <b>%s</b> </p> ",
+$F{rightHolders},
+$F{rightholdersMaritalStatus},
+$F{recipients},
+$F{recipientsMaritalStatus},
+$P{CONSIDERATION_AMOUNT},
+$P{DUE_DATE},
 $P{CONDITION_TEXT}
 )]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="81408da3-fe84-4a70-a9f0-8c01ac489131" x="207" y="175" width="14" height="20"/>
-				<textElement textAlignment="Right" markup="none">
-					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[M]]></text>
-			</staticText>
 		</band>
 		<band height="221">
 			<staticText>
@@ -290,14 +222,14 @@ $P{CONDITION_TEXT}
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{registrationDay}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM, yyyy" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="127" y="42" width="141" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{registrationDate}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="70" y="170" width="236" height="20"/>
