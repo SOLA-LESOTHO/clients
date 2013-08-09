@@ -13,55 +13,6 @@
             
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>Access Road Scale &lt; 2000</Name>
-                    <ogc:Filter>
-                        <ogc:PropertyIsEqualTo>
-                            <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Access Road</ogc:Literal>
-                        </ogc:PropertyIsEqualTo>
-                    </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
-                    <MaxScaleDenominator>4000</MaxScaleDenominator>
-                    <LineSymbolizer>
-                        <Stroke>
-                            <CssParameter name="stroke">#F37635</CssParameter>
-                            <CssParameter name="stroke-width">2</CssParameter>
-                        </Stroke>
-                    </LineSymbolizer>
-                </Rule>
-                <Rule>
-                    <ogc:Filter>
-                        <ogc:PropertyIsEqualTo>
-                            <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Major Road</ogc:Literal>
-                        </ogc:PropertyIsEqualTo>
-                    </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
-                    <MaxScaleDenominator>15000</MaxScaleDenominator>
-                    <LineSymbolizer>
-                        <Stroke>
-                            <CssParameter name="stroke">#0C6F90</CssParameter>
-                            <CssParameter name="stroke-width">1.5</CssParameter>
-                        </Stroke>
-                    </LineSymbolizer>
-                </Rule>
-                <Rule>
-                    <ogc:Filter>
-                        <ogc:PropertyIsEqualTo>
-                            <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Highway</ogc:Literal>
-                        </ogc:PropertyIsEqualTo>
-                    </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
-                    <MaxScaleDenominator>20000</MaxScaleDenominator>
-                    <LineSymbolizer>
-                        <Stroke>
-                            <CssParameter name="stroke">#DE3B38</CssParameter>
-                            <CssParameter name="stroke-width">2.5</CssParameter>
-                        </Stroke>
-                    </LineSymbolizer>
-                </Rule>
-                <Rule>
                     <Name>All Roads</Name>
                     <MaxScaleDenominator>90000</MaxScaleDenominator>
                     <PolygonSymbolizer>
@@ -70,6 +21,7 @@
                             <CssParameter name="stroke-width">1</CssParameter>
                         </Stroke>
                     </PolygonSymbolizer>
+                    
                     <!--
                     <TextSymbolizer>
                         <Label>
@@ -77,13 +29,20 @@
                         </Label>
                         <Font>
                             <CssParameter name="font-family">Arial</CssParameter>
-                            <CssParameter name="font-size">14</CssParameter>
+                            <CssParameter name="font-size">12</CssParameter>
                             <CssParameter name="font-style">normal</CssParameter>
-                            <CssParameter name="font-weight">normal</CssParameter>
+                            <CssParameter name="font-weight">bold</CssParameter>
                         </Font>         
                         <Fill>
-                            <CssParameter name="fill">#151B8D</CssParameter>
+                            <CssParameter name="fill">#2f2f30</CssParameter>
                         </Fill>
+                        
+                        <Halo>
+                            <Radius>0.2</Radius>
+                            <Fill>
+                                <CssParameter name="fill">#EEEEEE</CssParameter>
+                            </Fill>
+                        </Halo>                          
                         
                         <VendorOption name="followLine">true</VendorOption>
                         <VendorOption name="maxAngleDelta">90</VendorOption>
@@ -96,98 +55,481 @@
                                 <PerpendicularOffset>5</PerpendicularOffset> 
                             </LinePlacement>         
                         </LabelPlacement>
-                    </TextSymbolizer>  	  
+                    </TextSymbolizer>  	
                     -->
+                    
                 </Rule>
-            </FeatureTypeStyle>
+            </FeatureTypeStyle>          
             
+            <!-- Main Tarred Toad Definition Start -->
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>Access Road</Name>
+                    <Name>Main Tarred Road</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Access Road</ogc:Literal>
+                            <ogc:Literal>Main_Roads_Tarred</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
-                    <MaxScaleDenominator>50000</MaxScaleDenominator>
+                    <MinScaleDenominator>40000</MinScaleDenominator>
+                    <MaxScaleDenominator>90000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
-                            <CssParameter name="stroke">#F37635</CssParameter>
-                            <CssParameter name="stroke-width">1</CssParameter>
+                            <CssParameter name="stroke">#ff7003</CssParameter>
+                            <CssParameter name="stroke-width">4</CssParameter>
                             <CssParameter name="stroke-linecap">butt</CssParameter>
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
                     </LineSymbolizer>
-                </Rule>
-            </FeatureTypeStyle>
-            
-            <FeatureTypeStyle>
-                <Rule>
-                    <Name>Highway</Name>
-                    <ogc:Filter>
-                        <ogc:PropertyIsEqualTo>
-                            <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Highway</ogc:Literal>
-                        </ogc:PropertyIsEqualTo>
-                    </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
-                    <MaxScaleDenominator>90000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
-                            <CssParameter name="stroke">#DE3B38</CssParameter>
+                            <CssParameter name="stroke">#FFAA69</CssParameter>
                             <CssParameter name="stroke-width">2</CssParameter>
                             <CssParameter name="stroke-linecap">butt</CssParameter>
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
-                    </LineSymbolizer>
+                    </LineSymbolizer>                    
                 </Rule>
-            </FeatureTypeStyle>
-            
-            <FeatureTypeStyle>
+                
                 <Rule>
-                    <Name>Major Road</Name>
+                    <Name>Main Tarred Road</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Major Road</ogc:Literal>
+                            <ogc:Literal>Main_Roads_Tarred</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>35</MinScaleDenominator>
-                    <MaxScaleDenominator>60000</MaxScaleDenominator>
+                    <MaxScaleDenominator>40000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
-                            <CssParameter name="stroke">#0C6F90</CssParameter>
-                            <CssParameter name="stroke-width">1</CssParameter>
+                            <CssParameter name="stroke">#ff7003</CssParameter>
+                            <CssParameter name="stroke-width">8</CssParameter>
                             <CssParameter name="stroke-linecap">butt</CssParameter>
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
                     </LineSymbolizer>
-                </Rule>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#FFAA69</CssParameter>
+                            <CssParameter name="stroke-width">6</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>    
+                    <TextSymbolizer>
+                        <Label>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                        </Label>
+                        <Font>
+                            <CssParameter name="font-family">Arial</CssParameter>
+                            <CssParameter name="font-size">12</CssParameter>
+                            <CssParameter name="font-style">normal</CssParameter>
+                            <CssParameter name="font-weight">bold</CssParameter>
+                        </Font>         
+                        <Fill>
+                            <CssParameter name="fill">#2f2f30</CssParameter>
+                        </Fill>
+                        
+                        <Halo>
+                            <Radius>0.2</Radius>
+                            <Fill>
+                                <CssParameter name="fill">#EEEEEE</CssParameter>
+                            </Fill>
+                        </Halo>                          
+                        
+                        <VendorOption name="followLine">true</VendorOption>
+                        <VendorOption name="maxAngleDelta">90</VendorOption>
+                        <VendorOption name="maxDisplacement">10</VendorOption>
+                        <VendorOption name="repeat">150</VendorOption>
+                        <VendorOption name="labelAllGroup">true</VendorOption>
+                        
+                        <LabelPlacement>
+                            <LinePlacement >
+                                <PerpendicularOffset>5</PerpendicularOffset> 
+                            </LinePlacement>         
+                        </LabelPlacement>
+                    </TextSymbolizer>  	                    
+                </Rule>                
             </FeatureTypeStyle>
+            <!-- Main Tarred Road definition End -->
             
+            
+            <!-- Secondary Tarred Road Definition Start -->
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>Railway</Name>
+                    <Name>Secondary Tarred Road</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Railway</ogc:Literal>
+                            <ogc:Literal>Sec_Roads_Tarred</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>35</MinScaleDenominator>
-                    <MaxScaleDenominator>60000</MaxScaleDenominator>
+                    <MaxScaleDenominator>15000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
-                            <CssParameter name="stroke">#304E34</CssParameter>
-                            <CssParameter name="stroke-width">1.5</CssParameter>
+                            <CssParameter name="stroke">#f7b713</CssParameter>
+                            <CssParameter name="stroke-width">6</CssParameter>
                             <CssParameter name="stroke-linecap">butt</CssParameter>
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
                     </LineSymbolizer>
-                </Rule>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fcda85</CssParameter>
+                            <CssParameter name="stroke-width">4</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>  
+                    <TextSymbolizer>
+                        <Label>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                        </Label>
+                        <Font>
+                            <CssParameter name="font-family">Arial</CssParameter>
+                            <CssParameter name="font-size">12</CssParameter>
+                            <CssParameter name="font-style">normal</CssParameter>
+                            <CssParameter name="font-weight">bold</CssParameter>
+                        </Font>         
+                        <Fill>
+                            <CssParameter name="fill">#2f2f30</CssParameter>
+                        </Fill>
+                        
+                        <Halo>
+                            <Radius>0.2</Radius>
+                            <Fill>
+                                <CssParameter name="fill">#EEEEEE</CssParameter>
+                            </Fill>
+                        </Halo>                          
+                        
+                        <VendorOption name="followLine">true</VendorOption>
+                        <VendorOption name="maxAngleDelta">90</VendorOption>
+                        <VendorOption name="maxDisplacement">10</VendorOption>
+                        <VendorOption name="repeat">150</VendorOption>
+                        <VendorOption name="labelAllGroup">true</VendorOption>
+                        
+                        <LabelPlacement>
+                            <LinePlacement >
+                                <PerpendicularOffset>5</PerpendicularOffset> 
+                            </LinePlacement>         
+                        </LabelPlacement>
+                    </TextSymbolizer>  	                    
+                </Rule>                
+                
+                <Rule>
+                    <Name>Secondary Tarred Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Sec_Roads_Tarred</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>15000</MinScaleDenominator>
+                    <MaxScaleDenominator>30000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#f7b713</CssParameter>
+                            <CssParameter name="stroke-width">4</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fcda85</CssParameter>
+                            <CssParameter name="stroke-width">2</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>                    
+                </Rule>   
+                
+                <Rule>
+                    <Name>Secondary Tarred Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Sec_Roads_Tarred</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>30000</MinScaleDenominator>
+                    <MaxScaleDenominator>40000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#f7b713</CssParameter>
+                            <CssParameter name="stroke-width">3</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fcda85</CssParameter>
+                            <CssParameter name="stroke-width">2</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>                    
+                </Rule>           
+                
             </FeatureTypeStyle>
+            <!-- Secondary Tarred Road definition End -->
+            
+            <!-- Secondary Untarred Road Definition Start -->
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Secondary Untarred Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Sec_Roads_Untarred</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>15000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fae71b</CssParameter>
+                            <CssParameter name="stroke-width">6</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fff79e</CssParameter>
+                            <CssParameter name="stroke-width">4</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>   
+                    <TextSymbolizer>
+                        <Label>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                        </Label>
+                        <Font>
+                            <CssParameter name="font-family">Arial</CssParameter>
+                            <CssParameter name="font-size">12</CssParameter>
+                            <CssParameter name="font-style">normal</CssParameter>
+                            <CssParameter name="font-weight">bold</CssParameter>
+                        </Font>         
+                        <Fill>
+                            <CssParameter name="fill">#2f2f30</CssParameter>
+                        </Fill>
+                        
+                        <Halo>
+                            <Radius>0.2</Radius>
+                            <Fill>
+                                <CssParameter name="fill">#EEEEEE</CssParameter>
+                            </Fill>
+                        </Halo>                          
+                        
+                        <VendorOption name="followLine">true</VendorOption>
+                        <VendorOption name="maxAngleDelta">90</VendorOption>
+                        <VendorOption name="maxDisplacement">10</VendorOption>
+                        <VendorOption name="repeat">150</VendorOption>
+                        <VendorOption name="labelAllGroup">true</VendorOption>
+                        
+                        <LabelPlacement>
+                            <LinePlacement >
+                                <PerpendicularOffset>5</PerpendicularOffset> 
+                            </LinePlacement>         
+                        </LabelPlacement>
+                    </TextSymbolizer>  	                    
+                </Rule>                
+                
+                <Rule>
+                    <Name>Secondary Untarred Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Sec_Roads_Untarred</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>15000</MinScaleDenominator>
+                    <MaxScaleDenominator>30000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fae71b</CssParameter>
+                            <CssParameter name="stroke-width">4</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fff79e</CssParameter>
+                            <CssParameter name="stroke-width">2</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>                    
+                </Rule>   
+                
+                <Rule>
+                    <Name>Secondary Untarred Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Sec_Roads_Untarred</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>30000</MinScaleDenominator>
+                    <MaxScaleDenominator>40000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fae71b</CssParameter>
+                            <CssParameter name="stroke-width">3</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#fff79e</CssParameter>
+                            <CssParameter name="stroke-width">2</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>                    
+                </Rule>           
+                
+            </FeatureTypeStyle>
+            <!-- Secondary Untarred Road definition End -->    
+            
+            <!-- Minor Tarred Road Definition Start -->
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Minor Tarred Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Minor_Roads_Tarred</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>15000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#cfcfcf</CssParameter>
+                            <CssParameter name="stroke-width">4</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#FFFFFF</CssParameter>
+                            <CssParameter name="stroke-width">2</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>     
+                    <TextSymbolizer>
+                        <Label>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                        </Label>
+                        <Font>
+                            <CssParameter name="font-family">Arial</CssParameter>
+                            <CssParameter name="font-size">12</CssParameter>
+                            <CssParameter name="font-style">normal</CssParameter>
+                            <CssParameter name="font-weight">bold</CssParameter>
+                        </Font>         
+                        <Fill>
+                            <CssParameter name="fill">#2f2f30</CssParameter>
+                        </Fill>
+                        
+                        <Halo>
+                            <Radius>0.2</Radius>
+                            <Fill>
+                                <CssParameter name="fill">#EEEEEE</CssParameter>
+                            </Fill>
+                        </Halo>                          
+                        
+                        <VendorOption name="followLine">true</VendorOption>
+                        <VendorOption name="maxAngleDelta">90</VendorOption>
+                        <VendorOption name="maxDisplacement">10</VendorOption>
+                        <VendorOption name="repeat">150</VendorOption>
+                        <VendorOption name="labelAllGroup">true</VendorOption>
+                        
+                        <LabelPlacement>
+                            <LinePlacement >
+                                <PerpendicularOffset>5</PerpendicularOffset> 
+                            </LinePlacement>         
+                        </LabelPlacement>
+                    </TextSymbolizer>  	                    
+                </Rule>                                    
+                
+            </FeatureTypeStyle>
+            <!-- Mintor Tarred Road definition End -->              
+                       
+            <!-- Minor Untarred Road Definition Start -->
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>Minor Untarred Road</Name>
+                    <ogc:Filter>
+                        <ogc:PropertyIsEqualTo>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                            <ogc:Literal>Minor_Roads_Untarred</ogc:Literal>
+                        </ogc:PropertyIsEqualTo>
+                    </ogc:Filter>
+                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MaxScaleDenominator>15000</MaxScaleDenominator>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#cfcfcf</CssParameter>
+                            <CssParameter name="stroke-width">4</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>
+                    <LineSymbolizer>
+                        <Stroke>
+                            <CssParameter name="stroke">#EEEEEE</CssParameter>
+                            <CssParameter name="stroke-width">2</CssParameter>
+                            <CssParameter name="stroke-linecap">butt</CssParameter>
+                            <CssParameter name="stroke-linejoin">miter</CssParameter>
+                        </Stroke>
+                    </LineSymbolizer>   
+                    <TextSymbolizer>
+                        <Label>
+                            <ogc:PropertyName>label</ogc:PropertyName>
+                        </Label>
+                        <Font>
+                            <CssParameter name="font-family">Arial</CssParameter>
+                            <CssParameter name="font-size">12</CssParameter>
+                            <CssParameter name="font-style">normal</CssParameter>
+                            <CssParameter name="font-weight">bold</CssParameter>
+                        </Font>         
+                        <Fill>
+                            <CssParameter name="fill">#2f2f30</CssParameter>
+                        </Fill>
+                        
+                        <Halo>
+                            <Radius>0.2</Radius>
+                            <Fill>
+                                <CssParameter name="fill">#EEEEEE</CssParameter>
+                            </Fill>
+                        </Halo>                          
+                        
+                        <VendorOption name="followLine">true</VendorOption>
+                        <VendorOption name="maxAngleDelta">90</VendorOption>
+                        <VendorOption name="maxDisplacement">10</VendorOption>
+                        <VendorOption name="repeat">150</VendorOption>
+                        <VendorOption name="labelAllGroup">true</VendorOption>
+                        
+                        <LabelPlacement>
+                            <LinePlacement >
+                                <PerpendicularOffset>5</PerpendicularOffset> 
+                            </LinePlacement>         
+                        </LabelPlacement>
+                    </TextSymbolizer>  	                    
+                </Rule>                                    
+                
+            </FeatureTypeStyle>
+            <!-- Mintor Untarred Road definition End -->                               
             
         </UserStyle>
     </NamedLayer>
