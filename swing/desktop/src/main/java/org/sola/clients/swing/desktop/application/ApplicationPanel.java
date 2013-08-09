@@ -321,7 +321,8 @@ public class ApplicationPanel extends ContentPanel {
                 && SecurityBean.isInRole(RolesConstants.APPLICATION_WITHDRAW));
         menuWithdraw.setEnabled(appBean.canWithdraw()
                 && SecurityBean.isInRole(RolesConstants.APPLICATION_WITHDRAW));
-        btnPrintStatusReport.setEnabled(appBean.getRowVersion() > 0);
+        btnPrintStatusReport.setEnabled(appBean.getRowVersion() > 0
+                && SecurityBean.isInRole(RolesConstants.APPLICATION_PRINT_STATUS_REPORT));
 
         if (btnValidate.isEnabled()) {
             btnValidate.setEnabled(appBean.canValidate()
@@ -3232,8 +3233,7 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     private void printStatusReport() {
-        if (appBean.getRowVersion() > 0
-                && ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_SERVICE_ENQUIRY)) {
+        if (appBean.getRowVersion() > 0) {
             showReport(ReportManager.getApplicationStatusReport(appBean));
         }
     }

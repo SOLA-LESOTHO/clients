@@ -122,7 +122,6 @@ public class PropertyPanel extends ContentPanel {
         customizeForm();
 
         rrrTypes.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(RrrTypeListBean.SELECTED_RRR_TYPE_PROPERTY)) {
@@ -132,7 +131,6 @@ public class PropertyPanel extends ContentPanel {
         });
 
         baUnitBean1.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(BaUnitBean.SELECTED_RIGHT_PROPERTY)) {
@@ -161,6 +159,12 @@ public class PropertyPanel extends ContentPanel {
         btnSave.setEnabled(!readOnly);
         cadastreObject.setReadOnly(readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE));
         cadastreObject.setLockCadastreFields(true);
+
+        if (!SecurityBean.isInRole(RolesConstants.GIS_VIEW_MAP)) {
+            // User does not have rights to view the Map 
+            tabsMain.removeTabAt(tabsMain.indexOfComponent(mapPanel));
+        }
+
         customizeRightsButtons(null);
         customizeNotationButtons(null);
         customizeRightTypesList();
@@ -198,12 +202,11 @@ public class PropertyPanel extends ContentPanel {
                 BaUnitSearchForm form = new BaUnitSearchForm();
                 form.getSearchPanel().setShowSelectButton(true);
                 form.getSearchPanel().addPropertyChangeListener(new PropertyChangeListener() {
-
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
-                        if(evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)){
-                            BaUnitSearchResultBean result = (BaUnitSearchResultBean)evt.getNewValue();
-                            if(!result.getStatusCode().equals(StatusConstants.HISTORIC)){
+                        if (evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)) {
+                            BaUnitSearchResultBean result = (BaUnitSearchResultBean) evt.getNewValue();
+                            if (!result.getStatusCode().equals(StatusConstants.HISTORIC)) {
                                 MessageUtility.displayMessage(ClientMessage.BAUNIT_MUST_HAVE_HISTORIC_STATUS);
                             } else {
                                 baUnitBean1.addParentBaUnit(result);
@@ -212,7 +215,7 @@ public class PropertyPanel extends ContentPanel {
                         }
                     }
                 });
-                
+
                 getMainContentPanel().addPanel(form, MainContentPanel.CARD_BAUNIT_SEARCH, true);
                 return null;
             }
@@ -539,7 +542,6 @@ public class PropertyPanel extends ContentPanel {
         }
 
         PropertyChangeListener rightFormListener = new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 // Add new RRR
@@ -608,7 +610,6 @@ public class PropertyPanel extends ContentPanel {
         }
 
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
@@ -639,15 +640,14 @@ public class PropertyPanel extends ContentPanel {
     private void openParcelSearch() {
         CadastreObjectSearchForm form = new CadastreObjectSearchForm();
         form.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsSearchPanel.SELECTED_CADASTRE_OBJECT)) {
                     CadastreObjectSummaryBean selection = (CadastreObjectSummaryBean) evt.getNewValue();
-                    if(selection.isHasLease()){
+                    if (selection.isHasLease()) {
                         MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_LEASE);
                     } else {
-                        if(selection.getStatusCode().equals(StatusConstants.HISTORIC)){
+                        if (selection.getStatusCode().equals(StatusConstants.HISTORIC)) {
                             MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_HISTORIC_STATUS);
                         } else {
                             baUnitBean1.setCadastreObject(CadastreObjectBean.getCadastreObject(selection.getId()));
@@ -665,7 +665,6 @@ public class PropertyPanel extends ContentPanel {
     private void openPropertyForm(final RelatedBaUnitInfoBean relatedBaUnit) {
         if (relatedBaUnit != null && relatedBaUnit.getRelatedBaUnit() != null) {
             SolaTask t = new SolaTask<Void, Void>() {
-
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTY));
@@ -699,15 +698,14 @@ public class PropertyPanel extends ContentPanel {
                 applicationBean.getCadastreObjectFilteredList(), MainForm.getInstance(), true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsDialog.SELECT_CADASTRE_OBJECT)) {
                     CadastreObjectSummaryBean selection = (CadastreObjectSummaryBean) evt.getNewValue();
-                    if(selection.isHasLease()){
+                    if (selection.isHasLease()) {
                         MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_LEASE);
                     } else {
-                        if(selection.getStatusCode().equals(StatusConstants.HISTORIC)){
+                        if (selection.getStatusCode().equals(StatusConstants.HISTORIC)) {
                             MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_HISTORIC_STATUS);
                         } else {
                             baUnitBean1.setCadastreObject(CadastreObjectBean.getCadastreObject(selection.getId()));
@@ -1801,7 +1799,9 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     }//GEN-LAST:event_btnAddNotationActionPerformed
 
     private void mapPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mapPanelComponentShown
-        this.mapControl.setCadastreObject(baUnitBean1.getCadastreObject());
+        if (this.mapControl != null) {
+            this.mapControl.setCadastreObject(baUnitBean1.getCadastreObject());
+        }
     }//GEN-LAST:event_mapPanelComponentShown
 
     private void btnViewHistoricRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHistoricRightActionPerformed

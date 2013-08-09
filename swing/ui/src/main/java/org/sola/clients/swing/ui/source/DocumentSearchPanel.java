@@ -158,6 +158,8 @@ public class DocumentSearchPanel extends javax.swing.JPanel {
      * Enables or disables printing button.
      */
     private void customizeButtons() {
+        // AM Remove Print Button at all times. 
+        setShowPrintButton(false);
         boolean selected = searchResultsList.getSelectedSource() != null;
         boolean enabled = false;
         boolean hasRight = SecurityBean.isInRole(RolesConstants.SOURCE_SAVE);

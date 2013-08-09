@@ -144,7 +144,13 @@ public class LeasePanel extends ContentPanel {
             // Remove the tabs for sublease
             jTabbedPane1.removeTabAt(jTabbedPane1.indexOfComponent(subplotTabPanel));
             jTabbedPane1.removeTabAt(jTabbedPane1.indexOfComponent(mapTabPanel));
+        } else {
+            if (!SecurityBean.isInRole(RolesConstants.GIS_VIEW_MAP)) {
+                // User does not have rights to view the Map 
+                jTabbedPane1.removeTabAt(jTabbedPane1.indexOfComponent(mapTabPanel));
+            }
         }
+        
         
         rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
             @Override

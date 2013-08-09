@@ -225,16 +225,28 @@ public class MainForm extends javax.swing.JFrame {
         btnNewApplication.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_CREATE_APPS));
         btnOpenMap.setEnabled(SecurityBean.isInRole(RolesConstants.GIS_VIEW_MAP));
         btnSearchApplications.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_VIEW_APPS));
-        btnShowDashboard.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_VIEW_APPS));
-        btnManageParties.setEnabled(SecurityBean.isInRole(RolesConstants.PARTY_SAVE));
+        btnShowDashboard.setEnabled(SecurityBean.isInRole(RolesConstants.DASHBOARD_VIEW_ASSIGNED_APPS)
+                || SecurityBean.isInRole(RolesConstants.DASHBOARD_VIEW_UNASSIGNED_APPS));
+        btnManageParties.setEnabled(SecurityBean.isInRole(RolesConstants.PARTY_SEARCH));
+        btnAppForms.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_FORM_VIEW));
+        btnOpenBaUnitSearch.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_BA_UNIT_SEARCH));
+        btnDocumentSearch.setEnabled(SecurityBean.isInRole(RolesConstants.SOURCE_SEARCH));
+        btnSetPassword.setEnabled(SecurityBean.isInRole(RolesConstants.USER_CHANGE_PASSWORD));
+        btnAccessDisputeForm.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_DISPUTE_VIEW));
 
         menuSearchApplication.setEnabled(btnSearchApplications.isEnabled());
         menuNewApplication.setEnabled(btnNewApplication.isEnabled());
         menuExportRights.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_RIGHTS_EXPORT));
-        btnAccessDisputeForm.setEnabled(SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_DISPUTE_VIEW));
+        menuBaUnitSearch.setEnabled(btnOpenBaUnitSearch.isEnabled());
+        menuPersons.setEnabled(btnManageParties.isEnabled());
+        menuShowMap.setEnabled(btnOpenMap.isEnabled());
+        menuLodgementReport.setEnabled(SecurityBean.isInRole(RolesConstants.REPORTS_VIEW));
+        menuDocumentSearch.setEnabled(btnDocumentSearch.isEnabled());
 
         // Load dashboard
-        openDashBoard();
+        if (btnShowDashboard.isEnabled()) {
+            openDashBoard();
+        }
 
         txtUserName.setText(SecurityBean.getCurrentUser().getUserName());
     }
