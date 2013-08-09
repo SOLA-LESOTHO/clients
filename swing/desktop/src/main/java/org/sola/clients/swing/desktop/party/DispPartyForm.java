@@ -48,7 +48,7 @@ public class DispPartyForm extends javax.swing.JDialog {
                 closeDialog(evt);
             }
         });
-        add(partyPanel, java.awt.BorderLayout.CENTER);
+        getContentPane().add(partyPanel, java.awt.BorderLayout.CENTER);
 
         jToolBar1.setRollover(true);
         jToolBar1.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -64,7 +64,7 @@ public class DispPartyForm extends javax.swing.JDialog {
         });
         jToolBar1.add(btnSave);
 
-        add(jToolBar1, java.awt.BorderLayout.NORTH);
+        getContentPane().add(jToolBar1, java.awt.BorderLayout.NORTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

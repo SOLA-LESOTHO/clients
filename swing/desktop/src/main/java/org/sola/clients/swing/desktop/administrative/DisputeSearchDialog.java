@@ -46,10 +46,11 @@ import java.util.Date;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.common.DateUtility;
 
 public class DisputeSearchDialog extends javax.swing.JDialog {
-
+   
     public static final String SELECTED_DISPUTE_SEARCH_RESULT = "selectedDisputeSearchResult";
     private String typeofCase;
     private ObservableList<DisputeSearchResultBean> printingBean;
@@ -79,15 +80,14 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(DisputeSearchResultListBean.SELECTED_DISPUTE_SEARCH_RESULT_PROPERTY)) {
                     firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
-                    customiseSelectButton((DisputeSearchResultBean) evt.getNewValue());
                 }
             }
         });
     }
     
-     private void customiseSelectButton(DisputeSearchResultBean searchResult) {
-        btnselectDispute.setEnabled(searchResult != null);
-    }
+//     private void customiseSelectButton(DisputeSearchResultBean searchResult) {
+//        btnselectDispute.setEnabled(searchResult != null);
+//    }
 
     public DisputeSearchResultBean getSelectedSearchResult() {
         return disputeSearchResultList.getSelectedDisputeSearchResult();
@@ -352,7 +352,6 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
         setName(bundle.getString("DisputeSearchDialog.name")); // NOI18N
 

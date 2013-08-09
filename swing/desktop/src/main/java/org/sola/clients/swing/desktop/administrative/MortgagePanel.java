@@ -79,7 +79,7 @@ public class MortgagePanel extends ContentPanel {
         }
 
         DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
-                rrrBean.getSourceList(), appBean, allowEdit);
+                rrrBean.getSourceList(),null, appBean, allowEdit);
         return panel;
     }
 

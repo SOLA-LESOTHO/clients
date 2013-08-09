@@ -91,7 +91,7 @@ public class OwnershipPanel extends ContentPanel {
         }
 
         DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
-                rrrBean.getSourceList(), applicationBean, allowEdit);
+                rrrBean.getSourceList(), null,applicationBean, allowEdit);
         return panel;
     }
 

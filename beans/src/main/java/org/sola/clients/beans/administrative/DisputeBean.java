@@ -47,6 +47,7 @@ import org.sola.webservices.transferobjects.administrative.DisputeTO;
 import org.sola.clients.beans.referencedata.DisputeCategoryBean;
 import org.sola.clients.beans.referencedata.DisputeTypeBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
+import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.administrative.validation.DisputeCheck;
@@ -80,13 +81,15 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String BEAN_PROPERTY = "bean";
     public static final String SELECTED_COMMENTS_PROPERTY = "selectedComments";
     public static final String SELECTED_PARTY_PROPERTY = "selectedParty";
-    
+     public static final String SELECTED_SOURCE_PROPERTY = "selectedSource";
+     
     private String id;
     private String nr;
     private Date lodgementDate;
     private Date completionDate;
-    private DisputeCategoryBean disputeCategoryCode;
     private DisputeTypeBean disputeTypeCode;
+    private DisputeCategoryBean disputeCategoryBean;
+    private String disputeCategoryCode;
     private String statusCode;
     private String leaseNumber;
     private String plotLocation;
@@ -97,21 +100,24 @@ public class DisputeBean extends AbstractTransactionedBean {
     private boolean primaryRespondent;
     private String actionRequired;
     private String userId;
-    private DisputeBean bean;
     private SolaList<DisputesCommentsBean> disputeCommentsList;
     private SolaList<DisputePartyBean> disputePartyList;
+    private SolaList<SourceBean> sourceList;
     private transient DisputesCommentsBean selectedComment;
     private transient DisputePartyBean selectedParty;
+    private transient SourceBean selectedSource;
 
     public DisputeBean() {
         super();
+        disputeCommentsList = new SolaList<DisputesCommentsBean>();
+        disputePartyList = new SolaList<DisputePartyBean>();
+        sourceList = new SolaList();
     }
 
     public void clean() {
         this.setPlotNumber(null);
         this.setLodgementDate(null);
         this.setCompletiondate(null);
-        this.setDisputeCategory(null);
         this.setDisputeType(null);
         this.setStatusCode(null);
         this.setNr(null);
@@ -121,21 +127,13 @@ public class DisputeBean extends AbstractTransactionedBean {
         this.setDisputeCommentsList(null);
         this.setDisputePartyList(null);
         this.setDisputeDescription(null);
-        
-
     }
 
     public SolaList<DisputesCommentsBean> getDisputeCommentsList() {
-        if (disputeCommentsList == null) {
-            disputeCommentsList = new SolaList();
-        }
         return disputeCommentsList;
     }
 
     public ObservableList<DisputesCommentsBean> getFilteredDisputeCommentsList() {
-        if (disputeCommentsList == null) {
-            disputeCommentsList = new SolaList();
-        }
         return disputeCommentsList.getFilteredList();
     }
 
@@ -152,34 +150,22 @@ public class DisputeBean extends AbstractTransactionedBean {
         return selectedComment;
     }
 
-    public void loadComments(){
-        int sizeDispCommList = disputeCommentsList.size();
-        
-        for (int i = 0; i < sizeDispCommList; i++) {
-            if (disputeCommentsList.get(i).getDisputeNr().equals(bean.getNr())) {
-                getDisputeCommentsList().addAsNew(disputeCommentsList.get(i));
-            }
-        }
-
-        //getDisputeCommentsList().clear();
-       // TypeConverters.TransferObjectListToBeanList(disputeCommentsList, null, null);
-    }
-    
     public void addDisputeComment(DisputesCommentsBean disputeComment) {
-        if (getDisputeCommentsList() != null && disputeComment != null
-                && disputeComment.getEntityAction() != EntityAction.DELETE
-                && disputeComment.getEntityAction() != EntityAction.DISASSOCIATE) {
-
-            for (DisputesCommentsBean co : getDisputeCommentsList()) {
-                if (co.getId() != null && disputeComment.getId() != null && co.getId().equals(disputeComment.getId())) {
-                    if (co.getEntityAction() == EntityAction.DELETE || co.getEntityAction() == EntityAction.DISASSOCIATE) {
-                        co.setEntityAction(null);
-                    }
+        if (!this.updateListItem(disputeComment, disputeCommentsList, false)) {
+            int i = 0;
+            // Search by dispute number
+            i = 0;
+            for (DisputesCommentsBean bean : disputeCommentsList.getFilteredList()) {
+                if (bean.getDisputeNr() != null && disputeComment.getDisputeNr() != null
+                        && bean.getDisputeNr().equals(disputeComment.getDisputeNr())) {
+                    disputeCommentsList.getFilteredList().add(i + 1, disputeComment);
                     return;
                 }
+                i += 1;
             }
 
-            getDisputeCommentsList().addAsNew(disputeComment);
+            // If comment is new
+            disputeCommentsList.add(disputeComment);
         }
     }
 
@@ -190,9 +176,6 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public SolaList<DisputePartyBean> getDisputePartyList() {
-        if (disputePartyList == null) {
-            disputePartyList = new SolaList();
-        }
         return disputePartyList;
     }
 
@@ -217,19 +200,21 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public void addDisputeParty(DisputePartyBean disputeParty) {
-        if (getDisputePartyList() != null && disputeParty != null
-                && disputeParty.getEntityAction() != EntityAction.DELETE
-                && disputeParty.getEntityAction() != EntityAction.DISASSOCIATE) {
-
-            for (DisputePartyBean pb : getDisputePartyList()) {
-                if (pb.getId() != null && disputeParty.getId() != null && pb.getId().equals(disputeParty.getId())) {
-                    if (pb.getEntityAction() == EntityAction.DELETE || pb.getEntityAction() == EntityAction.DISASSOCIATE) {
-                        pb.setEntityAction(null);
-                    }
+        if (!this.updateListItem(disputeParty, disputePartyList, false)) {
+            int i = 0;
+            // Search by dispute number
+            i = 0;
+            for (DisputePartyBean bean : disputePartyList.getFilteredList()) {
+                if (bean.getDisputeNr() != null && disputeParty.getDisputeNr() != null
+                        && bean.getDisputeNr().equals(disputeParty.getDisputeNr())) {
+                    disputePartyList.getFilteredList().add(i + 1, disputeParty);
                     return;
                 }
+                i += 1;
             }
-            getDisputePartyList().addAsNew(disputeParty);
+
+            // If Party is new
+            disputePartyList.add(disputeParty);
         }
     }
 
@@ -273,7 +258,7 @@ public class DisputeBean extends AbstractTransactionedBean {
 
     public String getDisputeCategoryCode() {
         if (disputeCategoryCode != null) {
-            return disputeCategoryCode.getCode();
+            return disputeCategoryCode;
         } else {
             return null;
         }
@@ -282,7 +267,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     public void setDisputeCategoryCode(String disputeCategoryCode) {
         String oldValue = null;
         if (this.disputeCategoryCode != null) {
-            oldValue = this.disputeCategoryCode.getCode();
+            oldValue = this.disputeCategoryCode;
             return;
         }
 
@@ -292,17 +277,17 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public DisputeCategoryBean getDisputeCategory() {
-        if (disputeCategoryCode == null) {
-            disputeCategoryCode = new DisputeCategoryBean();
+        if (disputeCategoryBean == null) {
+            disputeCategoryBean = new DisputeCategoryBean();
         }
-        return disputeCategoryCode;
+        return disputeCategoryBean;
     }
 
     public void setDisputeCategory(DisputeCategoryBean disputeCategory) {
-        if (this.disputeCategoryCode == null) {
-            this.disputeCategoryCode = new DisputeCategoryBean();
+        if (this.disputeCategoryBean == null) {
+            this.disputeCategoryBean = new DisputeCategoryBean();
         }
-        this.setJointRefDataBean(this.disputeCategoryCode, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+        this.setJointRefDataBean(this.disputeCategoryBean, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
     }
 
     public String getUserId() {
@@ -403,10 +388,12 @@ public class DisputeBean extends AbstractTransactionedBean {
         return disputeDescription;
     }
 
-    public void setDisputeDescription(String disputeDescription) {
-        this.disputeDescription = disputeDescription;
+    public void setDisputeDescription(String value) {
+        String old = disputeDescription;
+        disputeDescription = value;
+        propertySupport.firePropertyChange(DISPUTE_DESCRIPTION_PROPERTY, old, disputeDescription);
     }
-    
+
     public String getPlotLocation() {
         return plotLocation;
     }
@@ -436,28 +423,58 @@ public class DisputeBean extends AbstractTransactionedBean {
         statusCode = value;
         propertySupport.firePropertyChange(STATUS_CODE_PROPERTY, old, statusCode);
     }
+    public SourceBean getSelectedSource() {
+        return selectedSource;
+    }
+
+    public void setSelectedSource(SourceBean value) {
+        selectedSource = value;
+        propertySupport.firePropertyChange(SELECTED_SOURCE_PROPERTY, null, value);
+    }
+    
+     public void setSourceList(SolaList<SourceBean> sourceList) {
+        this.sourceList = sourceList;
+    }
+     
+     public SolaList<SourceBean> getSourceList() {
+        return sourceList;
+    }
+
+    @Valid
+    public ObservableList<SourceBean> getSourceFilteredList() {
+        return sourceList.getFilteredList();
+    }
+    
+     public void addDisputeSource(SourceBean sourceBean) {
+        if (!this.updateListItem(sourceBean, sourceList, false)) {
+            int i = 0;
+            // Search by id number
+            i = 0;
+            for (SourceBean bean : sourceList.getFilteredList()) {
+                if (bean.getId() != null && sourceBean.getId() != null
+                        && bean.getId().equals(sourceBean.getId())) {
+                    sourceList.getFilteredList().add(i + 1, sourceBean);
+                    return;
+                }
+                i += 1;
+            }
+
+            // If source is new
+            sourceList.add(sourceBean);
+        }
+    }
 
     public void addChosenPlot(CadastreObjectBean cadastreObjectBean) {
         if (cadastreObjectBean != null) {
             setPlotNumber(cadastreObjectBean.getNameFirstpart() + "-" + cadastreObjectBean.getNameLastpart());
         }
     }
-    
-    public void assignDispute(DisputeSearchResultBean disputeSearchResultBean) {
-        if (disputeSearchResultBean.getId() != null) {
-            DisputeTO dispute = TypeConverters.BeanToTrasferObject(disputeSearchResultBean, DisputeTO.class);
-            DisputeBean disputeBean = TypeConverters.TransferObjectToBean(dispute, DisputeBean.class, this);
-            setBean(disputeBean);
+
+    public void assignDispute(String id) {
+        if (id != null) {
+            DisputeTO dispute = WSManager.getInstance().getAdministrative().getDispute(id);
+            TypeConverters.TransferObjectToBean(dispute, DisputeBean.class, this);
         }
-    }
-
-    public DisputeBean getBean() {
-        return bean;
-    }
-
-    public void setBean(DisputeBean value) {
-        bean = value;
-        propertySupport.firePropertyChange(BEAN_PROPERTY, null, value);
     }
 
     public boolean createDispute() {
