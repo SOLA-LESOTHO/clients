@@ -30,6 +30,7 @@ package org.sola.clients.swing.ui.source;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.application.ApplicationBean;
+import org.sola.clients.beans.administrative.DisputeBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -41,14 +42,19 @@ public class AddDocumentForm extends javax.swing.JDialog {
 
     public static final String SELECTED_SOURCE = "selectedSource";
     private ApplicationBean applicationBean;
+    private DisputeBean disputeBean;
     private boolean closeFormOnAdd = false;
             
     private DocumentsPanel createDocumentsPanel() {
-        DocumentsPanel panel;
-        if (applicationBean!=null && applicationBean.getSourceList() != null) {
+        DocumentsPanel panel = null;
+        if ((applicationBean != null) || (disputeBean != null)) {
+            if (applicationBean!=null && applicationBean.getSourceList() != null) {
             panel = new DocumentsPanel(applicationBean.getSourceList());
+            } else if (disputeBean!=null && disputeBean.getSourceList() != null) {
+                panel = new DocumentsPanel(disputeBean.getSourceList());
+            }    
         } else {
-            panel = new DocumentsPanel();
+             panel = new DocumentsPanel();
         }
         return panel;
     }
@@ -59,9 +65,9 @@ public class AddDocumentForm extends javax.swing.JDialog {
      * list of documents.
      * @param closeFormOnAdd Indicates whether form should be closed when add/select document action is triggered.
      */
-    public AddDocumentForm(ApplicationBean applicationBean, boolean closeFormOnAdd, 
+    public AddDocumentForm(ApplicationBean applicationBean,DisputeBean disputeBean, boolean closeFormOnAdd, 
             java.awt.Frame parent, boolean modal) {
-        this(applicationBean, parent, modal);
+        this(applicationBean, disputeBean,parent, modal);
         this.closeFormOnAdd = closeFormOnAdd;
     }
     
@@ -70,10 +76,13 @@ public class AddDocumentForm extends javax.swing.JDialog {
      * @param applicationBean {@ApplicationBean} to use on the form to display
      * list of documents.
      */
-    public AddDocumentForm(ApplicationBean applicationBean, java.awt.Frame parent, boolean modal) {
+    public AddDocumentForm(ApplicationBean applicationBean,DisputeBean disputeBean, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.applicationBean = applicationBean;
- 
+        if (applicationBean != null){
+            this.applicationBean = applicationBean;
+        } else {
+            this.disputeBean = disputeBean;
+        }
         initComponents();
         postInit();
     }
@@ -81,10 +90,12 @@ public class AddDocumentForm extends javax.swing.JDialog {
     private void postInit(){
         if (applicationBean!=null){
             tabs.setTitleAt(0, String.format("Application #%s", applicationBean.getNr()));
+        } else if (disputeBean!=null){
+            tabs.setTitleAt(0, String.format("Dispute #%s", disputeBean.getNr()));
         } else{
             tabs.removeTabAt(tabs.indexOfComponent(panelApplicationDocs));
         }
-
+        
         documentPanel.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override

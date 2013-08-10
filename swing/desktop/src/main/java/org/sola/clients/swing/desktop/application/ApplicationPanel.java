@@ -128,7 +128,7 @@ public class ApplicationPanel extends ContentPanel {
         if (documentsPanel == null) {
             if (appBean != null) {
                 documentsPanel = new DocumentsManagementExtPanel(
-                        appBean.getSourceList(), null, appBean.isEditingAllowed());
+                        appBean.getSourceList(), null,null, appBean.isEditingAllowed());
             } else {
                 documentsPanel = new DocumentsManagementExtPanel();
             }

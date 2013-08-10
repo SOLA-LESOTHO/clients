@@ -19,6 +19,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import org.sola.clients.beans.application.ApplicationBean;
+import org.sola.clients.beans.administrative.DisputeBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
@@ -39,15 +40,15 @@ public class DocumentsManagementExtPanel extends DocumentsManagementPanel {
         postInit();
     }
     
-    public DocumentsManagementExtPanel(SolaList<SourceBean> sourceList, 
+    public DocumentsManagementExtPanel(SolaList<SourceBean> sourceList, DisputeBean disputeBean,
             ApplicationBean applicationBean, boolean allowEdit){
-        super(sourceList, applicationBean, allowEdit);
-        postInit();
+        super(sourceList, disputeBean,applicationBean, allowEdit);
+        postInit(); 
     }
     
-    public DocumentsManagementExtPanel(List<String> sourceIds,
+    public DocumentsManagementExtPanel(List<String> sourceIds,DisputeBean disputeBean,
             ApplicationBean applicationBean, boolean allowEdit){
-        super(sourceIds, applicationBean, allowEdit);
+        super(sourceIds, disputeBean,applicationBean, allowEdit);
         postInit();
     }
     
