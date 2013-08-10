@@ -68,7 +68,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Main_Roads_Tarred</ogc:Literal>
+                            <ogc:Literal>Main Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>40000</MinScaleDenominator>
@@ -96,7 +96,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Main_Roads_Tarred</ogc:Literal>
+                            <ogc:Literal>Main Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>35</MinScaleDenominator>
@@ -162,7 +162,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Sec_Roads_Tarred</ogc:Literal>
+                            <ogc:Literal>Secondary Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>35</MinScaleDenominator>
@@ -223,7 +223,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Sec_Roads_Tarred</ogc:Literal>
+                            <ogc:Literal>Secondary Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>15000</MinScaleDenominator>
@@ -251,7 +251,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Sec_Roads_Tarred</ogc:Literal>
+                            <ogc:Literal>Secondary Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>30000</MinScaleDenominator>
@@ -284,7 +284,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Sec_Roads_Untarred</ogc:Literal>
+                            <ogc:Literal>Secondary Untarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>35</MinScaleDenominator>
@@ -345,7 +345,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Sec_Roads_Untarred</ogc:Literal>
+                            <ogc:Literal>Secondary Untarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>15000</MinScaleDenominator>
@@ -373,7 +373,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Sec_Roads_Untarred</ogc:Literal>
+                            <ogc:Literal>Secondary Untarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>30000</MinScaleDenominator>
@@ -406,7 +406,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Minor_Roads_Tarred</ogc:Literal>
+                            <ogc:Literal>Minor Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>35</MinScaleDenominator>
@@ -472,7 +472,7 @@
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
-                            <ogc:Literal>Minor_Roads_Untarred</ogc:Literal>
+                            <ogc:Literal>Minor Untarred Roads</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>35</MinScaleDenominator>
