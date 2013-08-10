@@ -14,7 +14,7 @@
             <FeatureTypeStyle>
                 <Rule>
                     <Name>All Roads</Name>
-                    <MaxScaleDenominator>90000</MaxScaleDenominator>
+                    <MaxScaleDenominator>500000</MaxScaleDenominator>
                     <PolygonSymbolizer>
                         <Stroke>
                             <CssParameter name="stroke">#D7CC75</CssParameter>
@@ -72,7 +72,7 @@
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>40000</MinScaleDenominator>
-                    <MaxScaleDenominator>90000</MaxScaleDenominator>
+                    <MaxScaleDenominator>300000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
                             <CssParameter name="stroke">#ff7003</CssParameter>
@@ -117,7 +117,7 @@
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
                     </LineSymbolizer>    
-                    <TextSymbolizer>
+                    <!--TextSymbolizer>
                         <Label>
                             <ogc:PropertyName>label</ogc:PropertyName>
                         </Label>
@@ -149,7 +149,7 @@
                                 <PerpendicularOffset>5</PerpendicularOffset> 
                             </LinePlacement>         
                         </LabelPlacement>
-                    </TextSymbolizer>  	                    
+                    </TextSymbolizer-->  	                    
                 </Rule>                
             </FeatureTypeStyle>
             <!-- Main Tarred Road definition End -->
@@ -183,7 +183,7 @@
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
                     </LineSymbolizer>  
-                    <TextSymbolizer>
+                    <!--TextSymbolizer>
                         <Label>
                             <ogc:PropertyName>label</ogc:PropertyName>
                         </Label>
@@ -215,7 +215,7 @@
                                 <PerpendicularOffset>5</PerpendicularOffset> 
                             </LinePlacement>         
                         </LabelPlacement>
-                    </TextSymbolizer>  	                    
+                    </TextSymbolizer-->  	                    
                 </Rule>                
                 
                 <Rule>
@@ -255,7 +255,7 @@
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
                     <MinScaleDenominator>30000</MinScaleDenominator>
-                    <MaxScaleDenominator>40000</MaxScaleDenominator>
+                    <MaxScaleDenominator>200000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
                             <CssParameter name="stroke">#f7b713</CssParameter>
@@ -305,7 +305,7 @@
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
                     </LineSymbolizer>   
-                    <TextSymbolizer>
+                    <!--TextSymbolizer>
                         <Label>
                             <ogc:PropertyName>label</ogc:PropertyName>
                         </Label>
@@ -337,7 +337,7 @@
                                 <PerpendicularOffset>5</PerpendicularOffset> 
                             </LinePlacement>         
                         </LabelPlacement>
-                    </TextSymbolizer>  	                    
+                    </TextSymbolizer-->  	                    
                 </Rule>                
                 
                 <Rule>
@@ -427,7 +427,7 @@
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
                     </LineSymbolizer>     
-                    <TextSymbolizer>
+                    <!--TextSymbolizer>
                         <Label>
                             <ogc:PropertyName>label</ogc:PropertyName>
                         </Label>
@@ -459,7 +459,7 @@
                                 <PerpendicularOffset>5</PerpendicularOffset> 
                             </LinePlacement>         
                         </LabelPlacement>
-                    </TextSymbolizer>  	                    
+                    </TextSymbolizer-->  	                    
                 </Rule>                                    
                 
             </FeatureTypeStyle>
@@ -493,7 +493,7 @@
                             <CssParameter name="stroke-linejoin">miter</CssParameter>
                         </Stroke>
                     </LineSymbolizer>   
-                    <TextSymbolizer>
+                    <!--TextSymbolizer>
                         <Label>
                             <ogc:PropertyName>label</ogc:PropertyName>
                         </Label>
@@ -525,7 +525,7 @@
                                 <PerpendicularOffset>5</PerpendicularOffset> 
                             </LinePlacement>         
                         </LabelPlacement>
-                    </TextSymbolizer>  	                    
+                    </TextSymbolizer-->  	                    
                 </Rule>                                    
                 
             </FeatureTypeStyle>

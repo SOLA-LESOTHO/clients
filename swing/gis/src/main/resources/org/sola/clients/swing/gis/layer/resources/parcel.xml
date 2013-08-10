@@ -9,8 +9,8 @@
       <Abstract>A sample style that just prints out a 6px wide red square</Abstract>
    <FeatureTypeStyle>
      <Rule>
-       <Name>Scale &lt; 50000</Name>
-       <MaxScaleDenominator>50000</MaxScaleDenominator>
+       <Name>Scale &lt; 20000</Name>
+       <MaxScaleDenominator>20000</MaxScaleDenominator>
        <PolygonSymbolizer>
          <Stroke>
            <CssParameter name="stroke">#026602</CssParameter>
@@ -41,9 +41,9 @@
        </TextSymbolizer>
      </Rule>
      <Rule>
-       <Name>Scale 50000 - 625000</Name>
-       <MinScaleDenominator>50000</MinScaleDenominator>
-       <MaxScaleDenominator>625000</MaxScaleDenominator>
+       <Name>Scale 20000 - 50000</Name>
+       <MinScaleDenominator>20000</MinScaleDenominator>
+       <MaxScaleDenominator>50000</MaxScaleDenominator>
        <PolygonSymbolizer>
          <Stroke>
            <CssParameter name="stroke">#026602</CssParameter>
@@ -51,7 +51,7 @@
          </Stroke>
        </PolygonSymbolizer>
      </Rule>
-     <Rule>
+     <!--Rule>
        <Name>Scale &gt; 625000</Name>
        <MinScaleDenominator>625000</MinScaleDenominator>
        <PolygonSymbolizer>
@@ -60,7 +60,7 @@
            <CssParameter name="stroke-width">0.2</CssParameter>
          </Stroke>
        </PolygonSymbolizer>
-     </Rule>
+     </Rule-->
    </FeatureTypeStyle>
     </UserStyle>
   </NamedLayer>
