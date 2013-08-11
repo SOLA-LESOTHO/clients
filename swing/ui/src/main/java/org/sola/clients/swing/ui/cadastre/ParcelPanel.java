@@ -127,7 +127,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         cbxLandGrade.setEnabled(enabled);
         cbxRoadClass.setEnabled(enabled);
         txtValuationAmount.setEnabled(enabled);
-        txtLastPart.setEnabled(enabled && !cadastreObjectBean.isNew());
+        txtLastPart.setEnabled(enabledAll && !cadastreObjectBean.isNew());
         
         customizeAddressButtons();
     }
