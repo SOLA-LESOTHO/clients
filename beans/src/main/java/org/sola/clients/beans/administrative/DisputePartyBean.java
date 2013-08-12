@@ -45,14 +45,13 @@ import org.sola.webservices.transferobjects.casemanagement.PartyTO;
 import org.sola.clients.beans.party.*;
 import org.sola.webservices.transferobjects.administrative.DisputePartyTO;
 
-
 public class DisputePartyBean extends PartyBean {
 
     public static final String ID_PROPERTY = "id";
     public static final String DISPUTE_NR_PROPERTY = "disputeNr";
     public static final String PARTY_ROLE_PROPERTY = "partyRole";
+    public static final String PARTY_NAME_PROPERTY = "partyName";
     public static final String PARTY_ID_PROPERTY = "partyId";
-    
     private String id;
     private String disputeNr;
     private String partyRole;
@@ -69,24 +68,21 @@ public class DisputePartyBean extends PartyBean {
         this.setId(null);
         this.setDisputeNr(null);
         this.setPartyId(null);
+        this.setPartyName(null);
         this.setPartyRole(null);
 
     }
 
-    public String getPartyName(String pId) {
-        pId = getPartyId();
-        partyTO = WSManager.getInstance().getCaseManagementService().getParty(pId);
-        if (partyTO != null) {
-             partyName =  partyTO.getName();
-        }
+    public String getPartyName() {
         return partyName;
     }
 
-    public void setPartyName(String partyName) {
-        this.partyName = partyName;
+    public void setPartyName(String value) {
+        String old = partyName;
+        partyName = value;
+        propertySupport.firePropertyChange(PARTY_NAME_PROPERTY, old, partyName);
     }
 
-    
     public String getDisputeNr() {
         return disputeNr;
     }
@@ -117,15 +113,14 @@ public class DisputePartyBean extends PartyBean {
         propertySupport.firePropertyChange(PARTY_ROLE_PROPERTY, old, partyRole);
     }
 
-    public void addChosenParty(PartyBean partyBean, String disputeId,String partyRole) {
+    public void addChosenParty(PartyBean partyBean, String disputeId) {
         if (partyBean != null) {
-
+            setPartyName(partyBean.getName());
             setDisputeNr(disputeId);
             setPartyId(partyBean.getId());
-            setPartyRole(partyRole);
         }
     }
-    
+
     public boolean saveDisputeParty() {
         DisputePartyTO disputeParty = TypeConverters.BeanToTrasferObject(this, DisputePartyTO.class);
         disputeParty = WSManager.getInstance().getAdministrative().saveDisputeParty(disputeParty);

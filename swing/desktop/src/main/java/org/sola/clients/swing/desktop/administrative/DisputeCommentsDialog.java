@@ -39,26 +39,21 @@ import org.sola.common.messaging.MessageUtility;
 public class DisputeCommentsDialog extends javax.swing.JDialog {
 
     private DisputesCommentsBean disputesCommentsBean;
-    private String dispID;
     public static final String COMMENT_SAVED = "commentSaved";
+    private String dispID;
     private Date date;
 
-    /**
-     * Creates new form DisputeCommentsDialog
-     */
-    public DisputeCommentsDialog() {
-        initComponents();
-    }
 
-    public DisputeCommentsDialog(DisputesCommentsBean disputesComments, boolean readOnly, java.awt.Frame parent, boolean modal) {
+    public DisputeCommentsDialog(DisputesCommentsBean disputesComments, boolean readOnly, java.awt.Frame parent, boolean modal, String dispNr) {
         super(parent, modal);
-        initComponents();
         if (disputesComments != null) {
             this.disputesCommentsBean = disputesComments;
         } else {
             this.disputesCommentsBean = new DisputesCommentsBean();
         }
-        customizeScreen();
+        initComponents();
+        customizeScreen(dispNr);
+        dispID = dispNr;
     }
 
     public DisputesCommentsBean getCommentsBean() {
@@ -69,38 +64,28 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
         this.disputesCommentsBean = disputesCommentsBean;
     }
 
-    private void customizeScreen() {
-        SimpleDateFormat dateformat = new SimpleDateFormat("dd MMM yyyy");
+    private void customizeScreen(String nr) {
         date = new Date();
-        String date_to_string = dateformat.format(date);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+        this.setTitle(bundle.getString("DisputePanelForm.pnlHeader.titleText") + " #" + nr);
         txtDisputeComments.setText("");
-        txtupdateDate.setText(date_to_string);
+        disputesCommentsBean.setDisputeNr(nr);
+        disputesCommentsBean.setUpdateDate(date);
         dbxdisputeAction.setSelectedIndex(-1);
         dbxotherAuthorities.setSelectedIndex(-1);
-
-
-        if (disputesCommentsBean != null) {
-            dispID = disputesCommentsBean.getDisputeNr();
-            if (dispID != null) {
-                this.setTitle(dispID);
-            }
-        }
     }
 
     private void SaveComments(final boolean showMessage) {
 
-//        if (disputesCommentsBean.validate(true).size() > 0) {
-//            return;
-//        }
+        if (disputesCommentsBean.validate(true).size() > 0) {
+            return;
+        }
 
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
 
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
-                dispID = disputesCommentsBean.getDisputeNr();
-                disputesCommentsBean.setComments(txtDisputeComments.getText());
                 if (dispID != null && !dispID.equals("")) {
                     firePropertyChange(COMMENT_SAVED, null, disputesCommentsBean);
                 }
@@ -116,7 +101,6 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
             }
         };
         TaskManager.getInstance().runTask(t);
-
     }
 
     /**

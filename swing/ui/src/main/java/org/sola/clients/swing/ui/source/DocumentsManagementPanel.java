@@ -1,11 +1,14 @@
 /**
  * ******************************************************************************************
+ * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
+ * (FAO). All rights reserved.
  * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
  * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
+
  *    1. Redistributions of source code must retain the above copyright notice,this list
  *       of conditions and the following disclaimer.
  *    2. Redistributions in binary form must reproduce the above copyright notice,this list
@@ -14,16 +17,19 @@
  *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
  *       endorse or promote products derived from this software without specific prior
  * 	  written permission.
+
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.ui.source;
@@ -32,30 +38,34 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import org.sola.clients.beans.application.ApplicationBean;
+import org.sola.clients.beans.administrative.DisputeBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.source.SourceListBean;
 import org.sola.common.RolesConstants;
 
-/** 
+/**
  * Displays documents list. This panel could be used on different forms, where
- * documents list should be displayed and managed. <p/> 
+ * documents list should be displayed and managed.
+ * <p/>
  * {@link DoumentsPanel} is used to display list of documents.
  */
 public class DocumentsManagementPanel extends javax.swing.JPanel {
 
     public static final String VIEW_DOCUMENT = "viewDocument";
     public static final String EDIT_DOCUMENT = "editDocument";
-    
     private ApplicationBean applicationBean;
+    private DisputeBean disputeBean;
     private AddDocumentForm addDocumentForm;
     private SolaList<SourceBean> sourceList;
     private boolean allowEdit = true;
     private boolean allowAddingOfNewDocuments = true;
     private boolean closeAddDocumentFormOnAdd = false;
-    
-    /** Creates new instance of {@link DocumentsPanel}. */
+
+    /**
+     * Creates new instance of {@link DocumentsPanel}.
+     */
     private DocumentsPanel createDocumentsPanel() {
         DocumentsPanel panel;
         if (sourceList != null) {
@@ -63,76 +73,89 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
         } else {
             panel = new DocumentsPanel();
         }
-        
+
         panel.getSourceListBean().addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if(evt.getPropertyName().equals(SourceListBean.SELECTED_SOURCE_PROPERTY)){
-                    customizeButtons((SourceBean)evt.getNewValue());
+                if (evt.getPropertyName().equals(SourceListBean.SELECTED_SOURCE_PROPERTY)) {
+                    customizeButtons((SourceBean) evt.getNewValue());
                 }
             }
         });
-        
+
         return panel;
     }
-    
-    /** Default constructor */
+
+    /**
+     * Default constructor
+     */
     public DocumentsManagementPanel() {
         initComponents();
         customizeButtons(null);
     }
 
-    /** 
+    /**
      * This constructor is called to display predefined list of {@link SourceBean}.
+     *
      * @param sourceList The list of {@link SourceBean} to display.
      * @param applicationBean {ApplicationBean} is used to attach documents from
      * the application.
-     * @param allowEdit Indicates whether it is allowed to do changes on the list.
+     * @param allowEdit Indicates whether it is allowed to do changes on the
+     * list.
      */
-    public DocumentsManagementPanel(SolaList<SourceBean> sourceList,
+    public DocumentsManagementPanel(SolaList<SourceBean> sourceList, DisputeBean disputeBean,
             ApplicationBean applicationBean, boolean allowEdit) {
+
+        this.applicationBean = applicationBean;
+        this.disputeBean = disputeBean;
         this.applicationBean = applicationBean;
         this.sourceList = sourceList;
         this.allowEdit = allowEdit;
         initComponents();
         customizeButtons(null);
     }
-    
-    /** 
-     * This constructor is called to load list of {@link SourceBean} by the 
+
+    /**
+     * This constructor is called to load list of {@link SourceBean} by the
      * given list of IDs.
-     * @param sourceIds The list of source ID to use for loading relative 
+     *
+     * @param sourceIds The list of source ID to use for loading relative
      * {@link SourceBean} list.
      * @param applicationBean {ApplicationBean} is used to attach documents from
      * the application.
-     * @param allowEdit Indicates whether it is allowed to do changes on the list.
+     * @param allowEdit Indicates whether it is allowed to do changes on the
+     * list.
      */
-    public DocumentsManagementPanel(List<String> sourceIds,
+    public DocumentsManagementPanel(List<String> sourceIds,DisputeBean disputeBean,
             ApplicationBean applicationBean, boolean allowEdit) {
         this.applicationBean = applicationBean;
+        this.disputeBean = disputeBean;
         this.allowEdit = allowEdit;
         initComponents();
         loadSourcesByIds(sourceIds);
         customizeButtons(null);
     }
-    
-    /** Enables or disables buttons, depending on the selection in the list. */
-    private void customizeButtons(SourceBean selectedSource){
+
+    /**
+     * Enables or disables buttons, depending on the selection in the list.
+     */
+    private void customizeButtons(SourceBean selectedSource) {
         btnAdd.setEnabled(allowEdit);
         btnRemove.setEnabled(false);
         btnViewAttachmanet.setEnabled(false);
         btnEdit.setEnabled(false);
         btnView.setEnabled(false);
-        
-        if(selectedSource!=null){
+
+        if (selectedSource != null) {
             btnRemove.setEnabled(allowEdit);
             btnEdit.setEnabled(allowEdit && SecurityBean.isInRole(RolesConstants.SOURCE_SAVE));
             btnView.setEnabled(true);
-            if(selectedSource.getArchiveDocumentId()!=null && selectedSource.getArchiveDocumentId().length()>0){
+            if (selectedSource.getArchiveDocumentId() != null && selectedSource.getArchiveDocumentId().length() > 0) {
                 btnViewAttachmanet.setEnabled(true);
             }
         }
-        
+
         menuAdd.setEnabled(btnAdd.isEnabled());
         menuRemove.setEnabled(btnRemove.isEnabled());
         menuView.setEnabled(btnView.isEnabled());
@@ -140,9 +163,9 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
         menuViewAttachment.setEnabled(btnViewAttachmanet.isEnabled());
     }
 
-    private void customizeSeparators(){
-        if((!menuView.isVisible() && !menuViewAttachment.isVisible()) ||
-                (!menuAdd.isVisible() && !menuEdit.isVisible() && !menuRemove.isVisible())){
+    private void customizeSeparators() {
+        if ((!menuView.isVisible() && !menuViewAttachment.isVisible())
+                || (!menuAdd.isVisible() && !menuEdit.isVisible() && !menuRemove.isVisible())) {
             menuSeparator.setVisible(false);
             toolbarSeparator.setVisible(false);
         } else {
@@ -150,63 +173,69 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
             toolbarSeparator.setVisible(true);
         }
     }
-    
-    public boolean isAddButtonVisible(){
+
+    public boolean isAddButtonVisible() {
         return btnAdd.isVisible();
     }
-    
-    public void setAddButtonVisible(boolean visible){
+
+    public void setAddButtonVisible(boolean visible) {
         btnAdd.setVisible(visible);
         menuAdd.setVisible(visible);
         customizeSeparators();
     }
-    
-    public boolean isEditButtonVisible(){
+
+    public boolean isEditButtonVisible() {
         return btnEdit.isVisible();
     }
-    
-    public void setEditButtonVisible(boolean visible){
+
+    public void setEditButtonVisible(boolean visible) {
         btnEdit.setVisible(visible);
         menuEdit.setVisible(visible);
         customizeSeparators();
     }
-    
-    public boolean isRemoveButtonVisible(){
+
+    public boolean isRemoveButtonVisible() {
         return btnRemove.isVisible();
     }
-    
-    public void setRemoveButtonVisible(boolean visible){
+
+    public void setRemoveButtonVisible(boolean visible) {
         btnRemove.setVisible(visible);
         menuRemove.setVisible(visible);
         customizeSeparators();
     }
-    
-    public boolean isViewButtonVisible(){
+
+    public boolean isViewButtonVisible() {
         return btnView.isVisible();
     }
-    
-    public void setViewButtonVisible(boolean visible){
+
+    public void setViewButtonVisible(boolean visible) {
         btnView.setVisible(visible);
         menuView.setVisible(visible);
         customizeSeparators();
     }
-    
-    public boolean isOpenAttachmentButtonVisible(){
+
+    public boolean isOpenAttachmentButtonVisible() {
         return btnViewAttachmanet.isVisible();
     }
-    
-    public void setOpenAttachmentButtonVisible(boolean visible){
+
+    public void setOpenAttachmentButtonVisible(boolean visible) {
         btnViewAttachmanet.setVisible(visible);
         menuViewAttachment.setVisible(visible);
         customizeSeparators();
     }
-    
-    /** Indicates whether {@link AddDocumentForm} should be closed upon add document action. */
+
+    /**
+     * Indicates whether {@link AddDocumentForm} should be closed upon add
+     * document action.
+     */
     public boolean isCloseAddDocumentFormOnAdd() {
         return closeAddDocumentFormOnAdd;
     }
 
-    /** Returns boolean indicating whether {@link AddDocumentForm} should be closed upon add document action. */
+    /**
+     * Returns boolean indicating whether {@link AddDocumentForm} should be
+     * closed upon add document action.
+     */
     public void setCloseAddDocumentFormOnAdd(boolean closeAddDocumentFormOnAdd) {
         this.closeAddDocumentFormOnAdd = closeAddDocumentFormOnAdd;
     }
@@ -219,8 +248,10 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
         this.allowEdit = allowEdit;
         customizeButtons(documentsPanel.getSourceListBean().getSelectedSource());
     }
-    
-    /** Attach file to the selected source. */
+
+    /**
+     * Attach file to the selected source.
+     */
     private void attachDocument(PropertyChangeEvent e) {
         SourceBean document = null;
         if (e.getPropertyName().equals(AddDocumentForm.SELECTED_SOURCE)
@@ -230,47 +261,50 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
         }
     }
 
-    /** Loads sources by the given list of IDs. */
-    public final void loadSourcesByIds(List<String> sourceIds){
+    /**
+     * Loads sources by the given list of IDs.
+     */
+    public final void loadSourcesByIds(List<String> sourceIds) {
         documentsPanel.loadSourcesByIds(sourceIds);
     }
-    
-    /** 
-     * Returns the list of sources IDs. 
-     @param onlyFiltered Indicates whether to return IDs only from the filtered 
-     * list. If {@code false}, returns all IDs.
+
+    /**
+     * Returns the list of sources IDs.
+     *
+     * @param onlyFiltered Indicates whether to return IDs only from the
+     * filtered list. If {@code false}, returns all IDs.
      */
-    public final List<String> getSourceIds(boolean onlyFiltered){
+    public final List<String> getSourceIds(boolean onlyFiltered) {
         return documentsPanel.getSourceIds(onlyFiltered);
     }
-    
+
     /**
      * Gets the source list bean
-     * 
+     *
      * @return
      */
-    public final SourceListBean getSourceListBean(){
+    public final SourceListBean getSourceListBean() {
         return documentsPanel.getSourceListBean();
     }
-    
+
     /**
-     * Sets the property to allow new documents that are not defined in 
+     * Sets the property to allow new documents that are not defined in
      * application to be added in the list.
-     * 
-     * @param allow 
+     *
+     * @param allow
      */
-    public void setAllowAddingOfNewDocuments(boolean allow){
+    public void setAllowAddingOfNewDocuments(boolean allow) {
         allowAddingOfNewDocuments = allow;
     }
-    
-    private void viewDocument(){
+
+    private void viewDocument() {
         firePropertyChange(VIEW_DOCUMENT, null, documentsPanel.getSourceListBean().getSelectedSource());
     }
-    
-    private void editDocument(){
+
+    private void editDocument() {
         firePropertyChange(EDIT_DOCUMENT, null, documentsPanel.getSourceListBean().getSelectedSource());
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -289,7 +323,6 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
         toolbarSeparator = new javax.swing.JToolBar.Separator();
         btnView = new javax.swing.JButton();
         btnViewAttachmanet = new javax.swing.JButton();
-        documentsPanel = createDocumentsPanel();
 
         documentsTablePopupMenu.setName("documentsTablePopupMenu"); // NOI18N
 
@@ -412,22 +445,17 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
         });
         jToolBar1.add(btnViewAttachmanet);
 
-        documentsPanel.setName("documentsPanel"); // NOI18N
-        documentsPanel.setPopupMenu(documentsTablePopupMenu);
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
-            .add(documentsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(documentsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -470,14 +498,12 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
     private void menuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditActionPerformed
         editDocument();
     }//GEN-LAST:event_menuEditActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnView;
     private javax.swing.JButton btnViewAttachmanet;
-    private org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel;
     private javax.swing.JPopupMenu documentsTablePopupMenu;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem menuAdd;
@@ -489,17 +515,23 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
     private javax.swing.JToolBar.Separator toolbarSeparator;
     // End of variables declaration//GEN-END:variables
 
-    /** Opens file attached to the selected source.*/
+    /**
+     * Opens file attached to the selected source.
+     */
     private void viewAttachment() {
         documentsPanel.viewAttachment();
     }
 
-    /** Removes selected document. */
+    /**
+     * Removes selected document.
+     */
     private void removeDocument() {
         documentsPanel.removeSelectedDocument();
     }
 
-    /** Adds new source into the list. */
+    /**
+     * Adds new source into the list.
+     */
     private void addDocument() {
         if (addDocumentForm != null) {
             addDocumentForm.dispose();
@@ -513,7 +545,7 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
             }
         };
 
-        addDocumentForm = new AddDocumentForm(applicationBean, null, true);
+        addDocumentForm = new AddDocumentForm(applicationBean, disputeBean, null, true);
         addDocumentForm.setLocationRelativeTo(this);
         addDocumentForm.addPropertyChangeListener(SourceListBean.SELECTED_SOURCE_PROPERTY, listener);
         addDocumentForm.allowAddingOfNewDocuments(allowAddingOfNewDocuments);

@@ -60,9 +60,9 @@ public class DisputeValidator implements ConstraintValidator<DisputeCheck, Dispu
                     MessageUtility.getLocalizedMessageText(
                     ClientMessage.DISPUTE_CHOOSE_RIGHT_FUNCTIONALITY)).addConstraintViolation();
         }
-        
+
         if (disputeBean.getCaseType() != null) {
-            
+
             if (disputeBean.getCaseType().equals("Dispute")) {
                 if (disputeBean.getDisputeCategory().getCode()== (null)) {
 
@@ -79,32 +79,32 @@ public class DisputeValidator implements ConstraintValidator<DisputeCheck, Dispu
                     context.buildConstraintViolationWithTemplate(
                             MessageUtility.getLocalizedMessageText(
                             ClientMessage.DISPUTE_CAPTURE_CATEGORY_OR_TYPE_FIRST)).addConstraintViolation();
-                    
-                } else if (disputeBean.getPlotLocation() == null){
-                    
+
+                } else if (disputeBean.getPlotLocation() == null) {
+
                     result = false;
 
                     context.buildConstraintViolationWithTemplate(
                             MessageUtility.getLocalizedMessageText(
                             ClientMessage.DISPUTE_LOCATION_REQUIRED)).addConstraintViolation();
                 } else if (disputeBean.getDisputeDescription() == null) {
-                    
+
                     result = false;
 
                     context.buildConstraintViolationWithTemplate(
                             MessageUtility.getLocalizedMessageText(
                             ClientMessage.DISPUTE_DESCRIPTION)).addConstraintViolation();
-                    
+
                 }
 
-            } else if (disputeBean.getCaseType().equals("Court Process")){
-                if (disputeBean.getActionRequired() == null){
+            } else if (disputeBean.getCaseType().equals("Court Process")) {
+                if (disputeBean.getActionRequired() == null) {
 
                     result = false;
 
                     context.buildConstraintViolationWithTemplate(
                             MessageUtility.getLocalizedMessageText(
-                            ClientMessage.DISPUTE_COURT_ACTION_REQUIRED)).addConstraintViolation(); 
+                            ClientMessage.DISPUTE_COURT_ACTION_REQUIRED)).addConstraintViolation();
                 }
             }
         }

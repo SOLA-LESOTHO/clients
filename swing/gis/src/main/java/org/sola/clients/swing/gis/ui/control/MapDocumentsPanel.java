@@ -38,6 +38,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.sola.clients.beans.application.ApplicationBean;
+import org.sola.clients.beans.administrative.DisputeBean;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.source.SourceListBean;
@@ -63,6 +64,7 @@ import org.sola.services.boundary.wsclients.WSManager;
 public class MapDocumentsPanel extends javax.swing.JPanel {
 
     private ApplicationBean applicationBean;
+    private DisputeBean disputeBean;
     private ControlsBundleForTransaction mapControl;
     private AbstractSpatialObjectLayer layerToImportGeometries;
     private String recognizedExtensionForImportFile = "csv";
@@ -104,7 +106,7 @@ public class MapDocumentsPanel extends javax.swing.JPanel {
         boolean allowAddingOfNewDocuments = false;
 
         DocumentsManagementPanel panel = new DocumentsManagementPanel(
-                new ArrayList<String>(), applicationBean, allowEdit);
+                new ArrayList<String>(),null, applicationBean, allowEdit);
         panel.getSourceListBean().addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -196,7 +198,7 @@ public class MapDocumentsPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 159, Short.MAX_VALUE)
+                        .addGap(0, 536, Short.MAX_VALUE)
                         .addComponent(cmdAddInMap)))
                 .addContainerGap())
         );

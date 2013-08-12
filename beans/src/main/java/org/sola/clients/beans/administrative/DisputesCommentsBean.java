@@ -43,7 +43,7 @@ import org.sola.clients.beans.referencedata.DisputeActionBean;
 import org.sola.clients.beans.referencedata.OtherAuthoritiesBean;
 
 @DisputeCommentsCheck
-public class DisputesCommentsBean extends DisputeBean {
+public class DisputesCommentsBean extends AbstractTransactionedBean {
 
     public static final String DISPUTE_NR_PROPERTY = "disputeNr";
     public static final String UPDATE_DATE_PROPERTY = "updateDate";
