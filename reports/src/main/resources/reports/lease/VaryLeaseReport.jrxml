@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54d24e81-cfe2-4298-8e0a-d893d22644a4">
-	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.zoom" value="1.0000000000000022"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
@@ -121,202 +121,246 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="105" splitType="Stretch">
+		<band height="147" splitType="Stretch">
 			<image>
-				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="203" y="0" width="149" height="51"/>
+				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="201" y="20" width="149" height="51"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="442" y="0" width="100" height="20"/>
-				<textElement>
-					<font fontName="Calibri"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="382" y="0" width="70" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[FORM LF 12]]></text>
+				<text><![CDATA[Lease number:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="442" y="41" width="100" height="30"/>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="0" width="100" height="20"/>
 				<textElement>
-					<font fontName="Calibri"/>
+					<font fontName="Calibri" size="11"/>
 				</textElement>
-				<text><![CDATA[Email: info@laa.org.ls
-Web: www.laa.org.ls]]></text>
+				<text><![CDATA[SD10(1.0)]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="12" y="11" width="100" height="79"/>
-				<textElement>
-					<font fontName="Calibri"/>
+			<textField>
+				<reportElement uuid="4aeafddb-7975-4c21-8af3-e38a005a7de4" x="453" y="0" width="81" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[P.O. Box 11856
-Lerotholi Road
-Maseru 100, Lesotho
-Tel: +266 2232 2376
-Fax: +266 2226 8071]]></text>
-			</staticText>
-			<line>
-				<reportElement uuid="45bb9b83-f1b5-40f1-b1ac-4fc4d0ed0cb6" x="14" y="96" width="528" height="1"/>
-				<graphicElement>
-					<pen lineWidth="2.0" lineColor="#006699"/>
-				</graphicElement>
-			</line>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="7" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="29" splitType="Stretch">
+				<textFieldExpression><![CDATA[$F{leaseRegistrationNumber}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement uuid="54358b23-3269-4850-9194-32afc146bd6c" x="14" y="0" width="528" height="20"/>
+				<reportElement uuid="54358b23-3269-4850-9194-32afc146bd6c" x="0" y="93" width="555" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Calibri" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Variation of a Lease]]></text>
+				<text><![CDATA[LEASE VARIATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="25" y="127" width="517" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[TO WHOM IT MAY CONCERN]]></text>
 			</staticText>
 		</band>
-	</columnHeader>
+	</title>
 	<detail>
-		<band height="144" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="12" width="528" height="20"/>
-				<textElement>
-					<font fontName="Calibri" size="11" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[To Whom it May Concern That:]]></text>
-			</staticText>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="14" y="42" width="528" height="20"/>
+		<band height="38" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="25" y="0" width="487" height="20"/>
 				<textElement markup="html">
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
-"(i)	This deed is supplemental/compensation to lease No <b>%s</b>  as held by <b>%s</b>"+
-"<p></p>"+
-"(ii)	The Minister of Local Government and Chieftainship has agreed on <b>VARIATION</b>"+
-"  pursuant to Section 42 of The Land Act 2010 to the variation of the lease No %s  in the following manner:",
-$F{parcelCode},
-$F{lessees},
-$F{parcelCode}
-)]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="37f8f830-7edf-4d7e-b37c-52b055a002c5" positionType="Float" x="46" y="72" width="496" height="20"/>
-				<textElement markup="html">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[String.format(
-"(a)	The purpose for which the leased land shall be used is <b>%s</b>"+
+"That: <b>%s</b>" +
 "<p></p>" +
-"(b)	The annual ground rent now reserved under this lease shall mean Maloti <b>%s</b> "+ "effective from the  <b>%s</b> day of <b>%s</b>"+
+"Of: <b>%s</b>" +
 "<p></p>" +
-"(c)	The lease shall now expire at the end of a  <b>%s (%s)</b> year term to be measured "+ 
-"from the <b>%s</b>  day of <b>%s</b>." +
-"<p></p>",
-$F{parcelLandUse},
-$F{groundRent}, $F{leaseStartDay}, $F{leaseStartMonthAndYear}, 
-$F{leaseTermWord}, $F{leaseTerm}, 
-$F{leaseExecutionDay}, $F{leaseExecutionMonthAndYear}
-)]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="1b3cc18d-7dff-47b8-a4ec-960c1a6cf2c9" positionType="Float" x="14" y="105" width="528" height="20"/>
-				<textElement markup="html">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[String.format(
-"Other Conditions" +
+"Hereinafter referred to as the <b>Lessee</b>, of the one part, and the <b>Commissioner of Lands</b>, of the other " +
+"part, hereby covenants to vary lease number: <b>%s</b>" +
 "<p></p>" +
-"(iii)	No variations shall be deemed to affect the said Lease No <b>%s</b>  unless expressly stated in this deed.",
-$F{parcelCode}
+"<b>WHEREAS</b>: this deed is supplemental to lease number: <b>%s</b>",
+$F{lesseesAndMaritalStatus}, $F{lesseeAddress}, $F{leaseRegistrationNumber}, $F{leaseRegistrationNumber}
 )]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="194">
+		<band height="480">
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="16" width="528" height="20"/>
-				<textElement>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="47" y="10" width="495" height="20"/>
+				<textElement/>
+				<text><![CDATA[The Commissioner of Lands has agreed pursuant to section 42 of the Land Act 2010:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0c85f4ea-dd05-40b8-82b4-954a8186a8e5" positionType="Float" x="47" y="30" width="495" height="20"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA[String.format(
+"(i) to a change of use to: <b>%s</b>", $F{parcelLandUse}
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="50" width="495" height="45"/>
+				<textElement markup="html">
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Witness.....................................................................Lessee..................................................................................]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[String.format(
+"(ii) Other variation (e.g. name, area, marital status)" +
+"<br />" +
+"<i>  (please specify):</i>"
+)]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="36" width="528" height="20"/>
-				<textElement>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="47" y="95" width="495" height="39"/>
+				<textElement/>
+				<text><![CDATA[(iii) The special conditions under which the lease shall be held are:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="134" width="495" height="20"/>
+				<textElement markup="html">
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Name.........................................................................Name...................................................................................]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="106" width="281" height="20"/>
-				<textElement>
+				<textFieldExpression><![CDATA[String.format(
+"The annual ground rent now reserved under this lease shall be: <b>%s</b>",
+$F{groundRent}
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="165" width="495" height="20"/>
+				<textElement markup="html">
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Date: ...............................................................20..............]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="370" y="106" width="172" height="20"/>
-				<textElement textAlignment="Right">
+				<textFieldExpression><![CDATA[String.format(
+"The lease shall now expire on: <b>%s</b> at the end of a <b>%s (%s)</b> year term.",
+$F{leaseExpirationDate}, $F{leaseTermWord}, $F{leaseTerm}
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="25" y="199" width="517" height="50"/>
+				<textElement markup="html">
 					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[________________________________________]]></text>
+				<textFieldExpression><![CDATA[String.format(
+"<b>Thus done, signed and executed</b> on this ............ day of ...............20......at Maseru. " +
+"and the lessee acknowledges that he/she knows and understands the contents herein."
+
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="261" width="218" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[.....................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="370" y="126" width="172" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[COMMISSIONER OF LANDS]]></text>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="281" width="218" height="31"/>
+				<textElement/>
+				<text><![CDATA[Commissioner of Lands
+Land Administration Authority]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="261" width="218" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[.....................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="281" width="46" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Lessee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="403" y="281" width="67" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(signature)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="312" width="218" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[.....................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="332" width="58" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Witness]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="403" y="332" width="67" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(signature)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="371" width="218" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Name: ..........................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="402" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Registration number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="422" width="87" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Registration date:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="125" y="402" width="341" height="20"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicationNumber}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="112" y="422" width="356" height="20"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="9bef5a94-0647-45ba-8356-f5fc46948cb2" x="25" y="14" width="10" height="10"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="9bef5a94-0647-45ba-8356-f5fc46948cb2" x="25" y="138" width="10" height="10"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="9bef5a94-0647-45ba-8356-f5fc46948cb2" x="25" y="169" width="10" height="10"/>
+			</rectangle>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="6" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="121" splitType="Stretch">
+		<band height="35">
 			<line>
-				<reportElement uuid="9a496f59-7dc7-4ed9-a0cc-d7f72e9824e6" x="14" y="6" width="528" height="1"/>
-				<graphicElement>
-					<pen lineWidth="1.5" lineColor="#006699"/>
-				</graphicElement>
+				<reportElement uuid="5fc5f2f4-4a20-4087-b244-280a4c75baee" x="14" y="7" width="528" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="26" width="78" height="20"/>
-				<textElement>
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="14" y="8" width="161" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Stamp duty of M ]]></text>
+				<text><![CDATA[Land Administration Authority]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="187" y="26" width="214" height="20"/>
-				<textElement>
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="382" y="8" width="160" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
 				</textElement>
-				<text><![CDATA[and registration fees of M ………………………]]></text>
+				<text><![CDATA[P.O. Box 11856, Maseru 100, Lesotho]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="442" y="26" width="100" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+			<textField>
+				<reportElement uuid="6609df17-3274-4e8d-aead-6af799738e75" x="175" y="8" width="130" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
 				</textElement>
-				<text><![CDATA[paid on]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="56" width="281" height="20"/>
-				<textElement>
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6609df17-3274-4e8d-aead-6af799738e75" x="305" y="8" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Revenue Receipt No.……………………………………………]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="295" y="56" width="226" height="20"/>
-				<textElement>
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[dated ………………………….…………………………………]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[" "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
+	</columnFooter>
 </jasperReport>
