@@ -13,7 +13,7 @@
             
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>All Roads</Name>
+                    <Name>Roads</Name>
                     <MaxScaleDenominator>500000</MaxScaleDenominator>
                     <PolygonSymbolizer>
                         <Stroke>
@@ -64,7 +64,7 @@
             <!-- Main Tarred Toad Definition Start -->
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>Main Tarred Road</Name>
+                    <Name>Main Tarred Road (40000 - 300000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
@@ -92,14 +92,14 @@
                 </Rule>
                 
                 <Rule>
-                    <Name>Main Tarred Road</Name>
+                    <Name>Main Tarred Road &lt; 40000</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
                             <ogc:Literal>Main Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MinScaleDenominator>0</MinScaleDenominator>
                     <MaxScaleDenominator>40000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
@@ -158,14 +158,14 @@
             <!-- Secondary Tarred Road Definition Start -->
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>Secondary Tarred Road</Name>
+                    <Name>Secondary Tarred Road (&lt; 15000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
                             <ogc:Literal>Secondary Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MinScaleDenominator>0</MinScaleDenominator>
                     <MaxScaleDenominator>15000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
@@ -219,7 +219,7 @@
                 </Rule>                
                 
                 <Rule>
-                    <Name>Secondary Tarred Road</Name>
+                    <Name>Secondary Tarred Road (15000 - 30000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
@@ -247,7 +247,7 @@
                 </Rule>   
                 
                 <Rule>
-                    <Name>Secondary Tarred Road</Name>
+                    <Name>Secondary Tarred Road (30000 - 200000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
@@ -280,14 +280,14 @@
             <!-- Secondary Untarred Road Definition Start -->
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>Secondary Untarred Road</Name>
+                    <Name>Secondary Untarred Road (&lt; 15000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
                             <ogc:Literal>Secondary Untarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MinScaleDenominator>0</MinScaleDenominator>
                     <MaxScaleDenominator>15000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
@@ -341,7 +341,7 @@
                 </Rule>                
                 
                 <Rule>
-                    <Name>Secondary Untarred Road</Name>
+                    <Name>Secondary Untarred Road (15000 - 30000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
@@ -369,7 +369,7 @@
                 </Rule>   
                 
                 <Rule>
-                    <Name>Secondary Untarred Road</Name>
+                    <Name>Secondary Untarred Road (30000 - 40000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
@@ -402,14 +402,14 @@
             <!-- Minor Tarred Road Definition Start -->
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>Minor Tarred Road</Name>
+                    <Name>Minor Tarred Road (&lt; 15000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
                             <ogc:Literal>Minor Tarred Road</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MinScaleDenominator>0</MinScaleDenominator>
                     <MaxScaleDenominator>15000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
@@ -468,14 +468,14 @@
             <!-- Minor Untarred Road Definition Start -->
             <FeatureTypeStyle>
                 <Rule>
-                    <Name>Minor Untarred Road</Name>
+                    <Name>Minor Untarred Road (&lt; 15000)</Name>
                     <ogc:Filter>
                         <ogc:PropertyIsEqualTo>
                             <ogc:PropertyName>label</ogc:PropertyName>
                             <ogc:Literal>Minor Untarred Roads</ogc:Literal>
                         </ogc:PropertyIsEqualTo>
                     </ogc:Filter>
-                    <MinScaleDenominator>35</MinScaleDenominator>
+                    <MinScaleDenominator>0</MinScaleDenominator>
                     <MaxScaleDenominator>15000</MaxScaleDenominator>
                     <LineSymbolizer>
                         <Stroke>
