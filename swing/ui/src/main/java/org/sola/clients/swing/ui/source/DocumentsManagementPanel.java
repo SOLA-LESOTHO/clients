@@ -1,7 +1,5 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
- * (FAO). All rights reserved.
  * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
  * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
@@ -323,6 +321,7 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
         toolbarSeparator = new javax.swing.JToolBar.Separator();
         btnView = new javax.swing.JButton();
         btnViewAttachmanet = new javax.swing.JButton();
+        documentsPanel = createDocumentsPanel();
 
         documentsTablePopupMenu.setName("documentsTablePopupMenu"); // NOI18N
 
@@ -445,17 +444,21 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
         });
         jToolBar1.add(btnViewAttachmanet);
 
+        documentsPanel.setName("documentsPanel"); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+            .add(documentsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(documentsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -504,6 +507,7 @@ public class DocumentsManagementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnView;
     private javax.swing.JButton btnViewAttachmanet;
+    private org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel;
     private javax.swing.JPopupMenu documentsTablePopupMenu;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem menuAdd;
