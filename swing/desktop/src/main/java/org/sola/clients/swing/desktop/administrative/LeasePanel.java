@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.administrative;
@@ -149,8 +151,8 @@ public class LeasePanel extends ContentPanel {
                 jTabbedPane1.removeTabAt(jTabbedPane1.indexOfComponent(mapTabPanel));
             }
         }
-        
-        
+
+
         rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -201,6 +203,8 @@ public class LeasePanel extends ContentPanel {
                 && rrrAction != RrrBean.RRR_ACTION.CANCEL
                 && SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE);
         boolean partyListEnabled = leaseEnabled || (enabled && isLeaseTransfer());
+        boolean groundRentEnabled = leaseEnabled && baUnit.getCadastreObject() == null;
+        boolean leaseNumEnabled = groundRentEnabled && isLeaseCorrection();
 
         // Common fields for registration and lease management
         btnSave.setEnabled(enabled);
@@ -230,6 +234,8 @@ public class LeasePanel extends ContentPanel {
         btnExecutionDate.setEnabled(leaseEnabled);
         btnNextPaymentDate.setEnabled(leaseEnabled);
         cbxLandUse.setEnabled(leaseEnabled);
+        txtRent.setEnabled(groundRentEnabled);
+        txtLeaseNumber.setEnabled(leaseNumEnabled);
 
         menuLease.setEnabled(leaseEnabled);
         menuRejectionLetter.setEnabled(leaseEnabled);
@@ -302,6 +308,14 @@ public class LeasePanel extends ContentPanel {
         return false;
     }
 
+    private boolean isLeaseCorrection() {
+        if (appService != null && appService.getRequestTypeCode() != null) {
+            String typeCode = appService.getRequestTypeCode();
+            return RequestTypeBean.isLeaseCorrection(typeCode);
+        }
+        return false;
+    }
+
     private boolean saveRrr() {
         boolean validated;
         WindowUtility.commitChanges(this);
@@ -335,6 +349,15 @@ public class LeasePanel extends ContentPanel {
 
         if (validated) {
             firePropertyChange(UPDATED_RRR, null, rrrBean);
+            if (isLeaseCorrection() && baUnit.getCadastreObject() == null) {
+                // No cadastre object so set the baUnit name first part and 
+                // name last part using the lease number
+                int dashPos = rrrBean.getLeaseNumber().indexOf("-");
+                if (dashPos > 0) {
+                    baUnit.setNameFirstpart(rrrBean.getLeaseNumber().substring(0, dashPos));
+                    baUnit.setNameLastpart(rrrBean.getLeaseNumber().substring(dashPos + 1));
+                }
+            }
             close();
         }
         return validated;
@@ -1772,7 +1795,6 @@ public class LeasePanel extends ContentPanel {
             removeSubplot();
         }
     }//GEN-LAST:event_btnRemoveSubplotActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.swing.common.buttons.BtnAdd btnAddCodition;
     private org.sola.clients.swing.common.buttons.BtnAdd btnAddSubplot;

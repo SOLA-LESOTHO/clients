@@ -195,7 +195,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private SolaList<RrrBean> rrrList;
     private SolaList<BaUnitNotationBean> baUnitNotationList;
     @Valid
-    @NotNull(message = ClientMessage.BAUNIT_SELECT_PARCEL, payload = Localized.class)
+    //@NotNull(message = ClientMessage.BAUNIT_SELECT_PARCEL, payload = Localized.class)
     private CadastreObjectBean cadastreObject;
     private SolaList<CadastreObjectBean> newCadastreObjectList;
     private SolaObservableList<BaUnitNotationBean> allBaUnitNotationList;
