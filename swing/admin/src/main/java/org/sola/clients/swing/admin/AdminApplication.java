@@ -1,7 +1,7 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -11,8 +11,9 @@
  *    2. Redistributions in binary form must reproduce the above copyright notice,this list
  *       of conditions and the following disclaimer in the documentation and/or other
  *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -61,6 +62,7 @@ import java.beans.PropertyChangeListener;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.LocalizationManager;
 import org.sola.clients.swing.ui.security.LoginPanel;
+import org.sola.common.WindowUtility;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -71,11 +73,14 @@ import org.sola.services.boundary.wsclients.WSManager;
  */
 public class AdminApplication {
 
-    /** Main method to run the application. 
+    /**
+     * Main method to run the application.
+     *
      * @param args Array of input parameters.
      */
     public static void main(String[] args) {
         // Show splash screen
+        WindowUtility.setMainAppClass(AdminApplication.class);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         int x = ((dim.width) / 2);
         int y = ((dim.height) / 2);
@@ -93,7 +98,6 @@ public class AdminApplication {
         splash.dispose();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -101,13 +105,15 @@ public class AdminApplication {
                 int y = ((dim.height) / 2);
 
                 Thread.setDefaultUncaughtExceptionHandler(new DesktopClientExceptionHandler());
-                LocalizationManager.loadLanguage(AdminApplication.class);
-                LogUtility.initialize(AdminApplication.class);
-                LafManager.getInstance().setProperties("green");
+                LocalizationManager.loadLanguage();
+                if (LocalizationManager.isProductionHost()) {
+                    LafManager.getInstance().setProperties("green");
+                } else {
+                    LafManager.getInstance().setProperties("autumn");
+                }
 
-                final LoginForm loginForm = new LoginForm(AdminApplication.class);
+                final LoginForm loginForm = new LoginForm();
                 loginForm.addPropertyChangeListener(new PropertyChangeListener() {
-
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         if (evt.getPropertyName().equals(LoginPanel.LOGIN_RESULT)) {

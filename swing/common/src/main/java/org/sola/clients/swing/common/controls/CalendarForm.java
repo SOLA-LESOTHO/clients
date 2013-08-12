@@ -1,7 +1,7 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -11,8 +11,9 @@
  *    2. Redistributions in binary form must reproduce the above copyright notice,this list
  *       of conditions and the following disclaimer in the documentation and/or other
  *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -34,6 +35,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 
 /**
  * Dialog form to display pop-up calendar
@@ -43,9 +45,11 @@ public class CalendarForm extends javax.swing.JDialog {
     private JCalendar calendarPanel;
     private JFormattedTextField dateField;
 
-    /** 
-     * Creates new instance of CalendarForm. 
-     * @param dateField Instance of {@link JFormattedTextField} to bind the calendar to.
+    /**
+     * Creates new instance of CalendarForm.
+     *
+     * @param dateField Instance of {@link JFormattedTextField} to bind the
+     * calendar to.
      */
     public CalendarForm(java.awt.Frame parent, boolean modal, JFormattedTextField dateField) {
         super(parent, modal);
@@ -56,6 +60,8 @@ public class CalendarForm extends javax.swing.JDialog {
     private void initForm() {
         this.getContentPane().setLayout(new BorderLayout());
         calendarPanel = new JCalendar();
+        calendarPanel.getDayChooser().setAlwaysFireDayProperty(false);
+
         calendarPanel.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -69,15 +75,16 @@ public class CalendarForm extends javax.swing.JDialog {
         this.getContentPane().add(calendarPanel, BorderLayout.CENTER);
         this.pack();
         setPositionAndDate();
+        calendarPanel.getDayChooser().setAlwaysFireDayProperty(true);
     }
 
     private void setPositionAndDate() {
         if (dateField != null) {
             this.setLocation(dateField.getLocationOnScreen().x,
                     dateField.getLocationOnScreen().y + dateField.getHeight() + 2);
-            if(dateField.getValue() != null){
+            if (dateField.getValue() != null) {
                 calendarPanel.setDate((Date) dateField.getValue());
-            }else{
+            } else {
                 calendarPanel.setDate(Calendar.getInstance().getTime());
             }
         }
@@ -99,4 +106,3 @@ public class CalendarForm extends javax.swing.JDialog {
         setPositionAndDate();
     }
 }
-

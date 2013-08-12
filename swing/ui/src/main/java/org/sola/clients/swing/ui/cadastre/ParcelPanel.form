@@ -48,8 +48,14 @@
       </SubComponents>
     </Container>
     <Component class="org.sola.clients.beans.referencedata.LandGradeTypeListBean" name="landGradeTypeListBean1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createLadGradeList()"/>
+      </AuxValues>
     </Component>
     <Component class="org.sola.clients.beans.referencedata.RoadClassTypeListBean" name="roadClassTypeListBean1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createRoadClassList()"/>
+      </AuxValues>
     </Component>
     <Component class="org.sola.clients.beans.party.PartySummaryListBean" name="partySummaryList">
       <AuxValues>
@@ -575,7 +581,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="labLandUse" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="90" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="76" max="32767" attributes="0"/>
                   </Group>
                   <Component id="cbxRoadClass" max="32767" attributes="0"/>
               </Group>
@@ -594,6 +600,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labLandUse">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/common/red_asterisk.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/ui/cadastre/Bundle.properties" key="ParcelPanel.labLandUse.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -627,7 +636,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labLandUse1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="88" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
                   </Group>
                   <Component id="cbxLandGrade" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -646,6 +655,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labLandUse1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/common/red_asterisk.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/sola/clients/swing/ui/cadastre/Bundle.properties" key="ParcelPanel.labLandUse1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="c4f5e391-9db4-4c23-a642-15bbd05b6a89">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="57"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="APPLICANT_NAME" class="java.lang.String"/>
 	<parameter name="APPLICATION_NUMBER" class="java.lang.String"/>
@@ -103,8 +103,8 @@ Fax: +266 2231 0905]]></text>
 "<font size='4'>" +
 "Dear %s," +
 "<p></p>" +
-"This is to inform you, that your request made by application <b>#%s</b> on the date of %s to <b>CONSENT TO %s</b> " +
-"for the parcel <b>%s</b>, located at %s, was rejected with the following reason:" +
+"This is to inform you that your request made by application <b>#%s</b> on the date of %s to <b>CONSENT TO %s</b> " +
+"for the parcel <b>%s</b>, located at %s, was rejected because of the following reason:" +
 "<p></p>" +
 "<i>%s</i>" +
 "<p></p>" +

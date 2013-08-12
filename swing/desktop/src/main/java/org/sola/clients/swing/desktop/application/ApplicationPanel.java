@@ -1,30 +1,29 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
- * (FAO). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this
- * list of conditions and the following disclaimer. 2. Redistributions in binary
- * form must reproduce the above copyright notice,this list of conditions and
- * the following disclaimer in the documentation and/or other materials provided
- * with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.application;
@@ -81,6 +80,7 @@ import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
 //import org.sola.clients.swing.desktop.administrative.LeasePreparationForm;
 import org.sola.clients.swing.ui.administrative.BaUnitSearchPanel;
 import org.sola.clients.swing.ui.renderers.*;
+import org.sola.common.WindowUtility;
 
 /**
  * This form is used to create new application or edit existing one. <p>The
@@ -299,7 +299,6 @@ public class ApplicationPanel extends ContentPanel {
             tabbedControlMain.addTab(bundle.getString("ApplicationPanel.historyPanel.TabConstraints.tabTitle"), historyPanel);
             btnValidate.setEnabled(true);
         } else {
-            cbxAgents.requestFocus(true);
             tabbedControlMain.removeTabAt(tabbedControlMain.indexOfComponent(historyPanel));
             tabbedControlMain.removeTabAt(tabbedControlMain.indexOfComponent(validationPanel));
             btnValidate.setEnabled(false);
@@ -321,7 +320,8 @@ public class ApplicationPanel extends ContentPanel {
                 && SecurityBean.isInRole(RolesConstants.APPLICATION_WITHDRAW));
         menuWithdraw.setEnabled(appBean.canWithdraw()
                 && SecurityBean.isInRole(RolesConstants.APPLICATION_WITHDRAW));
-        btnPrintStatusReport.setEnabled(appBean.getRowVersion() > 0);
+        btnPrintStatusReport.setEnabled(appBean.getRowVersion() > 0
+                && SecurityBean.isInRole(RolesConstants.APPLICATION_PRINT_STATUS_REPORT));
 
         if (btnValidate.isEnabled()) {
             btnValidate.setEnabled(appBean.canValidate()
@@ -343,7 +343,6 @@ public class ApplicationPanel extends ContentPanel {
             txtPhone.setEditable(editAllowed);
             txtFax.setEditable(editAllowed);
             cbxCommunicationWay.setEnabled(editAllowed);
-            cbxAgents.setEnabled(editAllowed);
             documentsPanel.setAllowEdit(editAllowed);
             cadastreObjectsSearch.setReadOnly(!editAllowed);
             propertySearchPanel.setReadOnly(!editAllowed);
@@ -881,7 +880,7 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     private void saveApplication(final boolean closeOnSave) {
-
+        WindowUtility.commitChanges(this);
         if (!checkApplication()) {
             return;
         }
@@ -1003,9 +1002,6 @@ public class ApplicationPanel extends ContentPanel {
         jPanel26 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtCompleteBy = new javax.swing.JFormattedTextField();
-        jPanel14 = new javax.swing.JPanel();
-        labAgents = new javax.swing.JLabel();
-        cbxAgents = new javax.swing.JComboBox();
         jPanel15 = new javax.swing.JPanel();
         labStatus = new javax.swing.JLabel();
         txtStatus = new javax.swing.JTextField();
@@ -1669,7 +1665,7 @@ public class ApplicationPanel extends ContentPanel {
         );
 
         jPanel25.setName("jPanel25"); // NOI18N
-        jPanel25.setLayout(new java.awt.GridLayout(2, 3, 15, 10));
+        jPanel25.setLayout(new java.awt.GridLayout(1, 4, 15, 10));
 
         jPanel24.setEnabled(false);
         jPanel24.setFocusable(false);
@@ -1692,8 +1688,8 @@ public class ApplicationPanel extends ContentPanel {
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtAppNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+            .addComponent(txtAppNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1728,7 +1724,7 @@ public class ApplicationPanel extends ContentPanel {
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labDate, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+            .addComponent(labDate, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
             .addComponent(txtDate)
         );
         jPanel13Layout.setVerticalGroup(
@@ -1763,7 +1759,7 @@ public class ApplicationPanel extends ContentPanel {
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
             .addComponent(txtCompleteBy)
         );
         jPanel26Layout.setVerticalGroup(
@@ -1776,47 +1772,6 @@ public class ApplicationPanel extends ContentPanel {
         );
 
         jPanel25.add(jPanel26);
-
-        jPanel14.setMinimumSize(new java.awt.Dimension(28, 20));
-        jPanel14.setName("jPanel14"); // NOI18N
-
-        LafManager.getInstance().setLabProperties(labAgents);
-        labAgents.setText(bundle.getString("ApplicationPanel.labAgents.text")); // NOI18N
-        labAgents.setIconTextGap(1);
-        labAgents.setName("labAgents"); // NOI18N
-
-        LafManager.getInstance().setCmbProperties(cbxAgents);
-        cbxAgents.setName("cbxAgents"); // NOI18N
-        AutoCompletion.enable(cbxAgents);
-        cbxAgents.setRenderer(new SimpleComboBoxRenderer("getFullName"));
-        cbxAgents.setRequestFocusEnabled(false);
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${partySummaryList}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySummaryList, eLProperty, cbxAgents);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${agent}"), cbxAgents, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
-
-        cbxAgents.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cbxAgents, 0, 214, Short.MAX_VALUE)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(labAgents)
-                .addContainerGap(166, Short.MAX_VALUE))
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(labAgents)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxAgents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel25.add(jPanel14);
 
         jPanel15.setName("jPanel15"); // NOI18N
 
@@ -1837,10 +1792,10 @@ public class ApplicationPanel extends ContentPanel {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+            .addComponent(txtStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(labStatus)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1871,7 +1826,7 @@ public class ApplicationPanel extends ContentPanel {
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         tabbedControlMain.addTab(bundle.getString("ApplicationPanel.contactPanel.TabConstraints.tabTitle"), contactPanel); // NOI18N
@@ -2759,20 +2714,16 @@ public class ApplicationPanel extends ContentPanel {
     }//GEN-LAST:event_txtFaxFocusLost
 
     private void contactPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactPanelMouseClicked
-        cbxAgents.requestFocus(false);
         txtFirstName.requestFocus();
     }//GEN-LAST:event_contactPanelMouseClicked
 
     private void propertyPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_propertyPanelMouseClicked
-        cbxAgents.requestFocus(false);
     }//GEN-LAST:event_propertyPanelMouseClicked
 
     private void documentPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_documentPanelMouseClicked
-        cbxAgents.requestFocus(false);
     }//GEN-LAST:event_documentPanelMouseClicked
 
     private void historyPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyPanelMouseClicked
-        cbxAgents.requestFocus(false);
     }//GEN-LAST:event_historyPanelMouseClicked
 
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
@@ -3281,8 +3232,7 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     private void printStatusReport() {
-        if (appBean.getRowVersion() > 0
-                && ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_SERVICE_ENQUIRY)) {
+        if (appBean.getRowVersion() > 0) {
             showReport(ReportManager.getApplicationStatusReport(appBean));
         }
     }
@@ -3316,7 +3266,6 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JButton btnValidate;
     private javax.swing.JButton btnViewService;
     private org.sola.clients.swing.ui.cadastre.CadastreObjectsSearchPanel cadastreObjectsSearch;
-    private javax.swing.JComboBox cbxAgents;
     public javax.swing.JComboBox cbxCommunicationWay;
     private javax.swing.JCheckBox cbxPaid;
     private org.sola.clients.beans.referencedata.CommunicationTypeListBean communicationTypes;
@@ -3343,7 +3292,6 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
@@ -3378,7 +3326,6 @@ public class ApplicationPanel extends ContentPanel {
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JLabel labAddress;
-    private javax.swing.JLabel labAgents;
     private javax.swing.JLabel labDate;
     private javax.swing.JLabel labDocRequired;
     private javax.swing.JLabel labEmail;

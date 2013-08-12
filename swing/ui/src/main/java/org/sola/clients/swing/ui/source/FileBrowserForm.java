@@ -1,26 +1,29 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO). All rights
- * reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification, are permitted
- * provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this list of conditions
- * and the following disclaimer. 2. Redistributions in binary form must reproduce the above
- * copyright notice,this list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this software without
- * specific prior written permission.
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
- * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.ui.source;
@@ -32,6 +35,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
@@ -42,17 +46,20 @@ import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.ui.ImagePreview;
 import org.sola.clients.swing.ui.renderers.FileNameCellRenderer;
 import org.sola.common.FileUtility;
+import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 
 /**
- * This form provides browsing of local and remote folders for the scanned images. Could be used to
- * attach digital copies of documents.<br /> The following bean is used to bind server side files
- * list on the form -
+ * This form provides browsing of local and remote folders for the scanned
+ * images. Could be used to attach digital copies of documents.<br /> The
+ * following bean is used to bind server side files list on the form -
  * {@link FileInfoListBean}.
  */
 public class FileBrowserForm extends javax.swing.JDialog {
+
+    private static String USER_PREFERRED_DIR = "userPreferredDir";
 
     /**
      * File browser action upon file attachment event.
@@ -62,8 +69,8 @@ public class FileBrowserForm extends javax.swing.JDialog {
         CLOSE_WINDOW, SHOW_MESSAGE
     }
     /**
-     * Property name, used to rise property change event upon attached document id change. This
-     * event is rised on attach button click.
+     * Property name, used to rise property change event upon attached document
+     * id change. This event is rised on attach button click.
      */
     public static final String ATTACHED_DOCUMENT = "AttachedDocumentId";
     private ResourceBundle formBundle = ResourceBundle.getBundle("org/sola/clients/swing/ui/source/Bundle");
@@ -81,16 +88,23 @@ public class FileBrowserForm extends javax.swing.JDialog {
         serverFiles.addPropertyChangeListener(serverFilesListener());
         localFileChooser.setControlButtonsAreShown(false);
         localFileChooser.setAccessory(new ImagePreview(localFileChooser, 225, 300));
+        if (WindowUtility.hasUserPreferences()) {
+            // Check if the user has a preferred location to upload files from
+            Preferences prefs = WindowUtility.getUserPreferences();
+            String preferredDir = prefs.get(USER_PREFERRED_DIR, null);
+            if (preferredDir != null) {
+                localFileChooser.setCurrentDirectory(new File(preferredDir));
+            }
+        }
         customizeRemoteFileButtons();
     }
 
     /**
-     * Property change listener for the {@link FileInfoListBean} to trap selected file change in the
-     * list of scanned files in the remote folder.
+     * Property change listener for the {@link FileInfoListBean} to trap
+     * selected file change in the list of scanned files in the remote folder.
      */
     private PropertyChangeListener serverFilesListener() {
         PropertyChangeListener listener = new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getPropertyName().equals(FileInfoListBean.SELECTED_FILE_INFO_BEAN_PROPERTY)) {
@@ -103,7 +117,6 @@ public class FileBrowserForm extends javax.swing.JDialog {
                         lblServerPreview.repaint();
 
                         Runnable loadingThumbnail = new Runnable() {
-
                             @Override
                             public void run() {
                                 ImageIcon thumbnail = serverFiles.getSelectedFileInfoBean().getThumbnailIcon();
@@ -141,7 +154,6 @@ public class FileBrowserForm extends javax.swing.JDialog {
     private void refreshRemoteFiles() {
         if (serverFiles.getSelectedFileInfoBean() != null) {
             SolaTask t = new SolaTask<Void, Void>() {
-
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_DOCUMENT_GETTING_LIST));
@@ -156,7 +168,6 @@ public class FileBrowserForm extends javax.swing.JDialog {
     private void openRemoteFile() {
         if (serverFiles.getSelectedFileInfoBean() != null) {
             SolaTask t = new SolaTask<Void, Void>() {
-
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_DOCUMENT_OPENING));
@@ -169,11 +180,11 @@ public class FileBrowserForm extends javax.swing.JDialog {
     }
 
     /**
-     * Opens a file from the local file system using {@linkplain FileUtility#openFile(java.io.File)}
+     * Opens a file from the local file system using
+     * {@linkplain FileUtility#openFile(java.io.File)}
      */
     private void openLocalFile() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_DOCUMENT_OPENING));
@@ -185,8 +196,8 @@ public class FileBrowserForm extends javax.swing.JDialog {
     }
 
     /**
-     * Uploads selected file into the digital archive from remote folder, gets {@link DocumentBean}
-     * of uploaded file and calls method
+     * Uploads selected file into the digital archive from remote folder, gets
+     * {@link DocumentBean} of uploaded file and calls method
      * {@link #fireAttachEvent(DocumentBean)} to rise attachment event.
      */
     private void attachRemoteFile() {
@@ -197,9 +208,9 @@ public class FileBrowserForm extends javax.swing.JDialog {
     }
 
     /**
-     * Checks uploaded document bean, rises {@link #ATTACHED_DOCUMENT} property change event. Closes
-     * the window or displays the message, depending on the {@link AttachAction} value, passed to
-     * the form constructor.
+     * Checks uploaded document bean, rises {@link #ATTACHED_DOCUMENT} property
+     * change event. Closes the window or displays the message, depending on the
+     * {@link AttachAction} value, passed to the form constructor.
      */
     private void fireAttachEvent(DocumentBean documentBean) {
         if (documentBean == null) {
@@ -243,7 +254,6 @@ public class FileBrowserForm extends javax.swing.JDialog {
         File selectedFile = localFileChooser.getSelectedFile();
         if (selectedFile != null) {
             SolaTask<Void, Void> task = new SolaTask<Void, Void>() {
-
                 DocumentBean document = null;
 
                 @Override
@@ -256,6 +266,10 @@ public class FileBrowserForm extends javax.swing.JDialog {
 
                 @Override
                 protected void taskDone() {
+                    if (WindowUtility.hasUserPreferences()) {
+                        Preferences prefs = WindowUtility.getUserPreferences();
+                        prefs.put(USER_PREFERRED_DIR, localFileChooser.getSelectedFile().getAbsolutePath());
+                    }
                     fireAttachEvent(document);
                 }
             };
@@ -605,8 +619,8 @@ public class FileBrowserForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOpenLocalActionPerformed
 
     /**
-     * Uploads selected file into the digital archive from local drive, gets {@link DocumentBean} of
-     * uploaded file and calls method
+     * Uploads selected file into the digital archive from local drive, gets
+     * {@link DocumentBean} of uploaded file and calls method
      * {@link #fireAttachEvent(DocumentBean)} to rise attachment event.
      */
     private void btnAttachLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttachLocalActionPerformed

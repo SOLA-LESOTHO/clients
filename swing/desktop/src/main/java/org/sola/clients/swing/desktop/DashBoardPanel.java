@@ -1,30 +1,29 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
- * (FAO). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this
- * list of conditions and the following disclaimer. 2. Redistributions in binary
- * form must reproduce the above copyright notice,this list of conditions and
- * the following disclaimer in the documentation and/or other materials provided
- * with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop;
@@ -87,8 +86,8 @@ public class DashBoardPanel extends ContentPanel {
     private void postInit() {
 
         setHeaderPanel(headerPanel);
-        btnRefreshAssigned.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_VIEW_APPS));
-        btnRefreshUnassigned.setEnabled(SecurityBean.isInRole(RolesConstants.APPLICATION_VIEW_APPS));
+        btnRefreshAssigned.setEnabled(SecurityBean.isInRole(RolesConstants.DASHBOARD_VIEW_ASSIGNED_APPS));
+        btnRefreshUnassigned.setEnabled(SecurityBean.isInRole(RolesConstants.DASHBOARD_VIEW_UNASSIGNED_APPS));
         menuRefreshAssignApplication.setEnabled(btnRefreshAssigned.isEnabled());
         menuRefreshUnassignApplication.setEnabled(btnRefreshUnassigned.isEnabled());
 
@@ -97,7 +96,6 @@ public class DashBoardPanel extends ContentPanel {
         customizeUnassignedAppButtons();
 
         assignedAppListBean.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(ApplicationSearchResultsListBean.APPLICATION_CHECKED_PROPERTY)
@@ -108,7 +106,6 @@ public class DashBoardPanel extends ContentPanel {
         });
 
         unassignedAppListBean.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(ApplicationSearchResultsListBean.APPLICATION_CHECKED_PROPERTY)
@@ -126,14 +123,14 @@ public class DashBoardPanel extends ContentPanel {
         boolean isUnassignEnabled;
         boolean isEditEnabled = false;
 
-        if (assignedAppListBean.hasChecked() && 
-                (SecurityBean.isInRole(RolesConstants.APPLICATION_UNASSIGN_FROM_YOURSELF)
+        if (assignedAppListBean.hasChecked()
+                && (SecurityBean.isInRole(RolesConstants.APPLICATION_UNASSIGN_FROM_YOURSELF)
                 || SecurityBean.isInRole(RolesConstants.APPLICATION_UNASSIGN_FROM_OTHERS))) {
             isUnassignEnabled = true;
         } else {
             isUnassignEnabled = false;
         }
-        
+
         if (!isUnassignEnabled && SecurityBean.isInRole(RolesConstants.APPLICATION_EDIT_APPS, RolesConstants.APPLICATION_VIEW_APPS)) {
             isEditEnabled = assignedAppListBean.getSelectedApplication() != null;
         }
@@ -151,14 +148,14 @@ public class DashBoardPanel extends ContentPanel {
         boolean isAssignEnabled;
         boolean isEditEnabled = false;
 
-        if (unassignedAppListBean.hasChecked() && 
-                (SecurityBean.isInRole(RolesConstants.APPLICATION_ASSIGN_TO_YOURSELF)
+        if (unassignedAppListBean.hasChecked()
+                && (SecurityBean.isInRole(RolesConstants.APPLICATION_ASSIGN_TO_YOURSELF)
                 || SecurityBean.isInRole(RolesConstants.APPLICATION_ASSIGN_TO_OTHERS))) {
             isAssignEnabled = true;
         } else {
             isAssignEnabled = false;
         }
-        
+
         if (!isAssignEnabled && SecurityBean.isInRole(RolesConstants.APPLICATION_EDIT_APPS, RolesConstants.APPLICATION_VIEW_APPS)) {
             isEditEnabled = unassignedAppListBean.getSelectedApplication() != null;
         }
@@ -180,12 +177,12 @@ public class DashBoardPanel extends ContentPanel {
             return;
         }
 
-        for (ApplicationSearchResultBean app : appList) {
-            if (!app.isFeePaid()) {
-                MessageUtility.displayMessage(ClientMessage.CHECK_FEES_NOT_PAID, new Object[]{app.getNr()});
-                return;
-            }
-        }
+//        for (ApplicationSearchResultBean app : appList) {
+//            if (!app.isFeePaid()) {
+//                MessageUtility.displayMessage(ClientMessage.CHECK_FEES_NOT_PAID, new Object[]{app.getNr()});
+//                return;
+//            }
+//        }
 
         if (assign) {
             ApplicationAssignmentDialog form = new ApplicationAssignmentDialog(appList, MainForm.getInstance(), true);
@@ -197,13 +194,14 @@ public class DashBoardPanel extends ContentPanel {
                 for (ApplicationSearchResultBean app : appList) {
                     String assigneeId = app.getAssigneeId();
                     if (assigneeId != null && assigneeId.equals(SecurityBean.getCurrentUser().getId())
-                            && !SecurityBean.isInRole(RolesConstants.APPLICATION_UNASSIGN_FROM_YOURSELF)) {
+                            && !SecurityBean.isInRole(RolesConstants.APPLICATION_UNASSIGN_FROM_YOURSELF,
+                            RolesConstants.APPLICATION_UNASSIGN_FROM_OTHERS)) {
                         // Can't unassign from yourself
                         MessageUtility.displayMessage(ClientMessage.APPLICATION_UNASSIGN_FROM_SELF_FORBIDDEN,
                                 new Object[]{app.getNr()});
                         break;
                     }
-                    if (assigneeId != null && assigneeId.equals(SecurityBean.getCurrentUser().getId())
+                    if (assigneeId != null && !assigneeId.equals(SecurityBean.getCurrentUser().getId())
                             && !SecurityBean.isInRole(RolesConstants.APPLICATION_UNASSIGN_FROM_OTHERS)) {
                         MessageUtility.displayMessage(ClientMessage.APPLICATION_UNASSIGN_FROM_OTHERS_FORBIDDEN,
                                 new Object[]{app.getNr()});
@@ -227,12 +225,10 @@ public class DashBoardPanel extends ContentPanel {
         }
 
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_APP));
                 PropertyChangeListener listener = new PropertyChangeListener() {
-
                     @Override
                     public void propertyChange(PropertyChangeEvent e) {
                         if (e.getPropertyName().equals(ApplicationPanel.APPLICATION_SAVED_PROPERTY)) {
@@ -604,6 +600,10 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding.setColumnName("Status");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${feePaid}"));
+        columnBinding.setColumnName("Fee Paid");
+        columnBinding.setColumnClass(Boolean.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, assignedAppListBean, org.jdesktop.beansbinding.ELProperty.create("${selectedApplication}"), tbAssigned, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -630,6 +630,9 @@ public class DashBoardPanel extends ContentPanel {
         tbAssigned.getColumnModel().getColumn(5).setCellRenderer(new org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer());
         tbAssigned.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title6")); // NOI18N
         tbAssigned.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title7")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(8).setMaxWidth(80);
+        tbAssigned.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title8")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(8).setCellRenderer(new BooleanCellRenderer());
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -738,15 +741,18 @@ public class DashBoardPanel extends ContentPanel {
      */
     private void refreshApplications() {
         SolaTask t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
-                setMessage(MessageUtility.getLocalizedMessageText(
-                        ClientMessage.APPLICATION_LOADING_UNASSIGNED));
-                unassignedAppListBean.FillUnassigned();
-                setMessage(MessageUtility.getLocalizedMessageText(
-                        ClientMessage.APPLICATION_LOADING_ASSIGNED));
-                assignedAppListBean.FillAssigned();
+                if (btnRefreshUnassigned.isEnabled()) {
+                    setMessage(MessageUtility.getLocalizedMessageText(
+                            ClientMessage.APPLICATION_LOADING_UNASSIGNED));
+                    unassignedAppListBean.FillUnassigned();
+                }
+                if (btnRefreshAssigned.isEnabled()) {
+                    setMessage(MessageUtility.getLocalizedMessageText(
+                            ClientMessage.APPLICATION_LOADING_ASSIGNED));
+                    assignedAppListBean.FillAssigned();
+                }
                 return null;
             }
         };

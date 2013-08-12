@@ -1,7 +1,7 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -11,8 +11,9 @@
  *    2. Redistributions in binary form must reproduce the above copyright notice,this list
  *       of conditions and the following disclaimer in the documentation and/or other
  *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -28,32 +29,65 @@
 package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
-import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.AbstractBindingListBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaCodeList;
 
-public class RoadClassTypeListBean  extends AbstractBindingBean {
-    
+public class RoadClassTypeListBean extends AbstractBindingListBean {
+
     public static final String SELECTED_ROAD_CLASS_TYPE_PROPERTY = "selectedRoadClassType";
     private SolaCodeList<RoadClassTypeBean> roadClassTypeList;
     private RoadClassTypeBean selectedRoadClassType;
-    
-    public RoadClassTypeListBean(){
-        roadClassTypeList = new SolaCodeList<RoadClassTypeBean>(CacheManager.getRoadClassType());
+
+    public RoadClassTypeListBean() {
+        this(false);
+    }
+
+    /**
+     * Creates object instance.
+     *
+     * @param createDummy Indicates whether to add empty object on the list.
+     */
+    public RoadClassTypeListBean(boolean createDummy) {
+        this(createDummy, (String) null);
+    }
+
+    /**
+     * Creates object instance.
+     *
+     * @param createDummy Indicates whether to add empty object on the list.
+     * @param excludedCodes Codes, which should be skipped while filtering.
+     */
+    public RoadClassTypeListBean(boolean createDummy, String... excludedCodes) {
+        super();
+        roadClassTypeList = new SolaCodeList<RoadClassTypeBean>(excludedCodes);
+        loadList(createDummy);
+    }
+
+    /**
+     * Loads list of {@link RoadClassTypeBean}.
+     *
+     * @param createDummy Indicates whether to add empty object on the list.
+     */
+    public final void loadList(boolean createDummy) {
+        loadCodeList(RoadClassTypeBean.class, roadClassTypeList, CacheManager.getRoadClassType(), createDummy);
+    }
+
+    public void setExcludedCodes(String ... codes){
+        roadClassTypeList.setExcludedCodes(codes);
     }
     
-    public ObservableList<RoadClassTypeBean> getRoadClassTypeList(){
+    public ObservableList<RoadClassTypeBean> getRoadClassTypeList() {
         return roadClassTypeList.getFilteredList();
     }
-    
-    public RoadClassTypeBean getSelectedRoadClassType(){
+
+    public RoadClassTypeBean getSelectedRoadClassType() {
         return selectedRoadClassType;
     }
-    
-    public void setSelectedRoadClassType(RoadClassTypeBean selectedRoadClassType){
+
+    public void setSelectedRoadClassType(RoadClassTypeBean selectedRoadClassType) {
         this.selectedRoadClassType = selectedRoadClassType;
-        propertySupport.firePropertyChange(SELECTED_ROAD_CLASS_TYPE_PROPERTY, 
-                                            null, selectedRoadClassType);
+        propertySupport.firePropertyChange(SELECTED_ROAD_CLASS_TYPE_PROPERTY,
+                null, selectedRoadClassType);
     }
-    
 }

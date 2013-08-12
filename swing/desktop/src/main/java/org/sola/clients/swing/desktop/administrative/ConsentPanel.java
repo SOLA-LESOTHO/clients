@@ -1,22 +1,38 @@
-/*
- * Copyright 2013 Food and Agriculture Organization of the United Nations (FAO).
+/**
+ * ******************************************************************************************
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFormattedTextField;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.administrative.BaUnitBean;
@@ -31,6 +47,7 @@ import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.reports.FreeTextDialog;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.common.DateUtility;
+import org.sola.common.NumberToWords;
 import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -40,7 +57,7 @@ import org.sola.common.messaging.MessageUtility;
  *
  */
 public class ConsentPanel extends ContentPanel {
-
+    
     private ConsentBean consentBean;
     private ApplicationBean appBean;
     private ApplicationServiceBean appService;
@@ -48,13 +65,12 @@ public class ConsentPanel extends ContentPanel {
     private String consentType;
     public static final String UPDATED_RRR = "updatedRRR";
     private PartyListExtPanel persons;
-
+    
     private PartyListExtPanel createPartyListPanel(String role) {
         if (role.equals("rightholder")) {
             return new PartyListExtPanel(consentBean.getRightHolderList());
         } else {
             persons = new PartyListExtPanel(consentBean.getRecipientList());
-            //return new PartyListExtPanel(consentBean.getRecipientList());
             return persons;
         }
     }
@@ -66,31 +82,30 @@ public class ConsentPanel extends ContentPanel {
         this.baUnitBean = baUnitBean;
         this.appBean = appBean;
         this.appService = appService;
-        //this.rrrAction = rrrAction;
         this.consentType = consentType;
         this.consentBean = new ConsentBean();
-
+        
         prepareConsentBean(baUnitBean);
         initComponents();
         postInit();
     }
-
+    
     private void postInit() {
         customizeForm();
     }
-
+    
     private void customizeForm() {
         headerPanel2.setTitleText(consentType + ": " + consentBean.getLeaseNumber());
     }
-
+    
     private void prepareConsentBean(BaUnitBean baUnit) {
-
+        
         if (baUnit == null) {
             consentBean = new ConsentBean();
         }
         consentBean.setBaUnit(baUnit);
         consentBean.setLeaseNumber(baUnit.getName());
-
+        
         consentBean.setRightholderRrr(baUnit.getPrimaryRight());
         consentBean.setRightHolderList(consentBean.getRightholderRrr().getRightHolderList());
         consentBean.setServiceFee(appService.getBaseFee());
@@ -99,37 +114,62 @@ public class ConsentPanel extends ContentPanel {
         consentBean.setRecipients(consentBean.getRecipients());
         String address = consentBean.getBaUnit().getCadastreObject().getAddressString();
         consentBean.setParcelAddress(address);
+        consentBean.setRegistrationDate(new Date());
+        consentBean.setRegistrationDay(new Date());
+        consentBean.setExpirationDate(new Date());
+        
+        consentBean1 = consentBean;
     }
-
+    
     private void showCalendar(JFormattedTextField dateField) {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
     }
-
+    
     private void printConsentCertificate(String txtConditionText) {
         consentBean.setRecipientList(persons.getPersonList());
-
+        
         if (consentBean.validate(true).size() > 0) {
-            return;
-
+            return;            
         }
-
+        
         if (txtExpirationDate.getText().isEmpty() || txtExpirationDate.getText() == null) {
             MessageUtility.displayMessage(ClientMessage.CONSENT_PROVIDE_EXPIRATION);
             return;
         }
-
+        
         if (consentBean != null) {
             showReport(ReportManager.getConsentReport(consentBean,
-                    txtConditionText,
-                    txtExpirationDate.getText(),
-                    txtRent.getText(),
-                    txtLegalStatus1.getSelectedItem().toString(),
-                    txtLegalStatus2.getSelectedItem().toString(),
+                    getConditionText(txtConditionText),
+                    txtExpirationDate.getText(),                   
+                    getRent(txtRent.getText()),
                     txtTransactionType.getSelectedItem().toString()));
         }
     }
-
+    
+        
+    private String getConditionText(String conditionText) {
+        if (conditionText == null || conditionText.equals("") || conditionText.length() == 0) {
+            conditionText = "[NONE]";
+        }
+        return conditionText;
+    }
+    
+    private String getRent(String rent) {
+        if (rent != null && !rent.equals("") && rent.length() != 0) {
+            return "M " + rent  + " ( " + getConsiderationAmountWord(rent) + " )";
+        }
+        return "M 0.00";
+    }
+    
+    /**
+     * Calculates and returns lease term in years transformed into words.
+     */
+    public String getConsiderationAmountWord(String amount) {
+        NumberToWords.DefaultProcessor processor = new NumberToWords.DefaultProcessor();
+        return processor.getName(amount);
+    }        
+    
     private void printConsentRejectionLetter() {
         consentBean.setRecipientList(persons.getPersonList());
         if (consentBean != null) {
@@ -138,9 +178,9 @@ public class ConsentPanel extends ContentPanel {
                     MessageUtility.getLocalizedMessageText(ClientMessage.BAUNIT_LEASE_REJECTION_REASON_TITLE),
                     null, MainForm.getInstance(), true);
             WindowUtility.centerForm(form);
-
+            
             form.addPropertyChangeListener(new PropertyChangeListener() {
-
+                
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     if (evt.getPropertyName().equals(FreeTextDialog.TEXT_TO_SAVE)) {
@@ -149,9 +189,9 @@ public class ConsentPanel extends ContentPanel {
                 }
             });
             form.setVisible(true);
-
+            
             consentBean.setTransactionType(txtTransactionType.getSelectedItem().toString());
-            consentBean.setLodgingDate(this.getApplicationDate());
+            consentBean.setLodgingDate(appBean.getLodgingDatetime());
             consentBean.setServiceName(txtTransactionType.getSelectedItem().toString());
             showReport(ReportManager.getConsentRejectionReport(consentBean, appBean));
         }
@@ -164,7 +204,7 @@ public class ConsentPanel extends ContentPanel {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setLocationRelativeTo(this);
         form.setVisible(true);
-
+        
     }
 
     /**
@@ -173,7 +213,7 @@ public class ConsentPanel extends ContentPanel {
     public String getApplicationDate() {
         return DateUtility.getShortDateString(appBean.getLodgingDatetime(), true);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,16 +254,10 @@ public class ConsentPanel extends ContentPanel {
         jLabel7 = new javax.swing.JLabel();
         txtConditionText = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        txtLegalStatus1 = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         groupPanel3 = new org.sola.clients.swing.ui.GroupPanel();
         rightHolderListPanel = createPartyListPanel("rightholder");
         jPanel10 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        txtLegalStatus2 = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         groupPanel2 = new org.sola.clients.swing.ui.GroupPanel();
         recipientListPanel = createPartyListPanel("recipient");
@@ -298,12 +332,15 @@ public class ConsentPanel extends ContentPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel2.setText("Registration Date");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, consentBean1, org.jdesktop.beansbinding.ELProperty.create("${rightholderRrr.registrationDate}"), txtRegistrationDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        txtRegistrationDate.setEditable(false);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, consentBean1, org.jdesktop.beansbinding.ELProperty.create("${consentDate}"), txtRegistrationDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
         btnSubmissionDateFrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
         btnSubmissionDateFrom.setText(bundle.getString("LeasePanel.btnSubmissionDateFrom.text")); // NOI18N
         btnSubmissionDateFrom.setBorder(null);
+        btnSubmissionDateFrom.setEnabled(false);
         btnSubmissionDateFrom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmissionDateFromActionPerformed(evt);
@@ -336,6 +373,9 @@ public class ConsentPanel extends ContentPanel {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel4.setText("Expiration Date");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, consentBean1, org.jdesktop.beansbinding.ELProperty.create("${expirationDate}"), txtExpirationDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
 
         btnSubmissionDateFrom1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
         btnSubmissionDateFrom1.setText(bundle.getString("LeasePanel.btnSubmissionDateFrom.text")); // NOI18N
@@ -432,7 +472,7 @@ public class ConsentPanel extends ContentPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(0, 244, Short.MAX_VALUE))
+                        .addGap(0, 20, Short.MAX_VALUE))
                     .addComponent(txtConditionText))
                 .addContainerGap())
         );
@@ -473,32 +513,6 @@ public class ConsentPanel extends ContentPanel {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
         );
 
-        txtLegalStatus1.setEditable(true);
-        txtLegalStatus1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Divorced", "In Trust For xxxx - Widowed", "Married in community of property", "Married out of community of property", "REGISTERED SOCIETY UNDER SOCIETIES ACT OF 1966", "Separated", "Unmarried", "Widowed" }));
-
-        jLabel3.setText("Legal Status:");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtLegalStatus1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtLegalStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         jPanel11.setEnabled(false);
         jPanel11.setPreferredSize(new java.awt.Dimension(462, 125));
 
@@ -512,7 +526,7 @@ public class ConsentPanel extends ContentPanel {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(groupPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(rightHolderListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rightHolderListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -528,10 +542,9 @@ public class ConsentPanel extends ContentPanel {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 1141, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -539,38 +552,10 @@ public class ConsentPanel extends ContentPanel {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        txtLegalStatus2.setEditable(true);
-        txtLegalStatus2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Divorced", "In Trust For xxxx - Widowed", "Married in community of property", "Married out of community of property", "REGISTERED SOCIETY UNDER SOCIETIES ACT OF 1966", "Separated", "Unmarried", "Widowed" }));
-
-        jLabel6.setText("Legal Status:");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtLegalStatus2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtLegalStatus2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        groupPanel2.setTitleText("Recipients");
+        groupPanel2.setTitleText("Transferee");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -581,7 +566,7 @@ public class ConsentPanel extends ContentPanel {
                 .addContainerGap())
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(recipientListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(recipientListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
         jPanel12Layout.setVerticalGroup(
@@ -599,18 +584,14 @@ public class ConsentPanel extends ContentPanel {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -635,7 +616,7 @@ public class ConsentPanel extends ContentPanel {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -644,34 +625,35 @@ public class ConsentPanel extends ContentPanel {
     private void menuAddOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddOwnerActionPerformed
         //
     }//GEN-LAST:event_menuAddOwnerActionPerformed
-
+    
     private void menuEditOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditOwnerActionPerformed
         //
     }//GEN-LAST:event_menuEditOwnerActionPerformed
-
+    
     private void menuRemoveOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveOwnerActionPerformed
         //
     }//GEN-LAST:event_menuRemoveOwnerActionPerformed
-
+    
     private void menuViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuViewOwnerActionPerformed
         //
     }//GEN-LAST:event_menuViewOwnerActionPerformed
-
+    
     private void btnSubmissionDateFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFromActionPerformed
         showCalendar(txtRegistrationDate);
     }//GEN-LAST:event_btnSubmissionDateFromActionPerformed
+        
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        printConsentCertificate(txtConditionText.getText());
+    }//GEN-LAST:event_btnPrintActionPerformed
+    
+    private void btnPrintRejectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintRejectionActionPerformed
+        printConsentRejectionLetter();
+    }//GEN-LAST:event_btnPrintRejectionActionPerformed
 
     private void btnSubmissionDateFrom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFrom1ActionPerformed
         showCalendar(txtExpirationDate);
     }//GEN-LAST:event_btnSubmissionDateFrom1ActionPerformed
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        printConsentCertificate(txtConditionText.getText());
-    }//GEN-LAST:event_btnPrintActionPerformed
-
-    private void btnPrintRejectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintRejectionActionPerformed
-        printConsentRejectionLetter();
-    }//GEN-LAST:event_btnPrintRejectionActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnPrintRejection;
@@ -682,10 +664,8 @@ public class ConsentPanel extends ContentPanel {
     private org.sola.clients.swing.ui.GroupPanel groupPanel3;
     private org.sola.clients.swing.ui.HeaderPanel headerPanel2;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -693,10 +673,8 @@ public class ConsentPanel extends ContentPanel {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -712,8 +690,6 @@ public class ConsentPanel extends ContentPanel {
     private org.sola.clients.beans.administrative.RrrBean rrrBean1;
     private javax.swing.JTextField txtConditionText;
     private javax.swing.JFormattedTextField txtExpirationDate;
-    private javax.swing.JComboBox txtLegalStatus1;
-    private javax.swing.JComboBox txtLegalStatus2;
     private javax.swing.JFormattedTextField txtRegistrationDate;
     private javax.swing.JFormattedTextField txtRent;
     private javax.swing.JComboBox txtTransactionType;

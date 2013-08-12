@@ -1,30 +1,29 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations
- * (FAO). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice,this
- * list of conditions and the following disclaimer. 2. Redistributions in binary
- * form must reproduce the above copyright notice,this list of conditions and
- * the following disclaimer in the documentation and/or other materials provided
- * with the distribution. 3. Neither the name of FAO nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.
+ *    1. Redistributions of source code must retain the above copyright notice,this list
+ *       of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice,this list
+ *       of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.administrative;
@@ -122,7 +121,6 @@ public class PropertyPanel extends ContentPanel {
         customizeForm();
 
         rrrTypes.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(RrrTypeListBean.SELECTED_RRR_TYPE_PROPERTY)) {
@@ -132,7 +130,6 @@ public class PropertyPanel extends ContentPanel {
         });
 
         baUnitBean1.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(BaUnitBean.SELECTED_RIGHT_PROPERTY)) {
@@ -161,6 +158,12 @@ public class PropertyPanel extends ContentPanel {
         btnSave.setEnabled(!readOnly);
         cadastreObject.setReadOnly(readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE));
         cadastreObject.setLockCadastreFields(true);
+
+        if (!SecurityBean.isInRole(RolesConstants.GIS_VIEW_MAP)) {
+            // User does not have rights to view the Map 
+            tabsMain.removeTabAt(tabsMain.indexOfComponent(mapPanel));
+        }
+
         customizeRightsButtons(null);
         customizeNotationButtons(null);
         customizeRightTypesList();
@@ -198,12 +201,11 @@ public class PropertyPanel extends ContentPanel {
                 BaUnitSearchForm form = new BaUnitSearchForm();
                 form.getSearchPanel().setShowSelectButton(true);
                 form.getSearchPanel().addPropertyChangeListener(new PropertyChangeListener() {
-
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
-                        if(evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)){
-                            BaUnitSearchResultBean result = (BaUnitSearchResultBean)evt.getNewValue();
-                            if(!result.getStatusCode().equals(StatusConstants.HISTORIC)){
+                        if (evt.getPropertyName().equals(BaUnitSearchPanel.BAUNIT_SELECTED)) {
+                            BaUnitSearchResultBean result = (BaUnitSearchResultBean) evt.getNewValue();
+                            if (!result.getStatusCode().equals(StatusConstants.HISTORIC)) {
                                 MessageUtility.displayMessage(ClientMessage.BAUNIT_MUST_HAVE_HISTORIC_STATUS);
                             } else {
                                 baUnitBean1.addParentBaUnit(result);
@@ -212,7 +214,7 @@ public class PropertyPanel extends ContentPanel {
                         }
                     }
                 });
-                
+
                 getMainContentPanel().addPanel(form, MainContentPanel.CARD_BAUNIT_SEARCH, true);
                 return null;
             }
@@ -539,7 +541,6 @@ public class PropertyPanel extends ContentPanel {
         }
 
         PropertyChangeListener rightFormListener = new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 // Add new RRR
@@ -608,7 +609,6 @@ public class PropertyPanel extends ContentPanel {
         }
 
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
-
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
@@ -639,15 +639,14 @@ public class PropertyPanel extends ContentPanel {
     private void openParcelSearch() {
         CadastreObjectSearchForm form = new CadastreObjectSearchForm();
         form.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsSearchPanel.SELECTED_CADASTRE_OBJECT)) {
                     CadastreObjectSummaryBean selection = (CadastreObjectSummaryBean) evt.getNewValue();
-                    if(selection.isHasLease()){
+                    if (selection.isHasLease()) {
                         MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_LEASE);
                     } else {
-                        if(selection.getStatusCode().equals(StatusConstants.HISTORIC)){
+                        if (selection.getStatusCode().equals(StatusConstants.HISTORIC)) {
                             MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_HISTORIC_STATUS);
                         } else {
                             baUnitBean1.setCadastreObject(CadastreObjectBean.getCadastreObject(selection.getId()));
@@ -665,7 +664,6 @@ public class PropertyPanel extends ContentPanel {
     private void openPropertyForm(final RelatedBaUnitInfoBean relatedBaUnit) {
         if (relatedBaUnit != null && relatedBaUnit.getRelatedBaUnit() != null) {
             SolaTask t = new SolaTask<Void, Void>() {
-
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PROPERTY));
@@ -699,15 +697,14 @@ public class PropertyPanel extends ContentPanel {
                 applicationBean.getCadastreObjectFilteredList(), MainForm.getInstance(), true);
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsDialog.SELECT_CADASTRE_OBJECT)) {
                     CadastreObjectSummaryBean selection = (CadastreObjectSummaryBean) evt.getNewValue();
-                    if(selection.isHasLease()){
+                    if (selection.isHasLease()) {
                         MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_LEASE);
                     } else {
-                        if(selection.getStatusCode().equals(StatusConstants.HISTORIC)){
+                        if (selection.getStatusCode().equals(StatusConstants.HISTORIC)) {
                             MessageUtility.displayMessage(ClientMessage.BAUNIT_PARCEL_HAS_HISTORIC_STATUS);
                         } else {
                             baUnitBean1.setCadastreObject(CadastreObjectBean.getCadastreObject(selection.getId()));
@@ -800,14 +797,14 @@ public class PropertyPanel extends ContentPanel {
         btnAddParent = new javax.swing.JButton();
         btnRemoveParent = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tableParentBaUnits = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
+        tableParentBaUnits = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jToolBar7 = new javax.swing.JToolBar();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnOpenChild = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        tableChildBaUnits = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
+        tableChildBaUnits = new javax.swing.JTable();
         mapPanel = new javax.swing.JPanel();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
 
@@ -1801,7 +1798,9 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     }//GEN-LAST:event_btnAddNotationActionPerformed
 
     private void mapPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mapPanelComponentShown
-        this.mapControl.setCadastreObject(baUnitBean1.getCadastreObject());
+        if (this.mapControl != null) {
+            this.mapControl.setCadastreObject(baUnitBean1.getCadastreObject());
+        }
     }//GEN-LAST:event_mapPanelComponentShown
 
     private void btnViewHistoricRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHistoricRightActionPerformed
@@ -1902,10 +1901,10 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JPopupMenu popupParentBaUnits;
     private javax.swing.JPopupMenu popupRights;
     private org.sola.clients.beans.referencedata.RrrTypeListBean rrrTypes;
-    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableChildBaUnits;
+    private javax.swing.JTable tableChildBaUnits;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableNotations;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableOwnership;
-    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableParentBaUnits;
+    private javax.swing.JTable tableParentBaUnits;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRights;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRightsHistory;
     private javax.swing.JTabbedPane tabsMain;

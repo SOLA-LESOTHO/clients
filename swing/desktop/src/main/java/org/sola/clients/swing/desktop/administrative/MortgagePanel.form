@@ -336,7 +336,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="95" max="32767" attributes="0"/>
+                              <EmptySpace pref="46" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtMortgageTerm" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -438,7 +438,7 @@
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="86" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="browseLender" alignment="0" pref="139" max="32767" attributes="0"/>
+                          <Component id="browseLender" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">

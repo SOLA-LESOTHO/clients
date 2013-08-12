@@ -1,7 +1,7 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2012 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
+ * and the Lesotho Land Administration Authority (LAA). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -11,8 +11,9 @@
  *    2. Redistributions in binary form must reproduce the above copyright notice,this list
  *       of conditions and the following disclaimer in the documentation and/or other
  *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
+ *       endorse or promote products derived from this software without specific prior
+ * 	  written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -33,6 +34,8 @@ import javax.swing.JFormattedTextField;
 import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.party.PartySummaryListBean;
+import org.sola.clients.beans.referencedata.LandGradeTypeListBean;
+import org.sola.clients.beans.referencedata.RoadClassTypeListBean;
 import org.sola.clients.swing.ui.address.AddressDialog;
 import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
@@ -47,6 +50,14 @@ public class ParcelPanel extends javax.swing.JPanel {
     private CadastreObjectBean cadastreObjectBean;
     private boolean readOnly = false;
     private boolean lockCadastreFields = false;
+    
+    private RoadClassTypeListBean createRoadClassList(){
+        return new RoadClassTypeListBean();
+    }
+    
+    private LandGradeTypeListBean createLadGradeList(){
+        return new LandGradeTypeListBean();
+    }
     
     public ParcelPanel() {
         this(null, true);
@@ -109,13 +120,14 @@ public class ParcelPanel extends javax.swing.JPanel {
         cbxEstateType.setEnabled(enabledAll);
         txtSurveyDate.setEnabled(enabledAll);
         txtSurveyFee.setEnabled(enabledAll);
-        //txtSurveyor.setEnabled(enabledAll);
+        cbxSurveyor.setEnabled(enabledAll);
         txtParcelSurveyRef.setEnabled(enabledAll);
         btnSurveyDate.setEnabled(enabledAll);
         txtRemarks.setEnabled(enabledAll);
         cbxLandGrade.setEnabled(enabled);
         cbxRoadClass.setEnabled(enabled);
         txtValuationAmount.setEnabled(enabled);
+        txtLastPart.setEnabled(enabledAll && !cadastreObjectBean.isNew());
         
         customizeAddressButtons();
     }
@@ -217,8 +229,8 @@ public class ParcelPanel extends javax.swing.JPanel {
         menuAdd1 = new org.sola.clients.swing.common.menuitems.MenuAdd();
         menuEdit1 = new org.sola.clients.swing.common.menuitems.MenuEdit();
         menuRemove1 = new org.sola.clients.swing.common.menuitems.MenuRemove();
-        landGradeTypeListBean1 = new org.sola.clients.beans.referencedata.LandGradeTypeListBean();
-        roadClassTypeListBean1 = new org.sola.clients.beans.referencedata.RoadClassTypeListBean();
+        landGradeTypeListBean1 = createLadGradeList();
+        roadClassTypeListBean1 = createRoadClassList();
         partySummaryList = createPartySummaryList();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -576,6 +588,7 @@ public class ParcelPanel extends javax.swing.JPanel {
 
         jPanel6.setName(bundle.getString("ParcelPanel.jPanel6.name")); // NOI18N
 
+        labLandUse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         labLandUse.setText(bundle.getString("ParcelPanel.labLandUse.text")); // NOI18N
         labLandUse.setName(bundle.getString("ParcelPanel.labLandUse.name")); // NOI18N
 
@@ -593,7 +606,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel6Layout.createSequentialGroup()
                 .add(labLandUse)
-                .add(0, 90, Short.MAX_VALUE))
+                .add(0, 76, Short.MAX_VALUE))
             .add(cbxRoadClass, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
@@ -609,6 +622,7 @@ public class ParcelPanel extends javax.swing.JPanel {
 
         jPanel14.setName(bundle.getString("ParcelPanel.jPanel14.name")); // NOI18N
 
+        labLandUse1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         labLandUse1.setText(bundle.getString("ParcelPanel.labLandUse1.text")); // NOI18N
         labLandUse1.setName(bundle.getString("ParcelPanel.labLandUse1.name")); // NOI18N
 
@@ -626,7 +640,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel14Layout.createSequentialGroup()
                 .add(labLandUse1)
-                .add(0, 88, Short.MAX_VALUE))
+                .add(0, 105, Short.MAX_VALUE))
             .add(cbxLandGrade, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(

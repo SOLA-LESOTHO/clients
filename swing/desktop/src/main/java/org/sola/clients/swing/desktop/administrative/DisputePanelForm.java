@@ -343,7 +343,7 @@ public class DisputePanelForm extends ContentPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(DispPartyType.PARTY_TYPE_SAVED)) {
-                    disPartyBean = (DisputePartyBean) evt.getNewValue();
+                    disPartyBean = (DisputePartyBean) evt.getNewValue();  
                     disPartyBean.addChosenParty(PartyBean.getParty(partySearchResult.getSelectedPartySearchResult().getId()), disputeID);
                     disputeBean1.addDisputeParty(disPartyBean);
                 }
@@ -353,6 +353,10 @@ public class DisputePanelForm extends ContentPanel {
 
     }
 
+    
+    
+                    
+                    
     private void viewParty() {
         firePartyEvent(VIEW_PARTY_PROPERTY);
     }
@@ -1683,16 +1687,7 @@ public class DisputePanelForm extends ContentPanel {
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
-        if (disputeID != null && !disputeID.equals("")) {
-            if (partySearchResult.getSelectedPartySearchResult() != null) {
-                selectParty();
-            } else {
-                MessageUtility.displayMessage(ClientMessage.DISPUTE_PARTY_REQUIRED);
-            }
-        } else {
-            MessageUtility.displayMessage(ClientMessage.DISPUTE_SAVE_FIRST);
-
-        }
+        selectParty();
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPartyActionPerformed
