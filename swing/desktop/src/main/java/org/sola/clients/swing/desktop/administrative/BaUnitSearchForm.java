@@ -67,6 +67,7 @@ public class BaUnitSearchForm extends ContentPanel {
         headerPanel1.setTitleText(bundle.getString("BaUnitSearchForm.headerPanel1.titleText")); // NOI18N
 
         baUnitSearchPanelExt1.setName(bundle.getString("BaUnitSearchForm.baUnitSearchPanelExt1.name")); // NOI18N
+        baUnitSearchPanelExt1.setShowCorrectionButton(true);
         baUnitSearchPanelExt1.setShowSelectButton(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

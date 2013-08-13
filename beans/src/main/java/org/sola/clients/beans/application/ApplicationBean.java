@@ -34,11 +34,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.beans.address.AddressBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
 import org.sola.clients.beans.application.validation.ApplicationCheck;
 import org.sola.clients.beans.applicationlog.ApplicationLogBean;
 import org.sola.clients.beans.cache.CacheManager;
-import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.controls.SolaObservableList;
@@ -46,6 +46,7 @@ import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.*;
+import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.clients.beans.validation.ValidationResultBean;
@@ -54,7 +55,6 @@ import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.EntityAction;
 import org.sola.webservices.transferobjects.casemanagement.ApplicationTO;
-import org.sola.webservices.transferobjects.search.PropertyVerifierTO;
 
 /**
  * Represents full object of the application in the domain model. Could be
@@ -901,6 +901,48 @@ public class ApplicationBean extends ApplicationSummaryBean {
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);
     }
 
+    /** 
+     * Creates new application with lease correction service to save time to do it manually. 
+     * After creation application gets assigned to the current system user.
+     * @param baUnit Property object to use for the new application.
+     * @return 
+     */
+    public static ApplicationBean createCorrectionApp(BaUnitSearchResultBean baUnit) {
+        if(baUnit == null){
+            return null;
+        }
+
+        ApplicationBean appBean = new ApplicationBean();
+        
+        // Add property
+        appBean.addProperty(baUnit);
+        
+        // Set LAA applicant
+        PartyBean contactPerson = new PartyBean();
+        AddressBean contactPersonAddress = new AddressBean();
+        contactPersonAddress.setDescription("MASERU");
+        contactPerson.setTypeCode(PartyTypeBean.CODE_NATURAL_PERSON);
+        contactPerson.setName("LAA");
+        contactPerson.setLastName("LESOTHO");
+        contactPerson.setAddress(contactPersonAddress);
+        appBean.setContactPerson(contactPerson);
+        
+        // Add service
+        appBean.addService(CacheManager.getBeanByCode(
+                CacheManager.getRequestTypes(), RequestTypeBean.CODE_LEASE_CORRECTION));
+
+        // Mark as paid
+        appBean.setFeePaid(true);
+        
+        // Save application
+        appBean.saveApplication();
+        
+        // Assign to the current user
+        appBean.assignUser(SecurityBean.getCurrentUser().getId());
+        
+        return appBean;
+    }
+    
     /**
      * Returns {@link ApplicationBean} by the given transaction ID.
      */

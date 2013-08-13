@@ -245,7 +245,7 @@ public class MainForm extends javax.swing.JFrame {
 
         // Load dashboard
         if (btnShowDashboard.isEnabled()) {
-            openDashBoard();
+            openDashBoard(true);
         }
 
         txtUserName.setText(SecurityBean.getCurrentUser().getUserName());
@@ -471,9 +471,13 @@ public class MainForm extends javax.swing.JFrame {
         panel.clickFind();
     }
 
-    private void openDashBoard() {
+    /** 
+     * Opens dashboard panel. 
+     * @param forceRefresh Indicates whether to fetch applications upon opening.
+     */
+    public void openDashBoard(boolean forceRefresh) {
         if (!pnlContent.isPanelOpened(MainContentPanel.CARD_DASHBOARD)) {
-            DashBoardPanel dashBoard = new DashBoardPanel();
+            DashBoardPanel dashBoard = new DashBoardPanel(forceRefresh);
             pnlContent.addPanel(dashBoard, MainContentPanel.CARD_DASHBOARD);
         }
         pnlContent.showPanel(MainContentPanel.CARD_DASHBOARD);
@@ -1074,7 +1078,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void btnShowDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowDashboardActionPerformed
-        openDashBoard();
+        openDashBoard(true);
     }//GEN-LAST:event_btnShowDashboardActionPerformed
 
     private void btnNewApplicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewApplicationActionPerformed

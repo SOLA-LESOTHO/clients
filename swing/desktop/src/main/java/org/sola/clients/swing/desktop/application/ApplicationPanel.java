@@ -94,6 +94,7 @@ import org.sola.common.WindowUtility;
 public class ApplicationPanel extends ContentPanel {
 
     public static final String APPLICATION_SAVED_PROPERTY = "applicationSaved";
+   
     private String applicationID;
     ApplicationPropertyBean property;
 
@@ -275,6 +276,11 @@ public class ApplicationPanel extends ContentPanel {
         customizePropertyButtons();
     }
 
+    /**Selects services tab.*/
+    public void selectServicesTab(){
+        tabbedControlMain.setSelectedIndex(tabbedControlMain.indexOfComponent(servicesPanel));
+    }
+    
     /**
      * Sets the amount paid value when the Paid checkbox is set.
      */

@@ -32,10 +32,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.administrative.BaUnitSearchResultBean;
 import org.sola.clients.beans.administrative.BaUnitSearchResultListBean;
+import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer;
+import org.sola.common.RolesConstants;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -46,6 +48,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
 
     public static final String BAUNIT_OPEN = "baUnitOpen";
     public static final String BAUNIT_SELECTED = "baUnitSelected";
+    public static final String BAUNIT_CORRECTION = "baCorrection";
     private boolean readOnly = false;
     
     /**
@@ -54,24 +57,30 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
     public BaUnitSearchPanel() {
         initComponents();
 
-        customieOpenButton(null);
+        customieButtons(null);
         baUnitSearchResults.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(BaUnitSearchResultListBean.SELECTED_BAUNIT_SEARCH_RESULT_PROPERTY)) {
                     firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
-                    customieOpenButton((BaUnitSearchResultBean) evt.getNewValue());
+                    customieButtons((BaUnitSearchResultBean) evt.getNewValue());
                 }
             }
         });
+        // Make correction button invisible by default
+        setShowCorrectionButton(false);
     }
 
-    private void customieOpenButton(BaUnitSearchResultBean searchResult) {
+    private void customieButtons(BaUnitSearchResultBean searchResult) {
         boolean enabled = searchResult != null && !readOnly;
+        boolean canCorrect = SecurityBean.isInRole(RolesConstants.APPLICATION_CORRECTION_SERVICE_START);
+        
         btnOpenBaUnit.setEnabled(enabled);
-        menuOpenBaUnit.setEnabled(btnOpenBaUnit.isEnabled());
         btnSelect.setEnabled(enabled);
+        btnCorrection.setEnabled(enabled && canCorrect);
+        menuOpenBaUnit.setEnabled(btnOpenBaUnit.isEnabled());
+        menuCorrection.setEnabled(btnCorrection.isEnabled());
         menuSelect.setEnabled(btnSelect.isEnabled());
     }
 
@@ -88,7 +97,23 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
     public void setShowOpenButton(boolean show) {
         btnOpenBaUnit.setVisible(show);
         menuOpenBaUnit.setVisible(show);
-        separator1.setVisible(show || btnSelect.isVisible());
+        separator1.setVisible(show || btnSelect.isVisible() || btnCorrection.isVisible());
+    }
+    
+    /**
+     * Indicates whether correction button is shown or not.
+     */
+    public boolean isShowCorrectionButton() {
+        return btnCorrection.isVisible();
+    }
+
+    /**
+     * Sets visibility of correction button.
+     */
+    public void setShowCorrectionButton(boolean show) {
+        btnCorrection.setVisible(show);
+        menuCorrection.setVisible(show);
+        separator1.setVisible(show || btnSelect.isVisible() || btnOpenBaUnit.isVisible());
     }
     
     /**
@@ -104,7 +129,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
     public void setShowSelectButton(boolean show) {
         btnSelect.setVisible(show);
         menuSelect.setVisible(show);
-        separator1.setVisible(show || btnOpenBaUnit.isVisible());
+        separator1.setVisible(show || btnOpenBaUnit.isVisible() || btnCorrection.isVisible());
     }
 
     /** Returns true if panel in read only mode. */
@@ -115,7 +140,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
     /** Sets readOnly mode for the panel. */
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
-        customieOpenButton(null);
+        customieButtons(null);
     }
 
     /**
@@ -149,7 +174,8 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         baUnitSearchParams = new org.sola.clients.beans.administrative.BaUnitSearchParamsBean();
         popUpSearchResults = new javax.swing.JPopupMenu();
         menuOpenBaUnit = new javax.swing.JMenuItem();
-        menuSelect = new org.sola.clients.swing.common.menuitems.MenuSelect();
+        menuCorrection = new javax.swing.JMenuItem();
+        menuSelect = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -174,6 +200,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         tableSearchResults = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
         jToolBar1 = new javax.swing.JToolBar();
         btnOpenBaUnit = new javax.swing.JButton();
+        btnCorrection = new javax.swing.JButton();
         btnSelect = new org.sola.clients.swing.common.buttons.BtnSelect();
         separator1 = new javax.swing.JToolBar.Separator();
         lblSearchResult = new javax.swing.JLabel();
@@ -192,6 +219,18 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         });
         popUpSearchResults.add(menuOpenBaUnit);
 
+        menuCorrection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/pencil.png"))); // NOI18N
+        menuCorrection.setText(bundle.getString("BaUnitSearchPanel.menuCorrection.text")); // NOI18N
+        menuCorrection.setName(bundle.getString("BaUnitSearchPanel.menuCorrection.name")); // NOI18N
+        menuCorrection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCorrectionActionPerformed(evt);
+            }
+        });
+        popUpSearchResults.add(menuCorrection);
+
+        menuSelect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/select.png"))); // NOI18N
+        menuSelect.setText(bundle.getString("BaUnitSearchPanel.menuSelect.text")); // NOI18N
         menuSelect.setName(bundle.getString("BaUnitSearchPanel.menuSelect.name")); // NOI18N
         menuSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,7 +258,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addContainerGap())
+                .addContainerGap(37, Short.MAX_VALUE))
             .addComponent(txtNameFirstPart)
         );
         jPanel1Layout.setVerticalGroup(
@@ -249,7 +288,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addContainerGap())
+                .addContainerGap(38, Short.MAX_VALUE))
             .addComponent(txtNameLastPart)
         );
         jPanel3Layout.setVerticalGroup(
@@ -279,7 +318,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel6)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 43, Short.MAX_VALUE))
             .addComponent(txtLeaseNumber)
         );
         jPanel8Layout.setVerticalGroup(
@@ -309,8 +348,8 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addComponent(txtRightholder, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                .addContainerGap(78, Short.MAX_VALUE))
+            .addComponent(txtRightholder, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,6 +462,11 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitSearchResults, org.jdesktop.beansbinding.ELProperty.create("${selectedBaUnitSearchResult}"), tableSearchResults, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
+        tableSearchResults.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSearchResultsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableSearchResults);
         tableSearchResults.getColumnModel().getColumn(0).setPreferredWidth(120);
         tableSearchResults.getColumnModel().getColumn(0).setMaxWidth(120);
@@ -456,6 +500,17 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         });
         jToolBar1.add(btnOpenBaUnit);
 
+        btnCorrection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/pencil.png"))); // NOI18N
+        btnCorrection.setText(bundle.getString("BaUnitSearchPanel.btnCorrection.text")); // NOI18N
+        btnCorrection.setFocusable(false);
+        btnCorrection.setName(bundle.getString("BaUnitSearchPanel.btnCorrection.name")); // NOI18N
+        btnCorrection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCorrectionActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnCorrection);
+
         btnSelect.setName(bundle.getString("BaUnitSearchPanel.btnSelect.name")); // NOI18N
         btnSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -481,7 +536,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
                 .addGap(7, 7, 7)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane1)
@@ -496,7 +551,7 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -551,10 +606,25 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
         fireEvent(BAUNIT_SELECTED);
     }//GEN-LAST:event_menuSelectActionPerformed
 
+    private void btnCorrectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorrectionActionPerformed
+        fireEvent(BAUNIT_CORRECTION);
+    }//GEN-LAST:event_btnCorrectionActionPerformed
+
+    private void menuCorrectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCorrectionActionPerformed
+        fireEvent(BAUNIT_CORRECTION);
+    }//GEN-LAST:event_menuCorrectionActionPerformed
+
+    private void tableSearchResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSearchResultsMouseClicked
+        if(evt.getClickCount()==2 && btnOpenBaUnit.isEnabled() && btnOpenBaUnit.isVisible()){
+            fireEvent(BAUNIT_OPEN);
+        }
+    }//GEN-LAST:event_tableSearchResultsMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.beans.administrative.BaUnitSearchParamsBean baUnitSearchParams;
     private org.sola.clients.beans.administrative.BaUnitSearchResultListBean baUnitSearchResults;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnCorrection;
     private javax.swing.JButton btnOpenBaUnit;
     private javax.swing.JButton btnSearch;
     private org.sola.clients.swing.common.buttons.BtnSelect btnSelect;
@@ -576,8 +646,9 @@ public class BaUnitSearchPanel extends javax.swing.JPanel {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblSearchResult;
     private javax.swing.JLabel lblSearchResultCount;
+    private javax.swing.JMenuItem menuCorrection;
     private javax.swing.JMenuItem menuOpenBaUnit;
-    private org.sola.clients.swing.common.menuitems.MenuSelect menuSelect;
+    private javax.swing.JMenuItem menuSelect;
     private javax.swing.JPopupMenu popUpSearchResults;
     private javax.swing.JToolBar.Separator separator1;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableSearchResults;

@@ -68,13 +68,22 @@ public class DashBoardPanel extends ContentPanel {
         }
     }
     private AssignmentPanelListener assignmentPanelListener;
-
+    private boolean forceRefresh;
+            
+    /**
+     * Panel constructor.
+     */
+    public DashBoardPanel() {
+        this(true);
+    }
+    
     /**
      * Panel constructor.
      *
-     * @param mainForm Parent form.
+     * @param forceRefresh Indicates whether to fetch applications upon opening.
      */
-    public DashBoardPanel() {
+    public DashBoardPanel(boolean forceRefresh) {
+        this.forceRefresh = forceRefresh;
         assignmentPanelListener = new AssignmentPanelListener();
         initComponents();
         postInit();
@@ -91,7 +100,10 @@ public class DashBoardPanel extends ContentPanel {
         menuRefreshAssignApplication.setEnabled(btnRefreshAssigned.isEnabled());
         menuRefreshUnassignApplication.setEnabled(btnRefreshUnassigned.isEnabled());
 
-        refreshApplications();
+        if(forceRefresh){
+            refreshApplications();
+        }
+        
         customizeAssignedAppButtons();
         customizeUnassignedAppButtons();
 
@@ -759,6 +771,11 @@ public class DashBoardPanel extends ContentPanel {
         TaskManager.getInstance().runTask(t);
     }
 
+    /** Calls refresh on the assigned applications list. */
+    public void refreshAssignedApplicationsList() {
+        assignedAppListBean.FillAssigned();
+    }
+    
     /**
      * Opens application form for the selected application from unassigned list.
      */
