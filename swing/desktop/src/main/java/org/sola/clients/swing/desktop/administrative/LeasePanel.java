@@ -109,7 +109,7 @@ public class LeasePanel extends ContentPanel {
         }
 
         DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
-                rrrBean.getSourceList(),null, applicationBean, allowEdit);
+                rrrBean.getSourceList(), null, applicationBean, allowEdit);
         return panel;
     }
 
@@ -154,6 +154,7 @@ public class LeasePanel extends ContentPanel {
 
 
         rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(RrrBean.SELECTED_SPECIAL_CONDITION_PROPERTY)) {
@@ -241,7 +242,8 @@ public class LeasePanel extends ContentPanel {
         menuRejectionLetter.setEnabled(leaseEnabled);
         menuOfferLetter.setEnabled(leaseEnabled);
         menuLeaseSurrender.setEnabled(rrrAction == RrrBean.RRR_ACTION.CANCEL);
-        menuLeaseVary.setEnabled(leaseEnabled);//
+        menuLeaseVary.setEnabled(leaseEnabled || isLeaseChangeNames());//
+        menuEndorseSuccession.setEnabled(leaseEnabled);
 
         if (isSublease()) {
             btnAddSubplot.setEnabled(enabled);
@@ -302,6 +304,16 @@ public class LeasePanel extends ContentPanel {
             if (typeCode.equals(RequestTypeBean.CODE_ENDORSEMENT)
                     || typeCode.equals(RequestTypeBean.CODE_NAME_CHANGE)
                     || typeCode.equals(RequestTypeBean.CODE_LEASE_TRANSFER)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isLeaseChangeNames() {
+        if (appService != null && appService.getRequestTypeCode() != null) {
+            String typeCode = appService.getRequestTypeCode();
+            if (typeCode.equals(RequestTypeBean.CODE_NAME_CHANGE)) {
                 return true;
             }
         }
@@ -441,6 +453,7 @@ public class LeasePanel extends ContentPanel {
             WindowUtility.centerForm(form);
 
             form.addPropertyChangeListener(new PropertyChangeListener() {
+
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     if (evt.getPropertyName().equals(FreeTextDialog.TEXT_TO_SAVE)) {
@@ -506,6 +519,7 @@ public class LeasePanel extends ContentPanel {
         }
 
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
+
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
@@ -519,6 +533,7 @@ public class LeasePanel extends ContentPanel {
     private void addCondition() {
         LeaseSpecialConditionDialog form = new LeaseSpecialConditionDialog(null, null, true);
         form.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(LeaseSpecialConditionDialog.LEASE_CONDITION_SAVED)) {
@@ -537,6 +552,7 @@ public class LeasePanel extends ContentPanel {
         LeaseSpecialConditionDialog form = new LeaseSpecialConditionDialog(
                 (LeaseSpecialConditionBean) rrrBean.getSelectedSpecialCondition().copy(), null, true);
         form.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(LeaseSpecialConditionDialog.LEASE_CONDITION_SAVED)) {
@@ -619,6 +635,7 @@ public class LeasePanel extends ContentPanel {
     private void addSubplot() {
         CadastreObjectSearchForm form = new CadastreObjectSearchForm();
         form.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(CadastreObjectsSearchPanel.SELECTED_CADASTRE_OBJECT)) {
