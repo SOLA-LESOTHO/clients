@@ -198,7 +198,7 @@ public class MapDocumentsPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 536, Short.MAX_VALUE)
+                        .addGap(0, 107, Short.MAX_VALUE)
                         .addComponent(cmdAddInMap)))
                 .addContainerGap())
         );
