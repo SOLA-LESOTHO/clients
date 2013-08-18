@@ -80,7 +80,7 @@
               <Component id="individualButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="entityButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="505" max="32767" attributes="0"/>
           </Group>
           <Component id="detailsPanel" pref="0" max="32767" attributes="0"/>
       </Group>
@@ -93,7 +93,7 @@
                   <Component id="entityButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              <Component id="detailsPanel" max="32767" attributes="0"/>
+              <Component id="detailsPanel" pref="571" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,7 +132,7 @@
                           <Component id="groupPanel1" pref="0" max="32767" attributes="0"/>
                           <Component id="jPanel1" alignment="0" max="32767" attributes="3"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel10" pref="0" max="32767" attributes="0"/>
+                              <Component id="jPanel10" pref="331" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -170,7 +170,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="roleTableScrollPanel" pref="890" max="32767" attributes="1"/>
+                      <Component id="roleTableScrollPanel" pref="0" max="32767" attributes="1"/>
                       <Group type="102" attributes="0">
                           <Component id="cbxPartyRoleTypes" min="-2" pref="170" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -309,7 +309,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labName" alignment="0" pref="192" max="32767" attributes="0"/>
+                          <Component id="labName" alignment="0" pref="100" max="32767" attributes="0"/>
                           <Component id="txtFirstName" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
@@ -319,7 +319,7 @@
                               <Component id="labName" min="-2" pref="21" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtFirstName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -368,7 +368,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtLastName" max="32767" attributes="0"/>
-                          <Component id="labName2" pref="192" max="32767" attributes="0"/>
+                          <Component id="labName2" pref="100" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -377,7 +377,7 @@
                               <Component id="labName2" min="-2" pref="21" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtLastName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -421,8 +421,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbxGender" pref="192" max="32767" attributes="0"/>
-                          <Component id="labName1" pref="192" max="32767" attributes="0"/>
+                          <Component id="cbxGender" max="32767" attributes="0"/>
+                          <Component id="labName1" pref="100" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -431,7 +431,7 @@
                               <Component id="labName1" min="-2" pref="21" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cbxGender" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -484,8 +484,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labName3" pref="192" max="32767" attributes="0"/>
-                          <Component id="cbxLegalStatus" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labName3" max="32767" attributes="0"/>
+                          <Component id="cbxLegalStatus" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -494,7 +494,7 @@
                               <Component id="labName3" min="-2" pref="21" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cbxLegalStatus" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -536,7 +536,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labIdType" alignment="0" pref="192" max="32767" attributes="0"/>
+                          <Component id="labIdType" alignment="0" pref="100" max="32767" attributes="0"/>
                           <Component id="cbxIdType" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
@@ -546,7 +546,7 @@
                               <Component id="labIdType" min="-2" pref="21" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cbxIdType" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -588,7 +588,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labIdref" alignment="0" pref="192" max="32767" attributes="0"/>
+                          <Component id="labIdref" alignment="0" pref="100" max="32767" attributes="0"/>
                           <Component id="txtIdref" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
@@ -598,7 +598,7 @@
                               <Component id="labIdref" min="-2" pref="21" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtIdref" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -723,7 +723,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel3" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="groupPanel2" alignment="0" pref="890" max="32767" attributes="0"/>
+                          <Component id="groupPanel2" alignment="0" pref="614" max="32767" attributes="0"/>
                           <Component id="jPanel18" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -739,7 +739,7 @@
                       <Component id="groupPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="312" max="32767" attributes="0"/>
+                      <EmptySpace pref="330" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -766,7 +766,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labFatherFirstName" min="-2" pref="125" max="-2" attributes="1"/>
-                              <EmptySpace pref="161" max="32767" attributes="0"/>
+                              <EmptySpace pref="69" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtFatherFirstName" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -813,7 +813,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labFatherLastName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="189" max="32767" attributes="0"/>
+                              <EmptySpace pref="113" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtFatherLastName" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -860,7 +860,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="labAlias" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="259" max="32767" attributes="0"/>
+                              <EmptySpace pref="172" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtAlias" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -921,7 +921,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labPhone" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="251" max="32767" attributes="0"/>
+                              <EmptySpace pref="164" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtPhone" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -975,7 +975,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labMobile" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="249" max="32767" attributes="0"/>
+                              <EmptySpace pref="164" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtMobile" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -1022,7 +1022,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labFax" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="266" max="32767" attributes="0"/>
+                              <EmptySpace pref="176" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtFax" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -1073,7 +1073,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labEmail" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="250" max="32767" attributes="0"/>
+                              <EmptySpace pref="166" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtEmail" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -1124,7 +1124,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="labPreferredWay" min="-2" max="-2" attributes="1"/>
-                              <EmptySpace min="0" pref="142" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
                           </Group>
                           <Component id="cbxCommunicationWay" alignment="0" max="32767" attributes="3"/>
                       </Group>
