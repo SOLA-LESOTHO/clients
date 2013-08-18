@@ -1,34 +1,37 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.ui.source;
 
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -44,6 +47,7 @@ import org.sola.clients.beans.digitalarchive.FileInfoListBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.ui.ImagePreview;
+import org.sola.clients.swing.ui.renderers.DateTimeRenderer;
 import org.sola.clients.swing.ui.renderers.FileNameCellRenderer;
 import org.sola.common.FileUtility;
 import org.sola.common.WindowUtility;
@@ -87,7 +91,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
         serverFiles.loadServerFileInfoList();
         serverFiles.addPropertyChangeListener(serverFilesListener());
         localFileChooser.setControlButtonsAreShown(false);
-        localFileChooser.setAccessory(new ImagePreview(localFileChooser, 225, 300));
+        localFileChooser.setAccessory(new ImagePreview(localFileChooser));
         if (WindowUtility.hasUserPreferences()) {
             // Check if the user has a preferred location to upload files from
             Preferences prefs = WindowUtility.getUserPreferences();
@@ -109,36 +113,41 @@ public class FileBrowserForm extends javax.swing.JDialog {
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getPropertyName().equals(FileInfoListBean.SELECTED_FILE_INFO_BEAN_PROPERTY)) {
                     customizeRemoteFileButtons();
-                    // Bind thumbnail
-                    if (serverFiles.getSelectedFileInfoBean() != null) {
-
-                        lblServerPreview.setIcon(null);
-                        lblServerPreview.setText(formBundle.getString("FileBrowser.LoadingThumbnailMsg"));
-                        lblServerPreview.repaint();
-
-                        Runnable loadingThumbnail = new Runnable() {
-                            @Override
-                            public void run() {
-                                ImageIcon thumbnail = serverFiles.getSelectedFileInfoBean().getThumbnailIcon();
-                                if (thumbnail != null) {
-                                    lblServerPreview.setIcon(thumbnail);
-                                    lblServerPreview.setText(null);
-                                } else {
-                                    lblServerPreview.setIcon(null);
-                                    lblServerPreview.setText(formBundle.getString("FileBrowser.FormatForThumbnailNotSupportedMsg"));
-                                }
-                            }
-                        };
-                        SwingUtilities.invokeLater(loadingThumbnail);
-
-                    } else {
-                        lblServerPreview.setIcon(null);
-                        lblServerPreview.setText(formBundle.getString("FileBrowser.ThumbnailPreviewCaption"));
-                    }
+                    loadServerPreview();
                 }
             }
         };
         return listener;
+    }
+
+    private void loadServerPreview() {
+        // Bind thumbnail
+        if (serverFiles.getSelectedFileInfoBean() != null) {
+
+            lblServerPreview.setIcon(null);
+            lblServerPreview.setText(formBundle.getString("FileBrowser.LoadingThumbnailMsg"));
+            lblServerPreview.repaint();
+
+            Runnable loadingThumbnail = new Runnable() {
+                @Override
+                public void run() {
+                    ImageIcon thumbnail = serverFiles.getSelectedFileInfoBean().getThumbnailIcon(
+                            lblServerPreview.getWidth(), lblServerPreview.getHeight());
+                    if (thumbnail != null) {
+                        lblServerPreview.setIcon(thumbnail);
+                        lblServerPreview.setText(null);
+                    } else {
+                        lblServerPreview.setIcon(null);
+                        lblServerPreview.setText(formBundle.getString("FileBrowser.FormatForThumbnailNotSupportedMsg"));
+                    }
+                }
+            };
+            SwingUtilities.invokeLater(loadingThumbnail);
+
+        } else {
+            lblServerPreview.setIcon(null);
+            lblServerPreview.setText(formBundle.getString("FileBrowser.ThumbnailPreviewCaption"));
+        }
     }
 
     private void customizeRemoteFileButtons() {
@@ -353,7 +362,11 @@ public class FileBrowserForm extends javax.swing.JDialog {
         setTitle(bundle.getString("FileBrowserForm.title_1")); // NOI18N
         setMinimumSize(new java.awt.Dimension(706, 432));
         setName("Form"); // NOI18N
-        setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
 
         jTabbedPane1.setName("jTabbedPane1"); // NOI18N
         jTabbedPane1.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
@@ -403,8 +416,8 @@ public class FileBrowserForm extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
-            .addComponent(localFileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
+            .addComponent(localFileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,7 +425,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(localFileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
+                .addComponent(localFileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(bundle.getString("FileBrowserForm.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
@@ -458,6 +471,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
         tbServerFiles.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("FileBrowserForm.tbServerFiles.columnModel.title0")); // NOI18N
         tbServerFiles.getColumnModel().getColumn(0).setCellRenderer(new FileNameCellRenderer());
         tbServerFiles.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("FileBrowserForm.tbServerFiles.columnModel.title1")); // NOI18N
+        tbServerFiles.getColumnModel().getColumn(1).setCellRenderer(new DateTimeRenderer());
         tbServerFiles.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("FileBrowserForm.tbServerFiles.columnModel.title2")); // NOI18N
 
         lblServerPreview.setBackground(new java.awt.Color(255, 255, 255));
@@ -533,23 +547,23 @@ public class FileBrowserForm extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
                 .addGap(17, 17, 17)
-                .addComponent(lblServerPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblServerPreview, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblServerPreview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblServerPreview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab(bundle.getString("FileBrowserForm.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
@@ -562,7 +576,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
             .addComponent(taskPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -570,8 +584,8 @@ public class FileBrowserForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
+                .addGap(10, 10, 10)
                 .addComponent(taskPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -642,6 +656,11 @@ public class FileBrowserForm extends javax.swing.JDialog {
     private void menuRemoteAttachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoteAttachActionPerformed
         attachRemoteFile();
     }//GEN-LAST:event_menuRemoteAttachActionPerformed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        loadServerPreview();    
+    }//GEN-LAST:event_formComponentResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAttachFromServer;
     private javax.swing.JButton btnAttachLocal;
