@@ -1345,6 +1345,7 @@ public class ApplicationPanel extends ContentPanel {
 
         btnPrintFee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
         btnPrintFee.setText(bundle.getString("ApplicationPanel.btnPrintFee.text")); // NOI18N
+        btnPrintFee.setActionCommand(bundle.getString("ApplicationPanel.btnPrintFee.actionCommand")); // NOI18N
         btnPrintFee.setName("btnPrintFee"); // NOI18N
         btnPrintFee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
