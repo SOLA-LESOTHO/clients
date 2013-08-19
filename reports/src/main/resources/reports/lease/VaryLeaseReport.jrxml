@@ -129,14 +129,14 @@
 			<staticText>
 				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="382" y="0" width="70" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="11" isBold="false"/>
+					<font fontName="Arial" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Lease number:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="0" width="100" height="20"/>
 				<textElement>
-					<font fontName="Calibri" size="11"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[SD10(1.0)]]></text>
 			</staticText>
@@ -150,14 +150,14 @@
 			<staticText>
 				<reportElement uuid="54358b23-3269-4850-9194-32afc146bd6c" x="0" y="93" width="555" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Calibri" size="14" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LEASE VARIATION]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="25" y="127" width="517" height="20"/>
 				<textElement>
-					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TO WHOM IT MAY CONCERN]]></text>
 			</staticText>
@@ -168,7 +168,7 @@
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="25" y="0" width="487" height="20"/>
 				<textElement markup="html">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "That: <b>%s</b>" +
@@ -199,7 +199,7 @@ $F{lesseesAndMaritalStatus}, $F{lesseeAddress}, $F{leaseRegistrationNumber}, $F{
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="50" width="495" height="45"/>
 				<textElement markup="html">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "(ii) Other variation (e.g. name, area, marital status)" +
@@ -215,7 +215,7 @@ $F{lesseesAndMaritalStatus}, $F{lesseeAddress}, $F{leaseRegistrationNumber}, $F{
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="134" width="495" height="20"/>
 				<textElement markup="html">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "The annual ground rent now reserved under this lease shall be: <b>%s</b>",
@@ -225,7 +225,7 @@ $F{groundRent}
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="165" width="495" height="20"/>
 				<textElement markup="html">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "The lease shall now expire on: <b>%s</b> at the end of a <b>%s (%s)</b> year term.",
@@ -235,7 +235,7 @@ $F{leaseExpirationDate}, $F{leaseTermWord}, $F{leaseTerm}
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="25" y="199" width="517" height="50"/>
 				<textElement markup="html">
-					<font fontName="Calibri" size="11" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="9" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "<b>Thus done, signed and executed</b> on this ............ day of ...............20......at Maseru. " +
@@ -306,14 +306,14 @@ Land Administration Authority]]></text>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="125" y="402" width="341" height="20"/>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{applicationNumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd MMMMM yyyy" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="112" y="422" width="356" height="20"/>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>

@@ -303,7 +303,7 @@ $F{lessees}
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="20" width="187" height="20" forecolor="#666666"/>
 				<textElement>
-					<font fontName="Calibri" size="10" isBold="false" isItalic="false"/>
+					<font fontName="Arial" size="9" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Endorsement Succession Ver.2.0]]></text>
 			</staticText>
