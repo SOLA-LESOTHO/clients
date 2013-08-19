@@ -32,17 +32,11 @@
  */
 package org.sola.clients.beans.administrative;
 
-import java.util.Date;
-import org.sola.clients.beans.AbstractTransactionedBean;
-import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.services.boundary.wsclients.WSManager;
-import org.sola.webservices.transferobjects.administrative.DisputeCommentsTO;
-import org.sola.clients.beans.referencedata.DisputeActionBean;
-import org.sola.clients.beans.referencedata.OtherAuthoritiesBean;
 import org.sola.clients.beans.party.PartyBean;
+import org.sola.clients.beans.party.PartySearchResultBean;
 import org.sola.webservices.transferobjects.casemanagement.PartyTO;
-import org.sola.clients.beans.party.*;
 import org.sola.webservices.transferobjects.administrative.DisputePartyTO;
 
 public class DisputePartyBean extends PartyBean {
@@ -58,6 +52,7 @@ public class DisputePartyBean extends PartyBean {
     private String partyId;
     private String partyName;
     private PartyBean partyBean;
+    private PartySearchResultBean partyResultBean;
     private PartyTO partyTO;
 
     public DisputePartyBean() {
@@ -113,7 +108,14 @@ public class DisputePartyBean extends PartyBean {
         propertySupport.firePropertyChange(PARTY_ROLE_PROPERTY, old, partyRole);
     }
 
-    public void addChosenParty(PartyBean partyBean, String disputeId) {
+    public void addChosenParty(PartySearchResultBean partyResultBean, String disputeId) {
+        if (partyResultBean != null) {
+            setPartyName(partyResultBean.getName());
+            setDisputeNr(disputeId);
+            setPartyId(partyResultBean.getId());
+        }
+    }
+     public void addNewParty(PartyBean partyBean, String disputeId) {
         if (partyBean != null) {
             setPartyName(partyBean.getName());
             setDisputeNr(disputeId);

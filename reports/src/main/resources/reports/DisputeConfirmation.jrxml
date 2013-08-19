@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="disputeConfirmation" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="713ee3ee-20ee-409b-a910-b1fc7bd694eb">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="134"/>
+	<property name="ireport.y" value="309"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -43,6 +43,35 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<subDataset name="dataset1" uuid="b3de0058-2d8f-49a2-9a2d-34f3a6bb669c">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="partyName" class="java.lang.String">
+			<fieldDescription><![CDATA[partyName]]></fieldDescription>
+		</field>
+		<field name="partyRole" class="java.lang.String">
+			<fieldDescription><![CDATA[partyRole]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="dataset2" uuid="78fc6db1-6dc0-42ab-8c5f-be50c5290bdb">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="comments" class="java.lang.String">
+			<fieldDescription><![CDATA[comments]]></fieldDescription>
+		</field>
+		<field name="dispute_action" class="java.lang.String">
+			<fieldDescription><![CDATA[disputeAction.displayValue]]></fieldDescription>
+		</field>
+		<field name="other_authorities" class="java.lang.String">
+			<fieldDescription><![CDATA[otherAuthorities.displayValue]]></fieldDescription>
+		</field>
+		<field name="updateDate" class="java.util.Date">
+			<fieldDescription><![CDATA[updateDate]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="dataset3" uuid="93477905-4916-49ab-be2c-166806345a98"/>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="DISPUTE_CATEGORY" class="java.lang.String"/>
 	<parameter name="DISPUTE_TYPE" class="java.lang.String"/>
@@ -67,11 +96,17 @@
 	<field name="lodgementDate" class="java.util.Date">
 		<fieldDescription><![CDATA[lodgementDate]]></fieldDescription>
 	</field>
+	<field name="filteredDisputePartyList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[filteredDisputePartyList]]></fieldDescription>
+	</field>
+	<field name="filteredDisputeCommentsList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[filteredDisputeCommentsList]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="432" splitType="Stretch">
+		<band height="530" splitType="Stretch">
 			<image>
 				<reportElement uuid="5f83db26-c318-4e82-9f4e-d49d2fd20adf" x="392" y="0" width="163" height="64"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
@@ -192,6 +227,33 @@ Maseru 100]]></text>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{DISPUTE_TYPE}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement uuid="1248e228-cb84-42aa-92b7-8daf64117600" x="67" y="451" width="418" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="dd948ee5-8f59-4647-8fd5-c120ed16b8e7" x="204" y="478" width="168" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISPUTING PARTIES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8d1d423c-fa7a-49f5-bc2b-8512702b859a" x="3" y="514" width="65" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Party Names]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="32d495b0-c5f8-46d0-ae50-f18b45c94a00" x="204" y="514" width="35" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Role]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="2074739e-b2a7-4437-9483-cb7595c171e7" x="3" y="529" width="552" height="1"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
@@ -200,13 +262,103 @@ Maseru 100]]></text>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
+	<detail>
+		<band height="168">
+			<componentElement>
+				<reportElement uuid="6bcb3b4d-a758-4b1f-91ec-4e0d371fb495" x="0" y="0" width="555" height="22"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1" uuid="5370c65e-badf-47e3-9fa0-d9715d9dbb87">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{filteredDisputePartyList}.toArray())]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="22" width="555">
+						<textField>
+							<reportElement uuid="bcf6f64c-7e08-4d7b-9a59-0c0efaf7eb1a" x="0" y="0" width="149" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{partyName}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement uuid="accc933a-4e40-491a-bbdc-b47ec9636487" x="204" y="0" width="188" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{partyRole}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="a36fc9a6-72ad-49a9-9b71-49f44014cbe4" x="204" y="83" width="168" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMMENTS UPDATES]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="684c48d0-2a4b-4f56-b3a9-10c05f70c402" x="0" y="136" width="555" height="21"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset2" uuid="de20c28f-869e-49d4-b83e-167616965ab7">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{filteredDisputeCommentsList}.toArray())]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="21" width="555">
+						<textField>
+							<reportElement uuid="f7e28d0e-c7de-4370-9e67-dd9cbc1352f6" x="67" y="0" width="267" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{comments}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement uuid="caf3fd6a-3d08-4531-ac1d-895cd6127c99" x="343" y="0" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{dispute_action}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement uuid="9f2a29da-cacd-4909-9334-fbc14590e23c" x="449" y="0" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{other_authorities}]]></textFieldExpression>
+						</textField>
+						<textField pattern="dd/MM/yyyy">
+							<reportElement uuid="d07c4fef-ea14-4d48-bdbf-646da263b4b2" x="6" y="0" width="52" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{updateDate}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="48051cc5-f132-47a2-84e6-721438ad65cc" x="4" y="120" width="55" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="20e656d8-a5ac-423c-b13d-868527b2dd94" x="68" y="120" width="100" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comments]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="64dc3d8e-08fd-4769-a9c1-87448c3beaf6" x="343" y="120" width="100" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Action ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="26b1de2d-090a-4452-bf47-beea4692c671" x="449" y="120" width="100" height="15"/>
+				<textElement/>
+				<text><![CDATA[Referred to]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="cbad4ea4-046e-42e1-8d0a-c447cdfe8f90" x="3" y="136" width="552" height="1"/>
+			</line>
+		</band>
+	</detail>
 	<columnFooter>
-		<band height="4" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="8" splitType="Stretch"/>
+		<band height="28" splitType="Stretch"/>
 	</summary>
 </jasperReport>

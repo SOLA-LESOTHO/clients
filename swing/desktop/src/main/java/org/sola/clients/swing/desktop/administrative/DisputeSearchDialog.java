@@ -83,10 +83,6 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             }
         });
     }
-    
-//     private void customiseSelectButton(DisputeSearchResultBean searchResult) {
-//        btnselectDispute.setEnabled(searchResult != null);
-//    }
 
     public DisputeSearchResultBean getSelectedSearchResult() {
         return disputeSearchResultList.getSelectedDisputeSearchResult();

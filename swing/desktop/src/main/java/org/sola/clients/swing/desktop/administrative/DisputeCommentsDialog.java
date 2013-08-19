@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.administrative;
@@ -43,17 +45,19 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
     private String dispID;
     private Date date;
 
-
     public DisputeCommentsDialog(DisputesCommentsBean disputesComments, boolean readOnly, java.awt.Frame parent, boolean modal, String dispNr) {
         super(parent, modal);
         if (disputesComments != null) {
             this.disputesCommentsBean = disputesComments;
+            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+            this.setTitle(bundle.getString("DisputePanelForm.pnlHeader.titleText") + " #" + dispNr);
         } else {
             this.disputesCommentsBean = new DisputesCommentsBean();
+            customizeScreen(dispNr);
+            dispID = dispNr;
         }
         initComponents();
-        customizeScreen(dispNr);
-        dispID = dispNr;
+
     }
 
     public DisputesCommentsBean getCommentsBean() {
@@ -103,6 +107,19 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
         TaskManager.getInstance().runTask(t);
     }
 
+    private void setCommentstoReadOnly() {
+        btnSave.setEnabled(false);
+        dbxdisputeAction.setEnabled(false);
+        dbxotherAuthorities.setEnabled(false);
+        txtDisputeComments.setEnabled(false);
+    }
+    private void setCommentstoNormal() {
+        btnSave.setEnabled(true);
+        dbxdisputeAction.setEnabled(true);
+        dbxotherAuthorities.setEnabled(true);
+        txtDisputeComments.setEnabled(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,7 +133,7 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
         disputeAction = new org.sola.clients.beans.referencedata.DisputeActionListBean();
         otherAuthorities = new org.sola.clients.beans.referencedata.OtherAuthoritiesListBean();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -134,18 +151,19 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        jButton1.setText("Save & Close");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Save & Close");
+        btnSave.setFocusable(false);
+        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btnSave);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
         jPanel6.setName(bundle.getString("DisputePanelForm.jPanel6.name")); // NOI18N
@@ -309,15 +327,15 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         SaveComments(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox dbxdisputeAction;
     private javax.swing.JComboBox dbxotherAuthorities;
     private org.sola.clients.beans.referencedata.DisputeActionListBean disputeAction;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
