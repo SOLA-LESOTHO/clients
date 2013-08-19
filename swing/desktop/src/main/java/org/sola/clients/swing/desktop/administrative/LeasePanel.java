@@ -243,7 +243,7 @@ public class LeasePanel extends ContentPanel {
         menuOfferLetter.setEnabled(leaseEnabled);
         menuLeaseSurrender.setEnabled(rrrAction == RrrBean.RRR_ACTION.CANCEL);
         menuLeaseVary.setEnabled(leaseEnabled || isLeaseChangeNames());//
-        menuEndorseSuccession.setEnabled(leaseEnabled);
+        menuEndorseSuccession.setEnabled(isEndorsement());
 
         if (isSublease()) {
             btnAddSubplot.setEnabled(enabled);
@@ -297,7 +297,7 @@ public class LeasePanel extends ContentPanel {
         }
     }
 
-    // Returns true is service type affects change of lessee
+    // Returns true if service type affects change of lessee
     private boolean isLeaseTransfer() {
         if (appService != null && appService.getRequestTypeCode() != null) {
             String typeCode = appService.getRequestTypeCode();
@@ -324,6 +324,16 @@ public class LeasePanel extends ContentPanel {
         if (appService != null && appService.getRequestTypeCode() != null) {
             String typeCode = appService.getRequestTypeCode();
             return RequestTypeBean.isLeaseCorrection(typeCode);
+        }
+        return false;
+    }
+
+    private boolean isEndorsement() {
+        if (appService != null && appService.getRequestTypeCode() != null) {
+            String typeCode = appService.getRequestTypeCode();
+            if (typeCode.equals(RequestTypeBean.CODE_ENDORSEMENT)) {
+                return true;
+            }
         }
         return false;
     }
