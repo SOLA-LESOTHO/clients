@@ -215,8 +215,8 @@ public class LeasePanel extends ContentPanel {
         txtNotationText.setEnabled(regEnabled);
         txtRegDatetime.setEnabled(regEnabled);
         txtRegistrationNumber.setEnabled(regEnabled);
-        txtTransferDuty.setEnabled(regEnabled);
-        txtRegistrationFee.setEnabled(regEnabled);
+        txtTransferDuty.setEnabled(enabled);
+        txtRegistrationFee.setEnabled(enabled);
         btnRegistrationDate.setEnabled(regEnabled);
 
         // Lease management part
@@ -225,14 +225,14 @@ public class LeasePanel extends ContentPanel {
         txtPersonalLevy.setEnabled(leaseEnabled);
         txtUsableLand.setEnabled(leaseEnabled);
         txtExpirationDate.setEnabled(leaseEnabled);
-        txtExecutionDate.setEnabled(leaseEnabled);
+        // txtExecutionDate.setEnabled(leaseEnabled);
         //txtRent.setEnabled(leaseEnabled);
         txtDueDate.setEnabled(leaseEnabled);
         partyList.setReadOnly(!partyListEnabled);
         btnCalculateGroundRent.setEnabled(leaseEnabled);
         btnStartDate.setEnabled(leaseEnabled);
         btnExpirationDate.setEnabled(leaseEnabled);
-        btnExecutionDate.setEnabled(leaseEnabled);
+       // btnExecutionDate.setEnabled(leaseEnabled);
         btnNextPaymentDate.setEnabled(leaseEnabled);
         cbxLandUse.setEnabled(leaseEnabled);
         txtRent.setEnabled(groundRentEnabled);
@@ -738,9 +738,6 @@ public class LeasePanel extends ContentPanel {
         txtExpirationDate = new javax.swing.JFormattedTextField();
         btnExpirationDate = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        txtExecutionDate = new javax.swing.JFormattedTextField();
-        btnExecutionDate = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         cbxLandUse = new javax.swing.JComboBox();
@@ -1095,43 +1092,15 @@ public class LeasePanel extends ContentPanel {
 
         jPanel21.add(jPanel7);
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
-        jLabel10.setText(bundle.getString("LeasePanel.jLabel10.text")); // NOI18N
-
-        txtExecutionDate.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${executionDate}"), txtExecutionDate, org.jdesktop.beansbinding.BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
-
-        btnExecutionDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
-        btnExecutionDate.setText(bundle.getString("LeasePanel.btnExecutionDate.text")); // NOI18N
-        btnExecutionDate.setBorder(null);
-        btnExecutionDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExecutionDateActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jLabel10)
-                .addGap(0, 43, Short.MAX_VALUE))
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(txtExecutionDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExecutionDate))
+            .addGap(0, 130, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExecutionDate)
-                    .addComponent(txtExecutionDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         jPanel21.add(jPanel15);
@@ -1728,10 +1697,6 @@ public class LeasePanel extends ContentPanel {
         showCalendar(txtStartDate);
     }//GEN-LAST:event_btnStartDateActionPerformed
 
-    private void btnExecutionDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecutionDateActionPerformed
-        showCalendar(txtExecutionDate);
-    }//GEN-LAST:event_btnExecutionDateActionPerformed
-
     private void btnCalculateGroundRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateGroundRentActionPerformed
         calculateGroundRent();
     }//GEN-LAST:event_btnCalculateGroundRentActionPerformed
@@ -1817,7 +1782,6 @@ public class LeasePanel extends ContentPanel {
     private org.sola.clients.swing.common.buttons.BtnAdd btnAddSubplot;
     private javax.swing.JButton btnCalculateGroundRent;
     private org.sola.clients.swing.common.buttons.BtnEdit btnEditCondition;
-    private javax.swing.JButton btnExecutionDate;
     private javax.swing.JButton btnExpirationDate;
     private javax.swing.JButton btnNextPaymentDate;
     private javax.swing.JButton btnRegistrationDate;
@@ -1834,7 +1798,6 @@ public class LeasePanel extends ContentPanel {
     private org.sola.clients.swing.ui.GroupPanel groupPanel3;
     private org.sola.clients.swing.ui.HeaderPanel headerPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1903,7 +1866,6 @@ public class LeasePanel extends ContentPanel {
     private org.sola.clients.beans.administrative.RrrBean rrrBean;
     private javax.swing.JPanel subplotTabPanel;
     private javax.swing.JFormattedTextField txtDueDate;
-    private javax.swing.JFormattedTextField txtExecutionDate;
     private javax.swing.JFormattedTextField txtExpirationDate;
     private javax.swing.JTextField txtLeaseNumber;
     private javax.swing.JFormattedTextField txtLeaseTerm;

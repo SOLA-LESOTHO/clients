@@ -177,8 +177,8 @@ public class RrrBean extends AbstractTransactionedBean {
     @NotNull(message = ClientMessage.LEASE_START_DATE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
     private Date startDate;
 
-    @NotNull(message = ClientMessage.LEASE_EXECUTION_DATE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
-    @Past(message = ClientMessage.LEASE_EXECUTION_DATE_IS_IN_FUTURE, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    //@NotNull(message = ClientMessage.LEASE_EXECUTION_DATE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    //@Past(message = ClientMessage.LEASE_EXECUTION_DATE_IS_IN_FUTURE, groups={LeaseValidationGroup.class}, payload = Localized.class)
     private Date executionDate;
     
     @NotEmpty(message=ClientMessage.LEASE_LEASE_NUMBER_IS_IMPTY, groups={LeaseValidationGroup.class}, payload=Localized.class)
