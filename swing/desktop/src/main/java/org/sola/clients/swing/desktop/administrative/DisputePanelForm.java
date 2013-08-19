@@ -65,13 +65,14 @@ import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.controls.SolaList;
+import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.source.SourceListBean;
 import org.sola.clients.swing.ui.source.AddDocumentForm;
 import org.sola.clients.swing.ui.source.DocumentsPanel;
 import org.sola.clients.reports.ReportManager;
-import org.sola.clients.swing.desktop.party.DispPartyForm;
 import org.sola.clients.swing.ui.party.DispPartyType;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
+import org.sola.clients.swing.ui.MainContentPanel;
 
 public class DisputePanelForm extends ContentPanel {
 
@@ -85,26 +86,22 @@ public class DisputePanelForm extends ContentPanel {
     static String disputeString = "Dispute";
     static String courtProcessString = "Court Process";
     private String typeofCase;
-    private ApplicationServiceBean applicationService;
-    private DisputePartyBean disPartyBean;
-    private CadastreObjectBean cadastreObjectBean;
     private DisputeSearchResultBean disputeSearchResultBean;
     public DocumentBean archiveDocument;
-    private PartyBean partyBean;
+    //private PartyBean partyBean;
     private String disputeID;
-    private String user;
+    //private String user;
     private boolean readOnly = false;
     private SourceBean document;
     private DisputeSearchDialog disputeSearchDialog;
-    private DisputeCommentsDialog disputeCommentsDialog;
-    private PartyPanelForm partyPanelForm;
-    private DispPartyType dispPartyType;
+    //private DisputeCommentsDialog disputeCommentsDialog;
+    //private PartyPanelForm partyPanelForm;
+    //private DispPartyType dispPartyType;
     private AddDocumentForm addDocumentForm;
     private ApplicationBean applicationBean;
     private boolean allowAddingOfNewDocuments = true;
-    private SolaList<SourceBean> sourceList;
-    private DispPartyForm dispPartyForm;
-    private DisputeBean disputeBean;
+    //private SolaList<SourceBean> sourceList;
+    //private DisputeBean disputeBean;
     private DisputesCommentsBean disputesCommentsBean;
 
     public DisputePanelForm() {
@@ -132,10 +129,13 @@ public class DisputePanelForm extends ContentPanel {
             if (disputeBean1.getCaseType().equals(courtProcessString)) {
                 btnCourtProcess.setSelected(true);
                 btnDisputeMode.setSelected(false);
+                switchModeRole(false);
             } else if (disputeBean1.getCaseType().equals(disputeString)) {
                 btnCourtProcess.setSelected(false);
                 btnDisputeMode.setSelected(true);
+                switchModeRole(true);
             }
+            checkViewStatus(disputeBean1.getStatusCode());
         }
     }
 
@@ -145,29 +145,31 @@ public class DisputePanelForm extends ContentPanel {
             typeofCase = disputeString;
             btnCourtProcess.setSelected(false);
             jLabel1.setText("Dispute Number");
-            txtdisputeNumber.setText(null);
-            txtdisputeNumber.setEnabled(false);
-            txtdisputeNumber.setEditable(false);
             disputeBean1.setCaseType(typeofCase);
             jTabbedPane1.setSelectedIndex(0);
+            jTabbedPane1.setEnabledAt(0, true);
+            jTabbedPane1.setEnabledAt(3, false);
 
         } else {
             typeofCase = courtProcessString;
             btnDisputeMode.setSelected(false);
             jLabel1.setText("Case Number");
             jLabel1.setEnabled(true);
-            txtdisputeNumber.setText(null);
-            txtdisputeNumber.setEnabled(true);
-            txtdisputeNumber.setEditable(true);
             disputeBean1.setCaseType(typeofCase);
             jTabbedPane1.setSelectedIndex(3);
+            jTabbedPane1.setEnabledAt(3, true);
+            jTabbedPane1.setEnabledAt(0, false);
+        }
+        if (disputeID == null || disputeID.equals("")) {
+            txtdisputeNumber.setText(null);
         }
     }
 
     private void createNewDispute() {
         cleanDisputeScreen();
         this.disputesCommentsBean = new DisputesCommentsBean();
-        this.disPartyBean = new DisputePartyBean();
+        //this.disPartyBean = new DisputePartyBean();
+        setDisputesToNormal();
         saveDisputeState();
     }
 
@@ -231,11 +233,8 @@ public class DisputePanelForm extends ContentPanel {
                 if (showMessage) {
                     MessageUtility.displayMessage(ClientMessage.DISPUTE_SAVED);
                 }
-                saveDisputeState();
                 RefreshScreen();
-                if (btnDisputeMode.isSelected()) {
-                    printConfirmation();
-                }
+                saveDisputeState();
             }
         };
         TaskManager.getInstance().runTask(t);
@@ -254,21 +253,6 @@ public class DisputePanelForm extends ContentPanel {
         if (disputeID != null && !disputeID.equals("")) {
             showReport(ReportManager.getDisputeConfirmationReport(disputeBean1));
         }
-    }
-
-    private void AddPlot() {
-        ParcelDialog form = new ParcelDialog(null, true, null, true);
-        WindowUtility.centerForm(form);
-        form.addPropertyChangeListener(new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(ParcelDialog.SELECTED_PARCEL)) {
-                    //cadastreObjectBean1.addAddress((AddressBean) evt.getNewValue());
-                }
-            }
-        });
-        form.setVisible(true);
     }
 
     private void removeComment() {
@@ -335,7 +319,17 @@ public class DisputePanelForm extends ContentPanel {
         }
     }
 
-    private void selectParty() {
+    private void selectParty(PartyBean partyBean) {
+
+        DisputePartyBean disPartyBean = new DisputePartyBean();
+
+        if (partySearchResult.getSelectedPartySearchResult() != null && partyBean == null) {
+            disPartyBean.addChosenParty(partySearchResult.getSelectedPartySearchResult(), disputeID);
+        } else if (partySearchResult.getSelectedPartySearchResult() == null && partyBean != null) {
+            disPartyBean.addNewParty(partyBean, disputeID);
+        }
+
+
         DispPartyType form = new DispPartyType(disPartyBean, false, null, true, disputeBean1.getNr());
         WindowUtility.centerForm(form);
         form.addPropertyChangeListener(new PropertyChangeListener() {
@@ -343,9 +337,7 @@ public class DisputePanelForm extends ContentPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(DispPartyType.PARTY_TYPE_SAVED)) {
-                    disPartyBean = (DisputePartyBean) evt.getNewValue();  
-                    disPartyBean.addChosenParty(PartyBean.getParty(partySearchResult.getSelectedPartySearchResult().getId()), disputeID);
-                    disputeBean1.addDisputeParty(disPartyBean);
+                    disputeBean1.addDisputeParty((DisputePartyBean) evt.getNewValue());
                 }
             }
         });
@@ -353,10 +345,6 @@ public class DisputePanelForm extends ContentPanel {
 
     }
 
-    
-    
-                    
-                    
     private void viewParty() {
         firePartyEvent(VIEW_PARTY_PROPERTY);
     }
@@ -365,42 +353,27 @@ public class DisputePanelForm extends ContentPanel {
 
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
-
-            if (evt.getNewValue() != null) {
-                disputeSearchResultBean = (DisputeSearchResultBean) evt.getNewValue();
-                disputeBean1.assignDispute(disputeSearchResultBean.getId());
+            if (evt.getPropertyName().equals(PartyPanelForm.PARTY_SAVED)) {
+                selectParty((PartyBean) ((PartyPanelForm) evt.getSource()).getParty());
             }
         }
     }
 
     private void addParty() {
-        if (dispPartyForm != null) {
-            dispPartyForm.dispose();
-        }
+        final DisputePartyFormListener listener = new DisputePartyFormListener();
+        SolaTask t = new SolaTask<Void, Void>() {
 
-        dispPartyForm = new DispPartyForm(null, true);
-        dispPartyForm.setLocationRelativeTo(this);
-        DisputePartyFormListener listener = new DisputePartyFormListener();
-        dispPartyForm.setVisible(true);
-    }
-
-    private void choosePartyType() {
-        if (dispPartyType != null) {
-            dispPartyType.dispose();
-        }
-
-        dispPartyType = new DispPartyType(disPartyBean, false, null, true, disputeBean1.getNr());
-        dispPartyType.setLocationRelativeTo(this);
-        DisputePartyFormListener listener = new DisputePartyFormListener();
-        dispPartyType.setVisible(true);
-
-    }
-
-    private void editParty() {
-        firePartyEvent(EDIT_PARTY_PROPERTY);
-
-        firePropertyChange(EDIT_PARTY_PROPERTY, null,
-                PartyBean.getParty(partySearchResult.getSelectedPartySearchResult().getId()));
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_PERSON));
+                PartyPanelForm partyForm;
+                partyForm = new PartyPanelForm(true, null, false, true);
+                partyForm.addPropertyChangeListener(listener);
+                getMainContentPanel().addPanel(partyForm, MainContentPanel.CARD_PERSON, true);
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);
     }
 
     private void removeParty() {
@@ -430,8 +403,8 @@ public class DisputePanelForm extends ContentPanel {
     private DisputeCategoryListBean createDisputeCategory() {
         if (disputeCategory == null) {
             String categoryCode = null;
-            if (disputeBean1 != null && disputeBean1.getDisputeCategory().getCode() != null) {
-                categoryCode = disputeBean.getDisputeCategory().getCode();
+            if (disputeBean1 != null && disputeBean1.getDisputeCategoryCode() != null) {
+                categoryCode = disputeBean1.getDisputeCategoryCode();
             }
             disputeCategory = new DisputeCategoryListBean(true, categoryCode);
         }
@@ -471,106 +444,18 @@ public class DisputePanelForm extends ContentPanel {
         return otherAuthorities;
     }
 
-    /**
-     * Attach file to the selected source.
-     */
-    private void attachDocument(PropertyChangeEvent e) {
-        SourceBean document = null;
-        if (e.getPropertyName().equals(AddDocumentForm.SELECTED_SOURCE)
-                && e.getNewValue() != null) {
-            document = (SourceBean) e.getNewValue();
-            documentsPanel.addDocument(document);
-            document.setReferenceNr(disputeID);
-            document.save();
+    private DocumentsManagementExtPanel createDocumentsPanel() {
+        if (disputeBean1 == null) {
+            disputeBean1 = new DisputeBean();
         }
-    }
-
-    /**
-     * Adds new source into the list.
-     */
-    private void addDocument(String RefNo) {
-        if (addDocumentForm != null) {
-            addDocumentForm.dispose();
+        if (applicationBean == null) {
+            applicationBean = new ApplicationBean();
         }
+        boolean allowEdit = true;
 
-        PropertyChangeListener listener = new PropertyChangeListener() {
 
-            @Override
-            public void propertyChange(PropertyChangeEvent e) {
-                attachDocument(e);
-            }
-        };
-
-        addDocumentForm = new AddDocumentForm(null, disputeBean1, null, true);
-        addDocumentForm.setLocationRelativeTo(this);
-        addDocumentForm.addPropertyChangeListener(new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(SourceListBean.SELECTED_SOURCE_PROPERTY)) {
-                    addDocumentForm.allowAddingOfNewDocuments(allowAddingOfNewDocuments);
-                    //disputeBean1.addDisputeSource((SourceBean) evt.getNewValue());
-                }
-            }
-        });
-        addDocumentForm.setVisible(true);
-        addDocumentForm.removePropertyChangeListener(SourceListBean.SELECTED_SOURCE_PROPERTY, listener);
-    }
-
-    private void viewDocument() {
-        firePropertyChange(VIEW_DOCUMENT, null, documentsPanel.getSourceListBean().getSelectedSource());
-    }
-
-    private void editDocument() {
-        firePropertyChange(EDIT_DOCUMENT, null, documentsPanel.getSourceListBean().getSelectedSource());
-    }
-
-    /**
-     * Opens file attached to the selected source.
-     */
-    private void viewAttachment() {
-        documentsPanel.viewAttachment();
-    }
-
-    /**
-     * Removes selected document.
-     */
-    private void removeDocument() {
-        documentsPanel.removeSelectedDocument();
-    }
-
-    /**
-     * Creates new instance of {@link DocumentsPanel}.
-     */
-//    private DocumentsManagementExtPanel createDocumentsPanel() {
-//        if (documentsPanel == null) {
-//            if (disputeBean1 != null) {
-//                documentsPanel = new DocumentsManagementExtPanel(
-//                        null, null,null, appBean.isEditingAllowed());
-//            } else {
-//                documentsPanel = new DocumentsManagementExtPanel();
-//            }
-//        }
-//        return documentsPanel;
-//    }
-    private DocumentsPanel createDocumentsPanel() {
-        DocumentsPanel panel;
-        if (sourceList != null) {
-            panel = new DocumentsPanel(sourceList);
-        } else {
-            panel = new DocumentsPanel();
-        }
-
-        panel.getSourceListBean().addPropertyChangeListener(new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(SourceListBean.SELECTED_SOURCE_PROPERTY)) {
-                    //customizeButtons((SourceBean)evt.getNewValue());
-                }
-            }
-        });
-
+        DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
+                disputeBean1.getSourceList(), disputeBean1, null, allowEdit);
         return panel;
     }
 
@@ -598,9 +483,71 @@ public class DisputePanelForm extends ContentPanel {
         disputeBean1.setLeaseNumber(null);
         disputeBean1.setDisputeCategory(null);
         disputeBean1.setDisputeType(null);
-        pnlHeader.setTitleText(null);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+        pnlHeader.setTitleText(bundle.getString("DisputePanelForm.pnlHeader.titleText"));
         disputeBean1.setDisputeDescription(null);
         disputeBean1.setDisputeCommentsList(null);
+    }
+
+    private void checkViewStatus(String state) {
+        if (state.equals("Resolved")) {
+            setDisputesToReadOnly();
+        } else if (state.equals("Pending")) {
+            setDisputesToNormal();
+        }
+    }
+
+    private void setDisputesToReadOnly() {
+        btnDisputeMode.setEnabled(false);
+        btnCourtProcess.setEnabled(false);
+        btnSearchPlot.setEnabled(false);
+        txtplotLocation.setEnabled(false);
+        dbxdisputeCategory.setEnabled(false);
+        dbxdisputeType.setEnabled(false);
+        txtrrrId.setEnabled(false);
+        txtDisputeDescription.setEnabled(false);
+        btnAddComment1.setEnabled(false);
+        btnRemoveDisputeComment.setEnabled(false);
+        txtName1.setEnabled(false);
+        btnClear.setEnabled(false);
+        btnSearch.setEnabled(false);
+        btnAddParty.setEnabled(false);
+        btnSelect.setEnabled(false);
+        btnView.setEnabled(false);
+        btnRemoveParty.setEnabled(false);
+        btnSaveDispute.setEnabled(false);
+        btnCompleteDispute.setEnabled(false);
+    }
+
+    private void setDisputesToNormal() {
+        btnDisputeMode.setEnabled(true);
+        btnCourtProcess.setEnabled(true);
+        btnSearchPlot.setEnabled(true);
+        txtplotLocation.setEnabled(true);
+        dbxdisputeCategory.setEnabled(true);
+        dbxdisputeType.setEnabled(true);
+        txtrrrId.setEnabled(true);
+        txtDisputeDescription.setEnabled(true);
+        btnAddComment1.setEnabled(true);
+        btnRemoveDisputeComment.setEnabled(true);
+        txtName1.setEnabled(true);
+        btnClear.setEnabled(true);
+        btnSearch.setEnabled(true);
+        btnAddParty.setEnabled(true);
+        btnSelect.setEnabled(true);
+        btnView.setEnabled(true);
+        btnRemoveParty.setEnabled(true);
+        btnSaveDispute.setEnabled(true);
+        btnCompleteDispute.setEnabled(true);
+    }
+
+    @Override
+    protected boolean panelClosing() {
+        if (MainForm.checkSaveBeforeClose(disputeBean1)) {
+            saveDispute(true, true);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -615,18 +562,16 @@ public class DisputePanelForm extends ContentPanel {
 
         disputeBean1 = createDisputeBean();
         disputeAction = createDisputeAction();
-        disputeCategory = createDisputeCategory();
         disputeStatus = new org.sola.clients.beans.referencedata.DisputeStatusListBean();
         disputeType = createDisputeType();
         otherAuthorities = createOtherAuthorities();
         cadastreObjectBean1 = new org.sola.clients.beans.cadastre.CadastreObjectBean();
         partyRoleTypes = new org.sola.clients.beans.referencedata.PartyRoleTypeListBean();
-        idType = new org.sola.clients.beans.referencedata.IdTypeListBean();
-        genderTypes = new org.sola.clients.beans.referencedata.GenderTypeListBean();
         communicationTypes = new org.sola.clients.beans.referencedata.CommunicationTypeListBean();
         partySearchParams = new org.sola.clients.beans.party.PartySearchParamsBean();
         partySearchResult = new org.sola.clients.beans.party.PartySearchResultListBean();
         cadastreObjectSearch = new org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean();
+        disputeCategory = new org.sola.clients.beans.referencedata.DisputeCategoryListBean();
         jToolBar1 = new javax.swing.JToolBar();
         btnnewDispute = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -634,7 +579,9 @@ public class DisputePanelForm extends ContentPanel {
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnsearchDispute = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
-        jButton2 = new javax.swing.JButton();
+        btnCompleteDispute = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        btnPrintConfirmation = new javax.swing.JButton();
         pnlHeader = new org.sola.clients.swing.ui.HeaderPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         tabGeneralInfo = new javax.swing.JPanel();
@@ -688,22 +635,15 @@ public class DisputePanelForm extends ContentPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         groupPanel3 = new org.sola.clients.swing.ui.GroupPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableSearchResults = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
         groupPanel4 = new org.sola.clients.swing.ui.GroupPanel();
-        jToolBar5 = new javax.swing.JToolBar();
+        jToolBar6 = new javax.swing.JToolBar();
         btnView = new javax.swing.JButton();
-        separator1 = new javax.swing.JToolBar.Separator();
+        jSeparator6 = new javax.swing.JToolBar.Separator();
         btnRemoveParty = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jToolBar2 = new javax.swing.JToolBar();
-        btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
-        btnRemove = new javax.swing.JButton();
-        toolbarSeparator = new javax.swing.JToolBar.Separator();
-        btnView1 = new javax.swing.JButton();
-        btnViewAttachmanet = new javax.swing.JButton();
-        documentsPanel = createDocumentsPanel();
+        documentsManagementPanel = createDocumentsPanel();
         jPanel18 = new javax.swing.JPanel();
         cbxLAAPrimary = new javax.swing.JCheckBox();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -778,16 +718,28 @@ public class DisputePanelForm extends ContentPanel {
         jSeparator4.setName(bundle.getString("DisputePanelForm.jSeparator4.name")); // NOI18N
         jToolBar1.add(jSeparator4);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock.png"))); // NOI18N
-        jButton2.setText(bundle.getString("DisputePanelForm.jButton2.text")); // NOI18N
-        jButton2.setFocusable(false);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCompleteDispute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock.png"))); // NOI18N
+        btnCompleteDispute.setText(bundle.getString("DisputePanelForm.btnCompleteDispute.text")); // NOI18N
+        btnCompleteDispute.setFocusable(false);
+        btnCompleteDispute.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCompleteDispute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCompleteDisputeActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton2);
+        jToolBar1.add(btnCompleteDispute);
+        jToolBar1.add(jSeparator5);
+
+        btnPrintConfirmation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/print.png"))); // NOI18N
+        btnPrintConfirmation.setText(bundle.getString("DisputePanelForm.btnPrintConfirmation.text_2")); // NOI18N
+        btnPrintConfirmation.setFocusable(false);
+        btnPrintConfirmation.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrintConfirmation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintConfirmationActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnPrintConfirmation);
 
         pnlHeader.setName(bundle.getString("DisputePanelForm.pnlHeader.name")); // NOI18N
         pnlHeader.setTitleText(bundle.getString("DisputePanelForm.pnlHeader.titleText")); // NOI18N
@@ -831,6 +783,7 @@ public class DisputePanelForm extends ContentPanel {
         lblPlotNumber.setText(bundle.getString("DisputePanelForm.lblPlotNumber.text")); // NOI18N
         lblPlotNumber.setName(bundle.getString("DisputePanelForm.lblPlotNumber.name")); // NOI18N
 
+        txtcadastreId.setEnabled(false);
         txtcadastreId.setName(bundle.getString("DisputePanelForm.txtcadastreId.name")); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${plotNumber}"), txtcadastreId, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -923,9 +876,9 @@ public class DisputePanelForm extends ContentPanel {
         jPanel39.setLayout(new java.awt.GridLayout(1, 2, 5, 5));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${disputeCategoryListBean}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeCategory, eLProperty, dbxdisputeCategory);
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new org.sola.clients.beans.referencedata.DisputeCategoryListBean(), eLProperty, dbxdisputeCategory);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${disputeCategory}"), dbxdisputeCategory, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${disputeCategory}"), dbxdisputeCategory, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"), "");
         bindingGroup.addBinding(binding);
 
         lblLeaseCategory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
@@ -1103,13 +1056,16 @@ public class DisputePanelForm extends ContentPanel {
 
         jLabel11.setText(bundle.getString("DisputePanelForm.jLabel11.text_2")); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySearchParams, org.jdesktop.beansbinding.ELProperty.create("${name}"), txtName1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jLabel11)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
             .addComponent(txtName1)
         );
         jPanel17Layout.setVerticalGroup(
@@ -1142,9 +1098,9 @@ public class DisputePanelForm extends ContentPanel {
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1245,62 +1201,42 @@ public class DisputePanelForm extends ContentPanel {
 
         groupPanel3.setTitleText(bundle.getString("DisputePanelForm.groupPanel3.titleText")); // NOI18N
 
-        tableSearchResults.getTableHeader().setReorderingAllowed(false);
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${partySearchResults}");
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySearchResult, eLProperty, tableSearchResults, "");
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
-        columnBinding.setColumnName("Name");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${type}"));
-        columnBinding.setColumnName("Type");
-        columnBinding.setColumnClass(org.sola.clients.beans.referencedata.PartyTypeBean.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightHolder}"));
-        columnBinding.setColumnName("Right Holder");
-        columnBinding.setColumnClass(Boolean.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySearchResult, org.jdesktop.beansbinding.ELProperty.create("${selectedPartySearchResult}"), tableSearchResults, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
-        bindingGroup.addBinding(binding);
-
-        tableSearchResults.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableSearchResultsMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tableSearchResults);
-        tableSearchResults.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("DisputePanelForm.tableSearchResults.columnModel.title1_2")); // NOI18N
-        tableSearchResults.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DisputePanelForm.tableSearchResults.columnModel.title2")); // NOI18N
-
         groupPanel4.setTitleText(bundle.getString("DisputePanelForm.groupPanel4.titleText")); // NOI18N
 
-        jToolBar5.setBorder(null);
-        jToolBar5.setRollover(true);
+        jToolBar6.setFloatable(false);
+        jToolBar6.setRollover(true);
 
         btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/view.png"))); // NOI18N
-        btnView.setText(bundle.getString("DisputePanelForm.btnView.text")); // NOI18N
+        btnView.setText(bundle.getString("DisputePanelForm.btnView.text_2")); // NOI18N
         btnView.setFocusable(false);
-        btnView.setHideActionText(true);
-        btnView.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnView.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewActionPerformed(evt);
-            }
-        });
-        jToolBar5.add(btnView);
-        jToolBar5.add(separator1);
+        jToolBar6.add(btnView);
+        jToolBar6.add(jSeparator6);
 
         btnRemoveParty.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/remove.png"))); // NOI18N
-        btnRemoveParty.setText(bundle.getString("DisputePanelForm.btnRemoveParty.text")); // NOI18N
+        btnRemoveParty.setText(bundle.getString("DisputePanelForm.btnRemoveParty.text_2")); // NOI18N
         btnRemoveParty.setFocusable(false);
-        btnRemoveParty.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnRemoveParty.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemoveParty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemovePartyActionPerformed(evt);
             }
         });
-        jToolBar5.add(btnRemoveParty);
+        jToolBar6.add(btnRemoveParty);
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${partySearchResults}");
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySearchResult, eLProperty, jTable3);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
+        columnBinding.setColumnName("Name");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rightHolder}"));
+        columnBinding.setColumnName("Right Holder");
+        columnBinding.setColumnClass(Boolean.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, partySearchResult, org.jdesktop.beansbinding.ELProperty.create("${selectedPartySearchResult}"), jTable3, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane2.setViewportView(jTable3);
 
         javax.swing.GroupLayout pnlSearchLayout = new javax.swing.GroupLayout(pnlSearch);
         pnlSearch.setLayout(pnlSearchLayout);
@@ -1309,9 +1245,9 @@ public class DisputePanelForm extends ContentPanel {
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addComponent(groupPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jToolBar5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(groupPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         pnlSearchLayout.setVerticalGroup(
             pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1320,13 +1256,13 @@ public class DisputePanelForm extends ContentPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(groupPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(groupPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
@@ -1359,81 +1295,17 @@ public class DisputePanelForm extends ContentPanel {
 
         jPanel5.setName(bundle.getString("DisputePanelForm.jPanel5.name")); // NOI18N
 
-        jToolBar2.setFloatable(false);
-        jToolBar2.setRollover(true);
-
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/add.png"))); // NOI18N
-        btnAdd.setText(bundle.getString("DisputePanelForm.btnAdd.text")); // NOI18N
-        btnAdd.setFocusable(false);
-        btnAdd.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btnAdd);
-
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/pencil.png"))); // NOI18N
-        btnEdit.setText(bundle.getString("DisputePanelForm.btnEdit.text")); // NOI18N
-        btnEdit.setFocusable(false);
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btnEdit);
-
-        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/remove.png"))); // NOI18N
-        btnRemove.setText(bundle.getString("DisputePanelForm.btnRemove.text")); // NOI18N
-        btnRemove.setFocusable(false);
-        btnRemove.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btnRemove);
-        jToolBar2.add(toolbarSeparator);
-
-        btnView1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/view.png"))); // NOI18N
-        btnView1.setText(bundle.getString("DisputePanelForm.btnView1.text")); // NOI18N
-        btnView1.setFocusable(false);
-        btnView1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnView1ActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btnView1);
-
-        btnViewAttachmanet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/folder-open-document.png"))); // NOI18N
-        btnViewAttachmanet.setText(bundle.getString("DisputePanelForm.btnViewAttachmanet.text")); // NOI18N
-        btnViewAttachmanet.setFocusable(false);
-        btnViewAttachmanet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnViewAttachmanet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewAttachmanetActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btnViewAttachmanet);
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(documentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(documentsManagementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(documentsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addComponent(documentsManagementPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 232, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(bundle.getString("DisputePanelForm.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
@@ -1641,13 +1513,12 @@ public class DisputePanelForm extends ContentPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(23, 23, 23))
-                    .addComponent(jTabbedPane1)))
+                    .addComponent(jTabbedPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1676,61 +1547,29 @@ public class DisputePanelForm extends ContentPanel {
         SearchPlot();
     }//GEN-LAST:event_btnSearchPlotActionPerformed
 
-    private void tableSearchResultsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSearchResultsMouseClicked
-        if (evt.getClickCount() > 1 && evt.getButton() == MouseEvent.BUTTON1) {
-            viewParty();
-        }
-    }//GEN-LAST:event_tableSearchResultsMouseClicked
-
-    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        viewParty();
-    }//GEN-LAST:event_btnViewActionPerformed
-
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
-        selectParty();
+        if (disputeID != null && !disputeID.equals("")) {
+            selectParty(null);
+        } else {
+            MessageUtility.displayMessage(ClientMessage.DISPUTE_SAVE_FIRST);
+        }
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPartyActionPerformed
         addParty();
     }//GEN-LAST:event_btnAddPartyActionPerformed
 
-    private void btnRemovePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePartyActionPerformed
-        removeParty();
-    }//GEN-LAST:event_btnRemovePartyActionPerformed
-
     private void btnsearchDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchDisputeActionPerformed
         searchDispute();
     }//GEN-LAST:event_btnsearchDisputeActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if (disputeID != null && !disputeID.equals("")) {
-            addDocument(disputeID);
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        editDocument();
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        removeDocument();
-    }//GEN-LAST:event_btnRemoveActionPerformed
-
-    private void btnView1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnView1ActionPerformed
-        viewDocument();
-    }//GEN-LAST:event_btnView1ActionPerformed
-
-    private void btnViewAttachmanetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAttachmanetActionPerformed
-        viewAttachment();
-    }//GEN-LAST:event_btnViewAttachmanetActionPerformed
 
     private void btnnewDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewDisputeActionPerformed
         createNewDispute();
     }//GEN-LAST:event_btnnewDisputeActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCompleteDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteDisputeActionPerformed
         completeDispute();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCompleteDisputeActionPerformed
 
     private void btnDisputeModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisputeModeActionPerformed
         switchModeRole(true);
@@ -1749,11 +1588,11 @@ public class DisputePanelForm extends ContentPanel {
             addDisputeComments();
         } else {
             MessageUtility.displayMessage(ClientMessage.DISPUTE_SAVE_FIRST);
-
         }
     }//GEN-LAST:event_btnAddComment1ActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtName1.setText(null);
    }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -1763,15 +1602,24 @@ public class DisputePanelForm extends ContentPanel {
     private void dbxdisputeTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbxdisputeTypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dbxdisputeTypeActionPerformed
+
+    private void btnPrintConfirmationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintConfirmationActionPerformed
+        if (btnDisputeMode.isSelected() && (disputeID != null || !disputeID.equals(""))) {
+            printConfirmation();
+        }
+    }//GEN-LAST:event_btnPrintConfirmationActionPerformed
+
+    private void btnRemovePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePartyActionPerformed
+        removeParty();
+    }//GEN-LAST:event_btnRemovePartyActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddComment1;
     private javax.swing.JButton btnAddParty;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnCompleteDispute;
     private javax.swing.JRadioButton btnCourtProcess;
     private javax.swing.JRadioButton btnDisputeMode;
-    private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnRemove;
+    private javax.swing.JButton btnPrintConfirmation;
     private javax.swing.JButton btnRemoveDisputeComment;
     private javax.swing.JButton btnRemoveParty;
     private javax.swing.JButton btnSaveDispute;
@@ -1779,8 +1627,6 @@ public class DisputePanelForm extends ContentPanel {
     private javax.swing.JButton btnSearchPlot;
     private javax.swing.JButton btnSelect;
     private javax.swing.JButton btnView;
-    private javax.swing.JButton btnView1;
-    private javax.swing.JButton btnViewAttachmanet;
     private javax.swing.JButton btnnewDispute;
     private javax.swing.JButton btnsearchDispute;
     private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean1;
@@ -1794,14 +1640,11 @@ public class DisputePanelForm extends ContentPanel {
     private org.sola.clients.beans.referencedata.DisputeCategoryListBean disputeCategory;
     private org.sola.clients.beans.referencedata.DisputeStatusListBean disputeStatus;
     private org.sola.clients.beans.referencedata.DisputeTypeListBean disputeType;
-    private org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel;
-    private org.sola.clients.beans.referencedata.GenderTypeListBean genderTypes;
+    private org.sola.clients.swing.ui.source.DocumentsManagementPanel documentsManagementPanel;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
     private org.sola.clients.swing.ui.GroupPanel groupPanel2;
     private org.sola.clients.swing.ui.GroupPanel groupPanel3;
     private org.sola.clients.swing.ui.GroupPanel groupPanel4;
-    private org.sola.clients.beans.referencedata.IdTypeListBean idType;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1843,14 +1686,16 @@ public class DisputePanelForm extends ContentPanel {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JToolBar jToolBar4;
-    private javax.swing.JToolBar jToolBar5;
+    private javax.swing.JToolBar jToolBar6;
     private javax.swing.JLabel lblLeaseCategory1;
     private javax.swing.JLabel lblLodgementDate;
     private javax.swing.JLabel lblPlotLocation;
@@ -1862,10 +1707,7 @@ public class DisputePanelForm extends ContentPanel {
     private org.sola.clients.beans.party.PartySearchResultListBean partySearchResult;
     private org.sola.clients.swing.ui.HeaderPanel pnlHeader;
     private javax.swing.JPanel pnlSearch;
-    private javax.swing.JToolBar.Separator separator1;
     private javax.swing.JPanel tabGeneralInfo;
-    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableSearchResults;
-    private javax.swing.JToolBar.Separator toolbarSeparator;
     private javax.swing.JTextPane txtActionRequired;
     private javax.swing.JTextField txtDisputeDescription;
     private javax.swing.JTextField txtName1;

@@ -128,10 +128,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="cbxIsPrimary" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegDatetime" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtRegDatetime" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -267,9 +269,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="groupPanel1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="groupPanel1" alignment="0" pref="0" max="32767" attributes="0"/>
                   <Component id="jToolBar2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="0" pref="776" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -425,8 +427,8 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="groupPanel2" pref="776" max="32767" attributes="0"/>
-                  <Component id="documentsManagementPanel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="groupPanel2" pref="298" max="32767" attributes="0"/>
+                  <Component id="documentsManagementPanel" alignment="0" pref="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -450,6 +452,7 @@
             <Component class="org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel" name="documentsManagementPanel">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createDocumentsPanel()"/>
+                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="SimpleRightholderPanel_documentsManagementPanel"/>
               </AuxValues>
             </Component>
           </SubComponents>

@@ -60,6 +60,7 @@ public class DisputeSearchResultListBean extends AbstractBindingListBean{
     public DisputeSearchResultBean getSelectedDisputeSearchResult() {
         return selectedDisputeSearchResult;
     }
+    
     public void setSelectedDisputeSearchResult(DisputeSearchResultBean selectedDisputeSearchResult) {
         this.selectedDisputeSearchResult = selectedDisputeSearchResult;
         propertySupport.firePropertyChange(SELECTED_DISPUTE_SEARCH_RESULT_PROPERTY, null, this.selectedDisputeSearchResult);

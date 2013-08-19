@@ -34,10 +34,6 @@ package org.sola.clients.beans.administrative;
 
 import org.sola.webservices.transferobjects.EntityAction;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.converters.TypeConverters;
@@ -50,8 +46,6 @@ import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.administrative.validation.DisputeCheck;
-import org.sola.clients.beans.validation.Localized;
-import org.sola.common.messaging.ClientMessage;
 
 /**
  *
@@ -111,6 +105,7 @@ public class DisputeBean extends AbstractTransactionedBean {
         disputeCommentsList = new SolaList<DisputesCommentsBean>();
         disputePartyList = new SolaList<DisputePartyBean>();
         sourceList = new SolaList();
+        
     }
 
     public void clean() {
@@ -125,7 +120,9 @@ public class DisputeBean extends AbstractTransactionedBean {
         this.setId(null);
         this.setDisputeCommentsList(null);
         this.setDisputePartyList(null);
+        //this.setDisputeSourceList(null);
         this.setDisputeDescription(null);
+        this.setDisputeCategory(new DisputeCategoryBean());
     }
 
     public SolaList<DisputesCommentsBean> getDisputeCommentsList() {
@@ -256,11 +253,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public String getDisputeCategoryCode() {
-        if (disputeCategoryCode != null) {
-            return disputeCategoryCode;
-        } else {
-            return null;
-        }
+       return disputeCategoryCode;
     }
 
     public void setDisputeCategoryCode(String disputeCategoryCode) {
@@ -276,17 +269,12 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public DisputeCategoryBean getDisputeCategory() {
-        if (disputeCategoryBean == null) {
-            disputeCategoryBean = new DisputeCategoryBean();
-        }
         return disputeCategoryBean;
     }
 
     public void setDisputeCategory(DisputeCategoryBean disputeCategory) {
-        if (this.disputeCategoryBean == null) {
-            this.disputeCategoryBean = new DisputeCategoryBean();
-        }
-        this.setJointRefDataBean(this.disputeCategoryBean, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+        this.disputeCategoryBean = disputeCategory;
+        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY, null, this.disputeCategoryBean);
     }
 
     public String getUserId() {
@@ -422,26 +410,46 @@ public class DisputeBean extends AbstractTransactionedBean {
         statusCode = value;
         propertySupport.firePropertyChange(STATUS_CODE_PROPERTY, old, statusCode);
     }
-    public SourceBean getSelectedSource() {
-        return selectedSource;
-    }
-
-    public void setSelectedSource(SourceBean value) {
-        selectedSource = value;
-        propertySupport.firePropertyChange(SELECTED_SOURCE_PROPERTY, null, value);
-    }
     
-     public void setSourceList(SolaList<SourceBean> sourceList) {
-        this.sourceList = sourceList;
-    }
-     
-     public SolaList<SourceBean> getSourceList() {
+    //BEGINNING OF ADDING
+    
+//     public SolaList<SourceBean> getDisputeSourceList() {
+//        return sourceList;
+//    }
+//
+//    public ObservableList<SourceBean> getFilteredDisputeSourceList() {
+//        return sourceList.getFilteredList();
+//    }
+//
+//    public void setDisputeSourceList(SolaList<SourceBean> disputeSourceList) {
+//        this.sourceList = sourceList;
+//    }
+//
+//    public void setSelectedSource(SourceBean selectedSource) {
+//        this.selectedSource = selectedSource;
+//        propertySupport.firePropertyChange(SELECTED_SOURCE_PROPERTY, null, this.selectedSource);
+//    }
+//
+//    public SourceBean getSelectedSource() {
+//        return selectedSource;
+//    }
+    
+   //END OF ADDING
+  
+  public SolaList<SourceBean> getSourceList() {
         return sourceList;
     }
-
-    @Valid
-    public ObservableList<SourceBean> getSourceFilteredList() {
+//
+//    @Size(min = 1, message = ClientMessage.CHECK_SIZE_SOURCELIST, 
+//            groups={RrrValidationGroup.class}, payload = Localized.class)
+//    @NoDuplicates(message = ClientMessage.CHECK_NODUPLICATED_SOURCELIST, 
+//            groups={RrrValidationGroup.class}, payload = Localized.class)
+    public ObservableList<SourceBean> getFilteredSourceList() {
         return sourceList.getFilteredList();
+    }
+
+    public void setSourceList(SolaList<SourceBean> sourceList) {
+        this.sourceList = sourceList;
     }
     
      public void addDisputeSource(SourceBean sourceBean) {
@@ -463,6 +471,9 @@ public class DisputeBean extends AbstractTransactionedBean {
         }
     }
 
+     
+     
+     
     public void addChosenPlot(CadastreObjectBean cadastreObjectBean) {
         if (cadastreObjectBean != null) {
             setPlotNumber(cadastreObjectBean.getNameFirstpart() + "-" + cadastreObjectBean.getNameLastpart());

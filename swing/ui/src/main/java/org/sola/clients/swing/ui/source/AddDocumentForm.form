@@ -251,7 +251,6 @@
                 <Property name="showAttachButton" type="boolean" value="false"/>
                 <Property name="showEditButton" type="boolean" value="false"/>
                 <Property name="showOpenApplicationButton" type="boolean" value="false"/>
-                <Property name="showPrintButton" type="boolean" value="false"/>
                 <Property name="showViewButton" type="boolean" value="false"/>
               </Properties>
             </Component>
