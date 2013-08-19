@@ -33,6 +33,7 @@ package org.sola.clients.swing.desktop.application;
 import java.awt.ComponentOrientation;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -50,6 +51,7 @@ import org.sola.clients.beans.application.ApplicationPropertyBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
+import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.party.PartySummaryListBean;
 import org.sola.clients.beans.referencedata.*;
@@ -57,7 +59,6 @@ import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.validation.ValidationResultBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.common.LafManager;
-import org.sola.clients.swing.common.controls.AutoCompletion;
 import org.sola.clients.swing.common.converters.BigDecimalMoneyConverter;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
@@ -94,7 +95,6 @@ import org.sola.common.WindowUtility;
 public class ApplicationPanel extends ContentPanel {
 
     public static final String APPLICATION_SAVED_PROPERTY = "applicationSaved";
-   
     private String applicationID;
     ApplicationPropertyBean property;
 
@@ -131,7 +131,7 @@ public class ApplicationPanel extends ContentPanel {
         if (documentsPanel == null) {
             if (appBean != null) {
                 documentsPanel = new DocumentsManagementExtPanel(
-                        appBean.getSourceList(), null,null, appBean.isEditingAllowed());
+                        appBean.getSourceList(), null, null, appBean.isEditingAllowed());
             } else {
                 documentsPanel = new DocumentsManagementExtPanel();
             }
@@ -276,11 +276,13 @@ public class ApplicationPanel extends ContentPanel {
         customizePropertyButtons();
     }
 
-    /**Selects services tab.*/
-    public void selectServicesTab(){
+    /**
+     * Selects services tab.
+     */
+    public void selectServicesTab() {
         tabbedControlMain.setSelectedIndex(tabbedControlMain.indexOfComponent(servicesPanel));
     }
-    
+
     /**
      * Sets the amount paid value when the Paid checkbox is set.
      */
@@ -771,13 +773,35 @@ public class ApplicationPanel extends ContentPanel {
                     // Registration on Lease, Endorsement,Surrender , Name Change and Renewal of lease are special 
                     // services that should reference the property record updated by the
                     // previous service. 
-                    for (ApplicationServiceBean bean : appBean.getServiceList()) {
-                        if (!bean.getId().equals(serviceId)) {
-                            // Use the service id of the first service that is not
-                            // the RegOnLease or RegOnSublease service. 
-                            serviceId = bean.getId();
-                            break;
+                    List<ApplicationServiceBean> servicesForReg = appBean.getServicesForRegistration();
+                    if (servicesForReg.size() <= 1) {
+                        for (ApplicationServiceBean bean : appBean.getServiceList()) {
+                            if (!bean.getId().equals(serviceId)) {
+                                // Use the service id of the first service that is not
+                                // the RegOnLease or RegOnSublease service. 
+                                serviceId = bean.getId();
+                                break;
+                            }
                         }
+                    } else {
+                        // Let the user choose one of the services to register
+                        ServiceSelectionForm serviceSelectionForm = new ServiceSelectionForm(
+                                new SolaList(servicesForReg));
+                        serviceSelectionForm.setLocationRelativeTo(this);
+                        final String[] selectedService = {null};
+                        serviceSelectionForm.addPropertyChangeListener(new PropertyChangeListener() {
+                            @Override
+                            public void propertyChange(PropertyChangeEvent evt) {
+                                if (evt.getPropertyName().equals(ServiceSelectionForm.SELECTED_SERVICE)
+                                        && evt.getNewValue() != null) {
+                                    selectedService[0] = ((ApplicationServiceBean) evt.getNewValue()).getId();
+                                    ((JDialog) evt.getSource()).dispose();
+
+                                }
+                            }
+                        });
+                        serviceSelectionForm.setVisible(true);
+                        serviceId = selectedService[0];
                     }
                 }
                 // Try to get BA Units, created through the service

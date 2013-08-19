@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.beans.application;
@@ -107,7 +109,8 @@ public class ApplicationBean extends ApplicationSummaryBean {
 
     /**
      * Default constructor to create application bean. Initializes the following
-     * list of beans which are the parts of the application bean: <br /> {@link ApplicationActionTypeBean}
+     * list of beans which are the parts of the application bean: <br />
+     * {@link ApplicationActionTypeBean}
      * <br /> {@link PartySummaryBean} <br /> {@link ApplicationPropertyBean}
      * <br /> {@link ApplicationServiceBean} <br /> {@link SourceBean}
      */
@@ -254,8 +257,8 @@ public class ApplicationBean extends ApplicationSummaryBean {
     }
 
     /**
-     * Sets application status code and retrieves {@link ApplicationStatusTypeBean}
-     * from the cache.
+     * Sets application status code and retrieves
+     * {@link ApplicationStatusTypeBean} from the cache.
      *
      * @param value Application status code.
      */
@@ -303,8 +306,8 @@ public class ApplicationBean extends ApplicationSummaryBean {
     }
 
     /**
-     * Sets application action code and retrieves {@link ApplicationActionTypeBean}
-     * from the cache.
+     * Sets application action code and retrieves
+     * {@link ApplicationActionTypeBean} from the cache.
      *
      * @param value Application action code.
      */
@@ -479,8 +482,6 @@ public class ApplicationBean extends ApplicationSummaryBean {
         propertySupport.firePropertyChange(RECEIPT_REF_PROPERTY, old, value);
     }
 
-    
-
     public SolaList<CadastreObjectSummaryBean> getCadastreObjectList() {
         return cadastreObjectList;
     }
@@ -647,8 +648,8 @@ public class ApplicationBean extends ApplicationSummaryBean {
      * @param newProperty Property object to add on the list.
      */
     public void addProperty(BaUnitSearchResultBean newProperty) {
-        for(BaUnitSearchResultBean baUnit : propertyList){
-            if(baUnit.getId().equals(newProperty.getId())){
+        for (BaUnitSearchResultBean baUnit : propertyList) {
+            if (baUnit.getId().equals(newProperty.getId())) {
                 baUnit.setEntityAction(null);
                 propertyList.filter();
                 return;
@@ -901,22 +902,24 @@ public class ApplicationBean extends ApplicationSummaryBean {
         TypeConverters.TransferObjectToBean(app, ApplicationBean.class, this);
     }
 
-    /** 
-     * Creates new application with lease correction service to save time to do it manually. 
-     * After creation application gets assigned to the current system user.
+    /**
+     * Creates new application with lease correction service to save time to do
+     * it manually. After creation application gets assigned to the current
+     * system user.
+     *
      * @param baUnit Property object to use for the new application.
-     * @return 
+     * @return
      */
     public static ApplicationBean createCorrectionApp(BaUnitSearchResultBean baUnit) {
-        if(baUnit == null){
+        if (baUnit == null) {
             return null;
         }
 
         ApplicationBean appBean = new ApplicationBean();
-        
+
         // Add property
         appBean.addProperty(baUnit);
-        
+
         // Set LAA applicant
         PartyBean contactPerson = new PartyBean();
         AddressBean contactPersonAddress = new AddressBean();
@@ -926,23 +929,23 @@ public class ApplicationBean extends ApplicationSummaryBean {
         contactPerson.setLastName("LESOTHO");
         contactPerson.setAddress(contactPersonAddress);
         appBean.setContactPerson(contactPerson);
-        
+
         // Add service
         appBean.addService(CacheManager.getBeanByCode(
                 CacheManager.getRequestTypes(), RequestTypeBean.CODE_LEASE_CORRECTION));
 
         // Mark as paid
         appBean.setFeePaid(true);
-        
+
         // Save application
         appBean.saveApplication();
-        
+
         // Assign to the current user
         appBean.assignUser(SecurityBean.getCurrentUser().getId());
-        
+
         return appBean;
     }
-    
+
     /**
      * Returns {@link ApplicationBean} by the given transaction ID.
      */
@@ -950,5 +953,28 @@ public class ApplicationBean extends ApplicationSummaryBean {
         return TypeConverters.TransferObjectToBean(
                 WSManager.getInstance().getCaseManagementService().getApplicationByTransactionId(transactionId),
                 ApplicationBean.class, null);
+    }
+
+    /**
+     * Determines the services that require registration when using the
+     * Registration On Lease service.
+     */
+    public List<ApplicationServiceBean> getServicesForRegistration() {
+        List<ApplicationServiceBean> result = new ArrayList<ApplicationServiceBean>();
+        for (ApplicationServiceBean bean : this.getServiceList()) {
+            if (bean.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_LEASE)
+                    || bean.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_ENDORSEMENT)
+                    || bean.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_NAME_CHANGE)
+                    || bean.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_VARY_LEASE)
+                    || bean.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_RENEWAL_LEASE)
+                    || bean.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_ON_SURRENDER_LEASE)
+                    || bean.getStatusCode().equalsIgnoreCase(StatusConstants.CANCELED)) {
+                // Do nothing
+            } else {
+                result.add(bean);
+            }
+        }
+
+        return result;
     }
 }
