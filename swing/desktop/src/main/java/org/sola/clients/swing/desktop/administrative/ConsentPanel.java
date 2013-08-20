@@ -1,37 +1,37 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFormattedTextField;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -57,7 +57,7 @@ import org.sola.common.messaging.MessageUtility;
  *
  */
 public class ConsentPanel extends ContentPanel {
-    
+
     private ConsentBean consentBean;
     private ApplicationBean appBean;
     private ApplicationServiceBean appService;
@@ -65,7 +65,7 @@ public class ConsentPanel extends ContentPanel {
     private String consentType;
     public static final String UPDATED_RRR = "updatedRRR";
     private PartyListExtPanel persons;
-    
+
     private PartyListExtPanel createPartyListPanel(String role) {
         if (role.equals("rightholder")) {
             return new PartyListExtPanel(consentBean.getRightHolderList());
@@ -84,28 +84,28 @@ public class ConsentPanel extends ContentPanel {
         this.appService = appService;
         this.consentType = consentType;
         this.consentBean = new ConsentBean();
-        
+
         prepareConsentBean(baUnitBean);
         initComponents();
         postInit();
     }
-    
+
     private void postInit() {
         customizeForm();
     }
-    
+
     private void customizeForm() {
         headerPanel2.setTitleText(consentType + ": " + consentBean.getLeaseNumber());
     }
-    
+
     private void prepareConsentBean(BaUnitBean baUnit) {
-        
+
         if (baUnit == null) {
             consentBean = new ConsentBean();
         }
         consentBean.setBaUnit(baUnit);
         consentBean.setLeaseNumber(baUnit.getName());
-        
+
         consentBean.setRightholderRrr(baUnit.getPrimaryRight());
         consentBean.setRightHolderList(consentBean.getRightholderRrr().getRightHolderList());
         consentBean.setServiceFee(appService.getBaseFee());
@@ -117,59 +117,83 @@ public class ConsentPanel extends ContentPanel {
         consentBean.setRegistrationDate(new Date());
         consentBean.setRegistrationDay(new Date());
         consentBean.setExpirationDate(new Date());
-        
+
         consentBean1 = consentBean;
     }
-    
+
     private void showCalendar(JFormattedTextField dateField) {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
     }
-    
-    private void printConsentCertificate(String txtConditionText) {
+
+    private void printConsentCertificate(String txtConditionText, String txtCents) {
         consentBean.setRecipientList(persons.getPersonList());
-        
+
         if (consentBean.validate(true).size() > 0) {
-            return;            
+            return;
         }
-        
+
         if (txtExpirationDate.getText().isEmpty() || txtExpirationDate.getText() == null) {
             MessageUtility.displayMessage(ClientMessage.CONSENT_PROVIDE_EXPIRATION);
             return;
         }
-        
+
         if (consentBean != null) {
             showReport(ReportManager.getConsentReport(consentBean,
                     getConditionText(txtConditionText),
-                    txtExpirationDate.getText(),                   
-                    getRent(txtRent.getText()),
+                    txtExpirationDate.getText(),
+                    getRent(txtRent.getText(), txtCents),
                     txtTransactionType.getSelectedItem().toString()));
         }
     }
-    
-        
+
     private String getConditionText(String conditionText) {
         if (conditionText == null || conditionText.equals("") || conditionText.length() == 0) {
             conditionText = "[NONE]";
         }
         return conditionText;
     }
-    
-    private String getRent(String rent) {
-        if (rent != null && !rent.equals("") && rent.length() != 0) {
-            return "M " + rent  + " ( " + getConsiderationAmountWord(rent) + " )";
+
+    private String getRent(String rent, String cents) {
+        if (!cents.equals("00")) {
+            String centsWord = getAmountWord(cents).toUpperCase() + " CENTS";
         }
-        return "M 0.00";
+        if (rent != null && !rent.equals("") && rent.length() != 0) {
+            String maloti = getAmountWord(rent) + " MALOTI " + getCents(cents) + " ( M" + rent +"."+ cents +")";
+            return maloti;
+        }
+        return "ZERO MALUTI (M 0.00)";
     }
-    
+
+    private String getCents(String cents) {
+        if (!cents.equals("00")) {
+            cents = getAmountWord(cents).toUpperCase() + " CENTS";
+            return cents.toUpperCase();
+        }
+        cents = "";
+        return cents;
+    }
+
     /**
      * Calculates and returns lease term in years transformed into words.
      */
-    public String getConsiderationAmountWord(String amount) {
+    public String getAmountWord(String amount) {
+        amount = getUnformattedAmount(amount);
         NumberToWords.DefaultProcessor processor = new NumberToWords.DefaultProcessor();
-        return processor.getName(amount);
-    }        
-    
+        return processor.getName(amount).toUpperCase();
+    }
+
+    /**
+     * Converts amount entered in comma separated format to plain amount.
+     *
+     * @param amount
+     * @return
+     */
+    public String getUnformattedAmount(String amount) {
+        amount = amount.replace(",", "");
+        return amount;
+    }
+
     private void printConsentRejectionLetter() {
         consentBean.setRecipientList(persons.getPersonList());
         if (consentBean != null) {
@@ -178,9 +202,9 @@ public class ConsentPanel extends ContentPanel {
                     MessageUtility.getLocalizedMessageText(ClientMessage.BAUNIT_LEASE_REJECTION_REASON_TITLE),
                     null, MainForm.getInstance(), true);
             WindowUtility.centerForm(form);
-            
+
             form.addPropertyChangeListener(new PropertyChangeListener() {
-                
+
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     if (evt.getPropertyName().equals(FreeTextDialog.TEXT_TO_SAVE)) {
@@ -189,7 +213,7 @@ public class ConsentPanel extends ContentPanel {
                 }
             });
             form.setVisible(true);
-            
+
             consentBean.setTransactionType(txtTransactionType.getSelectedItem().toString());
             consentBean.setLodgingDate(appBean.getLodgingDatetime());
             consentBean.setServiceName(txtTransactionType.getSelectedItem().toString());
@@ -204,7 +228,7 @@ public class ConsentPanel extends ContentPanel {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setLocationRelativeTo(this);
         form.setVisible(true);
-        
+
     }
 
     /**
@@ -213,7 +237,7 @@ public class ConsentPanel extends ContentPanel {
     public String getApplicationDate() {
         return DateUtility.getShortDateString(appBean.getLodgingDatetime(), true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -247,6 +271,7 @@ public class ConsentPanel extends ContentPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtRent = new javax.swing.JFormattedTextField();
+        txtRentCents = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txtTransactionType = new javax.swing.JComboBox();
@@ -365,7 +390,7 @@ public class ConsentPanel extends ContentPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSubmissionDateFrom)
                     .addComponent(txtRegistrationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -412,25 +437,31 @@ public class ConsentPanel extends ContentPanel {
 
         jLabel5.setText("Consideration Amount");
 
+        txtRent.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        txtRentCents.setText("00");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 46, Short.MAX_VALUE))
-                    .addComponent(txtRent))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtRent)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtRentCents, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRentCents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jLabel9.setText("Transaction Type");
@@ -510,7 +541,7 @@ public class ConsentPanel extends ContentPanel {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
         );
 
         jPanel11.setEnabled(false);
@@ -616,7 +647,7 @@ public class ConsentPanel extends ContentPanel {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -625,27 +656,27 @@ public class ConsentPanel extends ContentPanel {
     private void menuAddOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddOwnerActionPerformed
         //
     }//GEN-LAST:event_menuAddOwnerActionPerformed
-    
+
     private void menuEditOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditOwnerActionPerformed
         //
     }//GEN-LAST:event_menuEditOwnerActionPerformed
-    
+
     private void menuRemoveOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveOwnerActionPerformed
         //
     }//GEN-LAST:event_menuRemoveOwnerActionPerformed
-    
+
     private void menuViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuViewOwnerActionPerformed
         //
     }//GEN-LAST:event_menuViewOwnerActionPerformed
-    
+
     private void btnSubmissionDateFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFromActionPerformed
         showCalendar(txtRegistrationDate);
     }//GEN-LAST:event_btnSubmissionDateFromActionPerformed
-        
+
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        printConsentCertificate(txtConditionText.getText());
+        printConsentCertificate(txtConditionText.getText(), txtRentCents.getText());
     }//GEN-LAST:event_btnPrintActionPerformed
-    
+
     private void btnPrintRejectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintRejectionActionPerformed
         printConsentRejectionLetter();
     }//GEN-LAST:event_btnPrintRejectionActionPerformed
@@ -653,7 +684,6 @@ public class ConsentPanel extends ContentPanel {
     private void btnSubmissionDateFrom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmissionDateFrom1ActionPerformed
         showCalendar(txtExpirationDate);
     }//GEN-LAST:event_btnSubmissionDateFrom1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnPrintRejection;
@@ -692,6 +722,7 @@ public class ConsentPanel extends ContentPanel {
     private javax.swing.JFormattedTextField txtExpirationDate;
     private javax.swing.JFormattedTextField txtRegistrationDate;
     private javax.swing.JFormattedTextField txtRent;
+    private javax.swing.JTextField txtRentCents;
     private javax.swing.JComboBox txtTransactionType;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
