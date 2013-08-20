@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Application printing form" pageWidth="595" pageHeight="842" columnWidth="548" leftMargin="27" rightMargin="20" topMargin="24" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.LodgementReport" uuid="51dd7421-4983-421f-8b54-6200db545dd1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="212"/>
 	<subDataset name="dataset2" uuid="5cf8b6fe-e677-4c23-9432-ed6170816206">
 		<field name="serviceName" class="java.lang.String">
 			<fieldDescription><![CDATA[requestType.displayValue]]></fieldDescription>
@@ -148,7 +148,7 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="442" splitType="Immediate">
+		<band height="496" splitType="Immediate">
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="6f0ca142-7238-481b-b15a-17b14fa8708d" x="111" y="126" width="232" height="20">
 					<printWhenExpression><![CDATA[$F{agent.name} != null]]></printWhenExpression>
@@ -312,16 +312,6 @@
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
-			<textField>
-				<reportElement uuid="e77c0547-3c20-47d0-8736-9732acac4e06" positionType="Float" mode="Transparent" x="11" y="384" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF">
-					<printWhenExpression><![CDATA[$P{WHICH_CALLER}.equals( "R" )]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{receipt}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement uuid="28c10e23-075d-4a7d-8c77-1c5060f4df98" positionType="FixRelativeToBottom" x="13" y="414" width="66" height="20"/>
 				<textElement markup="none">
@@ -339,16 +329,16 @@
 			<elementGroup>
 				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 					<reportElement uuid="e91f30e0-5b6d-4202-9b80-b51d0cb6c262" positionType="Float" x="79" y="334" width="125" height="20">
-						<printWhenExpression><![CDATA[!($F{servicesFee}.toPlainString().equals("0.00"))]]></printWhenExpression>
+						<printWhenExpression><![CDATA[!($F{servicesFee}.toPlainString().equals("0.00")) && !($F{servicesFee}.toPlainString().equals("0"))]]></printWhenExpression>
 					</reportElement>
 					<textElement>
 						<font fontName="Times New Roman" size="11" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{servicesFee}.toPlainString()]]></textFieldExpression>
+					<textFieldExpression><![CDATA["M "+$F{servicesFee}.toPlainString()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement uuid="aa36c0d3-13e7-45df-9832-8f1b645dfb31" positionType="Float" x="11" y="334" width="68" height="20">
-						<printWhenExpression><![CDATA[!($F{servicesFee}.toPlainString().equals("0.00"))]]></printWhenExpression>
+						<printWhenExpression><![CDATA[!($F{servicesFee}.toPlainString().equals("0.00")) && !($F{servicesFee}.toPlainString().equals("0"))]]></printWhenExpression>
 					</reportElement>
 					<textElement markup="none">
 						<font fontName="Times New Roman" size="11"/>
@@ -397,7 +387,7 @@
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{totalFee}.toPlainString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["M "+$F{totalFee}.toPlainString()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="3eb93238-06d1-4946-b691-9c99aaded6e4" x="13" y="0" width="345" height="20"/>
@@ -412,6 +402,20 @@
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROPERTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28c10e23-075d-4a7d-8c77-1c5060f4df98" positionType="FixRelativeToBottom" x="13" y="446" width="38" height="20"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[Signed:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28c10e23-075d-4a7d-8c77-1c5060f4df98" positionType="FixRelativeToBottom" x="51" y="446" width="182" height="20"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[______________________________]]></text>
 			</staticText>
 		</band>
 	</detail>
