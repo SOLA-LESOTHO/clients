@@ -67,7 +67,7 @@ public class SolaPrintViewerForm extends javax.swing.JFrame {
         this.setBounds(reportViewerPanel.getBounds());
         
         // Expand the layout on the form. 
-        GroupLayout layout = (GroupLayout) this.getContentPane().getLayout();
+        GroupLayout layout = (GroupLayout) this.getLayout();
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addComponent(reportViewerPanel.getContentPane(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
