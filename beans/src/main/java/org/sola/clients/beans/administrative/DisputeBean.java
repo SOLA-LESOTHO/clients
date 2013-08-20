@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 /**
@@ -34,10 +36,6 @@ package org.sola.clients.beans.administrative;
 
 import org.sola.webservices.transferobjects.EntityAction;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.sola.clients.beans.AbstractTransactionedBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.converters.TypeConverters;
@@ -50,8 +48,6 @@ import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.administrative.validation.DisputeCheck;
-import org.sola.clients.beans.validation.Localized;
-import org.sola.common.messaging.ClientMessage;
 
 /**
  *
@@ -80,8 +76,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String BEAN_PROPERTY = "bean";
     public static final String SELECTED_COMMENTS_PROPERTY = "selectedComments";
     public static final String SELECTED_PARTY_PROPERTY = "selectedParty";
-     public static final String SELECTED_SOURCE_PROPERTY = "selectedSource";
-     
+    public static final String SELECTED_SOURCE_PROPERTY = "selectedSource";
     private String id;
     private String nr;
     private Date lodgementDate;
@@ -111,6 +106,7 @@ public class DisputeBean extends AbstractTransactionedBean {
         disputeCommentsList = new SolaList<DisputesCommentsBean>();
         disputePartyList = new SolaList<DisputePartyBean>();
         sourceList = new SolaList();
+
     }
 
     public void clean() {
@@ -125,7 +121,9 @@ public class DisputeBean extends AbstractTransactionedBean {
         this.setId(null);
         this.setDisputeCommentsList(null);
         this.setDisputePartyList(null);
+        //this.setDisputeSourceList(null);
         this.setDisputeDescription(null);
+        this.setDisputeCategory(new DisputeCategoryBean());
     }
 
     public SolaList<DisputesCommentsBean> getDisputeCommentsList() {
@@ -194,7 +192,7 @@ public class DisputeBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(SELECTED_PARTY_PROPERTY, null, this.selectedParty);
     }
 
-    public DisputePartyBean getDisputeParty() {
+    public DisputePartyBean getSelectedParty() {
         return selectedParty;
     }
 
@@ -256,11 +254,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public String getDisputeCategoryCode() {
-        if (disputeCategoryCode != null) {
-            return disputeCategoryCode;
-        } else {
-            return null;
-        }
+        return disputeCategoryCode;
     }
 
     public void setDisputeCategoryCode(String disputeCategoryCode) {
@@ -276,17 +270,12 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public DisputeCategoryBean getDisputeCategory() {
-        if (disputeCategoryBean == null) {
-            disputeCategoryBean = new DisputeCategoryBean();
-        }
         return disputeCategoryBean;
     }
 
     public void setDisputeCategory(DisputeCategoryBean disputeCategory) {
-        if (this.disputeCategoryBean == null) {
-            this.disputeCategoryBean = new DisputeCategoryBean();
-        }
-        this.setJointRefDataBean(this.disputeCategoryBean, disputeCategory, DISPUTE_CATEGORY_PROPERTY);
+        this.disputeCategoryBean = disputeCategory;
+        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY, null, this.disputeCategoryBean);
     }
 
     public String getUserId() {
@@ -422,29 +411,47 @@ public class DisputeBean extends AbstractTransactionedBean {
         statusCode = value;
         propertySupport.firePropertyChange(STATUS_CODE_PROPERTY, old, statusCode);
     }
-    public SourceBean getSelectedSource() {
-        return selectedSource;
-    }
 
-    public void setSelectedSource(SourceBean value) {
-        selectedSource = value;
-        propertySupport.firePropertyChange(SELECTED_SOURCE_PROPERTY, null, value);
-    }
-    
-     public void setSourceList(SolaList<SourceBean> sourceList) {
-        this.sourceList = sourceList;
-    }
-     
-     public SolaList<SourceBean> getSourceList() {
+    //BEGINNING OF ADDING
+//     public SolaList<SourceBean> getDisputeSourceList() {
+//        return sourceList;
+//    }
+//
+//    public ObservableList<SourceBean> getFilteredDisputeSourceList() {
+//        return sourceList.getFilteredList();
+//    }
+//
+//    public void setDisputeSourceList(SolaList<SourceBean> disputeSourceList) {
+//        this.sourceList = sourceList;
+//    }
+//
+//    public void setSelectedSource(SourceBean selectedSource) {
+//        this.selectedSource = selectedSource;
+//        propertySupport.firePropertyChange(SELECTED_SOURCE_PROPERTY, null, this.selectedSource);
+//    }
+//
+//    public SourceBean getSelectedSource() {
+//        return selectedSource;
+//    }
+    //END OF ADDING
+    public SolaList<SourceBean> getSourceList() {
         return sourceList;
     }
+//
+//    @Size(min = 1, message = ClientMessage.CHECK_SIZE_SOURCELIST, 
+//            groups={RrrValidationGroup.class}, payload = Localized.class)
+//    @NoDuplicates(message = ClientMessage.CHECK_NODUPLICATED_SOURCELIST, 
+//            groups={RrrValidationGroup.class}, payload = Localized.class)
 
-    @Valid
-    public ObservableList<SourceBean> getSourceFilteredList() {
+    public ObservableList<SourceBean> getFilteredSourceList() {
         return sourceList.getFilteredList();
     }
-    
-     public void addDisputeSource(SourceBean sourceBean) {
+
+    public void setSourceList(SolaList<SourceBean> sourceList) {
+        this.sourceList = sourceList;
+    }
+
+    public void addDisputeSource(SourceBean sourceBean) {
         if (!this.updateListItem(sourceBean, sourceList, false)) {
             int i = 0;
             // Search by id number
