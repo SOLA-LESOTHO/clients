@@ -134,8 +134,8 @@ public class ParcelPanel extends javax.swing.JPanel {
     
     private void customizeAddressButtons(){
         boolean enabled = cadastreObjectBean.getSelectedAddress()!=null && 
-                !readOnly && !lockCadastreFields;
-        btnAdd1.setEnabled(!readOnly && !lockCadastreFields);
+                !readOnly;
+        btnAdd1.setEnabled(!readOnly);
         btnEdit1.setEnabled(enabled);
         btnRemove1.setEnabled(enabled);
         menuAdd1.setEnabled(btnAdd1.isEnabled());
