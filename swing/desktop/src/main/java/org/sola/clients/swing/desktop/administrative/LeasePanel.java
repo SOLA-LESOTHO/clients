@@ -217,6 +217,7 @@ public class LeasePanel extends ContentPanel {
         txtRegistrationNumber.setEnabled(regEnabled);
         txtTransferDuty.setEnabled(enabled);
         txtRegistrationFee.setEnabled(enabled);
+        txtServiceFee.setEnabled(enabled);
         btnRegistrationDate.setEnabled(regEnabled);
 
         // Lease management part
@@ -775,6 +776,9 @@ public class LeasePanel extends ContentPanel {
         jPanel17 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         txtTransferDuty = new javax.swing.JFormattedTextField();
+        jPanel27 = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        txtServiceFee = new javax.swing.JFormattedTextField();
         jPanel23 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -1378,7 +1382,7 @@ public class LeasePanel extends ContentPanel {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addComponent(jLabel11)
-                .addGap(0, 82, Short.MAX_VALUE))
+                .addGap(0, 44, Short.MAX_VALUE))
             .addComponent(txtStampDuty)
         );
         jPanel16Layout.setVerticalGroup(
@@ -1404,7 +1408,7 @@ public class LeasePanel extends ContentPanel {
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addComponent(jLabel13)
-                .addGap(0, 59, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
             .addComponent(txtRegistrationFee)
         );
         jPanel18Layout.setVerticalGroup(
@@ -1430,7 +1434,7 @@ public class LeasePanel extends ContentPanel {
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jLabel12)
-                .addGap(0, 71, Short.MAX_VALUE))
+                .addGap(0, 33, Short.MAX_VALUE))
             .addComponent(txtTransferDuty)
         );
         jPanel17Layout.setVerticalGroup(
@@ -1442,6 +1446,32 @@ public class LeasePanel extends ContentPanel {
         );
 
         jPanel9.add(jPanel17);
+
+        jLabel18.setText(bundle.getString("LeasePanel.jLabel18.text")); // NOI18N
+
+        txtServiceFee.setFormatterFactory(FormattersFactory.getInstance().getDecimalFormatterFactory());
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${serviceFee}"), txtServiceFee, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addComponent(jLabel18)
+                .addGap(0, 44, Short.MAX_VALUE))
+            .addComponent(txtServiceFee)
+        );
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtServiceFee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel9.add(jPanel27);
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -1805,6 +1835,7 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1832,6 +1863,7 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1875,6 +1907,7 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JFormattedTextField txtRegistrationFee;
     private javax.swing.JTextField txtRegistrationNumber;
     private javax.swing.JFormattedTextField txtRent;
+    private javax.swing.JFormattedTextField txtServiceFee;
     private javax.swing.JFormattedTextField txtStampDuty;
     private javax.swing.JFormattedTextField txtStartDate;
     private javax.swing.JFormattedTextField txtTransferDuty;

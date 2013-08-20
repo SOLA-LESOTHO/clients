@@ -30,13 +30,11 @@ package org.sola.clients.swing.admin;
 
 import java.net.URL;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.reports.ReportManager;
-import org.sola.clients.swing.admin.referencedata.ApplicationFormManagementPanel;
 import org.sola.clients.swing.admin.referencedata.ReferenceDataManagementPanel;
 import org.sola.clients.swing.admin.security.GroupsManagementPanel;
 import org.sola.clients.swing.admin.security.RolesManagementPanel;
@@ -44,6 +42,7 @@ import org.sola.clients.swing.admin.security.UsersManagementPanel;
 import org.sola.clients.swing.admin.system.BrManagementPanel;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.ui.MainContentPanel;
+import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import org.sola.common.RolesConstants;
 
 /**

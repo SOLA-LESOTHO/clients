@@ -29,6 +29,7 @@
 package org.sola.clients.beans.administrative;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import org.sola.clients.beans.AbstractBindingBean;
@@ -183,7 +184,7 @@ public class LeaseReportBean extends AbstractBindingBean {
         
         BigDecimal totalFee = serviceFee.add(regFee).add(stampDuty).add(remGroundRent);
         if(totalFee.compareTo(BigDecimal.ZERO)!=0){
-            return "M " + totalFee.toPlainString();
+            return "M " + totalFee.setScale(2, RoundingMode.HALF_UP).toPlainString();
         } else {
             return "NIL";
         }
@@ -191,8 +192,8 @@ public class LeaseReportBean extends AbstractBindingBean {
     
     /** Shortcut to the service fee. */
     public String getServiceFee(){
-        if(getService()!=null && getService().getServiceFee()!=null){
-            return "M " + getService().getServiceFee().toPlainString();
+        if(getService()!=null && getLease().getServiceFee()!=null){
+            return "M " + getLease().getServiceFee().setScale(2, RoundingMode.HALF_UP).toPlainString();
         }
         return "NIL";
     }
@@ -200,7 +201,7 @@ public class LeaseReportBean extends AbstractBindingBean {
     /** Shortcut to the registration fee. */
     public String getRegistrationFee(){
         if(getLease()!=null && getLease().getRegistrationFee()!=null){
-            return "M " + getLease().getRegistrationFee().toPlainString();
+            return "M " + getLease().getRegistrationFee().setScale(2, RoundingMode.HALF_UP).toPlainString();
         }
         return "NIL";
     }
@@ -208,7 +209,7 @@ public class LeaseReportBean extends AbstractBindingBean {
     /** Shortcut to stamp duty. */
     public String getStampDuty(){
         if(getLease()!=null && getLease().getStampDuty()!=null){
-            return "M " + getLease().getStampDuty().toPlainString();
+            return "M " + getLease().getStampDuty().setScale(2, RoundingMode.HALF_UP).toPlainString();
         }
         return "NIL";
     }
@@ -218,7 +219,7 @@ public class LeaseReportBean extends AbstractBindingBean {
      */
     public String getGroundRent() {
         if (getLease().getGroundRent() != null && getLease().getGroundRent().compareTo(BigDecimal.ZERO) > 0) {
-            return "M " + getLease().getGroundRent().toPlainString();
+            return "M " + getLease().getGroundRent().setScale(2, RoundingMode.HALF_UP).toPlainString();
         } else {
             return "NIL";
         }

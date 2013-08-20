@@ -131,6 +131,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String LAND_USABLE_PROPERTY = "landUsable";
     public static final String PERSONAL_LEVY_PROPERTY = "personalLevy";
     public static final String MORTGAGE_TERM_PROPERTY = "mortgageTerm";
+    public static final String SERVICE_FEE_PROPERTY = "serviceFee";
     
     private String baUnitId;
     private String nr;
@@ -198,6 +199,7 @@ public class RrrBean extends AbstractTransactionedBean {
     private BigDecimal stampDuty;
     private BigDecimal transferDuty;
     private BigDecimal registrationFee;
+    private BigDecimal serviceFee;
     private SolaList<LeaseSpecialConditionBean> leaseSpecialConditionList;
     private transient LeaseSpecialConditionBean selectedSpecialCondition;
     @NotNull(message = ClientMessage.LEASE_LAND_USE_IS_NULL, groups={LeaseValidationGroup.class}, payload = Localized.class)
@@ -596,6 +598,16 @@ public class RrrBean extends AbstractTransactionedBean {
         BigDecimal oldValue = this.registrationFee;
         this.registrationFee = registrationFee;
         propertySupport.firePropertyChange(REGISTRATION_FEE_PROPERTY, oldValue, this.registrationFee);
+    }
+
+    public BigDecimal getServiceFee() {
+        return serviceFee;
+    }
+
+    public void setServiceFee(BigDecimal serviceFee) {
+        BigDecimal oldValue = this.serviceFee;
+        this.serviceFee = serviceFee;
+         propertySupport.firePropertyChange(SERVICE_FEE_PROPERTY, oldValue, this.serviceFee);
     }
 
     public LeaseSpecialConditionBean getSelectedSpecialCondition() {
