@@ -133,6 +133,9 @@ public class DashBoardPanel extends ContentPanel {
      */
     private void customizeAssignedAppButtons() {
         boolean isUnassignEnabled;
+        boolean isAssignEnabled = assignedAppListBean.hasChecked() && 
+                (SecurityBean.isInRole(RolesConstants.APPLICATION_ASSIGN_TO_YOURSELF)
+                || SecurityBean.isInRole(RolesConstants.APPLICATION_ASSIGN_TO_OTHERS));
         boolean isEditEnabled = false;
 
         if (assignedAppListBean.hasChecked()
@@ -148,9 +151,11 @@ public class DashBoardPanel extends ContentPanel {
         }
 
         btnUnassignApplication.setEnabled(isUnassignEnabled);
+        btnAssignApplication2.setEnabled(isAssignEnabled);
         btnOpenAssignedApplication.setEnabled(isEditEnabled);
         menuUnassignApplication.setEnabled(isUnassignEnabled);
         menuOpenAssignedApplication.setEnabled(isEditEnabled);
+        menuAssignApplication2.setEnabled(btnAssignApplication2.isEnabled());
     }
 
     /**
@@ -188,13 +193,6 @@ public class DashBoardPanel extends ContentPanel {
         if (appList == null || appList.size() < 1) {
             return;
         }
-
-//        for (ApplicationSearchResultBean app : appList) {
-//            if (!app.isFeePaid()) {
-//                MessageUtility.displayMessage(ClientMessage.CHECK_FEES_NOT_PAID, new Object[]{app.getNr()});
-//                return;
-//            }
-//        }
 
         if (assign) {
             ApplicationAssignmentDialog form = new ApplicationAssignmentDialog(appList, MainForm.getInstance(), true);
@@ -273,6 +271,7 @@ public class DashBoardPanel extends ContentPanel {
         menuRefreshUnassignApplication = new javax.swing.JMenuItem();
         popUpAssignedApplications = new javax.swing.JPopupMenu();
         menuUnassignApplication = new javax.swing.JMenuItem();
+        menuAssignApplication2 = new javax.swing.JMenuItem();
         menuOpenAssignedApplication = new javax.swing.JMenuItem();
         menuRefreshAssignApplication = new javax.swing.JMenuItem();
         jPanel3 = new javax.swing.JPanel();
@@ -290,6 +289,7 @@ public class DashBoardPanel extends ContentPanel {
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnUnassignApplication = new javax.swing.JButton();
+        btnAssignApplication2 = new javax.swing.JButton();
         btnOpenAssignedApplication = new javax.swing.JButton();
         btnRefreshAssigned = new javax.swing.JButton();
         inprogressScrollPanel = new javax.swing.JScrollPane();
@@ -341,6 +341,16 @@ public class DashBoardPanel extends ContentPanel {
             }
         });
         popUpAssignedApplications.add(menuUnassignApplication);
+
+        menuAssignApplication2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/assign.png"))); // NOI18N
+        menuAssignApplication2.setText(bundle.getString("DashBoardPanel.menuAssignApplication2.text")); // NOI18N
+        menuAssignApplication2.setName(bundle.getString("DashBoardPanel.menuAssignApplication2.name")); // NOI18N
+        menuAssignApplication2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssignApplication2ActionPerformed(evt);
+            }
+        });
+        popUpAssignedApplications.add(menuAssignApplication2);
 
         menuOpenAssignedApplication.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/folder-open-document.png"))); // NOI18N
         menuOpenAssignedApplication.setText(bundle.getString("DashBoardPanel.menuOpenAssignedApplication.text")); // NOI18N
@@ -542,6 +552,18 @@ public class DashBoardPanel extends ContentPanel {
             }
         });
         tbAssignedApplications.add(btnUnassignApplication);
+
+        btnAssignApplication2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/assign.png"))); // NOI18N
+        btnAssignApplication2.setText(bundle.getString("DashBoardPanel.btnAssignApplication2.text")); // NOI18N
+        btnAssignApplication2.setToolTipText(bundle.getString("DashBoardPanel.btnAssignApplication2.toolTipText")); // NOI18N
+        btnAssignApplication2.setFocusable(false);
+        btnAssignApplication2.setName(bundle.getString("DashBoardPanel.btnAssignApplication2.name")); // NOI18N
+        btnAssignApplication2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignApplication2ActionPerformed(evt);
+            }
+        });
+        tbAssignedApplications.add(btnAssignApplication2);
 
         btnOpenAssignedApplication.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/folder-open-document.png"))); // NOI18N
         btnOpenAssignedApplication.setText(bundle.getString("DashBoardPanel.btnOpenAssignedApplication.text")); // NOI18N
@@ -748,6 +770,14 @@ public class DashBoardPanel extends ContentPanel {
         refreshAssignedApplications();
     }//GEN-LAST:event_menuRefreshAssignApplicationActionPerformed
 
+    private void btnAssignApplication2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignApplication2ActionPerformed
+        assignUnassign(assignedAppListBean.getChecked(true), true);
+    }//GEN-LAST:event_btnAssignApplication2ActionPerformed
+
+    private void menuAssignApplication2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssignApplication2ActionPerformed
+        assignUnassign(assignedAppListBean.getChecked(true), true);
+    }//GEN-LAST:event_menuAssignApplication2ActionPerformed
+
     /**
      * Refreshes assigned and unassigned application lists.
      */
@@ -820,6 +850,7 @@ public class DashBoardPanel extends ContentPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.beans.application.ApplicationSearchResultsListBean assignedAppListBean;
     private javax.swing.JButton btnAssignApplication;
+    private javax.swing.JButton btnAssignApplication2;
     private javax.swing.JButton btnOpenAssignedApplication;
     private javax.swing.JButton btnOpenUnassignedApplication;
     private javax.swing.JButton btnRefreshAssigned;
@@ -835,6 +866,7 @@ public class DashBoardPanel extends ContentPanel {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JMenuItem menuAssignApplication;
+    private javax.swing.JMenuItem menuAssignApplication2;
     private javax.swing.JMenuItem menuOpenAssignedApplication;
     private javax.swing.JMenuItem menuOpenUnassignedApplication;
     private javax.swing.JMenuItem menuRefreshAssignApplication;

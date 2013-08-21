@@ -35,6 +35,7 @@ public class StatusConstants {
     public final static String PENDING = "pending";
     public final static String CURRENT = "current";
     public final static String CANCELED = "cancelled";
+    public final static String ANNULLED = "annulled";
     public final static String COMPLETED = "completed";
     public final static String LOADED = "loaded";
     public final static String LODGED = "lodged";
