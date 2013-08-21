@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.beans.administrative;
@@ -51,6 +53,7 @@ public class LeaseReportBean extends AbstractBindingBean {
     private RrrBean lease;
     private String freeText;
     private CadastreObjectBean cadastreObject;
+    private String specialConditions;
 
     /**
      * Default constructor.
@@ -163,57 +166,63 @@ public class LeaseReportBean extends AbstractBindingBean {
     }
 
     /**
-     * Returns total payment for the lease including service fee, stamp duty, 
-     * remaining ground rent and registration fee. 
+     * Returns total payment for the lease including service fee, stamp duty,
+     * remaining ground rent and registration fee.
      */
-    public String getTotalLeaseFee(){
+    public String getTotalLeaseFee() {
         BigDecimal serviceFee = BigDecimal.ZERO;
         BigDecimal regFee = BigDecimal.ZERO;
         BigDecimal stampDuty = BigDecimal.ZERO;
         BigDecimal remGroundRent = BigDecimal.valueOf(getLease().getGroundRentRemaining());
-        
-        if(getService()!=null && getLease().getServiceFee()!=null){
+
+        if (getService() != null && getLease().getServiceFee() != null) {
             serviceFee = getLease().getServiceFee();
         }
-        if(getLease()!=null && getLease().getRegistrationFee()!=null){
+        if (getLease() != null && getLease().getRegistrationFee() != null) {
             regFee = getLease().getRegistrationFee();
         }
-        if(getLease()!=null && getLease().getStampDuty()!=null){
+        if (getLease() != null && getLease().getStampDuty() != null) {
             stampDuty = getLease().getStampDuty();
         }
-        
+
         BigDecimal totalFee = serviceFee.add(regFee).add(stampDuty).add(remGroundRent);
-        if(totalFee.compareTo(BigDecimal.ZERO)!=0){
+        if (totalFee.compareTo(BigDecimal.ZERO) != 0) {
             return "M " + totalFee.setScale(2, RoundingMode.HALF_UP).toPlainString();
         } else {
             return "NIL";
         }
     }
-    
-    /** Shortcut to the service fee. */
-    public String getServiceFee(){
-        if(getService()!=null && getLease().getServiceFee()!=null){
+
+    /**
+     * Shortcut to the service fee.
+     */
+    public String getServiceFee() {
+        if (getService() != null && getLease().getServiceFee() != null) {
             return "M " + getLease().getServiceFee().setScale(2, RoundingMode.HALF_UP).toPlainString();
         }
         return "NIL";
     }
-    
-    /** Shortcut to the registration fee. */
-    public String getRegistrationFee(){
-        if(getLease()!=null && getLease().getRegistrationFee()!=null){
+
+    /**
+     * Shortcut to the registration fee.
+     */
+    public String getRegistrationFee() {
+        if (getLease() != null && getLease().getRegistrationFee() != null) {
             return "M " + getLease().getRegistrationFee().setScale(2, RoundingMode.HALF_UP).toPlainString();
         }
         return "NIL";
     }
-    
-    /** Shortcut to stamp duty. */
-    public String getStampDuty(){
-        if(getLease()!=null && getLease().getStampDuty()!=null){
+
+    /**
+     * Shortcut to stamp duty.
+     */
+    public String getStampDuty() {
+        if (getLease() != null && getLease().getStampDuty() != null) {
             return "M " + getLease().getStampDuty().setScale(2, RoundingMode.HALF_UP).toPlainString();
         }
         return "NIL";
     }
-    
+
     /**
      * Shortcut for the ground rent.
      */
@@ -224,7 +233,7 @@ public class LeaseReportBean extends AbstractBindingBean {
             return "NIL";
         }
     }
-    
+
     /**
      * Calculated remaining ground rent.
      */
@@ -235,7 +244,7 @@ public class LeaseReportBean extends AbstractBindingBean {
             return "NIL";
         }
     }
-    
+
     /**
      * Shortcut for service name.
      */
@@ -449,7 +458,7 @@ public class LeaseReportBean extends AbstractBindingBean {
                 }
             }
         }
-        return legalStatus.toUpperCase();
+        return legalStatus;
     }
 
     /**
@@ -486,7 +495,7 @@ public class LeaseReportBean extends AbstractBindingBean {
     public String getLesseesAndMaritalStatus() {
         String result = getLessees();
         if (!result.equals("") && !getLesseeMaritalStatus().equals("")) {
-            result = result + " - " + getLesseeMaritalStatus();
+            result = result + "   (" + getLesseeMaritalStatus() + ")";
         }
         return result;
     }
@@ -504,5 +513,17 @@ public class LeaseReportBean extends AbstractBindingBean {
     public String getLeaseTermWord() {
         NumberToWords.DefaultProcessor processor = new NumberToWords.DefaultProcessor();
         return processor.getName(getLeaseTerm());
+    }
+
+    public String getSpecialConditions() {
+        String result = "";
+        if (lease.getLeaseSpecialConditionList().size() > 0) {
+            for (LeaseSpecialConditionBean bean : lease.getLeaseSpecialConditionList()) {
+                result = result + System.getProperty("line.separator") + bean.getConditionText();
+            }
+        } else {
+            result = "none";
+        }
+        return result;
     }
 }
