@@ -85,37 +85,33 @@ public class DisputePanelForm extends ContentPanel {
     public static final String EDIT_DOCUMENT = "editDocument";
     static String disputeString = "Dispute";
     static String courtProcessString = "Court Process";
+    static String disputeResolvedStatusString = "Resolved";
+    static String disputePendingStatusString = "Pending";
     private String typeofCase;
     private DisputeSearchResultBean disputeSearchResultBean;
     public DocumentBean archiveDocument;
-    //private PartyBean partyBean;
     private String disputeID;
     //private String user;
-    private boolean readOnly = false;
+    //private boolean readOnly = false;
     private SourceBean document;
     private DisputeSearchDialog disputeSearchDialog;
-    //private DisputeCommentsDialog disputeCommentsDialog;
-    //private PartyPanelForm partyPanelForm;
-    //private DispPartyType dispPartyType;
-    private AddDocumentForm addDocumentForm;
+    //private AddDocumentForm addDocumentForm;
     private ApplicationBean applicationBean;
-    private boolean allowAddingOfNewDocuments = true;
-    //private SolaList<SourceBean> sourceList;
-    //private DisputeBean disputeBean;
+    //private boolean allowAddingOfNewDocuments = true;
     private DisputesCommentsBean disputesCommentsBean;
 
     public DisputePanelForm() {
         initComponents();
-        RefreshScreen();
-    }
-
-    public DisputePanelForm(DisputeBean dispute) {
-        this.disputeBean1 = dispute;
-        initComponents();
-        RefreshScreen();
         setupDisputeBean(disputeBean1);
+        RefreshScreen();
     }
 
+//    public DisputePanelForm(DisputeBean dispute) {
+//        this.disputeBean1 = dispute;
+//        initComponents();
+//        RefreshScreen();
+//        setupDisputeBean(disputeBean1);
+//    }
     private void setupDisputeBean(DisputeBean disputeBean) {
         if (disputeBean != null) {
             this.disputeBean1 = disputeBean;
@@ -125,7 +121,7 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void customizeScreen() {
-        if (disputeBean1 != null) {
+        if (disputeBean1 != null && disputeBean1.getCaseType() != null) {
             if (disputeBean1.getCaseType().equals(courtProcessString)) {
                 btnCourtProcess.setSelected(true);
                 btnDisputeMode.setSelected(false);
@@ -179,8 +175,8 @@ public class DisputePanelForm extends ContentPanel {
         disputeID = disputeBean1.getNr();
         if (disputeID != null) {
             pnlHeader.setTitleText(bundle.getString("DisputePanelForm.pnlHeader.titleText") + " #" + disputeID);
-            customizeScreen();
         }
+        customizeScreen();
     }
 
     private DisputeBean createDisputeBean() {
@@ -196,9 +192,12 @@ public class DisputePanelForm extends ContentPanel {
 
     private void completeDispute() {
         if (disputeID != null && disputeBean1.getId() != null) {
-            disputeBean1.setStatusCode("Resolved");
-            disputeBean1.saveDispute();
-            MessageUtility.displayMessage(ClientMessage.DISPUTE_CLOSED);
+            if (MessageUtility.displayMessage(ClientMessage.DISPUTE_COMPLETE_WARNING)
+                    == MessageUtility.BUTTON_ONE) {
+                disputeBean1.setStatusCode(disputeResolvedStatusString);
+                disputeBean1.saveDispute();
+                MessageUtility.displayMessage(ClientMessage.DISPUTE_CLOSED);
+            }
         }
     }
 
@@ -457,7 +456,6 @@ public class DisputePanelForm extends ContentPanel {
         }
         boolean allowEdit = true;
 
-
         DocumentsManagementExtPanel panel = new DocumentsManagementExtPanel(
                 disputeBean1.getSourceList(), disputeBean1, null, allowEdit);
         return panel;
@@ -479,7 +477,12 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void viewDisputeComments() {
-        DisputeCommentsDialog form = new DisputeCommentsDialog(disputeBean1.getSelectedComment(), true, null, true, disputeBean1.getNr());
+        DisputeCommentsDialog form = null;
+        if (disputeBean1.getStatusCode().equals(disputeResolvedStatusString)) {
+            form = new DisputeCommentsDialog(disputeBean1.getSelectedComment(), true, null, true, disputeBean1.getNr());
+        } else if (disputeBean1.getStatusCode().equals(disputePendingStatusString)) {
+            form = new DisputeCommentsDialog(disputeBean1.getSelectedComment(), false, null, true, disputeBean1.getNr());
+        }
         WindowUtility.centerForm(form);
         form.setVisible(true);
     }
@@ -504,9 +507,9 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void checkViewStatus(String state) {
-        if (state.equals("Resolved")) {
+        if (state.equals(disputeResolvedStatusString)) {
             setDisputesToReadOnly();
-        } else if (state.equals("Pending")) {
+        } else if (state.equals(disputePendingStatusString)) {
             setDisputesToNormal();
         }
     }
@@ -531,6 +534,7 @@ public class DisputePanelForm extends ContentPanel {
         btnRemoveParty.setEnabled(false);
         btnSaveDispute.setEnabled(false);
         btnCompleteDispute.setEnabled(false);
+        btnPrintConfirmation.setEnabled(false);
     }
 
     private void setDisputesToNormal() {
@@ -553,13 +557,16 @@ public class DisputePanelForm extends ContentPanel {
         btnRemoveParty.setEnabled(true);
         btnSaveDispute.setEnabled(true);
         btnCompleteDispute.setEnabled(true);
+        btnPrintConfirmation.setEnabled(true);
     }
 
     @Override
     protected boolean panelClosing() {
-        if (MainForm.checkSaveBeforeClose(disputeBean1)) {
-            saveDispute(true, true);
-            return false;
+        if (disputeID != null && !disputeID.equals("") && disputeBean1.getStatusCode().equals(disputePendingStatusString)) {
+            if (MainForm.checkSaveBeforeClose(disputeBean1)) {
+                saveDispute(true, true);
+                return false;
+            }
         }
         return true;
     }
@@ -1342,6 +1349,12 @@ public class DisputePanelForm extends ContentPanel {
         jTabbedPane1.addTab(bundle.getString("DisputePanelForm.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
 
         cbxLAAPrimary.setText(bundle.getString("DisputePanelForm.cbxLAAPrimary.text")); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${primaryRespondent}"), cbxLAAPrimary, org.jdesktop.beansbinding.BeanProperty.create("selected"));
+        bindingGroup.addBinding(binding);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${actionRequired}"), txtActionRequired, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jScrollPane5.setViewportView(txtActionRequired);
 

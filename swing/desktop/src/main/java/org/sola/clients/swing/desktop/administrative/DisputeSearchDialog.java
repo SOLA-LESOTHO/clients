@@ -438,9 +438,9 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtleaseNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel7);
@@ -788,18 +788,26 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         jScrollPane1.setName(bundle.getString("DisputeSearchDialog.jScrollPane1.name")); // NOI18N
 
         jTable1.setName(bundle.getString("DisputeSearchDialog.jTable1.name")); // NOI18N
+        jTable1.getTableHeader().setReorderingAllowed(false);
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${disputeSearchResults}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeSearchResultList, eLProperty, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nr}"));
         columnBinding.setColumnName("Nr");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${plotNumber}"));
         columnBinding.setColumnName("Plot Number");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${leaseNumber}"));
         columnBinding.setColumnName("Lease Number");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${statusCode}"));
+        columnBinding.setColumnName("Status Code");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeSearchResultList, org.jdesktop.beansbinding.ELProperty.create("${selectedDisputeSearchResult}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -808,6 +816,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title0_1")); // NOI18N
         jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title1_1")); // NOI18N
         jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title2_1")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title3_1")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

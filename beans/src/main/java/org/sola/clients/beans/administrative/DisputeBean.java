@@ -82,8 +82,8 @@ public class DisputeBean extends AbstractTransactionedBean {
     private Date lodgementDate;
     private Date completionDate;
     private DisputeTypeBean disputeTypeCode;
-    private DisputeCategoryBean disputeCategoryBean;
-    private String disputeCategoryCode;
+    private DisputeCategoryBean disputeCategoryCode;
+    //private String disputeCategoryCode;
     private String statusCode;
     private String leaseNumber;
     private String plotLocation;
@@ -254,13 +254,17 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public String getDisputeCategoryCode() {
-        return disputeCategoryCode;
+        if (disputeCategoryCode != null) {
+            return disputeCategoryCode.getCode();
+        } else {
+            return null;
+        }
     }
 
     public void setDisputeCategoryCode(String disputeCategoryCode) {
         String oldValue = null;
         if (this.disputeCategoryCode != null) {
-            oldValue = this.disputeCategoryCode;
+            oldValue = this.disputeCategoryCode.getCode();
             return;
         }
 
@@ -270,12 +274,15 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public DisputeCategoryBean getDisputeCategory() {
-        return disputeCategoryBean;
+        if (this.disputeCategoryCode == null) {
+            this.disputeCategoryCode = new DisputeCategoryBean();
+        }
+        return disputeCategoryCode;
     }
 
     public void setDisputeCategory(DisputeCategoryBean disputeCategory) {
-        this.disputeCategoryBean = disputeCategory;
-        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY, null, this.disputeCategoryBean);
+        this.disputeCategoryCode = disputeCategory;
+        propertySupport.firePropertyChange(DISPUTE_CATEGORY_PROPERTY, null, this.disputeCategoryCode);
     }
 
     public String getUserId() {
@@ -412,36 +419,9 @@ public class DisputeBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(STATUS_CODE_PROPERTY, old, statusCode);
     }
 
-    //BEGINNING OF ADDING
-//     public SolaList<SourceBean> getDisputeSourceList() {
-//        return sourceList;
-//    }
-//
-//    public ObservableList<SourceBean> getFilteredDisputeSourceList() {
-//        return sourceList.getFilteredList();
-//    }
-//
-//    public void setDisputeSourceList(SolaList<SourceBean> disputeSourceList) {
-//        this.sourceList = sourceList;
-//    }
-//
-//    public void setSelectedSource(SourceBean selectedSource) {
-//        this.selectedSource = selectedSource;
-//        propertySupport.firePropertyChange(SELECTED_SOURCE_PROPERTY, null, this.selectedSource);
-//    }
-//
-//    public SourceBean getSelectedSource() {
-//        return selectedSource;
-//    }
-    //END OF ADDING
     public SolaList<SourceBean> getSourceList() {
         return sourceList;
     }
-//
-//    @Size(min = 1, message = ClientMessage.CHECK_SIZE_SOURCELIST, 
-//            groups={RrrValidationGroup.class}, payload = Localized.class)
-//    @NoDuplicates(message = ClientMessage.CHECK_NODUPLICATED_SOURCELIST, 
-//            groups={RrrValidationGroup.class}, payload = Localized.class)
 
     public ObservableList<SourceBean> getFilteredSourceList() {
         return sourceList.getFilteredList();

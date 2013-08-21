@@ -57,7 +57,7 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
             dispID = dispNr;
         }
         initComponents();
-
+        determineViewStatus(readOnly);
     }
 
     public DisputesCommentsBean getCommentsBean() {
@@ -72,11 +72,9 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
         date = new Date();
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
         this.setTitle(bundle.getString("DisputePanelForm.pnlHeader.titleText") + " #" + nr);
-        txtDisputeComments.setText("");
+        disputesCommentsBean.setComments(null);
         disputesCommentsBean.setDisputeNr(nr);
         disputesCommentsBean.setUpdateDate(date);
-        dbxdisputeAction.setSelectedIndex(-1);
-        dbxotherAuthorities.setSelectedIndex(-1);
     }
 
     private void SaveComments(final boolean showMessage) {
@@ -107,17 +105,18 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
         TaskManager.getInstance().runTask(t);
     }
 
-    private void setCommentstoReadOnly() {
-        btnSave.setEnabled(false);
-        dbxdisputeAction.setEnabled(false);
-        dbxotherAuthorities.setEnabled(false);
-        txtDisputeComments.setEnabled(false);
-    }
-    private void setCommentstoNormal() {
-        btnSave.setEnabled(true);
-        dbxdisputeAction.setEnabled(true);
-        dbxotherAuthorities.setEnabled(true);
-        txtDisputeComments.setEnabled(true);
+    private void determineViewStatus(boolean readOnly) {
+        if (readOnly == true) {
+            btnSave.setEnabled(!readOnly);
+            dbxdisputeAction.setEnabled(!readOnly);
+            dbxotherAuthorities.setEnabled(!readOnly);
+            txtDisputeComments.setEnabled(!readOnly);
+        } else if (readOnly != true) {
+            btnSave.setEnabled(true);
+            dbxdisputeAction.setEnabled(true);
+            dbxotherAuthorities.setEnabled(true);
+            txtDisputeComments.setEnabled(true);
+        }
     }
 
     /**
