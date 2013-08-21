@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Application printing form" pageWidth="595" pageHeight="842" columnWidth="548" leftMargin="27" rightMargin="20" topMargin="24" bottomMargin="20" resourceBundle="org.sola.clients.reports.locale.LodgementReport" uuid="51dd7421-4983-421f-8b54-6200db545dd1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="212"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset2" uuid="5cf8b6fe-e677-4c23-9432-ed6170816206">
 		<field name="serviceName" class="java.lang.String">
 			<fieldDescription><![CDATA[requestType.displayValue]]></fieldDescription>
@@ -82,6 +82,12 @@
 	</field>
 	<field name="preferredCommunicationWay" class="java.lang.String">
 		<fieldDescription><![CDATA[contactPerson.preferredCommunication.displayValue]]></fieldDescription>
+	</field>
+	<field name="feePaid" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[feePaid]]></fieldDescription>
+	</field>
+	<field name="receiptRef" class="java.lang.String">
+		<fieldDescription><![CDATA[receiptRef]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -373,7 +379,7 @@
 			</componentElement>
 			<staticText>
 				<reportElement uuid="551ceb1d-3379-4033-ae38-43096c987df0" positionType="Float" x="11" y="354" width="53" height="20">
-					<printWhenExpression><![CDATA[!($F{totalFee}.toPlainString().equals("0.00"))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[!($F{totalFee}.toPlainString().equals("0.00")) && $F{feePaid}==false]]></printWhenExpression>
 				</reportElement>
 				<textElement markup="none">
 					<font fontName="Times New Roman" size="11"/>
@@ -381,8 +387,8 @@
 				<text><![CDATA[Total fee:]]></text>
 			</staticText>
 			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
-				<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="64" y="353" width="125" height="21">
-					<printWhenExpression><![CDATA[!($F{totalFee}.toPlainString().equals("0.00"))]]></printWhenExpression>
+				<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="66" y="353" width="125" height="21">
+					<printWhenExpression><![CDATA[!($F{totalFee}.toPlainString().equals("0.00")) && $F{feePaid}==false]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true"/>
@@ -417,6 +423,42 @@
 				</textElement>
 				<text><![CDATA[______________________________]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="551ceb1d-3379-4033-ae38-43096c987df0" positionType="Float" x="13" y="354" width="53" height="20">
+					<printWhenExpression><![CDATA[!($F{totalAmountPaid}.toPlainString().equals("0.00")) && $F{feePaid}==true]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[Fees paid:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="66" y="354" width="125" height="21">
+					<printWhenExpression><![CDATA[!($F{totalAmountPaid}.toPlainString().equals("0.00")) && $F{feePaid}==true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["M "+$F{totalAmountPaid}.toPlainString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="551ceb1d-3379-4033-ae38-43096c987df0" positionType="Float" x="11" y="376" width="53" height="20">
+					<printWhenExpression><![CDATA[$F{feePaid}==true]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[Receipt #:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="a18d4c6a-498f-4011-b649-e5d9e46bb818" positionType="Float" x="66" y="375" width="125" height="21">
+					<printWhenExpression><![CDATA[$F{feePaid}==true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{receiptRef}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>
