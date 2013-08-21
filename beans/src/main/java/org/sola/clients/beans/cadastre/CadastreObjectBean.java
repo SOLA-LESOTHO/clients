@@ -158,6 +158,7 @@ public class CadastreObjectBean extends CadastreObjectSummaryBean {
 
     public void setAddressList(SolaList<AddressBean> addressList) {
         this.addressList = addressList;
+        propertySupport.firePropertyChange(ADDRESS_LIST_PROPERTY, null, this.addressList);
     }
 
     /** Returns merged string of addresses. */
