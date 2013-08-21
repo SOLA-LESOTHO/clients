@@ -172,8 +172,8 @@ public class LeaseReportBean extends AbstractBindingBean {
         BigDecimal stampDuty = BigDecimal.ZERO;
         BigDecimal remGroundRent = BigDecimal.valueOf(getLease().getGroundRentRemaining());
         
-        if(getService()!=null && getService().getServiceFee()!=null){
-            serviceFee = getService().getServiceFee();
+        if(getService()!=null && getLease().getServiceFee()!=null){
+            serviceFee = getLease().getServiceFee();
         }
         if(getLease()!=null && getLease().getRegistrationFee()!=null){
             regFee = getLease().getRegistrationFee();
