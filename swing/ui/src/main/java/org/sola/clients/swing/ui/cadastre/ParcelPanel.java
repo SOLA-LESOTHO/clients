@@ -124,7 +124,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         txtSurveyDate.setEnabled(enabledAll);
         txtSurveyFee.setEnabled(enabledAll);
         cbxSurveyor.setEnabled(enabledAll);
-        txtParcelSurveyRef.setEnabled(enabledAll);
+        txtParcelSurveyRef.setEnabled(enabled);
         btnSurveyDate.setEnabled(enabledAll);
         txtRemarks.setEnabled(enabledAll);
         cbxLandGrade.setEnabled(enabled);
