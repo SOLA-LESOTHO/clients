@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="a011e8f3-da51-4089-8689-f47d43515305">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="51"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="IS_DRAFT" class="java.lang.Boolean"/>
 	<queryString>
@@ -123,21 +123,21 @@
 			<staticText>
 				<reportElement uuid="415e3863-c84f-4561-ad20-d0efabce638c" positionType="Float" x="0" y="211" width="511" height="17"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[LEASE under the LAND ACT 2010]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="10" y="62" width="84" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Application no:]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="94" y="43" width="140" height="19"/>
 				<textElement>
-					<font size="11" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-YYYY").format(new java.util.Date())]]></textFieldExpression>
 			</textField>
@@ -148,7 +148,7 @@
 			<staticText>
 				<reportElement uuid="65e2c442-44b6-4707-88d2-846d76f19a10" x="413" y="64" width="95" height="36"/>
 				<textElement>
-					<font size="9"/>
+					<font fontName="Arial" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Lerotholi Road
 PO Box 11856, 
@@ -157,14 +157,14 @@ Maseru 100]]></text>
 			<staticText>
 				<reportElement uuid="182b1739-ce4b-47c2-922a-d4f3d2dee718" x="413" y="100" width="95" height="15"/>
 				<textElement>
-					<font size="9"/>
+					<font fontName="Arial" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Lesotho]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="1db9b3a5-e29a-4825-bc33-9050b1d9c8f8" x="413" y="115" width="95" height="52"/>
 				<textElement>
-					<font size="9"/>
+					<font fontName="Arial" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Web: www.laa.org.ls
 Email: info@laa.org.ls
@@ -174,56 +174,56 @@ Fax: +266 2231 0905]]></text>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="10" y="43" width="84" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Date:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="94" y="62" width="140" height="19"/>
 				<textElement>
-					<font size="11" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{applicationNumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="95c482fe-49b0-4e2a-bcd4-949c76aab061" x="10" y="109" width="281" height="20"/>
 				<textElement>
-					<font size="11" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lessees}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="2896b36e-df80-4677-ab5a-0449719248ac" positionType="Float" x="10" y="134" width="281" height="20"/>
 				<textElement>
-					<font size="11" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lesseeAddress}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" positionType="Float" x="10" y="183" width="108" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Dear Sir or Madam,]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="10" y="1" width="84" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Form SL 01]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="10" y="81" width="84" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Lease no:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="94" y="81" width="140" height="19"/>
 				<textElement>
-					<font size="11" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{leaseRegistrationNumber}]]></textFieldExpression>
 			</textField>
@@ -234,7 +234,7 @@ Fax: +266 2231 0905]]></text>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" positionType="Float" x="10" y="8" width="488" height="129"/>
 				<textElement textAlignment="Justified">
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[I am writing to inform you that your lease application has been successful. Attached to this letter are two copies of the draft lease. By signing and dating both copies of the lease drafts and returning them within 14 days to Customer Services at LAA you confirm your acceptance of this lease offer.  Please have a witness to your signature sign both copies of the draft lease in the space indicated. If you are a company or organization, the person signing the lease must have the proper authority to do (please attach the power of attorney when returning the lease draft).
 
@@ -243,70 +243,70 @@ When returning the signed lease drafts payment must be made. This payment is cal
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="143" width="64" height="19"/>
 				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font size="11" isBold="false"/>
+					<font fontName="Arial" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serviceFee}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="30" y="143" width="250" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[1.  Lease application and preparation fee]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="30" y="162" width="250" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[2.  Stamp duty on ground rent]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="30" y="181" width="250" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[3.  Registration fee]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="30" y="200" width="250" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[4.  Advance payment of ground rent (if not exempt)]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="162" width="64" height="19"/>
 				<textElement textAlignment="Right">
-					<font size="11" isBold="false"/>
+					<font fontName="Arial" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{stampDuty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="181" width="64" height="19"/>
 				<textElement textAlignment="Right">
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{registrationFee}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="200" width="64" height="19"/>
 				<textElement textAlignment="Right">
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{groundRentRemaining}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="20" y="232" width="202" height="19"/>
 				<textElement>
-					<font size="11" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField pattern="">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="280" y="232" width="71" height="19"/>
 				<textElement textAlignment="Right">
-					<font size="11" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalLeaseFee}]]></textFieldExpression>
 			</textField>
@@ -316,21 +316,21 @@ When returning the signed lease drafts payment must be made. This payment is cal
 			<staticText>
 				<reportElement uuid="ffaf668c-15f6-4bdd-b99a-61ebca82b954" x="10" y="408" width="488" height="14"/>
 				<textElement textAlignment="Center">
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[(For) Director Lease Services, LAA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" positionType="Float" x="10" y="265" width="488" height="87"/>
 				<textElement textAlignment="Justified">
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[On the return of the attached lease drafts they will be signed by the Commissioner of Lands and forwarded to the Land Registrar for registration. After signing and registration, which should take no more than two weeks or 10 working days, a copy of the registered lease will be ready for your collection.  If the lease is ready earlier, Customer Services will contact you. When collecting your lease please bring with you the lease application receipt and a personal identification document such as a passport.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" positionType="Float" x="10" y="363" width="488" height="17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11"/>
+					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Yours faithfully,]]></text>
 			</staticText>

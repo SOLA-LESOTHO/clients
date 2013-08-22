@@ -517,13 +517,9 @@ public class LeaseReportBean extends AbstractBindingBean {
 
     public String getSpecialConditions() {
         String result = "";
-        if (lease.getLeaseSpecialConditionList().size() > 0) {
-            for (LeaseSpecialConditionBean bean : lease.getLeaseSpecialConditionList()) {
-                result = result + System.getProperty("line.separator") + bean.getConditionText();
-            }
-        } else {
-            result = "none";
-        }
+        if (lease.getLeaseSpecialConditionList().size() == 0) {
+           result = "none";
+        } 
         return result;
     }
 }

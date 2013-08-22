@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54d24e81-cfe2-4298-8e0a-d893d22644a4">
 	<property name="ireport.zoom" value="1.0000000000000022"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="335"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -129,35 +129,35 @@
 			<staticText>
 				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="382" y="0" width="70" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font fontName="Arial" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Lease number:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="14" y="0" width="100" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial" size="10" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[SD10(1.0)]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="4aeafddb-7975-4c21-8af3-e38a005a7de4" x="453" y="0" width="81" height="20"/>
 				<textElement verticalAlignment="Bottom">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{leaseRegistrationNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="54358b23-3269-4850-9194-32afc146bd6c" x="0" y="93" width="555" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[LEASE VARIATION]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="cef82f44-9df7-40e2-add1-047101e192ff" x="25" y="127" width="517" height="20"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[TO WHOM IT MAY CONCERN]]></text>
 			</staticText>
@@ -168,7 +168,7 @@
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="25" y="0" width="487" height="20"/>
 				<textElement markup="html">
-					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "That: <b>%s</b>" +
@@ -186,12 +186,16 @@ $F{lesseesAndMaritalStatus}, $F{lesseeAddress}, $F{leaseRegistrationNumber}, $F{
 		<band height="480">
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="47" y="10" width="495" height="20"/>
-				<textElement/>
+				<textElement>
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[The Commissioner of Lands has agreed pursuant to section 42 of the Land Act 2010:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="0c85f4ea-dd05-40b8-82b4-954a8186a8e5" positionType="Float" x="47" y="30" width="495" height="20"/>
-				<textElement markup="html"/>
+				<textElement markup="html">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "(i) to a change of use to: <b>%s</b>", $F{parcelLandUse}
 )]]></textFieldExpression>
@@ -199,7 +203,7 @@ $F{lesseesAndMaritalStatus}, $F{lesseeAddress}, $F{leaseRegistrationNumber}, $F{
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="50" width="495" height="45"/>
 				<textElement markup="html">
-					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "(ii) Other variation (e.g. name, area, marital status)" +
@@ -209,13 +213,15 @@ $F{lesseesAndMaritalStatus}, $F{lesseeAddress}, $F{leaseRegistrationNumber}, $F{
 			</textField>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="47" y="95" width="495" height="39"/>
-				<textElement/>
+				<textElement>
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[(iii) The special conditions under which the lease shall be held are:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="134" width="495" height="20"/>
 				<textElement markup="html">
-					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "The annual ground rent now reserved under this lease shall be: <b>%s</b>",
@@ -225,7 +231,7 @@ $F{groundRent}
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="47" y="165" width="495" height="20"/>
 				<textElement markup="html">
-					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "The lease shall now expire on: <b>%s</b> at the end of a <b>%s (%s)</b> year term.",
@@ -235,7 +241,7 @@ $F{leaseExpirationDate}, $F{leaseTermWord}, $F{leaseTerm}
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="25" y="199" width="517" height="50"/>
 				<textElement markup="html">
-					<font fontName="Arial" size="9" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "<b>Thus done, signed and executed</b> on this ............ day of ...............20......at Maseru. " +
@@ -245,75 +251,93 @@ $F{leaseExpirationDate}, $F{leaseTermWord}, $F{leaseTerm}
 			</textField>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="261" width="218" height="20"/>
-				<textElement verticalAlignment="Bottom"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[.....................................................................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="281" width="218" height="31"/>
-				<textElement/>
+				<textElement>
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Commissioner of Lands
 Land Administration Authority]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="261" width="218" height="20"/>
-				<textElement verticalAlignment="Bottom"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[.....................................................................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="281" width="46" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Lessee]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="403" y="281" width="67" height="20"/>
 				<textElement verticalAlignment="Top">
-					<font size="8" isItalic="true"/>
+					<font fontName="Arial" size="8" isItalic="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[(signature)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="312" width="218" height="20"/>
-				<textElement verticalAlignment="Bottom"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[.....................................................................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="332" width="58" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Witness]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="403" y="332" width="67" height="20"/>
 				<textElement verticalAlignment="Top">
-					<font size="8" isItalic="true"/>
+					<font fontName="Arial" size="8" isItalic="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[(signature)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="324" y="371" width="218" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Name: ..........................................................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="402" width="100" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Registration number:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="422" width="87" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Registration date:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="125" y="402" width="341" height="20"/>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{applicationNumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd MMMMM yyyy" isBlankWhenNull="true">
 				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="112" y="422" width="356" height="20"/>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
@@ -336,28 +360,28 @@ Land Administration Authority]]></text>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="14" y="8" width="161" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Arial" size="8" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Land Administration Authority]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="382" y="8" width="160" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Arial" size="8" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[P.O. Box 11856, Maseru 100, Lesotho]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="6609df17-3274-4e8d-aead-6af799738e75" x="175" y="8" width="130" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Arial" size="8" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="6609df17-3274-4e8d-aead-6af799738e75" x="305" y="8" width="40" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Arial" size="8" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" "+$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
