@@ -53,6 +53,7 @@ import org.sola.clients.beans.validation.Localized;
 import org.sola.clients.beans.validation.NoDuplicates;
 import org.sola.common.NumberUtility;
 import org.sola.common.messaging.ClientMessage;
+import org.sola.webservices.transferobjects.administrative.LeaseFeeTO;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.RrrTO;
 import org.sola.webservices.transferobjects.EntityAction;
@@ -842,7 +843,7 @@ public class RrrBean extends AbstractTransactionedBean {
                                                    personalLevy, landUsable, landUseCode);
     }
     
-     /** Calculates ground rent fee for attached CadastreObject. */
+     /** Calculates stamp duty fee for attached CadastreObject. */
     public void calculateStampDuty(CadastreObjectBean cadastreObject){
         setStampDuty(calcStampDuty(cadastreObject, this));
     }
@@ -856,6 +857,37 @@ public class RrrBean extends AbstractTransactionedBean {
         return WSManager.getInstance().getAdministrative().calculateDutyOnGroundRent(
                 TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class),
                 TypeConverters.BeanToTrasferObject(rrr, RrrTO.class));
+    }
+    
+    public void calculateLeaseFees(CadastreObjectBean cadastreObject){
+        
+         LeaseFeeBean leaseFee = null;
+         
+         leaseFee = calcLeaseFees(cadastreObject, this);
+         
+         setGroundRent(leaseFee.getGroundRent());
+         
+         setRegistrationFee(leaseFee.getRegistrationFee());
+         
+         setServiceFee(leaseFee.getServiceFee());
+         
+         setStampDuty(leaseFee.getStampDuty());
+        
+    }
+    
+    public static LeaseFeeBean calcLeaseFees(CadastreObjectBean co, RrrBean rrr){
+        
+        LeaseFeeTO leaseFee = null;
+        
+        LeaseFeeBean leaseFeeBean = new LeaseFeeBean();
+        
+        leaseFee =  WSManager.getInstance().getAdministrative().calculateLeaseFees(
+                        TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class),
+                        TypeConverters.BeanToTrasferObject(rrr, RrrTO.class));
+        
+        TypeConverters.TransferObjectToBean(leaseFee, LeaseFeeBean.class, leaseFeeBean);
+        
+        return leaseFeeBean;
     }
     
     /**
