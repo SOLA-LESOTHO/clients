@@ -534,7 +534,8 @@ public class LeasePanel extends ContentPanel {
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
-                rrrBean.calculateGroundRent(baUnit.getCadastreObject());
+                //rrrBean.calculateGroundRent(baUnit.getCadastreObject());
+                rrrBean.calculateLeaseFees(baUnit.getCadastreObject());
                 return null;
             }
         };
