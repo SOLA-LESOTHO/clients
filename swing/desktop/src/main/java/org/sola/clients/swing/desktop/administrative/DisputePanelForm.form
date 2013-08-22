@@ -1271,6 +1271,9 @@
                   <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="DisputePanelForm.cbxLAAPrimary.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="selected" source="disputeBean1" sourcePath="${primaryRespondent}" target="cbxLAAPrimary" targetPath="selected" updateStrategy="0" immediately="false"/>
+              </BindingProperties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane5">
               <AuxValues>
@@ -1280,6 +1283,11 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JTextPane" name="txtActionRequired">
+                  <BindingProperties>
+                    <BindingProperty name="text" source="disputeBean1" sourcePath="${actionRequired}" target="txtActionRequired" targetPath="text" updateStrategy="0" immediately="false">
+                      <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                    </BindingProperty>
+                  </BindingProperties>
                 </Component>
               </SubComponents>
             </Container>

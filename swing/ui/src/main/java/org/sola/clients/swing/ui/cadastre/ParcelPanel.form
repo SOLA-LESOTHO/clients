@@ -922,9 +922,9 @@
               </Properties>
               <BindingProperties>
                 <BindingProperty name="elements" source="Form" sourcePath="${cadastreObjectBean.addressFilteredList}" target="jTableWithDefaultStyles1" targetPath="elements" updateStrategy="0" immediately="true">
+                  <Property name="name" type="java.lang.String" value="addressBinding"/>
                   <Subbinding sourcePath="${description}">
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                 </BindingProperty>
                 <BindingProperty name="selectedElement" source="Form" sourcePath="${cadastreObjectBean.selectedAddress}" target="jTableWithDefaultStyles1" targetPath="selectedElement" updateStrategy="0" immediately="false">

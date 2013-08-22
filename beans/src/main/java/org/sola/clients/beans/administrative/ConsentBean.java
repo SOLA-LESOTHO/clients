@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.beans.administrative;
@@ -51,6 +53,8 @@ import org.sola.common.messaging.ClientMessage;
 public final class ConsentBean extends AbstractTransactionedBean {
 
     public static final String REGISTRATION_DATE_PROPERTY = "registrationDate";
+    public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
+    public static final String PARCEL_LOCATION_PROPERTY = "parcelAddress";
     private BaUnitBean baUnit;
     private RrrBean rightholderRrr;
     private String conditionText;
@@ -148,7 +152,9 @@ public final class ConsentBean extends AbstractTransactionedBean {
         if (leaseNumber == null) {
             leaseNumber = "";
         }
+        String old = this.leaseNumber;
         this.leaseNumber = leaseNumber;
+        propertySupport.firePropertyChange(LEASE_NUMBER_PROPERTY, old, this.leaseNumber);
     }
 
     public String getReceiptNumber() {
@@ -306,7 +312,9 @@ public final class ConsentBean extends AbstractTransactionedBean {
         if (parcelAddress == null) {
             parcelAddress = "";
         }
+        String old = this.parcelAddress;
         this.parcelAddress = parcelAddress;
+        propertySupport.firePropertyChange(PARCEL_LOCATION_PROPERTY, old, this.parcelAddress);
     }
 
     public String getRegistrationDate() {
@@ -343,14 +351,14 @@ public final class ConsentBean extends AbstractTransactionedBean {
     public void setExpirationDate(Date expirationDate) {
         Integer currentYear = Integer.parseInt(DateFormatUtils.format(expirationDate, "yyyy"));
         Integer currentMonth = Integer.parseInt(DateFormatUtils.format(expirationDate, "M"));
-        
-        if (currentMonth > 3){
+
+        if (currentMonth > 3) {
             currentYear = currentYear + 1;
         }
-        
+
         Calendar oldExpirationDate = Calendar.getInstance();
         oldExpirationDate.set(currentYear, 2, 31);
-        
+
         Date newExpirationDate = oldExpirationDate.getTime();
         this.expirationDate = DateFormatUtils.format(newExpirationDate, "d MMMMM yyyy");
 

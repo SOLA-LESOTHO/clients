@@ -41,6 +41,7 @@ import org.sola.clients.swing.ui.renderers.FormattersFactory;
 import org.sola.clients.swing.ui.renderers.SimpleComboBoxRenderer;
 import org.sola.common.WindowUtility;
 import org.sola.clients.swing.common.controls.CalendarForm;
+import org.sola.clients.swing.common.utils.BindingTools;
 
 /**
  * Parcel panel to create and manage parcel objects
@@ -86,6 +87,8 @@ public class ParcelPanel extends javax.swing.JPanel {
             this.cadastreObjectBean = cadastreObjectBean;
         }
         firePropertyChange("cadastreObjectBean", oldValue, this.cadastreObjectBean);
+        firePropertyChange("cadastreObjectBean", oldValue, this.cadastreObjectBean);
+        BindingTools.resetBinding(bindingGroup, "addressBinding");
         postInit();
     }
 
@@ -756,11 +759,10 @@ public class ParcelPanel extends javax.swing.JPanel {
         jTableWithDefaultStyles1.setName(bundle.getString("ParcelPanel.jTableWithDefaultStyles1.name")); // NOI18N
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.addressFilteredList}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTableWithDefaultStyles1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTableWithDefaultStyles1, "addressBinding");
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${description}"));
         columnBinding.setColumnName("Description");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectBean.selectedAddress}"), jTableWithDefaultStyles1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);

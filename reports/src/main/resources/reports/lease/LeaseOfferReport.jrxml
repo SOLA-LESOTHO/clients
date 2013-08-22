@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="a011e8f3-da51-4089-8689-f47d43515305">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="247"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="IS_DRAFT" class="java.lang.Boolean"/>
 	<queryString>
@@ -137,9 +137,9 @@
 			<textField pattern="dd MMMMM yyyy">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="94" y="43" width="140" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-YYYY").format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement uuid="550c53ba-ceb1-4d05-a275-cee027986209" x="320" y="0" width="188" height="64"/>
@@ -178,24 +178,24 @@ Fax: +266 2231 0905]]></text>
 				</textElement>
 				<text><![CDATA[Date:]]></text>
 			</staticText>
-			<textField pattern="">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="94" y="62" width="140" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{applicationNumber}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="95c482fe-49b0-4e2a-bcd4-949c76aab061" x="10" y="109" width="281" height="20"/>
 				<textElement>
-					<font size="11"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lessees}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="2896b36e-df80-4677-ab5a-0449719248ac" positionType="Float" x="10" y="133" width="281" height="20"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="2896b36e-df80-4677-ab5a-0449719248ac" positionType="Float" x="10" y="134" width="281" height="20"/>
 				<textElement>
-					<font size="11"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lesseeAddress}]]></textFieldExpression>
 			</textField>
@@ -220,10 +220,10 @@ Fax: +266 2231 0905]]></text>
 				</textElement>
 				<text><![CDATA[Lease no:]]></text>
 			</staticText>
-			<textField pattern="">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="94" y="81" width="140" height="19"/>
 				<textElement>
-					<font size="11"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{leaseRegistrationNumber}]]></textFieldExpression>
 			</textField>
@@ -240,10 +240,10 @@ Fax: +266 2231 0905]]></text>
 
 When returning the signed lease drafts payment must be made. This payment is calculated as follows:]]></text>
 			</staticText>
-			<textField pattern="">
-				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="143" width="105" height="19"/>
-				<textElement>
-					<font size="11"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="143" width="64" height="19"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{serviceFee}]]></textFieldExpression>
 			</textField>
@@ -275,23 +275,23 @@ When returning the signed lease drafts payment must be made. This payment is cal
 				</textElement>
 				<text><![CDATA[4.  Advance payment of ground rent (if not exempt)]]></text>
 			</staticText>
-			<textField pattern="">
-				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="162" width="105" height="19"/>
-				<textElement>
-					<font size="11"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="162" width="64" height="19"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{stampDuty}]]></textFieldExpression>
 			</textField>
-			<textField pattern="">
-				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="181" width="105" height="19"/>
-				<textElement>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="181" width="64" height="19"/>
+				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{registrationFee}]]></textFieldExpression>
 			</textField>
-			<textField pattern="">
-				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="200" width="105" height="19"/>
-				<textElement>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="200" width="64" height="19"/>
+				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{groundRentRemaining}]]></textFieldExpression>
@@ -304,8 +304,8 @@ When returning the signed lease drafts payment must be made. This payment is cal
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField pattern="">
-				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="287" y="232" width="105" height="19"/>
-				<textElement>
+				<reportElement uuid="dc58a4c4-daf3-4f1f-9c23-4087ef336b95" x="280" y="232" width="71" height="19"/>
+				<textElement textAlignment="Right">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalLeaseFee}]]></textFieldExpression>
