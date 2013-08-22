@@ -61,7 +61,9 @@ public class DisputeBean extends AbstractTransactionedBean {
     public static final String LODGEMENT_DATE_PROPERTY = "lodgementDate";
     public static final String COMPLETION_DATE_PROPERTY = "completiondate";
     public static final String DISPUTE_CATEGORY_PROPERTY = "disputeCategory";
+    public static final String DISPUTE_CATEGORY_CODE_PROPERTY = "disputeCategoryCode";
     public static final String DISPUTE_TYPE_PROPERTY = "disputeType";
+    public static final String DISPUTE_TYPE_CODE_PROPERTY = "disputeTypeCode";
     public static final String STATUS_CODE_PROPERTY = "statusCode";
     public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
     public static final String PLOT_LOCATION_PROPERTY = "plotLocation";
@@ -81,7 +83,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     private String nr;
     private Date lodgementDate;
     private Date completionDate;
-    private DisputeTypeBean disputeTypeCode;
+    private DisputeTypeBean disputeType;
     private DisputeCategoryBean disputeCategoryCode;
     //private String disputeCategoryCode;
     private String statusCode;
@@ -265,12 +267,10 @@ public class DisputeBean extends AbstractTransactionedBean {
         String oldValue = null;
         if (this.disputeCategoryCode != null) {
             oldValue = this.disputeCategoryCode.getCode();
-            return;
         }
 
-        setDisputeCategory(CacheManager.getBeanByCode(
-                CacheManager.getDisputeCategory(), disputeCategoryCode));
-        propertySupport.firePropertyChange(DISPUTE_TYPE_PROPERTY, oldValue, disputeCategoryCode);
+        setDisputeCategory(CacheManager.getBeanByCode(CacheManager.getDisputeCategory(), disputeCategoryCode));
+        propertySupport.firePropertyChange(DISPUTE_CATEGORY_CODE_PROPERTY, oldValue, disputeCategoryCode);
     }
 
     public DisputeCategoryBean getDisputeCategory() {
@@ -296,8 +296,8 @@ public class DisputeBean extends AbstractTransactionedBean {
     }
 
     public String getDisputeTypeCode() {
-        if (disputeTypeCode != null) {
-            return disputeTypeCode.getCode();
+        if (disputeType != null) {
+            return disputeType.getCode();
         } else {
             return null;
         }
@@ -305,28 +305,24 @@ public class DisputeBean extends AbstractTransactionedBean {
 
     public void setDisputeTypeCode(String disputeTypeCode) {
         String oldValue = null;
-        if (this.disputeTypeCode != null) {
-            oldValue = this.disputeTypeCode.getCode();
-            return;
+        if (disputeType != null) {
+            oldValue = this.disputeType.getCode();
         }
 
-        setDisputeType(CacheManager.getBeanByCode(
-                CacheManager.getDisputeType(), disputeTypeCode));
-        propertySupport.firePropertyChange(DISPUTE_TYPE_PROPERTY, oldValue, disputeTypeCode);
+        setDisputeType(CacheManager.getBeanByCode(CacheManager.getDisputeType(), disputeTypeCode));
+        propertySupport.firePropertyChange(DISPUTE_TYPE_CODE_PROPERTY, oldValue, disputeTypeCode);
     }
 
     public DisputeTypeBean getDisputeType() {
-        if (this.disputeTypeCode == null) {
-            this.disputeTypeCode = new DisputeTypeBean();
+        if (this.disputeType == null) {
+            this.disputeType = new DisputeTypeBean();
         }
-        return disputeTypeCode;
+        return disputeType;
     }
 
     public void setDisputeType(DisputeTypeBean disputeType) {
-        if (this.disputeTypeCode == null) {
-            this.disputeTypeCode = new DisputeTypeBean();
-        }
-        this.setJointRefDataBean(this.disputeTypeCode, disputeType, DISPUTE_TYPE_PROPERTY);
+        this.disputeType = disputeType;
+        propertySupport.firePropertyChange(DISPUTE_TYPE_PROPERTY, null, this.disputeType);
     }
 
     public Date getLodgementDate() {
