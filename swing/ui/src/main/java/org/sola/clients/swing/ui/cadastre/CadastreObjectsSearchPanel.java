@@ -294,6 +294,10 @@ public class CadastreObjectsSearchPanel extends JPanel {
         columnBinding.setColumnName("Has Lease");
         columnBinding.setColumnClass(Boolean.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${hasDispute}"));
+        columnBinding.setColumnName("Has Dispute");
+        columnBinding.setColumnClass(Boolean.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjects, org.jdesktop.beansbinding.ELProperty.create("${selectedCadastreObject}"), tableCadastreObjects, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -310,6 +314,8 @@ public class CadastreObjectsSearchPanel extends JPanel {
         tableCadastreObjects.getColumnModel().getColumn(7).setMaxWidth(80);
         tableCadastreObjects.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title7_1")); // NOI18N
         tableCadastreObjects.getColumnModel().getColumn(7).setCellRenderer(new BooleanCellRenderer());
+        tableCadastreObjects.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("CadastreObjectsSearchPanel.tableCadastreObjects.columnModel.title8_1")); // NOI18N
+        tableCadastreObjects.getColumnModel().getColumn(8).setCellRenderer(new BooleanCellRenderer());
 
         jLabel4.setText(bundle.getString("CadastreObjectsSearchPanel.jLabel4.text")); // NOI18N
 

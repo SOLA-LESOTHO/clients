@@ -91,6 +91,7 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
     private BigDecimal surveyFee;
     private String valuationZone;
     private boolean hasLease;
+    private boolean hasDispute;
     
     public CadastreObjectSummaryBean(){
         super();
@@ -196,6 +197,14 @@ public class CadastreObjectSummaryBean extends AbstractTransactionedBean {
 
     public void setHasLease(boolean hasLease) {
         this.hasLease = hasLease;
+    }
+
+    public boolean isHasDispute() {
+        return hasDispute;
+    }
+
+    public void setHasDispute(boolean hasDispute) {
+        this.hasDispute = hasDispute;
     }
     
     public Date getSurveyDate() {
