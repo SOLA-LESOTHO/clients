@@ -36,11 +36,9 @@ package org.sola.clients.swing.desktop.administrative;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import org.sola.clients.beans.administrative.DisputeBean;
-import org.sola.clients.swing.ui.cadastre.ParcelDialog;
 import org.sola.clients.beans.administrative.DisputePartyBean;
 import org.sola.clients.beans.administrative.DisputesCommentsBean;
 import org.sola.clients.swing.desktop.cadastre.SearchParcelDialog;
-import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.referencedata.DisputeCategoryListBean;
 import org.sola.clients.beans.referencedata.DisputeTypeListBean;
 import org.sola.clients.beans.referencedata.DisputeActionListBean;
@@ -55,8 +53,6 @@ import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.common.WindowUtility;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import org.sola.clients.beans.administrative.*;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.desktop.party.PartyPanelForm;
@@ -64,11 +60,6 @@ import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.application.ApplicationBean;
-import org.sola.clients.beans.controls.SolaList;
-import org.sola.clients.beans.party.PartySummaryBean;
-import org.sola.clients.beans.source.SourceListBean;
-import org.sola.clients.swing.ui.source.AddDocumentForm;
-import org.sola.clients.swing.ui.source.DocumentsPanel;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.ui.party.DispPartyType;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
@@ -91,13 +82,9 @@ public class DisputePanelForm extends ContentPanel {
     private DisputeSearchResultBean disputeSearchResultBean;
     public DocumentBean archiveDocument;
     private String disputeID;
-    //private String user;
-    //private boolean readOnly = false;
     private SourceBean document;
     private DisputeSearchDialog disputeSearchDialog;
-    //private AddDocumentForm addDocumentForm;
     private ApplicationBean applicationBean;
-    //private boolean allowAddingOfNewDocuments = true;
     private DisputesCommentsBean disputesCommentsBean;
 
     public DisputePanelForm() {
@@ -106,12 +93,6 @@ public class DisputePanelForm extends ContentPanel {
         RefreshScreen();
     }
 
-//    public DisputePanelForm(DisputeBean dispute) {
-//        this.disputeBean1 = dispute;
-//        initComponents();
-//        RefreshScreen();
-//        setupDisputeBean(disputeBean1);
-//    }
     private void setupDisputeBean(DisputeBean disputeBean) {
         if (disputeBean != null) {
             this.disputeBean1 = disputeBean;
@@ -309,13 +290,6 @@ public class DisputePanelForm extends ContentPanel {
             }
         };
         TaskManager.getInstance().runTask(t);
-    }
-
-    private void firePartyEvent(String propertyName) {
-        if (disputeBean1.getSelectedParty() != null) {
-            firePropertyChange(propertyName, null,
-                    PartyBean.getParty(disputeBean1.getSelectedParty().getId()));
-        }
     }
 
     private void selectParty(PartyBean partyBean) {
@@ -562,10 +536,12 @@ public class DisputePanelForm extends ContentPanel {
 
     @Override
     protected boolean panelClosing() {
-        if (disputeID != null && !disputeID.equals("") && disputeBean1.getStatusCode().equals(disputePendingStatusString)) {
-            if (MainForm.checkSaveBeforeClose(disputeBean1)) {
-                saveDispute(true, true);
-                return false;
+        if (disputeID != null && !disputeID.equals("") && disputeBean1.getStatusCode() != null) {
+            if (disputeBean1.getStatusCode().equals(disputePendingStatusString)) {
+                if (MainForm.checkSaveBeforeClose(disputeBean1)) {
+                    saveDispute(true, true);
+                    return false;
+                }
             }
         }
         return true;

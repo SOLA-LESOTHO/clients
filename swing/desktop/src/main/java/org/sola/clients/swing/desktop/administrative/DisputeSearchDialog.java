@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.desktop.administrative;
@@ -49,30 +51,29 @@ import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.common.DateUtility;
 
 public class DisputeSearchDialog extends javax.swing.JDialog {
-   
+
     public static final String SELECTED_DISPUTE_SEARCH_RESULT = "selectedDisputeSearchResult";
     private String typeofCase;
     private ObservableList<DisputeSearchResultBean> printingBean;
     private String dateFromStr;
     private String dateToStr;
-    private Date startDate;
-    private Date endDate;
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");//public final static String SELECTED_DISPUTE = "selectedDispute";
+    //private Date startDate;
+    //private Date endDate;
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-    //private List<DisputeSearchResultBean> disputes;
     /**
      * Creates new form DisputeSearchDialog
      */
-    
-     public DisputeSearchDialog() {
+    public DisputeSearchDialog() {
         initComponents();
     }
+
     public DisputeSearchDialog(ObservableList<DisputeSearchResultBean> disputes,
             java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.printingBean = disputes;
         initComponents();
- 
+
         disputeSearchResultList.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -110,13 +111,13 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             this.setVisible(false);
         }
     }
-    
-     private void showCalendar(JFormattedTextField dateField) {
+
+    private void showCalendar(JFormattedTextField dateField) {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
         calendar.setVisible(true);
     }
-     
-        private void switchModeRole(boolean isDispute) {
+
+    private void switchModeRole(boolean isDispute) {
         if (isDispute) {
             btnCourtProcess.setSelected(false);
             typeofCase = "Dispute";
@@ -129,7 +130,8 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             disputeSearchParams.setCaseType(typeofCase);
         }
     }
-            private int dateDiff(Date startDate, Date endDate) {
+
+    private int dateDiff(Date startDate, Date endDate) {
         int numDays = 0;
 
         Long startDateLong = startDate.getTime();
@@ -144,6 +146,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     }
 
     private void printReports() {
+
         Date dateFrom = disputeSearchParams.getLodgementDateFrom();
         Date dateTo = disputeSearchParams.getLodgementDateTo();
         int test = 0;
@@ -161,22 +164,26 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             dateToStr = "";
         }
 
-
-        if (dbxReportsList.getSelectedIndex() == 0) {
-            showReport(ReportManager.getDisputeConfirmationReport(disputeSearchResultList.getSelectedDisputeSearchResult()));
-        } else if (dbxReportsList.getSelectedIndex() == 1) {
-            printStatistical();
-        } else if (dbxReportsList.getSelectedIndex() == 2) {
-            printMonthlyReport();
-        }
+        if (disputeSearchResultList.getSelectedDisputeSearchResult() != null) {
+            
+            if (dbxReportsList.getSelectedIndex() == 0) {
+                showReport(ReportManager.getDisputeConfirmationReport(disputeSearchResultList.getSelectedDisputeSearchResult()));
+            } else if (dbxReportsList.getSelectedIndex() == 1) {
+                printStatistical();
+            } else if (dbxReportsList.getSelectedIndex() == 2) {
+                printMonthlyReport();
+            }
 //        ArrayList<DisputeSearchResultBean> list = new ArrayList<DisputeSearchResultBean>();
 //        list.add(printingBean); 
 
-        //showReport(ReportManager.getDisputeMonthlyStatus(printingBean));
+            //showReport(ReportManager.getDisputeMonthlyStatus(printingBean));
 //       if  (typeofCase != null) {
 //           showReport(ReportManager.getDisputeMonthlyReport(printingBean, typeofCase));
 //       }
 //       
+        } else {
+            MessageUtility.displayMessage(ClientMessage.DISPUTE_MAKE_SEARCH_FIRST);
+        }
     }
 
     private void showReport(JasperPrint report) {
@@ -205,7 +212,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             }
         }
 
-        averageDays =  numDays / numDisputes;
+        averageDays = numDays / numDisputes;
 
         showReport(ReportManager.getDisputeStatisticsReport(printingBean,
                 dateFromStr,
@@ -796,6 +803,10 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         columnBinding.setColumnName("Nr");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${statusCode}"));
+        columnBinding.setColumnName("Status Code");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${plotNumber}"));
         columnBinding.setColumnName("Plot Number");
         columnBinding.setColumnClass(String.class);
@@ -804,8 +815,8 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         columnBinding.setColumnName("Lease Number");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${statusCode}"));
-        columnBinding.setColumnName("Status Code");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${caseType}"));
+        columnBinding.setColumnName("Case Type");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
@@ -814,9 +825,10 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title0_1")); // NOI18N
-        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title1_1")); // NOI18N
-        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title2_1")); // NOI18N
-        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title3_1")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title3_1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title1_1")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title2_1")); // NOI18N
+        jTable1.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("DisputeSearchDialog.jTable1.columnModel.title4")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -932,7 +944,10 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCourtProcessActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        printReports();
+        if (disputeSearchResultList != null) {
+            printReports();
+        }
+
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnselectDisputeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnselectDisputeActionPerformed
