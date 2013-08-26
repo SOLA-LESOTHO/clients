@@ -178,7 +178,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="86" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="113" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtLastPart" max="32767" attributes="0"/>
               </Group>
@@ -231,7 +231,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="146" max="32767" attributes="0"/>
                   </Group>
                   <Component id="cbxEstateType" alignment="0" max="32767" attributes="1"/>
               </Group>
@@ -285,7 +285,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="81" max="32767" attributes="0"/>
+                      <EmptySpace pref="122" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtArea" max="32767" attributes="0"/>
               </Group>
@@ -344,7 +344,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="90" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="131" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtParcelSurveyRef" max="32767" attributes="2"/>
               </Group>
@@ -392,7 +392,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="99" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="140" max="32767" attributes="0"/>
                   </Group>
                   <Component id="cbxSurveyor" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -443,7 +443,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="124" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="txtSurveyDate" max="32767" attributes="0"/>
@@ -525,7 +525,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="88" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="129" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtSurveyFee" max="32767" attributes="0"/>
               </Group>
@@ -581,7 +581,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="labLandUse" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="76" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="117" max="32767" attributes="0"/>
                   </Group>
                   <Component id="cbxRoadClass" max="32767" attributes="0"/>
               </Group>
@@ -636,7 +636,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labLandUse1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="146" max="32767" attributes="0"/>
                   </Group>
                   <Component id="cbxLandGrade" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -691,7 +691,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtValuationAmount" max="32767" attributes="0"/>
               </Group>

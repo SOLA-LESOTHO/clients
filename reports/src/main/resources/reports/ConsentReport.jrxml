@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
 	<property name="ireport.zoom" value="1.1289478601075549"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.x" value="49"/>
+	<property name="ireport.y" value="486"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
@@ -63,7 +63,7 @@
 			<staticText>
 				<reportElement uuid="32820c00-da17-4981-abc7-0bad1fed7eb0" x="10" y="10" width="100" height="20"/>
 				<textElement>
-					<font size="9"/>
+					<font fontName="Arial" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[SL03 (v1.4)]]></text>
 			</staticText>
@@ -74,14 +74,14 @@
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="0" y="20" width="555" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="10" isBold="false"/>
+					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[(Land act 2010, sections 35 and 36)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="0" y="0" width="555" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[CERTIFICATE OF CONSENT]]></text>
 			</staticText>
@@ -92,42 +92,42 @@
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="21" width="534" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
+					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[The Commissioner of Lands hereby consents to the following lease transaction:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="55" width="58" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
+					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Transaction: ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="75" width="71" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
+					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Lease number: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="99" y="75" width="445" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{leaseNumber}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="87" y="55" width="457" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TRANSACTION_TYPE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="27" y="95" width="517" height="193"/>
 				<textElement markup="html">
-					<font fontName="Times New Roman" size="11" isBold="false"/>
+					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "<p>Lessee(s): <b>%s</b> </p> " +
@@ -157,84 +157,84 @@ $P{CONDITION_TEXT}
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="9" y="22" width="546" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
+					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[This consent is not assignable or transferrable in any way and is personal to the parties named herein.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="9" y="42" width="58" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false"/>
+					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Dated this]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="306" y="100" width="238" height="20"/>
 				<textElement>
-					<font fontName="SansSerif" size="12" isBold="false"/>
+					<font fontName="SansSerif" size="12" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[..............................................................................................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="306" y="120" width="163" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[For Commissioner of Lands]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="306" y="140" width="182" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Land Administration Authority]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="170" width="60" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Consent fee: ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="200" width="82" height="20"/>
 				<textElement verticalAlignment="Bottom">
-					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false"/>
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Receipt number:  ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="444" y="170" width="100" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="8" isBold="false" isItalic="true"/>
+					<font fontName="Times New Roman" size="8" isBold="false" isItalic="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Prepared in triplicate]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="83" y="42" width="41" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="11" isBold="false"/>
+					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[day of]]></text>
 			</staticText>
 			<textField pattern="dd" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="67" y="42" width="16" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{registrationDay}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM, yyyy" isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="127" y="42" width="141" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{registrationDate}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="70" y="170" width="236" height="20"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
 "M " +
@@ -245,7 +245,7 @@ $F{serviceFee}
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="92" y="200" width="134" height="20"/>
 				<textElement verticalAlignment="Bottom">
-					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false"/>
+					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receiptNumber}]]></textFieldExpression>
 			</textField>
@@ -256,28 +256,28 @@ $F{serviceFee}
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="357" y="20" width="187" height="20" forecolor="#666666"/>
 				<textElement textAlignment="Right">
-					<font fontName="SansSerif" size="9" isBold="false" isItalic="false"/>
+					<font fontName="SansSerif" size="9" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[PO. Box 11856 Maseru 100, Lesotho]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="197" y="20" width="160" height="20" forecolor="#666666"/>
 				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="9" isBold="false" isItalic="false"/>
+					<font fontName="SansSerif" size="9" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Page 1 of 1]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="20" width="187" height="20" forecolor="#666666"/>
 				<textElement>
-					<font fontName="SansSerif" size="9" isBold="false" isItalic="false"/>
+					<font fontName="SansSerif" size="9" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[PO. Box 11856 Maseru 100, Lesotho]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="0" y="10" width="555" height="20" forecolor="#666666"/>
 				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="9" isBold="false" isItalic="false"/>
+					<font fontName="SansSerif" size="9" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
 			</staticText>

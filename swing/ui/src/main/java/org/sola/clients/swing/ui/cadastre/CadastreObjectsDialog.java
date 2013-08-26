@@ -157,10 +157,6 @@ public class CadastreObjectsDialog extends javax.swing.JDialog {
         columnBinding.setColumnName("Land Use Type.display Value");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${addressString}"));
-        columnBinding.setColumnName("Address String");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status.displayValue}"));
         columnBinding.setColumnName("Status.display Value");
         columnBinding.setColumnClass(String.class);
@@ -180,12 +176,11 @@ public class CadastreObjectsDialog extends javax.swing.JDialog {
         jTableWithDefaultStyles1.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title7")); // NOI18N
         jTableWithDefaultStyles1.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title2_1")); // NOI18N
         jTableWithDefaultStyles1.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title4")); // NOI18N
-        jTableWithDefaultStyles1.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title3_1")); // NOI18N
-        jTableWithDefaultStyles1.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title5")); // NOI18N
-        jTableWithDefaultStyles1.getColumnModel().getColumn(8).setPreferredWidth(80);
-        jTableWithDefaultStyles1.getColumnModel().getColumn(8).setMaxWidth(80);
-        jTableWithDefaultStyles1.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title8")); // NOI18N
-        jTableWithDefaultStyles1.getColumnModel().getColumn(8).setCellRenderer(new BooleanCellRenderer());
+        jTableWithDefaultStyles1.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title5")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(7).setPreferredWidth(80);
+        jTableWithDefaultStyles1.getColumnModel().getColumn(7).setMaxWidth(80);
+        jTableWithDefaultStyles1.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("CadastreObjectsDialog.jTableWithDefaultStyles1.columnModel.title8")); // NOI18N
+        jTableWithDefaultStyles1.getColumnModel().getColumn(7).setCellRenderer(new BooleanCellRenderer());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

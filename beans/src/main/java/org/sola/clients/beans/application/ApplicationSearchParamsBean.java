@@ -45,6 +45,8 @@ public class ApplicationSearchParamsBean extends AbstractBindingBean {
     public static final String CONTACT_PERSON_PROPERTY = "contactPerson";
     public static final String DOCUMENT_NUM_PROPERTY = "documentNumber";
     public static final String DOCUMENT_REF_PROPERTY = "documentReference";
+    public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
+    
     private String nr;
     private Date fromDate;
     private Date toDate;
@@ -52,6 +54,7 @@ public class ApplicationSearchParamsBean extends AbstractBindingBean {
     private String contactPerson;
     private String documentNumber;
     private String documentReference;
+    private String leaseNumber;
 
     public ApplicationSearchParamsBean() {
         super();
@@ -125,5 +128,15 @@ public class ApplicationSearchParamsBean extends AbstractBindingBean {
         String oldValue = documentReference;
         documentReference = value;
         propertySupport.firePropertyChange(DOCUMENT_REF_PROPERTY, oldValue, value);
+    }
+
+    public String getLeaseNumber() {
+        return leaseNumber;
+    }
+
+    public void setLeaseNumber(String leaseNumber) {
+        String oldValue = this.leaseNumber;
+        this.leaseNumber = leaseNumber;
+        propertySupport.firePropertyChange(LEASE_NUMBER_PROPERTY, oldValue, this.leaseNumber);
     }
 }

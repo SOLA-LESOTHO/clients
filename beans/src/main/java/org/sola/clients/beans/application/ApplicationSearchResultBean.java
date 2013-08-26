@@ -44,6 +44,7 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
     private String contactPerson;
     private String agent;
     private String serviceList; 
+    private String affectedLeaseNumbers;
     private boolean checked;
     
     public ApplicationSearchResultBean(){
@@ -96,6 +97,14 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAffectedLeaseNumbers() {
+        return affectedLeaseNumbers;
+    }
+
+    public void setAffectedLeaseNumbers(String affectedLeaseNumbers) {
+        this.affectedLeaseNumbers = affectedLeaseNumbers;
     }
 
     public boolean isChecked() {
