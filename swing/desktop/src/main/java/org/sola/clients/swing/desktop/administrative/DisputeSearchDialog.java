@@ -57,8 +57,10 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     private ObservableList<DisputeSearchResultBean> printingBean;
     private String dateFromStr;
     private String dateToStr;
-    //private Date startDate;
-    //private Date endDate;
+    static String disputeString = "Dispute";
+    static String courtProcessString = "Court Process";
+    static String disputeResolvedStatusString = "Resolved";
+    static String disputePendingStatusString = "Pending";
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
     /**
@@ -66,6 +68,8 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
      */
     public DisputeSearchDialog() {
         initComponents();
+        clearSearchResults();
+
     }
 
     public DisputeSearchDialog(ObservableList<DisputeSearchResultBean> disputes,
@@ -103,6 +107,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         disputeSearchParams.setCaseType(null);
         lblSearchResultCount.setText("0");
         dbxReportsList.setSelectedIndex(-1);
+        btnPrint.setEnabled(false);
     }
 
     private void fireEvent(String eventName) {
@@ -164,26 +169,26 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             dateToStr = "";
         }
 
-        if (disputeSearchResultList.getSelectedDisputeSearchResult() != null) {
-            
-            if (dbxReportsList.getSelectedIndex() == 0) {
+        if (dbxReportsList.getSelectedIndex() == 0) {
+            if (disputeSearchResultList.getSelectedDisputeSearchResult() != null) {
                 showReport(ReportManager.getDisputeConfirmationReport(disputeSearchResultList.getSelectedDisputeSearchResult()));
-            } else if (dbxReportsList.getSelectedIndex() == 1) {
-                printStatistical();
-            } else if (dbxReportsList.getSelectedIndex() == 2) {
-                printMonthlyReport();
+            } else {
+                MessageUtility.displayMessage(ClientMessage.DISPUTE_MAKE_SEARCH_FIRST);
             }
+        } else if (dbxReportsList.getSelectedIndex() == 1) {
+            printStatistical();
+        } else if (dbxReportsList.getSelectedIndex() == 2) {
+            printMonthlyReport();
+        }
 //        ArrayList<DisputeSearchResultBean> list = new ArrayList<DisputeSearchResultBean>();
 //        list.add(printingBean); 
 
-            //showReport(ReportManager.getDisputeMonthlyStatus(printingBean));
+        //showReport(ReportManager.getDisputeMonthlyStatus(printingBean));
 //       if  (typeofCase != null) {
 //           showReport(ReportManager.getDisputeMonthlyReport(printingBean, typeofCase));
 //       }
 //       
-        } else {
-            MessageUtility.displayMessage(ClientMessage.DISPUTE_MAKE_SEARCH_FIRST);
-        }
+
     }
 
     private void showReport(JasperPrint report) {
@@ -195,30 +200,57 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     private void printStatistical() {
         int sizePrBeanList = printingBean.size();
         int numDisputes = 0;
-        int numDays = 0;
-        int averageDays = 0;
+        int numCases = 0;
+        int numDisputeDays = 0;
+        int numCourtDays = 0;
+        int averageDisputeDays = 0;
+        int averageCourtDays = 0;
+        int numPendingDisputes = 0;
+        int numPendingCourt = 0;
+        int numClosedDisputes = 0;
+        int numClosedCourt = 0;
 
         for (int i = 0; i < sizePrBeanList; i++) {
-            if (printingBean.get(i).getCaseType().equals("Dispute")) {
+            if (printingBean.get(i).getCaseType().equals(disputeString)) {
                 numDisputes = numDisputes + 1;
 
-                if (printingBean.get(i).getCompletiondate() == null) {
-                    numDays = numDays + (dateDiff(printingBean.get(i).getLodgementDate(),
+                if (printingBean.get(i).getStatusCode().equals(disputePendingStatusString)) {
+                    numDisputeDays = numDisputeDays + (dateDiff(printingBean.get(i).getLodgementDate(),
                             DateUtility.now()));
-                } else if (printingBean.get(i).getCompletiondate() != null) {
-                    numDays = numDays + (dateDiff(printingBean.get(i).getLodgementDate(),
+                    numPendingDisputes = numPendingDisputes + 1;
+                } else if (printingBean.get(i).getStatusCode().equals(disputeResolvedStatusString)) {
+                    numDisputeDays = numDisputeDays + (dateDiff(printingBean.get(i).getLodgementDate(),
                             printingBean.get(i).getCompletiondate()));
+                    numClosedDisputes = numClosedDisputes + 1;
+                }
+            } else if (printingBean.get(i).getCaseType().equals(courtProcessString)) {
+                numCases = numCases + 1;
+                if (printingBean.get(i).getStatusCode().equals(disputePendingStatusString)) {
+                    numCourtDays = numCourtDays + (dateDiff(printingBean.get(i).getLodgementDate(),
+                            DateUtility.now()));
+                    numPendingCourt = numPendingCourt + 1;
+                } else if (printingBean.get(i).getStatusCode().equals(disputeResolvedStatusString)) {
+                    numCourtDays = numCourtDays + (dateDiff(printingBean.get(i).getLodgementDate(),
+                            printingBean.get(i).getCompletiondate()));
+                    numClosedCourt = numClosedCourt + 1;
                 }
             }
         }
 
-        averageDays = numDays / numDisputes;
+        averageDisputeDays = numDisputeDays / numDisputes;
+        averageCourtDays = numCourtDays / numDisputes;
 
         showReport(ReportManager.getDisputeStatisticsReport(printingBean,
                 dateFromStr,
                 dateToStr,
                 Integer.toString(numDisputes),
-                Integer.toString(averageDays)));
+                Integer.toString(numCases),
+                Integer.toString(averageDisputeDays),
+                Integer.toString(averageCourtDays),
+                Integer.toString(numPendingDisputes),
+                Integer.toString(numPendingCourt),
+                Integer.toString(numClosedDisputes),
+                Integer.toString(numClosedCourt)));
     }
 
     private void printMonthlyReport() {
@@ -902,7 +934,10 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_PROPERTY_SEARCHING));
                 disputeSearchResultList.search(disputeSearchParams);
-                printingBean = disputeSearchResultList.getDisputeSearchResults();
+                if (disputeSearchResultList != null) {
+                    printingBean = disputeSearchResultList.getDisputeSearchResults();
+                    btnPrint.setEnabled(true);
+                }
                 return null;
             }
 

@@ -2,11 +2,17 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DisputeStatistics" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="35d091a3-5701-4c90-9784-a0c909b1f9bd">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="151"/>
+	<property name="ireport.y" value="207"/>
 	<parameter name="START_DATE" class="java.lang.String"/>
 	<parameter name="END_DATE" class="java.lang.String"/>
 	<parameter name="NUM_DISPUTES" class="java.lang.String"/>
 	<parameter name="AVRG_DAYS_DISPUTES" class="java.lang.String"/>
+	<parameter name="NUM_COURT" class="java.lang.String"/>
+	<parameter name="AVRG_DAYS_COURT" class="java.lang.String"/>
+	<parameter name="NUM_PENDING_DISPUTES" class="java.lang.String"/>
+	<parameter name="NUM_CLOSED_DISPUTES" class="java.lang.String"/>
+	<parameter name="NUM_PENDING_COURT" class="java.lang.String"/>
+	<parameter name="NUM_CLOSED_COURT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -29,37 +35,11 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="472" splitType="Stretch">
+		<band height="555" splitType="Stretch">
 			<image>
-				<reportElement uuid="1025f1cb-fb0e-4b7b-aafc-59be0fbbbe92" x="639" y="0" width="163" height="64"/>
+				<reportElement uuid="1025f1cb-fb0e-4b7b-aafc-59be0fbbbe92" x="306" y="38" width="163" height="64"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement uuid="babac52f-b578-487e-8600-3f678fb9da58" x="707" y="100" width="95" height="15"/>
-				<textElement>
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[Lesotho]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="6f2d93eb-a87c-4a94-9f35-f65d2c60f2c5" x="707" y="64" width="95" height="36"/>
-				<textElement>
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[Lerotholi Road
-PO Box 11856, 
-Maseru 100]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="13acf1c8-3d61-4207-baf0-86dd9aff6ca3" x="707" y="115" width="95" height="52"/>
-				<textElement>
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[Web: www.laa.org.ls
-Email: info@laa.org.ls
-Tel: +266 2232 2376
-Fax: +266 2231 0905]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="2451012f-2117-45ee-a9bd-30fab6461a4a" x="0" y="185" width="802" height="20"/>
 				<textElement textAlignment="Center">
@@ -68,11 +48,11 @@ Fax: +266 2231 0905]]></text>
 				<text><![CDATA[DISPUTES STATISTICS REPORT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="953e5027-4940-446e-bc4e-53d9061c6275" x="0" y="389" width="219" height="20"/>
+				<reportElement uuid="953e5027-4940-446e-bc4e-53d9061c6275" x="0" y="389" width="285" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Average Days from Lodgement to Closure :]]></text>
+				<text><![CDATA[Average Days (Disputes) from Lodgement to Closure :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="83d6e752-4dc0-4523-b99c-c7222f8cb173" x="92" y="249" width="56" height="20"/>
@@ -88,16 +68,6 @@ Fax: +266 2231 0905]]></text>
 				</textElement>
 				<text><![CDATA[End Date]]></text>
 			</staticText>
-			<textField pattern="dd-MMM-yyyy">
-				<reportElement uuid="577c720b-c01c-4475-b331-2fa68a81e898" x="92" y="269" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$P{START_DATE}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd-MMM-yyyy">
-				<reportElement uuid="34686624-9d8f-4eec-8a16-7f9890f982c9" x="229" y="269" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$P{END_DATE}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement uuid="facb6c7a-ff5c-4922-a656-6356c9af4edb" x="0" y="249" width="75" height="20"/>
 				<textElement>
@@ -106,39 +76,89 @@ Fax: +266 2231 0905]]></text>
 				<text><![CDATA[Period Range :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b749eecc-0175-4459-a86a-071976ab5307" x="0" y="338" width="131" height="20"/>
+				<reportElement uuid="b749eecc-0175-4459-a86a-071976ab5307" x="0" y="338" width="142" height="20"/>
 				<textElement/>
 				<text><![CDATA[Total of Lodged Disputes :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="71781b4a-0b6a-424a-ac57-a38b0a17e912" x="495" y="452" width="130" height="20"/>
+				<reportElement uuid="71781b4a-0b6a-424a-ac57-a38b0a17e912" x="0" y="444" width="150" height="20"/>
 				<textElement/>
-				<text><![CDATA[Total of Pending Disputes]]></text>
+				<text><![CDATA[Total of Pending Disputes :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2da37535-95b4-4028-a974-109a2f48e0ac" x="669" y="452" width="130" height="20"/>
+				<reportElement uuid="2da37535-95b4-4028-a974-109a2f48e0ac" x="0" y="502" width="148" height="20"/>
 				<textElement/>
-				<text><![CDATA[Total of Closed Disputes]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="187cf6af-e5a5-4698-b5a1-46d778bb29bd" x="0" y="452" width="53" height="20"/>
-				<textElement/>
-				<text><![CDATA[Category]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="d0b22c47-f377-4c39-9100-2d43d57b7f58" x="206" y="452" width="36" height="20"/>
-				<textElement/>
-				<text><![CDATA[Type]]></text>
+				<text><![CDATA[Total of Closed Disputes :]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="a2ad14eb-aad8-4da0-852f-f8d1520eaa40" x="142" y="338" width="50" height="20"/>
+				<reportElement uuid="a2ad14eb-aad8-4da0-852f-f8d1520eaa40" x="156" y="338" width="50" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{NUM_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="6447c0c9-056d-4e97-8b2e-712f4ddee667" x="229" y="389" width="56" height="20"/>
+				<reportElement uuid="6447c0c9-056d-4e97-8b2e-712f4ddee667" x="296" y="389" width="56" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{AVRG_DAYS_DISPUTES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c24c9464-393c-4259-ae54-8da7a228ac97" x="0" y="361" width="142" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total of Lodged Court Cases :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="fdf98d99-acd4-4a0b-aab3-b4d0a1f345e5" x="156" y="361" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{NUM_COURT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1bcd76f9-236b-4fe0-910e-daf98f3f5293" x="0" y="412" width="285" height="20"/>
+				<textElement/>
+				<text><![CDATA[Average Days (Court Cases) from Lodgement to Closure :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="90898a1e-99e5-43d8-aa26-6c25b70481d7" x="296" y="412" width="56" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{AVRG_DAYS_COURT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="834e6016-938d-4c86-a168-26c5537bafa1" x="0" y="467" width="150" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total of Pending Court Cases :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="275cf1ac-b371-4d95-8e4e-12b683ccc521" x="2" y="525" width="146" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total of Closed Court Cases :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4b041eb6-015a-4321-ac73-3f57df665095" x="166" y="444" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{NUM_PENDING_DISPUTES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="78ad0fd6-b2e4-48e3-9e2e-4dccbfdafec5" x="166" y="467" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{NUM_PENDING_COURT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="641f668e-7eef-4e78-8419-544fd9af90b8" x="166" y="502" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{NUM_CLOSED_DISPUTES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="32923bd5-7c4a-4d7c-9ec3-310a2b64d134" x="166" y="525" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{NUM_CLOSED_COURT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9692e955-090d-4d00-9f96-42e25316f8ed" x="92" y="269" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{START_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="30b96ea0-d75b-4fe9-8226-33451fed4b01" x="229" y="269" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{END_DATE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -148,21 +168,4 @@ Fax: +266 2231 0905]]></text>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
-	<detail>
-		<band height="32">
-			<line>
-				<reportElement uuid="aef7963f-a388-400c-adf3-cf66c9e518b6" x="0" y="26" width="799" height="1"/>
-			</line>
-			<textField>
-				<reportElement uuid="a13f3a6c-a672-48bb-8040-e72067b76626" x="0" y="0" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="a43aeb99-6a4b-4c23-ad6a-46f226baf7df" x="206" y="0" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
 </jasperReport>
