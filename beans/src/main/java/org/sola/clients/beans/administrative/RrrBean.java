@@ -828,40 +828,10 @@ public class RrrBean extends AbstractTransactionedBean {
         }
     }
     
-    /** Calculates ground rent fee for attached CadastreObject. */
-    public void calculateGroundRent(CadastreObjectBean co){
-        setGroundRent(RrrBean.calcGroundRent(co, personalLevy, landUsable, getLandUseCode()));
-    }
-    
-    /** Calculates ground rent fee for the given CadastreObject. */
-    public static BigDecimal calcGroundRent(CadastreObjectBean co, BigDecimal personalLevy, BigDecimal landUsable, String landUseCode){
-        if(co==null){
-            return BigDecimal.ZERO;
-        }
-        return WSManager.getInstance().getAdministrative().calculateGroundRent(
-                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class), 
-                                                   personalLevy, landUsable, landUseCode);
-    }
-    
-     /** Calculates stamp duty fee for attached CadastreObject. */
-    public void calculateStampDuty(CadastreObjectBean cadastreObject){
-        setStampDuty(calcStampDuty(cadastreObject, this));
-    }
-    
-    public  BigDecimal calcStampDuty(CadastreObjectBean co, RrrBean rrr){
-        
-        if(co==null){
-            return BigDecimal.ZERO;
-        }
-        
-        return WSManager.getInstance().getAdministrative().calculateDutyOnGroundRent(
-                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class),
-                TypeConverters.BeanToTrasferObject(rrr, RrrTO.class));
-    }
-    
+    /** Calculates lease fees for attached CadastreObject. */
     public void calculateLeaseFees(CadastreObjectBean cadastreObject){
         
-         LeaseFeeBean leaseFee = null;
+         LeaseFeeBean leaseFee;
          
          leaseFee = calcLeaseFees(cadastreObject, this);
          
