@@ -179,13 +179,25 @@ public class ReportManager {
              String startDate,
              String endDate,
              String numDisputes,
-             String averageDays) {
+             String numCases,
+             String averageDisputeDays,
+             String averageCourtDays,
+             String numPendingDisputes,
+             String numPendingCourt,
+             String numClosedDisputes,
+             String numClosedCourt) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("START_DATE", startDate);
         inputParameters.put("END_DATE", endDate);
         inputParameters.put("NUM_DISPUTES", numDisputes);
-        inputParameters.put("AVRG_DAYS_DISPUTES", averageDays);
+        inputParameters.put("NUM_COURT", numCases);
+        inputParameters.put("AVRG_DAYS_DISPUTES", averageDisputeDays);
+        inputParameters.put("AVRG_DAYS_COURT", averageCourtDays);
+        inputParameters.put("NUM_PENDING_DISPUTES", numPendingDisputes);
+        inputParameters.put("NUM_PENDING_COURT", numPendingCourt);
+        inputParameters.put("NUM_CLOSED_DISPUTES", numClosedDisputes);
+        inputParameters.put("NUM_CLOSED_COURT", numClosedCourt);
         DisputeSearchResultBean[] beans =  disputeSearchResultBean.toArray(new DisputeSearchResultBean[0]); 
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));

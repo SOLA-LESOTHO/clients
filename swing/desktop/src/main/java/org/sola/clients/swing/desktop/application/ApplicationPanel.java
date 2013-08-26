@@ -255,8 +255,8 @@ public class ApplicationPanel extends ContentPanel {
         cadastreObjectsSearch.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(CadastreObjectsSearchPanel.SELECTED_CADASTRE_OBJECT)) {
-                    appBean.addCadastreObject((CadastreObjectSummaryBean) ((CadastreObjectSummaryBean) evt.getNewValue()).copy());
+                if (evt.getPropertyName().equals(CadastreObjectsSearchPanel.SELECTED_CADASTRE_OBJECT)) {                    
+                    appBean.addCadastreObject((CadastreObjectSummaryBean) ((CadastreObjectSummaryBean) evt.getNewValue()).copy());                
                 }
             }
         });

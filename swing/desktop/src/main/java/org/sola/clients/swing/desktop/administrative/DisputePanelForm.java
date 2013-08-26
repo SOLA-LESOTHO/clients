@@ -64,6 +64,7 @@ import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.ui.party.DispPartyType;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
+import org.sola.common.DateUtility;
 
 public class DisputePanelForm extends ContentPanel {
 
@@ -113,6 +114,7 @@ public class DisputePanelForm extends ContentPanel {
                 switchModeRole(true);
             }
             checkViewStatus(disputeBean1.getStatusCode());
+        } else if (disputeBean1.getCaseType() == null) {
             btnCourtProcess.setEnabled(false);
             btnDisputeMode.setEnabled(false);
         }
@@ -148,6 +150,7 @@ public class DisputePanelForm extends ContentPanel {
         cleanDisputeScreen();
         this.disputesCommentsBean = new DisputesCommentsBean();
         setDisputesToNormal();
+        customizeScreen();
         saveDisputeState();
     }
 
@@ -176,7 +179,9 @@ public class DisputePanelForm extends ContentPanel {
             if (MessageUtility.displayMessage(ClientMessage.DISPUTE_COMPLETE_WARNING)
                     == MessageUtility.BUTTON_ONE) {
                 disputeBean1.setStatusCode(disputeResolvedStatusString);
+                disputeBean1.setCompletiondate(DateUtility.now());
                 disputeBean1.saveDispute();
+                checkViewStatus(disputeBean1.getStatusCode());
                 MessageUtility.displayMessage(ClientMessage.DISPUTE_CLOSED);
             }
         }
