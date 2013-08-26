@@ -49,6 +49,7 @@ import org.sola.clients.swing.desktop.application.ApplicationAssignmentDialog;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.renderers.BooleanCellRenderer;
+import org.sola.clients.swing.ui.renderers.TableCellTextAreaRenderer;
 import org.sola.common.RolesConstants;
 import org.sola.common.WindowUtility;
 
@@ -386,6 +387,7 @@ public class DashBoardPanel extends ContentPanel {
         unassignedScrollPanel.setName("unassignedScrollPanel"); // NOI18N
         unassignedScrollPanel.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
+        tbUnassigned.setColumnSelectionAllowed(true);
         tbUnassigned.setComponentPopupMenu(popUpUnassignedApplications);
         tbUnassigned.setGridColor(new java.awt.Color(135, 127, 115));
         tbUnassigned.setName("tbUnassigned"); // NOI18N
@@ -403,6 +405,10 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${contactPerson}"));
         columnBinding.setColumnName("Contact Person");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${affectedLeaseNumbers}"));
+        columnBinding.setColumnName("Affected Lease Numbers");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lodgingDatetime}"));
@@ -444,17 +450,19 @@ public class DashBoardPanel extends ContentPanel {
         tbUnassigned.getColumnModel().getColumn(1).setMaxWidth(80);
         tbUnassigned.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title1")); // NOI18N
         tbUnassigned.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title5")); // NOI18N
-        tbUnassigned.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title2")); // NOI18N
-        tbUnassigned.getColumnModel().getColumn(3).setCellRenderer(new DateTimeRenderer());
-        tbUnassigned.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title3")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title8")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(3).setCellRenderer(new TableCellTextAreaRenderer());
+        tbUnassigned.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title2")); // NOI18N
         tbUnassigned.getColumnModel().getColumn(4).setCellRenderer(new DateTimeRenderer());
-        tbUnassigned.getColumnModel().getColumn(5).setMinWidth(180);
-        tbUnassigned.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title4")); // NOI18N
-        tbUnassigned.getColumnModel().getColumn(5).setCellRenderer(new org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer());
-        tbUnassigned.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title6")); // NOI18N
-        tbUnassigned.getColumnModel().getColumn(7).setMaxWidth(80);
-        tbUnassigned.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title7")); // NOI18N
-        tbUnassigned.getColumnModel().getColumn(7).setCellRenderer(new BooleanCellRenderer());
+        tbUnassigned.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title3")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(5).setCellRenderer(new DateTimeRenderer());
+        tbUnassigned.getColumnModel().getColumn(6).setMinWidth(180);
+        tbUnassigned.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title4")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(6).setCellRenderer(new org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer());
+        tbUnassigned.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title6")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(8).setMaxWidth(80);
+        tbUnassigned.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title7")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(8).setCellRenderer(new BooleanCellRenderer());
 
         tbUnassignedApplications.setFloatable(false);
         tbUnassignedApplications.setRollover(true);
@@ -614,6 +622,10 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding.setColumnName("Contact Person");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${affectedLeaseNumbers}"));
+        columnBinding.setColumnName("Affected Lease Numbers");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lodgingDatetime}"));
         columnBinding.setColumnName("Lodging Datetime");
         columnBinding.setColumnClass(java.util.Date.class);
@@ -655,18 +667,20 @@ public class DashBoardPanel extends ContentPanel {
         tbAssigned.getColumnModel().getColumn(1).setMaxWidth(80);
         tbAssigned.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title1")); // NOI18N
         tbAssigned.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title5")); // NOI18N
-        tbAssigned.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title2")); // NOI18N
-        tbAssigned.getColumnModel().getColumn(3).setCellRenderer(new DateTimeRenderer());
-        tbAssigned.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title3")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title9")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(3).setCellRenderer(new TableCellTextAreaRenderer());
+        tbAssigned.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title2")); // NOI18N
         tbAssigned.getColumnModel().getColumn(4).setCellRenderer(new DateTimeRenderer());
-        tbAssigned.getColumnModel().getColumn(5).setMinWidth(180);
-        tbAssigned.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title4")); // NOI18N
-        tbAssigned.getColumnModel().getColumn(5).setCellRenderer(new org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer());
-        tbAssigned.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title6")); // NOI18N
-        tbAssigned.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title7")); // NOI18N
-        tbAssigned.getColumnModel().getColumn(8).setMaxWidth(80);
-        tbAssigned.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title8")); // NOI18N
-        tbAssigned.getColumnModel().getColumn(8).setCellRenderer(new BooleanCellRenderer());
+        tbAssigned.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title3")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(5).setCellRenderer(new DateTimeRenderer());
+        tbAssigned.getColumnModel().getColumn(6).setMinWidth(180);
+        tbAssigned.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title4")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(6).setCellRenderer(new org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer());
+        tbAssigned.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title6")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title7")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(9).setMaxWidth(80);
+        tbAssigned.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title8")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(9).setCellRenderer(new BooleanCellRenderer());
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
