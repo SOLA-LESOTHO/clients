@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DisputeMonthlyReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4b4ceebd-e9d8-48b5-9645-8a6c3e047fa9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="175"/>
+	<property name="ireport.y" value="173"/>
 	<parameter name="DISPUTE_TYPE" class="java.lang.String"/>
 	<parameter name="NUM_DISPUTES" class="java.lang.String"/>
 	<parameter name="PENDING_DISPUTES" class="java.lang.String"/>
@@ -117,45 +117,38 @@ Maseru 100]]></text>
 				<text><![CDATA[Number of LAA primary respondents pending at the end of the month]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fac55d8b-aeef-4934-90c5-17729bb7b3d1" x="256" y="120" width="81" height="20"/>
+				<reportElement uuid="fac55d8b-aeef-4934-90c5-17729bb7b3d1" x="255" y="144" width="81" height="20"/>
 				<textElement/>
 				<text><![CDATA[Sporadic ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7303cfe9-23d9-467f-a659-38cdeaaceacf" x="256" y="140" width="81" height="20"/>
+				<reportElement uuid="7303cfe9-23d9-467f-a659-38cdeaaceacf" x="255" y="164" width="81" height="20"/>
 				<textElement/>
 				<text><![CDATA[Regularisation]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fd163f19-3af3-40c4-bec0-7b6924be5d26" x="0" y="120" width="256" height="20"/>
+				<reportElement uuid="fd163f19-3af3-40c4-bec0-7b6924be5d26" x="-1" y="144" width="256" height="20"/>
 				<textElement/>
 				<text><![CDATA[Total number of disputes in the following categories :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e38813b0-a73f-46fa-bb70-760ee764b02e" x="256" y="160" width="81" height="20"/>
+				<reportElement uuid="e38813b0-a73f-46fa-bb70-760ee764b02e" x="255" y="184" width="81" height="20"/>
 				<textElement/>
 				<text><![CDATA[Unregistered]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="331a7972-1807-42d4-9eee-4d404aa77898" x="0" y="180" width="337" height="20"/>
+				<reportElement uuid="331a7972-1807-42d4-9eee-4d404aa77898" x="-1" y="204" width="337" height="20"/>
 				<textElement/>
 				<text><![CDATA[Total number of pending disputes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0643e885-03d0-4f95-9404-ae1b6282afe2" x="0" y="200" width="337" height="20"/>
+				<reportElement uuid="0643e885-03d0-4f95-9404-ae1b6282afe2" x="-1" y="224" width="337" height="20"/>
 				<textElement/>
 				<text><![CDATA[Total number of completed disputes]]></text>
 			</staticText>
 			<line>
 				<reportElement uuid="d1a10716-5800-4bc8-b826-1da05901493b" x="0" y="18" width="555" height="1"/>
 			</line>
-			<textField evaluationTime="Page">
-				<reportElement uuid="eb088e93-0389-4dbe-854a-7d0aa12fe0fc" x="347" y="2" width="63" height="16"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{nr_1}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement uuid="a05b84f9-e9c0-4e1d-bf29-f2e6c743f7f0" x="0" y="36" width="555" height="1"/>
 			</line>
@@ -169,19 +162,19 @@ Maseru 100]]></text>
 				<reportElement uuid="8704dfad-4568-4dcd-946d-9627ff1ecb85" x="0" y="96" width="555" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="ef811d53-5bb9-47d0-8e73-0848f0c9ab7a" x="256" y="140" width="299" height="1"/>
+				<reportElement uuid="ef811d53-5bb9-47d0-8e73-0848f0c9ab7a" x="255" y="164" width="299" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="4e109d92-6d18-41d7-9b41-f41eb08a9cb1" x="256" y="160" width="299" height="1"/>
+				<reportElement uuid="4e109d92-6d18-41d7-9b41-f41eb08a9cb1" x="255" y="184" width="299" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="be03d8fd-530f-44f4-a454-19888d159089" x="0" y="180" width="555" height="1"/>
+				<reportElement uuid="be03d8fd-530f-44f4-a454-19888d159089" x="-1" y="204" width="555" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="80772b7d-dc1c-46ac-a278-ff15e2e5da58" x="0" y="200" width="555" height="1"/>
+				<reportElement uuid="80772b7d-dc1c-46ac-a278-ff15e2e5da58" x="-1" y="224" width="555" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="b736b8ea-8acc-4d03-bd6c-dd8ace40d13e" x="0" y="219" width="555" height="1"/>
+				<reportElement uuid="b736b8ea-8acc-4d03-bd6c-dd8ace40d13e" x="-1" y="243" width="555" height="1"/>
 			</line>
 			<textField pattern="">
 				<reportElement uuid="34464665-1ebf-4841-ad99-30b6f6228d51" x="347" y="36" width="63" height="19"/>
@@ -194,27 +187,27 @@ Maseru 100]]></text>
 				<textFieldExpression><![CDATA[$P{PENDING_COURT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="296d0f0d-9045-4cc3-9ffc-515bb1fcfd7f" x="347" y="121" width="63" height="20"/>
+				<reportElement uuid="296d0f0d-9045-4cc3-9ffc-515bb1fcfd7f" x="346" y="145" width="63" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{SPORADIC_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7d2206c6-3d1e-46d4-abad-a0aaba2865bd" x="347" y="141" width="63" height="20"/>
+				<reportElement uuid="7d2206c6-3d1e-46d4-abad-a0aaba2865bd" x="346" y="165" width="63" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{REGULAR_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="3931bf92-08a6-49c1-aaa7-e52912421c67" x="347" y="161" width="63" height="20"/>
+				<reportElement uuid="3931bf92-08a6-49c1-aaa7-e52912421c67" x="346" y="185" width="63" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{UNREG_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c038ef13-c4fe-400b-b363-6dc3c76238b1" x="347" y="181" width="63" height="20"/>
+				<reportElement uuid="c038ef13-c4fe-400b-b363-6dc3c76238b1" x="346" y="205" width="63" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{PENDING_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="227aea29-01e4-4216-9fb0-2601c8f6b742" x="347" y="199" width="63" height="20"/>
+				<reportElement uuid="227aea29-01e4-4216-9fb0-2601c8f6b742" x="346" y="223" width="63" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{COMPLETE_DISPUTES}]]></textFieldExpression>
 			</textField>
@@ -227,6 +220,24 @@ Maseru 100]]></text>
 				<reportElement uuid="50e360d3-8884-4fcd-9538-8587b51733a7" x="347" y="76" width="63" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{PRIMARY_RESPOND_PENDING}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="21e77e88-7e99-4552-804f-fdafad8531da" x="347" y="2" width="63" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{NUM_COURT_CASES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6afb6f59-e7ec-46ea-8cc0-225499d78f6b" x="0" y="124" width="336" height="20"/>
+				<textElement/>
+				<text><![CDATA[Number of Disputes]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="013358ce-1346-4230-9900-170e3ce44b04" x="0" y="145" width="554" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="65ef280b-6211-4763-b499-6fe8d7f6909d" x="347" y="126" width="62" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{NUM_DISPUTES}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
