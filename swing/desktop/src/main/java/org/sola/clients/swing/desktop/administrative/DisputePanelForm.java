@@ -114,10 +114,12 @@ public class DisputePanelForm extends ContentPanel {
                 switchModeRole(true);
             }
             checkViewStatus(disputeBean1.getStatusCode());
-        } else if (disputeBean1.getCaseType() == null) {
-            btnCourtProcess.setEnabled(false);
-            btnDisputeMode.setEnabled(false);
+            if (disputeBean1.getCaseType() == null) {
+                btnCourtProcess.setEnabled(false);
+                btnDisputeMode.setEnabled(false);
+            }
         }
+
     }
 
     private void switchModeRole(boolean isDispute) {
@@ -895,6 +897,12 @@ public class DisputePanelForm extends ContentPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${disputeCategory}"), dbxdisputeCategory, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"), "");
         bindingGroup.addBinding(binding);
 
+        dbxdisputeCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dbxdisputeCategoryActionPerformed(evt);
+            }
+        });
+
         lblLeaseCategory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         lblLeaseCategory1.setText(bundle.getString("DisputePanelForm.lblLeaseCategory1.text")); // NOI18N
         lblLeaseCategory1.setName(bundle.getString("DisputePanelForm.lblLeaseCategory1.name")); // NOI18N
@@ -1649,6 +1657,11 @@ public class DisputePanelForm extends ContentPanel {
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         viewParty();
     }//GEN-LAST:event_btnViewActionPerformed
+
+    private void dbxdisputeCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbxdisputeCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dbxdisputeCategoryActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddComment1;
     private javax.swing.JButton btnAddParty;

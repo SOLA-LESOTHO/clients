@@ -50,21 +50,21 @@
 			<staticText>
 				<reportElement uuid="953e5027-4940-446e-bc4e-53d9061c6275" x="0" y="389" width="285" height="20"/>
 				<textElement>
-					<font isBold="true"/>
+					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Average Days (Disputes) from Lodgement to Closure :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="83d6e752-4dc0-4523-b99c-c7222f8cb173" x="92" y="249" width="56" height="20"/>
 				<textElement>
-					<font isBold="true"/>
+					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Start Date]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="83d6e752-4dc0-4523-b99c-c7222f8cb173" x="229" y="249" width="56" height="20"/>
 				<textElement>
-					<font isBold="true"/>
+					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[End Date]]></text>
 			</staticText>
@@ -92,12 +92,16 @@
 			</staticText>
 			<textField>
 				<reportElement uuid="a2ad14eb-aad8-4da0-852f-f8d1520eaa40" x="156" y="338" width="50" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{NUM_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="6447c0c9-056d-4e97-8b2e-712f4ddee667" x="296" y="389" width="56" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{AVRG_DAYS_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -107,7 +111,9 @@
 			</staticText>
 			<textField>
 				<reportElement uuid="fdf98d99-acd4-4a0b-aab3-b4d0a1f345e5" x="156" y="361" width="50" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{NUM_COURT}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -117,7 +123,9 @@
 			</staticText>
 			<textField>
 				<reportElement uuid="90898a1e-99e5-43d8-aa26-6c25b70481d7" x="296" y="412" width="56" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{AVRG_DAYS_COURT}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -132,32 +140,44 @@
 			</staticText>
 			<textField>
 				<reportElement uuid="4b041eb6-015a-4321-ac73-3f57df665095" x="166" y="444" width="40" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{NUM_PENDING_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="78ad0fd6-b2e4-48e3-9e2e-4dccbfdafec5" x="166" y="467" width="40" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{NUM_PENDING_COURT}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="641f668e-7eef-4e78-8419-544fd9af90b8" x="166" y="502" width="40" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{NUM_CLOSED_DISPUTES}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="32923bd5-7c4a-4d7c-9ec3-310a2b64d134" x="166" y="525" width="40" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{NUM_CLOSED_COURT}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="9692e955-090d-4d00-9f96-42e25316f8ed" x="92" y="269" width="100" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{START_DATE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="30b96ea0-d75b-4fe9-8226-33451fed4b01" x="229" y="269" width="100" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{END_DATE}]]></textFieldExpression>
 			</textField>
 		</band>

@@ -6,7 +6,7 @@
     </Component>
     <Component class="org.sola.clients.beans.administrative.DisputeSearchResultListBean" name="disputeSearchResultList">
     </Component>
-    <Component class="org.sola.clients.beans.referencedata.DisputeReportsListBean" name="disputeReportsList">
+    <Component class="org.sola.clients.beans.referencedata.DisputeReportsListBean" name="disputeReports">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -764,7 +764,7 @@
                 </Property>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="elements" source="disputeReportsList" sourcePath="${disputeReportsListBean}" target="dbxReportsList" targetPath="elements" updateStrategy="0" immediately="false"/>
+                <BindingProperty name="elements" source="disputeReports" sourcePath="${disputeReportsListBean}" target="dbxReportsList" targetPath="elements" updateStrategy="0" immediately="false"/>
               </BindingProperties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">

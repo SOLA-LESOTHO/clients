@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DisputeMonthlyReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4b4ceebd-e9d8-48b5-9645-8a6c3e047fa9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="132"/>
+	<property name="ireport.y" value="175"/>
 	<parameter name="DISPUTE_TYPE" class="java.lang.String"/>
 	<parameter name="NUM_DISPUTES" class="java.lang.String"/>
 	<parameter name="PENDING_DISPUTES" class="java.lang.String"/>
@@ -146,11 +146,6 @@ Maseru 100]]></text>
 				<textElement/>
 				<text><![CDATA[Total number of completed disputes]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="4899e83f-a496-4658-98c5-b431e0f4bfaa" x="0" y="220" width="337" height="20"/>
-				<textElement/>
-				<text><![CDATA[Total number of disputes reffered to ADR]]></text>
-			</staticText>
 			<line>
 				<reportElement uuid="d1a10716-5800-4bc8-b826-1da05901493b" x="0" y="18" width="555" height="1"/>
 			</line>
@@ -187,9 +182,6 @@ Maseru 100]]></text>
 			</line>
 			<line>
 				<reportElement uuid="b736b8ea-8acc-4d03-bd6c-dd8ace40d13e" x="0" y="219" width="555" height="1"/>
-			</line>
-			<line>
-				<reportElement uuid="9ca33e39-bb20-4f18-8714-eb1179657213" x="0" y="240" width="555" height="1"/>
 			</line>
 			<textField pattern="">
 				<reportElement uuid="34464665-1ebf-4841-ad99-30b6f6228d51" x="347" y="36" width="63" height="19"/>
