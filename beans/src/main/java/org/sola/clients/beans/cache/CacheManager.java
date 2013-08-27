@@ -223,7 +223,6 @@ public final class CacheManager {
      */
     public static final String OTHER_AUTHORITIES_CODES_KEY = OtherAuthoritiesBean.class.getName() + LIST_POSTFIX;
     /**
-<<<<<<< HEAD
      * Cache key of the {@link LandUseTypeBean} collection.
      */
     public static final String LAND_USE_TYPE_CODES_KEY = LandUseTypeBean.class.getName() + LIST_POSTFIX;
