@@ -61,6 +61,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     static String courtProcessString = "Court Process";
     static String disputeResolvedStatusString = "Resolved";
     static String disputePendingStatusString = "Pending";
+    //sporadic,regularization,unregistered
     DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
 
     /**
@@ -125,13 +126,13 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     private void switchModeRole(boolean isDispute) {
         if (isDispute) {
             btnCourtProcess.setSelected(false);
-            typeofCase = "Dispute";
+            typeofCase = disputeString;
             disputeSearchParams.setCaseType(typeofCase);
 
         } else {
 
             btnDisputeMode.setSelected(false);
-            typeofCase = "Court Process";
+            typeofCase = courtProcessString;
             disputeSearchParams.setCaseType(typeofCase);
         }
     }
@@ -273,13 +274,13 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         int numPrimaryRespondPending = 0;
 
         for (int i = 0; i < sizePrBeanList; i++) {
-            if (printingBean.get(i).getCaseType().equals("Dispute")) {
+            if (printingBean.get(i).getCaseType().equals(disputeString)) {
                 numDisputes = numDisputes + 1;
 
-                if (printingBean.get(i).getStatusCode().equals("pending")) {
+                if (printingBean.get(i).getStatusCode().equals(disputePendingStatusString)) {
                     pendingDisputes = pendingDisputes + 1;
                 }
-                if (printingBean.get(i).getStatusCode().equals("resolved")) {
+                if (printingBean.get(i).getStatusCode().equals(disputeResolvedStatusString)) {
                     completeDisputes = completeDisputes + 1;
                 }
                 if (printingBean.get(i).getDisputeCategoryCode().equals("sporadic")) {
@@ -291,22 +292,19 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
                 if (printingBean.get(i).getDisputeCategoryCode().equals("unregistered")) {
                     unregistered = unregistered + 1;
                 }
-
-
-            }
-            if (printingBean.get(i).getCaseType().equals("Court Process")) {
+            } else if (printingBean.get(i).getCaseType().equals(courtProcessString)) {
                 numCourtCases = numCourtCases + 1;
 
-                if (printingBean.get(i).getStatusCode().equals("pending")) {
+                if (printingBean.get(i).getStatusCode().equals(disputePendingStatusString)) {
                     pendingCourtCases = pendingCourtCases + 1;
                 }
-                if (printingBean.get(i).getStatusCode().equals("resolved")) {
+                if (printingBean.get(i).getStatusCode().equals(disputeResolvedStatusString)) {
                     completeCourtCases = completeCourtCases + 1;
                 }
                 if (printingBean.get(i).isPrimaryRespondent() == true) {
                     numPrimaryRespond = numPrimaryRespond + 1;
                 }
-                if (printingBean.get(i).isPrimaryRespondent() == true && printingBean.get(i).getStatusCode().equals("pending")) {
+                if (printingBean.get(i).isPrimaryRespondent() == true && printingBean.get(i).getStatusCode().equals(disputePendingStatusString)) {
                     numPrimaryRespondPending = numPrimaryRespondPending + 1;
                 }
 
