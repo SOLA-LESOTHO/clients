@@ -61,7 +61,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     static String courtProcessString = "Court Process";
     static String disputeResolvedStatusString = "Resolved";
     static String disputePendingStatusString = "Pending";
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
 
     /**
      * Creates new form DisputeSearchDialog
@@ -151,7 +151,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     }
 
     private void printReports() {
-
+        Date date;
         Date dateFrom = disputeSearchParams.getLodgementDateFrom();
         Date dateTo = disputeSearchParams.getLodgementDateTo();
         int test = 0;
@@ -160,26 +160,29 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         if (dateFrom != null) {
             dateFromStr = df.format(dateFrom);
         } else {
-            dateFromStr = "";
+            dateFromStr = "-";
         }
 
         if (dateTo != null) {
             dateToStr = df.format(dateTo);
         } else {
-            dateToStr = "";
+            date = new Date();
+            dateToStr = df.format(date);
         }
 
-        if (dbxReportsList.getSelectedIndex() == 0) {
-            if (disputeSearchResultList.getSelectedDisputeSearchResult() != null) {
-                showReport(ReportManager.getDisputeConfirmationReport(disputeSearchResultList.getSelectedDisputeSearchResult()));
-            } else {
-                MessageUtility.displayMessage(ClientMessage.DISPUTE_MAKE_SEARCH_FIRST);
-            }
+        if (dbxReportsList.getSelectedIndex() == 0  && disputeSearchResultList.getSelectedDisputeSearchResult() != null) {
+            showReport(ReportManager.getDisputeConfirmationReport(disputeSearchResultList.getSelectedDisputeSearchResult()));
         } else if (dbxReportsList.getSelectedIndex() == 1) {
-            printStatistical();
-        } else if (dbxReportsList.getSelectedIndex() == 2) {
             printMonthlyReport();
+        } else if (dbxReportsList.getSelectedIndex() == 2) {
+             printStatistical();
+        } else if (dbxReportsList.getSelectedIndex() == 3) {
+            showReport(ReportManager.getDisputeMonthlyStatus(printingBean));
+        } else {
+            MessageUtility.displayMessage(ClientMessage.DISPUTE_MAKE_SEARCH_FIRST);
+
         }
+
 //        ArrayList<DisputeSearchResultBean> list = new ArrayList<DisputeSearchResultBean>();
 //        list.add(printingBean); 
 
@@ -257,7 +260,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
 
         int sizePrBeanList = printingBean.size();
         int numDisputes = 0;
-        String numDisputesString = null;
+        //String numDisputesString = null;
         int numCourtCases = 0;
         int pendingDisputes = 0;
         int completeDisputes = 0;
@@ -338,7 +341,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
 
         disputeSearchParams = new org.sola.clients.beans.administrative.DisputeSearchParamsBean();
         disputeSearchResultList = new org.sola.clients.beans.administrative.DisputeSearchResultListBean();
-        disputeReportsList = new org.sola.clients.beans.referencedata.DisputeReportsListBean();
+        disputeReports = new org.sola.clients.beans.referencedata.DisputeReportsListBean();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -751,7 +754,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
         dbxReportsList.setName(bundle.getString("DisputeSearchDialog.dbxReportsList.name")); // NOI18N
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${disputeReportsListBean}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeReportsList, eLProperty, dbxReportsList);
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeReports, eLProperty, dbxReportsList);
         bindingGroup.addBinding(jComboBoxBinding);
 
         jLabel8.setText(bundle.getString("DisputeSearchDialog.jLabel8.text")); // NOI18N
@@ -1000,7 +1003,7 @@ public class DisputeSearchDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnlodgementTo;
     private javax.swing.JButton btnselectDispute;
     private javax.swing.JComboBox dbxReportsList;
-    private org.sola.clients.beans.referencedata.DisputeReportsListBean disputeReportsList;
+    private org.sola.clients.beans.referencedata.DisputeReportsListBean disputeReports;
     private org.sola.clients.beans.administrative.DisputeSearchParamsBean disputeSearchParams;
     private org.sola.clients.beans.administrative.DisputeSearchResultListBean disputeSearchResultList;
     private javax.swing.JButton jButton7;
