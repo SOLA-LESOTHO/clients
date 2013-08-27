@@ -333,7 +333,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         return actionNotes;
     }
 
-    public void setActionDescription(String value) {
+    public void setActionNotes(String value) {
         String old = actionNotes;
         actionNotes = value;
         propertySupport.firePropertyChange(ACTION_NOTES_PROPERTY, old, value);
