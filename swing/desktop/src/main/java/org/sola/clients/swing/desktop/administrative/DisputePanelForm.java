@@ -129,6 +129,8 @@ public class DisputePanelForm extends ContentPanel {
             btnCourtProcess.setSelected(false);
             jLabel1.setText("Dispute Number");
             disputeBean1.setCaseType(typeofCase);
+            txtdisputeNumber.setEnabled(!isDispute);
+            txtdisputeNumber.setEditable(!isDispute);
             jTabbedPane1.setSelectedIndex(0);
             jTabbedPane1.setEnabledAt(0, true);
             jTabbedPane1.setEnabledAt(3, false);
@@ -139,6 +141,8 @@ public class DisputePanelForm extends ContentPanel {
             jLabel1.setText("Case Number");
             jLabel1.setEnabled(true);
             disputeBean1.setCaseType(typeofCase);
+            txtdisputeNumber.setEnabled(!isDispute);
+            txtdisputeNumber.setEditable(!isDispute);
             jTabbedPane1.setSelectedIndex(3);
             jTabbedPane1.setEnabledAt(3, true);
             jTabbedPane1.setEnabledAt(0, false);
@@ -149,8 +153,10 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void createNewDispute() {
+//        if (MainForm.checkSaveBeforeClose(disputeBean1)) {
+//            saveDispute(true, false);
+//        }
         cleanDisputeScreen();
-        this.disputesCommentsBean = new DisputesCommentsBean();
         setDisputesToNormal();
         customizeScreen();
         saveDisputeState();
@@ -488,10 +494,12 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void checkViewStatus(String state) {
-        if (state.equals(disputeResolvedStatusString)) {
-            setDisputesToReadOnly();
-        } else if (state.equals(disputePendingStatusString)) {
-            setDisputesToNormal();
+        if (state != null) {
+            if (state.equals(disputeResolvedStatusString)) {
+                setDisputesToReadOnly();
+            } else if (state.equals(disputePendingStatusString)) {
+                setDisputesToNormal();
+            }
         }
     }
 
@@ -1626,6 +1634,7 @@ public class DisputePanelForm extends ContentPanel {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         txtName1.setText(null);
+        partySearchResult.getPartySearchResults().clear();
    }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -1661,7 +1670,6 @@ public class DisputePanelForm extends ContentPanel {
     private void dbxdisputeCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbxdisputeCategoryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dbxdisputeCategoryActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddComment1;
     private javax.swing.JButton btnAddParty;

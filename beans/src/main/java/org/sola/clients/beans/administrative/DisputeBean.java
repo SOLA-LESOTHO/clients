@@ -101,7 +101,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     private SolaList<SourceBean> sourceList;
     private transient DisputesCommentsBean selectedComment;
     private transient DisputePartyBean selectedParty;
-    private transient SourceBean selectedSource;
+    //private transient SourceBean selectedSource;
 
     public DisputeBean() {
         super();
@@ -449,6 +449,7 @@ public class DisputeBean extends AbstractTransactionedBean {
     public void addChosenPlot(CadastreObjectBean cadastreObjectBean) {
         if (cadastreObjectBean != null) {
             setPlotNumber(cadastreObjectBean.getNameFirstpart() + "-" + cadastreObjectBean.getNameLastpart());
+            setPlotLocation(cadastreObjectBean.getAddressString());
         }
     }
 
