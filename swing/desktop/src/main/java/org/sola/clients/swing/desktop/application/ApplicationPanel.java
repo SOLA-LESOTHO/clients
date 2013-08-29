@@ -64,6 +64,7 @@ import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.common.converters.BigDecimalMoneyConverter;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
+import org.sola.clients.swing.desktop.DashBoardPanel;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.administrative.ConsentPanel;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
@@ -895,13 +896,27 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     private boolean saveApplication() {
+        boolean isSuccess = false;
         if (applicationID != null && !applicationID.equals("")) {
-            return appBean.saveApplication();
+            isSuccess = appBean.saveApplication();
         } else {
-            return appBean.lodgeApplication();
+            isSuccess = appBean.lodgeApplication();
         }
+        if(isSuccess){
+            markDashboardForRefresh();
+        }
+        return isSuccess;
     }
 
+    private void markDashboardForRefresh(){
+        if (getMainContentPanel().isPanelOpened(MainContentPanel.CARD_DASHBOARD)) {
+            DashBoardPanel dashBoard = (DashBoardPanel)getMainContentPanel().getPanel(MainContentPanel.CARD_DASHBOARD);
+            if(dashBoard!=null){
+                dashBoard.setAutoRefresh(true);
+            }
+        }
+    }
+    
     private boolean checkApplication() {
         if (appBean.validate(true).size() > 0) {
             return false;
@@ -3091,6 +3106,7 @@ public class ApplicationPanel extends ContentPanel {
                                 openValidationResultForm(result, true, message);
                             }
                             saveAppState();
+                            markDashboardForRefresh();
                         }
                     };
             TaskManager.getInstance().runTask(t);
@@ -3175,6 +3191,7 @@ public class ApplicationPanel extends ContentPanel {
                     appBean.reload();
                     customizeApplicationForm();
                     saveAppState();
+                    markDashboardForRefresh();
                     launchService(appBean.getServiceById(selectedService.getId()), false);
                 }
             };
@@ -3219,6 +3236,7 @@ public class ApplicationPanel extends ContentPanel {
                         appBean.reload();
                         customizeApplicationForm();
                         saveAppState();
+                        markDashboardForRefresh();
                         if (result != null) {
                             openValidationResultForm(result, true, message);
                         }
@@ -3263,6 +3281,7 @@ public class ApplicationPanel extends ContentPanel {
                         appBean.reload();
                         customizeApplicationForm();
                         saveAppState();
+                        markDashboardForRefresh();
                         if (result != null) {
                             openValidationResultForm(result, true, message);
                         }
@@ -3307,6 +3326,7 @@ public class ApplicationPanel extends ContentPanel {
                         appBean.reload();
                         customizeApplicationForm();
                         saveAppState();
+                        markDashboardForRefresh();
                         if (result != null) {
                             openValidationResultForm(result, true, message);
                         }

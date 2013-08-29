@@ -70,6 +70,7 @@ public class DashBoardPanel extends ContentPanel {
     }
     private AssignmentPanelListener assignmentPanelListener;
     private boolean forceRefresh;
+    private boolean autoRefresh = false;
             
     /**
      * Panel constructor.
@@ -128,7 +129,7 @@ public class DashBoardPanel extends ContentPanel {
             }
         });
     }
-
+    
     /**
      * Enables or disables toolbar buttons for assigned applications list, .
      */
@@ -259,6 +260,26 @@ public class DashBoardPanel extends ContentPanel {
         TaskManager.getInstance().runTask(t);
     }
 
+    private void autoRefresh(){
+        if(autoRefresh){
+            setAutoRefresh(false);
+            refreshApplications();
+        }
+    }
+
+    /** Returns autorefresh value. */
+    public boolean isAutoRefresh() {
+        return autoRefresh;
+    }
+
+    /** 
+     * Sets autorefresh value. If <code>true</code> is assigned Dashboard will 
+     * be refreshed automatically at the time of component shown event. 
+     */
+    public void setAutoRefresh(boolean autoRefresh) {
+        this.autoRefresh = autoRefresh;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -378,6 +399,11 @@ public class DashBoardPanel extends ContentPanel {
         setHelpTopic(bundle.getString("DashBoardPanel.helpTopic")); // NOI18N
         setMinimumSize(new java.awt.Dimension(354, 249));
         setName("Form"); // NOI18N
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel3.setName("jPanel3"); // NOI18N
         jPanel3.setLayout(new java.awt.GridLayout(2, 1, 0, 20));
@@ -387,7 +413,6 @@ public class DashBoardPanel extends ContentPanel {
         unassignedScrollPanel.setName("unassignedScrollPanel"); // NOI18N
         unassignedScrollPanel.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
-        tbUnassigned.setColumnSelectionAllowed(true);
         tbUnassigned.setComponentPopupMenu(popUpUnassignedApplications);
         tbUnassigned.setGridColor(new java.awt.Color(135, 127, 115));
         tbUnassigned.setName("tbUnassigned"); // NOI18N
@@ -791,6 +816,10 @@ public class DashBoardPanel extends ContentPanel {
     private void menuAssignApplication2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssignApplication2ActionPerformed
         assignUnassign(assignedAppListBean.getChecked(true), true);
     }//GEN-LAST:event_menuAssignApplication2ActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        autoRefresh();
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * Refreshes assigned and unassigned application lists.
