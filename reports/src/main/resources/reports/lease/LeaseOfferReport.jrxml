@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="a011e8f3-da51-4089-8689-f47d43515305">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="51"/>
+	<property name="ireport.y" value="13"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="IS_DRAFT" class="java.lang.Boolean"/>
 	<queryString>
@@ -204,7 +204,7 @@ Fax: +266 2231 0905]]></text>
 				<textElement>
 					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Dear Sir or Madam,]]></text>
+				<text><![CDATA[Dear Sir/Madam,]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" x="10" y="1" width="84" height="19"/>
