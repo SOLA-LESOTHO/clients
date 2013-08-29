@@ -3,8 +3,14 @@
 <Form version="1.5" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
     <Component class="org.sola.clients.beans.referencedata.DisputeActionListBean" name="disputeAction">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createDisputeAction()"/>
+      </AuxValues>
     </Component>
     <Component class="org.sola.clients.beans.referencedata.OtherAuthoritiesListBean" name="otherAuthorities">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createOtherAuthorities()"/>
+      </AuxValues>
     </Component>
   </NonVisualComponents>
   <Properties>

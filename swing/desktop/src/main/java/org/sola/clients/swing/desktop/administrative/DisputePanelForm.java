@@ -41,8 +41,6 @@ import org.sola.clients.beans.administrative.DisputesCommentsBean;
 import org.sola.clients.swing.desktop.cadastre.SearchParcelDialog;
 import org.sola.clients.beans.referencedata.DisputeCategoryListBean;
 import org.sola.clients.beans.referencedata.DisputeTypeListBean;
-import org.sola.clients.beans.referencedata.DisputeActionListBean;
-import org.sola.clients.beans.referencedata.OtherAuthoritiesListBean;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.source.SourceBean;
@@ -114,10 +112,8 @@ public class DisputePanelForm extends ContentPanel {
                 switchModeRole(true);
             }
             checkViewStatus(disputeBean1.getStatusCode());
-            if (disputeBean1.getCaseType() == null) {
-                btnCourtProcess.setEnabled(false);
-                btnDisputeMode.setEnabled(false);
-            }
+            btnCourtProcess.setEnabled(false);
+            btnDisputeMode.setEnabled(false);
         }
 
     }
@@ -153,13 +149,14 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void createNewDispute() {
-//        if (MainForm.checkSaveBeforeClose(disputeBean1)) {
-//            saveDispute(true, false);
-//        }
-        cleanDisputeScreen();
-        setDisputesToNormal();
-        customizeScreen();
-        saveDisputeState();
+        if (MainForm.checkSaveBeforeClose(disputeBean1)) {
+            saveDispute(true, false);
+        } else {
+            cleanDisputeScreen();
+            customizeScreen();
+            setDisputesToNormal();
+            saveDisputeState();
+        }
     }
 
     private void RefreshScreen() {
@@ -412,28 +409,6 @@ public class DisputePanelForm extends ContentPanel {
         return disputeType;
     }
 
-    private DisputeActionListBean createDisputeAction() {
-        if (disputeAction == null) {
-            String actionCode = null;
-            if (disputesCommentsBean != null && disputesCommentsBean.getDisputeActionCode() != null) {
-                actionCode = disputesCommentsBean.getDisputeActionCode();
-            }
-            disputeAction = new DisputeActionListBean();
-        }
-        return disputeAction;
-    }
-
-    private OtherAuthoritiesListBean createOtherAuthorities() {
-        if (otherAuthorities == null) {
-            String authoritiesCode = null;
-            if (disputesCommentsBean != null && disputesCommentsBean.getOtherAuthoritiesCode() != null) {
-                authoritiesCode = disputesCommentsBean.getOtherAuthoritiesCode();
-            }
-            otherAuthorities = new OtherAuthoritiesListBean();
-        }
-        return otherAuthorities;
-    }
-
     private DocumentsManagementExtPanel createDocumentsPanel() {
         if (disputeBean1 == null) {
             disputeBean1 = new DisputeBean();
@@ -573,13 +548,8 @@ public class DisputePanelForm extends ContentPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         disputeBean1 = createDisputeBean();
-        disputeAction = createDisputeAction();
-        disputeStatus = new org.sola.clients.beans.referencedata.DisputeStatusListBean();
         disputeType = createDisputeType();
-        otherAuthorities = createOtherAuthorities();
         cadastreObjectBean1 = new org.sola.clients.beans.cadastre.CadastreObjectBean();
-        partyRoleTypes = new org.sola.clients.beans.referencedata.PartyRoleTypeListBean();
-        communicationTypes = new org.sola.clients.beans.referencedata.CommunicationTypeListBean();
         partySearchParams = new org.sola.clients.beans.party.PartySearchParamsBean();
         partySearchResult = new org.sola.clients.beans.party.PartySearchResultListBean();
         cadastreObjectSearch = new org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean();
@@ -1013,14 +983,20 @@ public class DisputePanelForm extends ContentPanel {
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${updateDate}"));
         columnBinding.setColumnName("Update Date");
         columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${comments}"));
         columnBinding.setColumnName("Comments");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, disputeBean1, org.jdesktop.beansbinding.ELProperty.create("${selectedComment}"), jTable2, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         jScrollPane4.setViewportView(jTable2);
+        jTable2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("DisputePanelForm.jTable2.columnModel.title0_2")); // NOI18N
+        jTable2.getColumnModel().getColumn(1).setMinWidth(650);
+        jTable2.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("DisputePanelForm.jTable2.columnModel.title1_2")); // NOI18N
+        jTable2.getColumnModel().getColumn(1).setCellRenderer(new org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer());
 
         javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
         jPanel38.setLayout(jPanel38Layout);
@@ -1690,13 +1666,10 @@ public class DisputePanelForm extends ContentPanel {
     private org.sola.clients.beans.cadastre.CadastreObjectBean cadastreObjectBean1;
     private org.sola.clients.beans.cadastre.CadastreObjectSearchResultListBean cadastreObjectSearch;
     private javax.swing.JCheckBox cbxLAAPrimary;
-    private org.sola.clients.beans.referencedata.CommunicationTypeListBean communicationTypes;
     public javax.swing.JComboBox dbxdisputeCategory;
     public javax.swing.JComboBox dbxdisputeType;
-    private org.sola.clients.beans.referencedata.DisputeActionListBean disputeAction;
     private org.sola.clients.beans.administrative.DisputeBean disputeBean1;
     private org.sola.clients.beans.referencedata.DisputeCategoryListBean disputeCategory;
-    private org.sola.clients.beans.referencedata.DisputeStatusListBean disputeStatus;
     private org.sola.clients.beans.referencedata.DisputeTypeListBean disputeType;
     private org.sola.clients.swing.ui.source.DocumentsManagementPanel documentsManagementPanel;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
@@ -1760,8 +1733,6 @@ public class DisputePanelForm extends ContentPanel {
     private javax.swing.JLabel lblPlotLocation;
     private javax.swing.JLabel lblPlotNumber;
     private javax.swing.JLabel lblSearchResultNumber;
-    private org.sola.clients.beans.referencedata.OtherAuthoritiesListBean otherAuthorities;
-    private org.sola.clients.beans.referencedata.PartyRoleTypeListBean partyRoleTypes;
     private org.sola.clients.beans.party.PartySearchParamsBean partySearchParams;
     private org.sola.clients.beans.party.PartySearchResultListBean partySearchResult;
     private org.sola.clients.swing.ui.HeaderPanel pnlHeader;

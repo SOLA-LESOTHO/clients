@@ -33,6 +33,8 @@ package org.sola.clients.swing.desktop.administrative;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.sola.clients.beans.administrative.DisputesCommentsBean;
+import org.sola.clients.beans.referencedata.DisputeActionListBean;
+import org.sola.clients.beans.referencedata.OtherAuthoritiesListBean;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.common.messaging.ClientMessage;
@@ -119,6 +121,28 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
         }
     }
 
+    private DisputeActionListBean createDisputeAction() {
+        if (disputeAction == null) {
+            String actionCode = null;
+            if (disputesCommentsBean != null && disputesCommentsBean.getDisputeActionCode() != null) {
+                actionCode = disputesCommentsBean.getDisputeActionCode();
+            }
+            disputeAction = new DisputeActionListBean(true, actionCode);
+        }
+        return disputeAction;
+    }
+
+    private OtherAuthoritiesListBean createOtherAuthorities() {
+        if (otherAuthorities == null) {
+            String authoritiesCode = null;
+            if (disputesCommentsBean != null && disputesCommentsBean.getOtherAuthoritiesCode() != null) {
+                authoritiesCode = disputesCommentsBean.getOtherAuthoritiesCode();
+            }
+            otherAuthorities = new OtherAuthoritiesListBean(true, authoritiesCode);
+        }
+        return otherAuthorities;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,8 +153,8 @@ public class DisputeCommentsDialog extends javax.swing.JDialog {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        disputeAction = new org.sola.clients.beans.referencedata.DisputeActionListBean();
-        otherAuthorities = new org.sola.clients.beans.referencedata.OtherAuthoritiesListBean();
+        disputeAction = createDisputeAction();
+        otherAuthorities = createOtherAuthorities();
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
