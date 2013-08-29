@@ -183,7 +183,7 @@ public final class ConsentBean extends AbstractTransactionedBean {
                 if (lessess.equals("")) {
                     lessess = party.getFullName().toUpperCase();
                 } else {
-                    lessess = lessess + " and " + party.getFullName().toUpperCase();
+                    lessess = lessess + " AND " + party.getFullName().toUpperCase();
                 }
             }
         }
@@ -204,7 +204,7 @@ public final class ConsentBean extends AbstractTransactionedBean {
                 if (lessors.equals("")) {
                     lessors = party.getFullName().toUpperCase();
                 } else {
-                    lessors = lessors + " and " + party.getFullName().toUpperCase();
+                    lessors = lessors + " AND " + party.getFullName().toUpperCase();
                 }
             }
         }
@@ -224,8 +224,6 @@ public final class ConsentBean extends AbstractTransactionedBean {
             for (PartySummaryBean party : this.getRecipientList()) {
                 if (maritalStatus.equals("")) {
                     maritalStatus = party.getPartyBean().getLegalType();
-                } else {
-                    maritalStatus = maritalStatus + ", " + party.getPartyBean().getLegalType();
                 }
             }
         }
@@ -245,8 +243,6 @@ public final class ConsentBean extends AbstractTransactionedBean {
             for (PartySummaryBean party : this.getRightHolderList()) {
                 if (maritalStatus.equals("")) {
                     maritalStatus = party.getPartyBean().getLegalType();
-                } else {
-                    maritalStatus = maritalStatus + ", " + party.getPartyBean().getLegalType();
                 }
             }
         }
