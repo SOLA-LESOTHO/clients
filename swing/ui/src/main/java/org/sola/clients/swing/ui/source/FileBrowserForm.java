@@ -31,7 +31,6 @@
 package org.sola.clients.swing.ui.source;
 
 import java.awt.ComponentOrientation;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -41,6 +40,7 @@ import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileFilter;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.digitalarchive.FileBinaryBean;
 import org.sola.clients.beans.digitalarchive.FileInfoListBean;
@@ -63,6 +63,41 @@ import org.sola.services.boundary.wsclients.WSManager;
  */
 public class FileBrowserForm extends javax.swing.JDialog {
 
+    // Custom file filter to do a quick search in the current local directory
+    private class FilesFilter extends FileFilter {
+
+        private String filterString = "";
+
+        //Filters files with a given filter and allows all directories.
+        @Override
+        public boolean accept(File f) {
+            if (f.isDirectory() || getFilterString() == null || getFilterString().equals("")) {
+                return true;
+            }
+            return FileUtility.getFileNameWithoutExtension(f.getName())
+                    .toLowerCase().contains(getFilterString().toLowerCase());
+        }
+
+        //The description of this filter
+        @Override
+        public String getDescription() {
+            return "Files filter";
+        }
+
+        public String getFilterString() {
+            return filterString;
+        }
+
+        public void setFilterString(String filterString) {
+            if (filterString == null) {
+                this.filterString = "";
+            } else {
+                this.filterString = filterString;
+            }
+        }
+    }
+    
+    private FilesFilter userFilter;
     private static String USER_PREFERRED_DIR = "userPreferredDir";
 
     /**
@@ -88,10 +123,15 @@ public class FileBrowserForm extends javax.swing.JDialog {
     }
 
     private void postInit() {
+        userFilter = new FilesFilter();
         serverFiles.loadServerFileInfoList();
         serverFiles.addPropertyChangeListener(serverFilesListener());
+        
+        localFileChooser.setAcceptAllFileFilterUsed(false);
+        localFileChooser.setFileFilter(userFilter);
         localFileChooser.setControlButtonsAreShown(false);
         localFileChooser.setAccessory(new ImagePreview(localFileChooser));
+        
         if (WindowUtility.hasUserPreferences()) {
             // Check if the user has a preferred location to upload files from
             Preferences prefs = WindowUtility.getUserPreferences();
@@ -109,6 +149,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
      */
     private PropertyChangeListener serverFilesListener() {
         PropertyChangeListener listener = new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getPropertyName().equals(FileInfoListBean.SELECTED_FILE_INFO_BEAN_PROPERTY)) {
@@ -129,6 +170,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
             lblServerPreview.repaint();
 
             Runnable loadingThumbnail = new Runnable() {
+
                 @Override
                 public void run() {
                     ImageIcon thumbnail = serverFiles.getSelectedFileInfoBean().getThumbnailIcon(
@@ -163,6 +205,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
     private void refreshRemoteFiles() {
         if (serverFiles.getSelectedFileInfoBean() != null) {
             SolaTask t = new SolaTask<Void, Void>() {
+
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_DOCUMENT_GETTING_LIST));
@@ -177,6 +220,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
     private void openRemoteFile() {
         if (serverFiles.getSelectedFileInfoBean() != null) {
             SolaTask t = new SolaTask<Void, Void>() {
+
                 @Override
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_DOCUMENT_OPENING));
@@ -194,6 +238,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
      */
     private void openLocalFile() {
         SolaTask t = new SolaTask<Void, Void>() {
+
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_DOCUMENT_OPENING));
@@ -263,6 +308,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
         File selectedFile = localFileChooser.getSelectedFile();
         if (selectedFile != null) {
             SolaTask<Void, Void> task = new SolaTask<Void, Void>() {
+
                 DocumentBean document = null;
 
                 @Override
@@ -286,6 +332,11 @@ public class FileBrowserForm extends javax.swing.JDialog {
         }
     }
 
+    private void filterFiles() {
+        userFilter.setFilterString(txtFilter.getText());
+        localFileChooser.getUI().rescanCurrentDirectory(localFileChooser);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -303,6 +354,9 @@ public class FileBrowserForm extends javax.swing.JDialog {
         jToolBar2 = new javax.swing.JToolBar();
         btnOpenLocal = new javax.swing.JButton();
         btnAttachLocal = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jLabel1 = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbServerFiles = new javax.swing.JTable();
@@ -385,6 +439,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
         jToolBar2.setName("jToolBar2"); // NOI18N
+        jToolBar2.setPreferredSize(new java.awt.Dimension(213, 28));
 
         btnOpenLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/folder-open-document.png"))); // NOI18N
         btnOpenLocal.setText(bundle.getString("FileBrowserForm.btnOpenLocal.text")); // NOI18N
@@ -412,6 +467,28 @@ public class FileBrowserForm extends javax.swing.JDialog {
         });
         jToolBar2.add(btnAttachLocal);
 
+        jSeparator2.setName(bundle.getString("FileBrowserForm.jSeparator2.name")); // NOI18N
+        jToolBar2.add(jSeparator2);
+
+        jLabel1.setText(bundle.getString("FileBrowserForm.jLabel1.text")); // NOI18N
+        jLabel1.setName(bundle.getString("FileBrowserForm.jLabel1.name")); // NOI18N
+        jToolBar2.add(jLabel1);
+
+        txtFilter.setText(bundle.getString("FileBrowserForm.txtFilter.text")); // NOI18N
+        txtFilter.setMaximumSize(new java.awt.Dimension(170, 2147483647));
+        txtFilter.setMinimumSize(new java.awt.Dimension(170, 20));
+        txtFilter.setName(bundle.getString("FileBrowserForm.txtFilter.name")); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(170, 30));
+        txtFilter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFilterKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFilterKeyReleased(evt);
+            }
+        });
+        jToolBar2.add(txtFilter);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -422,10 +499,10 @@ public class FileBrowserForm extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(localFileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
+                .addComponent(localFileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(bundle.getString("FileBrowserForm.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
@@ -584,7 +661,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(taskPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -658,8 +735,16 @@ public class FileBrowserForm extends javax.swing.JDialog {
     }//GEN-LAST:event_menuRemoteAttachActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        loadServerPreview();    
+        loadServerPreview();
     }//GEN-LAST:event_formComponentResized
+
+    private void txtFilterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFilterKeyPressed
+        
+    }//GEN-LAST:event_txtFilterKeyPressed
+
+    private void txtFilterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFilterKeyReleased
+        filterFiles();
+    }//GEN-LAST:event_txtFilterKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAttachFromServer;
@@ -668,10 +753,12 @@ public class FileBrowserForm extends javax.swing.JDialog {
     private javax.swing.JButton btnOpenLocal;
     private javax.swing.JButton btnOpenServerFile;
     private javax.swing.JButton btnRefreshServerList;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
@@ -685,6 +772,7 @@ public class FileBrowserForm extends javax.swing.JDialog {
     private org.sola.clients.beans.digitalarchive.FileInfoListBean serverFiles;
     private org.sola.clients.swing.common.tasks.TaskPanel taskPanel1;
     private javax.swing.JTable tbServerFiles;
+    private javax.swing.JTextField txtFilter;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
