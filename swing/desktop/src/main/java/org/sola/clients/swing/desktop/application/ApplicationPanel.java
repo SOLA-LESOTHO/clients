@@ -285,6 +285,7 @@ public class ApplicationPanel extends ContentPanel {
         customizeApplicationForm();
         customizeParcelsButtons();
         customizePropertyButtons();
+        customizeCommentsButtons();
     }
 
     /**
@@ -477,6 +478,11 @@ public class ApplicationPanel extends ContentPanel {
         menuCompleteService.setEnabled(btnCompleteService.isEnabled());
         menuRevertService.setEnabled(btnRevertService.isEnabled());
         menuCancelService.setEnabled(btnCancelService.isEnabled());
+    }
+    
+    private void customizeCommentsButtons(){
+        btnEditCondition.setEnabled(false);
+        btnRemoveCondition.setEnabled(false);
     }
 
     /**
