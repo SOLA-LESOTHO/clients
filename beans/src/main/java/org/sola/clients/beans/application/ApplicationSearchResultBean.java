@@ -46,6 +46,7 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
     private String serviceList; 
     private String affectedLeaseNumbers;
     private boolean checked;
+    private String actionNotes;
     
     public ApplicationSearchResultBean(){
         super();
@@ -115,5 +116,13 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
         boolean oldValue = this.checked;
         this.checked = checked;
         propertySupport.firePropertyChange(CHECKED_PROPERTY, oldValue, this.checked);
+    }
+
+    public String getActionNotes() {
+        return actionNotes;
+    }
+
+    public void setActionNotes(String actionNotes) {
+        this.actionNotes = actionNotes;
     }
 }

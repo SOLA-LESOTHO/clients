@@ -456,6 +456,10 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding.setColumnName("Fee Paid");
         columnBinding.setColumnClass(Boolean.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${actionNotes}"));
+        columnBinding.setColumnName("Action Notes");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         jTableBinding.setSourceNullValue("");
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unassignedAppListBean, org.jdesktop.beansbinding.ELProperty.create("${selectedApplication}"), tbUnassigned, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
@@ -467,7 +471,6 @@ public class DashBoardPanel extends ContentPanel {
             }
         });
         unassignedScrollPanel.setViewportView(tbUnassigned);
-        tbUnassigned.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tbUnassigned.getColumnModel().getColumn(0).setMinWidth(25);
         tbUnassigned.getColumnModel().getColumn(0).setPreferredWidth(25);
         tbUnassigned.getColumnModel().getColumn(0).setMaxWidth(25);
@@ -488,6 +491,8 @@ public class DashBoardPanel extends ContentPanel {
         tbUnassigned.getColumnModel().getColumn(8).setMaxWidth(80);
         tbUnassigned.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title7")); // NOI18N
         tbUnassigned.getColumnModel().getColumn(8).setCellRenderer(new BooleanCellRenderer());
+        tbUnassigned.getColumnModel().getColumn(9).setMinWidth(180);
+        tbUnassigned.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title9")); // NOI18N
 
         tbUnassignedApplications.setFloatable(false);
         tbUnassignedApplications.setRollover(true);
@@ -675,6 +680,10 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding.setColumnName("Fee Paid");
         columnBinding.setColumnClass(Boolean.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${actionNotes}"));
+        columnBinding.setColumnName("Action Notes");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, assignedAppListBean, org.jdesktop.beansbinding.ELProperty.create("${selectedApplication}"), tbAssigned, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -706,6 +715,8 @@ public class DashBoardPanel extends ContentPanel {
         tbAssigned.getColumnModel().getColumn(9).setMaxWidth(80);
         tbAssigned.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title8")); // NOI18N
         tbAssigned.getColumnModel().getColumn(9).setCellRenderer(new BooleanCellRenderer());
+        tbAssigned.getColumnModel().getColumn(10).setMinWidth(180);
+        tbAssigned.getColumnModel().getColumn(10).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title10")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
