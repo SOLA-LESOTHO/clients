@@ -272,6 +272,7 @@ public class DocumentPanel extends javax.swing.JPanel {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel4.setText(bundle.getString("DocumentPanel.jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
@@ -295,7 +296,7 @@ public class DocumentPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel4)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
             .addComponent(cbxDocType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -327,6 +328,7 @@ public class DocumentPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel3.setText(bundle.getString("DocumentPanel.jLabel3.text")); // NOI18N
         jLabel3.setToolTipText(bundle.getString("DocumentPanel.jLabel3.toolTipText")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N

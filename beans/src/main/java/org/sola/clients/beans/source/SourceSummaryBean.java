@@ -126,10 +126,12 @@ public class SourceSummaryBean extends AbstractTransactionedBean {
     }
 
     public void setSourceType(SourceTypeBean sourceType) {
-        if (this.sourceType == null) {
-            this.sourceType = new SourceTypeBean();
-        }
-        this.setJointRefDataBean(this.sourceType, sourceType, SOURCE_TYPE_PROPERTY);
+        this.sourceType = sourceType;
+        propertySupport.firePropertyChange(SOURCE_TYPE_PROPERTY, null, this.sourceType);
+//        if (this.sourceType == null) {
+//            this.sourceType = new SourceTypeBean();
+//        }
+//        this.setJointRefDataBean(this.sourceType, sourceType, SOURCE_TYPE_PROPERTY);
     }
 
     public Date getAcceptance() {

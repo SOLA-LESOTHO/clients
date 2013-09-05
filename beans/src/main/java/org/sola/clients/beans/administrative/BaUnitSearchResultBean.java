@@ -55,6 +55,7 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     private String rightholders;
     private String registrationNumber;
     private Date registrationDate;
+    private Date originalRegistrationDate;
     private String leaseNumber;
     
     public BaUnitSearchResultBean(){
@@ -130,6 +131,14 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
         Date oldValue = this.registrationDate;
         this.registrationDate = registrationDate;
         propertySupport.firePropertyChange(REGISTRATION_DATE_PROPERTY, oldValue, this.registrationDate);
+    }
+
+    public Date getOriginalRegistrationDate() {
+        return originalRegistrationDate;
+    }
+
+    public void setOriginalRegistrationDate(Date originalRegistrationDate) {
+        this.originalRegistrationDate = originalRegistrationDate;
     }
 
     public String getRegistrationNumber() {
