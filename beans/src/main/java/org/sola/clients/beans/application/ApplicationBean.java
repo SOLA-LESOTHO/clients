@@ -75,6 +75,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public static final String TOTAL_AMOUNT_PAID_PROPERTY = "totalAmountPaid";
     public static final String TOTAL_FEE_PROPERTY = "totalFee";
     public static final String RECEIPT_REF_PROPERTY = "receiptRef";
+    public static final String RECEIPT_DATE_PROPERTY = "receiptDate";
     public static final String SELECTED_SERVICE_PROPERTY = "selectedService";
     public static final String SELECTED_PROPPERTY_PROPERTY = "selectedProperty";
     public static final String SELECTED_SOURCE_PROPERTY = "selectedSource";
@@ -106,6 +107,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private ApplicationStatusTypeBean statusBean;
     private SolaList<CadastreObjectSummaryBean> cadastreObjectList;
     private transient CadastreObjectSummaryBean selectedCadastreObject;
+    private String receiptDate;
 
     /**
      * Default constructor to create application bean. Initializes the following
@@ -480,6 +482,16 @@ public class ApplicationBean extends ApplicationSummaryBean {
         String old = receiptRef;
         this.receiptRef = value;
         propertySupport.firePropertyChange(RECEIPT_REF_PROPERTY, old, value);
+    }
+
+    public String getReceiptDate() {
+        return receiptDate;
+    }
+
+    public void setReceiptDate(String value) {
+        String old = receiptDate;
+        this.receiptDate = value;
+        propertySupport.firePropertyChange(RECEIPT_DATE_PROPERTY, old, value);
     }
 
     public SolaList<CadastreObjectSummaryBean> getCadastreObjectList() {

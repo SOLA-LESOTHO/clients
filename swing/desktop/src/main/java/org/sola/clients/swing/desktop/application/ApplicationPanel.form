@@ -344,7 +344,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pnlHeader" alignment="0" pref="660" max="32767" attributes="2"/>
+          <Component id="pnlHeader" alignment="0" pref="792" max="32767" attributes="2"/>
           <Component id="jToolBar3" alignment="0" pref="660" max="32767" attributes="2"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -572,7 +572,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel6" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jPanel6" alignment="0" pref="0" max="32767" attributes="1"/>
                       <Component id="jPanel11" alignment="0" pref="0" max="32767" attributes="1"/>
                       <Component id="groupPanel1" alignment="1" max="32767" attributes="0"/>
                   </Group>
@@ -613,7 +613,7 @@
                                   <Component id="labName" min="-2" pref="111" max="-2" attributes="0"/>
                                   <EmptySpace pref="84" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="txtFirstName" alignment="0" pref="195" max="32767" attributes="0"/>
+                              <Component id="txtFirstName" alignment="0" pref="239" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -670,7 +670,7 @@
                                   <Component id="labLastName" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="135" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="txtLastName" alignment="0" pref="195" max="32767" attributes="0"/>
+                              <Component id="txtLastName" alignment="0" pref="239" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -1061,7 +1061,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtAppNumber" alignment="0" pref="142" max="32767" attributes="0"/>
+                          <Component id="txtAppNumber" alignment="0" pref="175" max="32767" attributes="0"/>
                           <Component id="jLabel1" alignment="0" pref="142" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
@@ -1220,7 +1220,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtStatus" alignment="0" pref="142" max="32767" attributes="0"/>
+                          <Component id="txtStatus" alignment="0" pref="175" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labStatus" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="56" max="32767" attributes="0"/>
@@ -1289,7 +1289,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="scrollFeeDetails1" alignment="0" max="32767" attributes="3"/>
-                          <Component id="tbServices" alignment="0" pref="615" max="32767" attributes="1"/>
+                          <Component id="tbServices" alignment="0" pref="747" max="32767" attributes="1"/>
                           <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1637,7 +1637,7 @@
                               <Component id="formTxtServiceFee" max="32767" attributes="1"/>
                               <Group type="102" attributes="0">
                                   <Component id="labFixedFee" min="-2" max="-2" attributes="1"/>
-                                  <EmptySpace min="0" pref="51" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1696,7 +1696,7 @@
                               <Component id="formTxtFee" max="32767" attributes="1"/>
                               <Group type="102" attributes="0">
                                   <Component id="labTotalFee" min="-2" max="-2" attributes="1"/>
-                                  <EmptySpace min="0" pref="62" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1751,7 +1751,7 @@
                               <Component id="formTxtPaid" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="labTotalFee2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="26" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1812,7 +1812,7 @@
                               <Component id="formTxtReceiptRef" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="labReceiptRef" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1852,6 +1852,59 @@
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Container class="javax.swing.JPanel" name="jPanel28">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.jPanel28.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                      </Properties>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="formTxtReceiptDate" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="labReceiptRef1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="24" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="labReceiptRef1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="formTxtReceiptDate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextField" name="formTxtReceiptDate">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.formTxtReceiptDate.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                          </Properties>
+                          <BindingProperties>
+                            <BindingProperty name="text" source="appBean" sourcePath="${receiptDate}" target="formTxtReceiptDate" targetPath="text" updateStrategy="0" immediately="false">
+                              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                            </BindingProperty>
+                          </BindingProperties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="labReceiptRef1">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labReceiptRef1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationPanel.labReceiptRef1.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                     <Container class="javax.swing.JPanel" name="jPanel22">
                       <Properties>
                         <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -1867,7 +1920,7 @@
                                       <Component id="cbxPaid" min="-2" max="-2" attributes="0"/>
                                       <Component id="labTotalFee3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="85" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="65" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2103,7 +2156,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel27" max="32767" attributes="0"/>
-                          <Component id="cadastreObjectsSearch" pref="615" max="32767" attributes="0"/>
+                          <Component id="cadastreObjectsSearch" pref="747" max="32767" attributes="0"/>
                           <Component id="groupPanel2" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -2135,7 +2188,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="1" pref="615" max="32767" attributes="0"/>
                       <Component id="jToolBar1" alignment="1" max="32767" attributes="0"/>
                       <Component id="groupPanel3" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -2357,7 +2410,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" pref="615" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" pref="747" max="32767" attributes="0"/>
                       <Component id="jToolBar2" alignment="0" max="32767" attributes="0"/>
                       <Component id="groupPanel5" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -2803,8 +2856,8 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jToolBar4" pref="615" max="32767" attributes="0"/>
-                              <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jToolBar4" pref="747" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" alignment="0" pref="615" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

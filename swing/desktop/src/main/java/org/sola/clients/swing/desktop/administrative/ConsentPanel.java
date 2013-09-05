@@ -121,6 +121,7 @@ public class ConsentPanel extends ContentPanel {
         consentBean1.setRightHolderList(consentBean1.getRightholderRrr().getRightHolderList());
         consentBean1.setServiceFee(appService.getBaseFee());
         consentBean1.setReceiptNumber(appBean.getReceiptRef());
+        consentBean1.setReceiptDate(appBean.getReceiptDate());
         consentBean1.setRightholders(consentBean1.getRightHolders());
         consentBean1.setRecipients(consentBean1.getRecipients());
         if (consentBean1.getBaUnit().getCadastreObject() != null) {
