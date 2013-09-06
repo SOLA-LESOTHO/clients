@@ -63,7 +63,7 @@ public final class ConsentBean extends AbstractTransactionedBean {
     private String leaseNumber;
     private BigDecimal serviceFee;
     private String receiptNumber;
-    private String receiptDate;
+    private Date receiptDate;
     private String recipients;
     private String recipientsMaritalStatus;
     private String rightholders;
@@ -169,13 +169,13 @@ public final class ConsentBean extends AbstractTransactionedBean {
         this.receiptNumber = receiptNumber;
     }
 
-    public String getReceiptDate() {
+    public Date getReceiptDate() {
         return receiptDate;
     }
 
-    public void setReceiptDate(String receiptDate) {
+    public void setReceiptDate(Date receiptDate) {
         if (receiptDate == null) {
-            receiptDate = "";
+            receiptDate = new Date();
         }
         this.receiptDate = receiptDate;
     }
