@@ -107,7 +107,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private ApplicationStatusTypeBean statusBean;
     private SolaList<CadastreObjectSummaryBean> cadastreObjectList;
     private transient CadastreObjectSummaryBean selectedCadastreObject;
-    private String receiptDate;
+    private Date receiptDate;
 
     /**
      * Default constructor to create application bean. Initializes the following
@@ -484,12 +484,12 @@ public class ApplicationBean extends ApplicationSummaryBean {
         propertySupport.firePropertyChange(RECEIPT_REF_PROPERTY, old, value);
     }
 
-    public String getReceiptDate() {
+    public Date getReceiptDate() {
         return receiptDate;
     }
 
-    public void setReceiptDate(String value) {
-        String old = receiptDate;
+    public void setReceiptDate(Date value) {
+        Date old = receiptDate;
         this.receiptDate = value;
         propertySupport.firePropertyChange(RECEIPT_DATE_PROPERTY, old, value);
     }
