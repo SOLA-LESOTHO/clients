@@ -76,6 +76,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public static final String TOTAL_FEE_PROPERTY = "totalFee";
     public static final String RECEIPT_REF_PROPERTY = "receiptRef";
     public static final String RECEIPT_DATE_PROPERTY = "receiptDate";
+    public static final String COLLECTION_DATE_PROPERTY = "collectionDate";
     public static final String SELECTED_SERVICE_PROPERTY = "selectedService";
     public static final String SELECTED_PROPPERTY_PROPERTY = "selectedProperty";
     public static final String SELECTED_SOURCE_PROPERTY = "selectedSource";
@@ -88,26 +89,27 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private ApplicationActionTypeBean actionBean;
     private String actionNotes;
     private SolaList<BaUnitSearchResultBean> propertyList;
-    private PartyBean contactPerson;
+    private PartyBean contactPerson;  
+    private PartyBean agent;
     private byte[] location;
     private BigDecimal servicesFee;
     private BigDecimal tax;
     private BigDecimal totalAmountPaid;
     private BigDecimal totalFee;
-    private String receiptRef;
+    private String receiptRef;   
     @Size(min = 1, message = ClientMessage.CHECK_APP_SERVICES_NOT_EMPTY, payload = Localized.class)
     private SolaObservableList<ApplicationServiceBean> serviceList;
     private SolaList<SourceBean> sourceList;
     private SolaObservableList<ApplicationLogBean> appLogList;
     private transient ApplicationServiceBean selectedService;
     private transient BaUnitSearchResultBean selectedProperty;
-    private transient SourceBean selectedSource;
-    private PartySummaryBean agent;
+    private transient SourceBean selectedSource;    
     private String assigneeId;
     private ApplicationStatusTypeBean statusBean;
     private SolaList<CadastreObjectSummaryBean> cadastreObjectList;
     private transient CadastreObjectSummaryBean selectedCadastreObject;
     private Date receiptDate;
+    private Date collectionDate;
 
     /**
      * Default constructor to create application bean. Initializes the following
@@ -122,6 +124,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         statusBean = new ApplicationStatusTypeBean();
         propertyList = new SolaList();
         contactPerson = new PartyBean();
+        agent = new PartyBean();
         serviceList = new SolaObservableList<ApplicationServiceBean>();
         sourceList = new SolaList();
         appLogList = new SolaObservableList<ApplicationLogBean>();
@@ -291,15 +294,16 @@ public class ApplicationBean extends ApplicationSummaryBean {
         return collection;
     }
 
-    public PartySummaryBean getAgent() {
-//        if(agent==null){
-//            agent = new PartySummaryBean();
-//        }
+    public PartyBean getAgent() {
+        if(agent==null){
+            agent = new PartyBean();
+        }
+        agent.setTypeCode(PartyTypeBean.CODE_NATURAL_PERSON);
         return agent;
     }
 
-    public void setAgent(PartySummaryBean value) {
-        agent = value;
+    public void setAgent(PartyBean value) {
+        agent = value;        
         propertySupport.firePropertyChange(AGENT_PROPERTY, null, value);
     }
 
@@ -492,6 +496,16 @@ public class ApplicationBean extends ApplicationSummaryBean {
         Date old = receiptDate;
         this.receiptDate = value;
         propertySupport.firePropertyChange(RECEIPT_DATE_PROPERTY, old, value);
+    }
+
+    public Date getCollectionDate() {
+        return collectionDate;
+    }
+
+    public void setCollectionDate(Date value) {
+        Date old = collectionDate;
+        this.collectionDate = value;
+        propertySupport.firePropertyChange(COLLECTION_DATE_PROPERTY, old, value);
     }
 
     public SolaList<CadastreObjectSummaryBean> getCadastreObjectList() {
