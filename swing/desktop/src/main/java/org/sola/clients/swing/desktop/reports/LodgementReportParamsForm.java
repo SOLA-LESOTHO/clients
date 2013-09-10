@@ -66,6 +66,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
         }
         return lodgementBean1;
      }
+      
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,10 +84,12 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
         jPanel5 = new javax.swing.JPanel();
         btnShowCalendarFrom = new javax.swing.JButton();
         txtFromDate = new javax.swing.JFormattedTextField();
+        btnFromDate = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnShowCalendarTo = new javax.swing.JButton();
         txtToDate = new javax.swing.JFormattedTextField();
+        btnToDate = new javax.swing.JButton();
         labTo = new javax.swing.JLabel();
         viewReport = new javax.swing.JButton();
 
@@ -116,6 +119,15 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
         txtFromDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtFromDate.setHorizontalAlignment(JTextField.LEADING);
 
+        btnFromDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnFromDate.setText(bundle.getString("LodgementReportParamsForm.btnFromDate.text")); // NOI18N
+        btnFromDate.setBorder(null);
+        btnFromDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFromDateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -124,13 +136,16 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnShowCalendarFrom)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFromDate)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnShowCalendarFrom))
+                .addComponent(btnShowCalendarFrom)
+                .addComponent(btnFromDate))
         );
 
         btnShowCalendarTo.setText(bundle1.getString("ApplicationSearchPanel.btnShowCalendarTo.text")); // NOI18N
@@ -147,6 +162,15 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
         txtToDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtToDate.setHorizontalAlignment(JTextField.LEADING);
 
+        btnToDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+        btnToDate.setText(bundle.getString("LodgementReportParamsForm.btnToDate.text")); // NOI18N
+        btnToDate.setBorder(null);
+        btnToDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnToDateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -155,15 +179,15 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnShowCalendarTo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnToDate)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnShowCalendarTo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnShowCalendarTo)
+            .addComponent(btnToDate)
         );
 
         labTo.setText(bundle1.getString("ApplicationSearchPanel.labTo.text")); // NOI18N
@@ -176,7 +200,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labTo)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,9 +225,9 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labFrom)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewReport))
+                    .addComponent(viewReport)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -213,8 +237,8 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(viewReport)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -288,11 +312,21 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
            } 
     }//GEN-LAST:event_viewReportActionPerformed
 
+    private void btnToDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToDateActionPerformed
+        showCalendar(txtToDate);
+    }//GEN-LAST:event_btnToDateActionPerformed
+
+    private void btnFromDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFromDateActionPerformed
+        showCalendar(txtFromDate);
+    }//GEN-LAST:event_btnFromDateActionPerformed
+
   
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFromDate;
     private javax.swing.JButton btnShowCalendarFrom;
     private javax.swing.JButton btnShowCalendarTo;
+    private javax.swing.JButton btnToDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

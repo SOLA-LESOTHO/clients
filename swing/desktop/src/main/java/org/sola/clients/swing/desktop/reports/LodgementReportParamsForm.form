@@ -12,7 +12,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
@@ -77,9 +76,9 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="labFrom" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                       <Component id="viewReport" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel5" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -92,8 +91,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="viewReport" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -117,7 +116,9 @@
                       <Component id="txtFromDate" min="-2" pref="153" max="-2" attributes="2"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnShowCalendarFrom" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnFromDate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -126,6 +127,7 @@
                   <Group type="103" alignment="0" groupAlignment="2" attributes="0">
                       <Component id="txtFromDate" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="btnShowCalendarFrom" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnFromDate" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -158,6 +160,22 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtFromDate.setFont(new java.awt.Font(&quot;Tahoma&quot;, 0, 12));"/>
               </AuxValues>
             </Component>
+            <Component class="javax.swing.JButton" name="btnFromDate">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/common/calendar.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/sola/clients/swing/desktop/reports/Bundle.properties" key="LodgementReportParamsForm.btnFromDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFromDateActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
@@ -170,7 +188,7 @@
                           <Component id="labTo" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace pref="33" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -195,19 +213,17 @@
                           <Component id="txtToDate" min="-2" pref="153" max="-2" attributes="2"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnShowCalendarTo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnToDate" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="20" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtToDate" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnShowCalendarTo" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="txtToDate" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnShowCalendarTo" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnToDate" min="-2" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -238,6 +254,22 @@
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtToDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));&#xa;txtToDate.setHorizontalAlignment(JTextField.LEADING);"/>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtToDate.setFont(new java.awt.Font(&quot;Tahoma&quot;, 0, 12));"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnToDate">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/common/calendar.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="org/sola/clients/swing/desktop/reports/Bundle.properties" key="LodgementReportParamsForm.btnToDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="null"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnToDateActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

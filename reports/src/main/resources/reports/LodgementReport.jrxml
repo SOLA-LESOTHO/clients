@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lodgement Report" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lodgement Report" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fac18f03-adad-4b28-aad4-358e4fdbdd4f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -179,7 +179,7 @@
 			<style backcolor="#F6F8F3"/>
 		</conditionalStyle>
 	</style>
-	<subDataset name="Deal">
+	<subDataset name="Deal" uuid="7f25a933-268d-4844-829a-cc1ea393c4c1">
 		<field name="resultDailyAvg" class="java.lang.Number">
 			<fieldDescription><![CDATA[resultDailyAvg]]></fieldDescription>
 		</field>
@@ -202,7 +202,7 @@
 			<fieldDescription><![CDATA[resultType]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Timing">
+	<subDataset name="Timing" uuid="86baecfc-73fa-44be-b8cf-0fec7cd6bc26">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
@@ -219,7 +219,7 @@
 			<fieldDescription><![CDATA[resultDailyAvg]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Table Dataset 1"/>
+	<subDataset name="Table Dataset 1" uuid="d8d17721-0886-4632-9791-6de7b3d93b24"/>
 	<parameter name="FROMDATE" class="java.util.Date"/>
 	<parameter name="TODATE" class="java.util.Date"/>
 	<parameter name="USER" class="java.lang.String"/>
@@ -239,75 +239,79 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="62" splitType="Stretch">
+		<band height="250" splitType="Stretch">
 			<staticText>
-				<reportElement x="221" y="0" width="283" height="42" forecolor="#006666"/>
-				<textElement>
-					<font size="28" isBold="true"/>
+				<reportElement uuid="c9e292b1-a060-4fe5-8b35-c38948c5b088" x="136" y="205" width="283" height="34" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lodgement Report]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="0" width="76" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="cca788d3-d136-48cd-b176-8f6e6bb1f294" mode="Transparent" x="0" y="0" width="76" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Tahoma" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Requested by:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="76" y="0" width="145" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="6433d0b7-833f-4baa-95c3-a59645d4c54a" mode="Transparent" x="76" y="0" width="145" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Tahoma" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Times New Roman" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA["(" + $P{USER} + ")"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="3" y="20" width="36" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="29b61adb-e5e5-4c88-8da2-394116dcc05c" mode="Transparent" x="3" y="20" width="36" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Tahoma" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[On:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="39" y="20" width="182" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="c8b7a053-f91b-49e7-be3d-db01bfa76ae5" mode="Transparent" x="39" y="20" width="182" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Tahoma" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Times New Roman" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CURRENT_DATE}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement uuid="20290d05-8552-4507-a36a-589203d42a80" x="180" y="40" width="186" height="86"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="224" y="1" width="42" height="20"/>
+				<reportElement uuid="ef81d155-dffa-4fcc-aefa-c7c0904f0556" x="224" y="1" width="42" height="20"/>
 				<textElement>
-					<font fontName="Tahoma" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[From:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="389" y="1" width="30" height="20"/>
+				<reportElement uuid="592a4cb0-2a67-4de3-b565-3e593327f69b" x="389" y="1" width="30" height="20"/>
 				<textElement>
-					<font fontName="Tahoma" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[To:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="266" y="1" width="100" height="20"/>
+				<reportElement uuid="bcb855d2-8a55-423e-af08-90f4b12e6b82" x="266" y="1" width="100" height="20"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Times New Roman" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{FROMDATE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="419" y="1" width="100" height="20"/>
+				<reportElement uuid="fed2bc5b-1f6a-4c8f-a596-2e4c634ddd6f" x="419" y="1" width="100" height="20"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Times New Roman" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TODATE}]]></textFieldExpression>
 			</textField>
@@ -316,16 +320,16 @@
 	<detail>
 		<band height="285" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 6" style="table 6" positionType="Float" x="0" y="134" width="555" height="65"/>
+				<reportElement uuid="493840da-0248-41fb-92db-4b6d00eafac4" key="table 6" style="table 6" positionType="Float" x="0" y="134" width="555" height="65"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Timing">
+					<datasetRun subDataset="Timing" uuid="4ec3a94f-f5ea-41b7-810e-4af370a33855">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{lodgementTimingList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="183">
+					<jr:column uuid="c96328c7-8901-4060-add9-5bd351894e64" width="183">
 						<jr:tableHeader style="table 6_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="183" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="fc549816-804f-4313-bc35-071b5fdc7c76" mode="Transparent" x="0" y="0" width="183" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -335,7 +339,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 6_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="183" height="20"/>
+								<reportElement uuid="a78dfeaa-e093-41ce-92ca-bed7995aef05" x="0" y="0" width="183" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -343,11 +347,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90">
+					<jr:column uuid="a6340562-4732-49d2-a965-05f72031dec8" width="90">
 						<jr:tableHeader style="table 6_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="90" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="775a0051-4828-45a9-a33c-14fff7f78601" mode="Transparent" x="0" y="0" width="90" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -357,7 +361,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 6_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20"/>
+								<reportElement uuid="78ee2edf-8c21-4245-9fca-1f8066a38788" x="0" y="0" width="90" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -365,11 +369,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="134">
+					<jr:column uuid="a2645dee-5274-48d8-9dd8-cf5fac9b1191" width="134">
 						<jr:tableHeader style="table 6_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="134" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="b464bc03-2b0e-46c9-a89a-0d3b4c7b54e2" mode="Transparent" x="0" y="0" width="134" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -379,7 +383,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 6_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="134" height="20"/>
+								<reportElement uuid="39c2da34-9399-4d32-b3b4-1b20dfaf69f7" x="0" y="0" width="134" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -387,12 +391,12 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="74">
+					<jr:column uuid="db540b77-570a-471a-a150-1fe5205b6cdd" width="74">
 						<jr:tableHeader style="table 6_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="table 6_TD" height="30" rowSpan="1"/>
 					</jr:column>
-					<jr:column width="72">
+					<jr:column uuid="153bc972-950e-48a5-bafe-d1e4215962c6" width="72">
 						<jr:tableHeader style="table 6_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="table 6_TD" height="30" rowSpan="1"/>
@@ -400,16 +404,16 @@
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement key="table 7" style="table 7" x="0" y="38" width="555" height="59"/>
+				<reportElement uuid="f9926cdb-dcba-4829-91af-68957980c163" key="table 7" style="table 7" x="0" y="38" width="555" height="59"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Deal">
+					<datasetRun subDataset="Deal" uuid="c18c8108-3ea1-48c9-ace7-75489370c524">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{lodgementList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="159">
+					<jr:column uuid="a4b8938b-a734-4ed8-9694-f4a332927678" width="159">
 						<jr:tableHeader style="table 7_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="159" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="ead01804-8f10-4fdc-9682-03b4f0e9af1b" mode="Transparent" x="0" y="0" width="159" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -419,7 +423,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 7_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="159" height="20"/>
+								<reportElement uuid="0cd2ae1c-0c10-46d2-b43d-7813c6563b3b" x="0" y="0" width="159" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -427,11 +431,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="75">
+					<jr:column uuid="8d97e3bd-52de-4ef9-9566-6b94d35304a6" width="75">
 						<jr:tableHeader style="table 7_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="75" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="14733175-f293-4d44-8542-dc2df0d93a13" mode="Transparent" x="0" y="0" width="75" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -441,7 +445,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 7_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="75" height="20"/>
+								<reportElement uuid="ae3fd818-44ca-4ab9-afda-a6a84c369342" x="0" y="0" width="75" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -449,11 +453,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="77">
+					<jr:column uuid="39f2de13-a441-416c-a66b-bef763789967" width="77">
 						<jr:tableHeader style="table 7_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="77" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="e4b290ca-5be3-41e0-9058-de5512c9b014" mode="Transparent" x="0" y="0" width="77" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -463,7 +467,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 7_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="77" height="20"/>
+								<reportElement uuid="9b33cf67-fd44-4ad1-848d-83309c0811cb" x="0" y="0" width="77" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -471,11 +475,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="81">
+					<jr:column uuid="773c7f91-40ca-4226-960f-b997a5091ff7" width="81">
 						<jr:tableHeader style="table 7_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="2" y="0" width="79" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="637d0030-e7c6-4f64-ad7d-05e22e08c159" mode="Transparent" x="2" y="0" width="79" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -485,7 +489,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 7_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="81" height="20"/>
+								<reportElement uuid="6a4dd48f-70cc-4e1d-a227-de9982c5c49e" x="0" y="0" width="81" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -493,11 +497,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="82">
+					<jr:column uuid="54e321a0-8f80-4014-afd7-77e2ec33525d" width="82">
 						<jr:tableHeader style="table 7_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="82" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="1a36f1e7-ea7f-447e-8c89-52bbda53a0a5" mode="Transparent" x="0" y="0" width="82" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -507,7 +511,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 7_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="82" height="20"/>
+								<reportElement uuid="1863871f-b3d5-4c8b-942e-616416f76c81" x="0" y="0" width="82" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -515,11 +519,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="80">
+					<jr:column uuid="75170cc2-a836-42f8-bd17-d57b716ebc81" width="80">
 						<jr:tableHeader style="table 7_TH" height="0" rowSpan="1"/>
 						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement mode="Transparent" x="0" y="0" width="80" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+								<reportElement uuid="e95481a7-f6f7-46ef-88b9-9031f3a71499" mode="Transparent" x="0" y="0" width="80" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 									<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 									<paragraph lineSpacing="Single"/>
@@ -529,7 +533,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="table 7_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="80" height="20"/>
+								<reportElement uuid="0801bf57-fc1d-463c-98c9-dd0a11e7f84c" x="0" y="0" width="80" height="20"/>
 								<textElement>
 									<font size="12"/>
 								</textElement>
@@ -540,16 +544,16 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement x="3" y="18" width="218" height="20"/>
+				<reportElement uuid="01871ea2-6c0f-4b1f-967b-b99d91ad3470" x="3" y="18" width="218" height="20"/>
 				<textElement>
-					<font fontName="Tahoma" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Services]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="114" width="218" height="20"/>
+				<reportElement uuid="83a4156a-e82e-4882-8cb6-e4f777c61b9b" positionType="Float" x="0" y="114" width="218" height="20"/>
 				<textElement>
-					<font fontName="Tahoma" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Application processing timing]]></text>
 			</staticText>
@@ -558,13 +562,17 @@
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<textField>
-				<reportElement x="399" y="34" width="80" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement uuid="b761c109-ecb2-49fd-a57e-afd880306a6f" x="399" y="34" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="479" y="34" width="40" height="20"/>
-				<textElement/>
+				<reportElement uuid="9d018de0-ec69-4c1f-b809-1af21a6fd3a1" x="479" y="34" width="40" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
