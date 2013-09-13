@@ -65,7 +65,7 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     }
 
     public String getLandUseCode() {
-        return landUseCode;
+        return landUseCode.toUpperCase();
     }
 
     public void setLandUseCode(String landUseCode) {
