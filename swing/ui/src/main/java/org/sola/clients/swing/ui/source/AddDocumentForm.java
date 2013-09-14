@@ -32,6 +32,7 @@ package org.sola.clients.swing.ui.source;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.administrative.DisputeBean;
 import org.sola.clients.beans.source.SourceBean;
@@ -43,12 +44,12 @@ import org.sola.common.messaging.MessageUtility;
  * Allows select application document.
  */
 public class AddDocumentForm extends javax.swing.JDialog {
-    
+
     public static final String SELECTED_SOURCE = "selectedSource";
     private ApplicationBean applicationBean;
     private DisputeBean disputeBean;
     private boolean closeFormOnAdd = false;
-    
+
     private DocumentsPanel createDocumentsPanel() {
         DocumentsPanel panel = null;
         if ((applicationBean != null) || (disputeBean != null)) {
@@ -56,7 +57,7 @@ public class AddDocumentForm extends javax.swing.JDialog {
                 panel = new DocumentsPanel(applicationBean.getSourceList());
             } else if (disputeBean != null && disputeBean.getSourceList() != null) {
                 panel = new DocumentsPanel(disputeBean.getSourceList());
-            }            
+            }
         } else {
             panel = new DocumentsPanel();
         }
@@ -93,7 +94,7 @@ public class AddDocumentForm extends javax.swing.JDialog {
         initComponents();
         postInit();
     }
-    
+
     private void postInit() {
         if (applicationBean != null) {
             tabs.setTitleAt(0, String.format("Application #%s", applicationBean.getNr()));
@@ -102,9 +103,19 @@ public class AddDocumentForm extends javax.swing.JDialog {
         } else {
             tabs.removeTabAt(tabs.indexOfComponent(panelApplicationDocs));
         }
+
+        documentsPanel.addPropertyChangeListener(new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if(evt.getPropertyName().equals(DocumentsPanel.SELECTED_SOURCE)){
+                    customizeSelectButton();
+                }
+            }
+        });
         
         documentPanel.addPropertyChangeListener(new PropertyChangeListener() {
-            
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(DocumentPanel.UPDATED_SOURCE) && evt.getNewValue() != null) {
@@ -112,9 +123,9 @@ public class AddDocumentForm extends javax.swing.JDialog {
                 }
             }
         });
-        
+
         documentSearchPanel.addPropertyChangeListener(new PropertyChangeListener() {
-            
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(DocumentSearchPanel.SELECT_SOURCE)) {
@@ -122,9 +133,9 @@ public class AddDocumentForm extends javax.swing.JDialog {
                 }
             }
         });
-        
+
         powerOfAttorneySearchPanel.addPropertyChangeListener(new PropertyChangeListener() {
-            
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(PowerOfAttorneySearchPanel.SELECT_POWER_OF_ATTORNEY)) {
@@ -132,6 +143,12 @@ public class AddDocumentForm extends javax.swing.JDialog {
                 }
             }
         });
+        
+        customizeSelectButton();
+    }
+
+    private void customizeSelectButton(){
+        btnSelect.setEnabled(documentsPanel.getSourceListBean().getSelectedSource()!=null);
     }
     
     private void fireUpdatedSourceEvent(SourceBean source) {
@@ -145,7 +162,7 @@ public class AddDocumentForm extends javax.swing.JDialog {
             MessageUtility.displayMessage(ClientMessage.SOURCE_ADDED);
         }
     }
-    
+
     private void addNewDocument() {
         WindowUtility.commitChanges(this);
         if (documentPanel.validateDocument(true)) {
@@ -153,12 +170,27 @@ public class AddDocumentForm extends javax.swing.JDialog {
             documentPanel.clearFields();
         }
     }
-    
+
     private void addDocument(SourceBean source) {
         if (source == null) {
             MessageUtility.displayMessage(ClientMessage.GENERAL_SELECT_DOCUMENT);
         } else {
             fireUpdatedSourceEvent(source);
+        }
+    }
+
+    private void addDocuments(List<SourceBean> sources) {
+        if (sources == null) {
+            MessageUtility.displayMessage(ClientMessage.GENERAL_SELECT_DOCUMENT);
+        } else {
+            for (SourceBean source : sources) {
+                this.firePropertyChange(SELECTED_SOURCE, null, source.copy());
+            }
+            if (closeFormOnAdd) {
+                this.dispose();
+            } else {
+                MessageUtility.displayMessage(ClientMessage.SOURCE_ADDED_ALL);
+            }
         }
     }
 
@@ -170,7 +202,7 @@ public class AddDocumentForm extends javax.swing.JDialog {
     public void allowAddingOfNewDocuments(boolean allow) {
         tabs.setEnabledAt(tabs.indexOfComponent(tabNewDocument), allow);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -358,10 +390,10 @@ public class AddDocumentForm extends javax.swing.JDialog {
         if (documentsPanel.getSourceListBean().getSelectedSource() == null) {
             MessageUtility.displayMessage(ClientMessage.GENERAL_SELECT_DOCUMENT);
         } else {
-            addDocument((SourceBean) documentsPanel.getSourceListBean().getSelectedSource().copy());
+            addDocuments(documentsPanel.getSourceListBean().getSelectedSources());
         }
     }//GEN-LAST:event_btnSelectActionPerformed
-    
+
     private void btnAddNewDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewDocumentActionPerformed
         addNewDocument();
     }//GEN-LAST:event_btnAddNewDocumentActionPerformed

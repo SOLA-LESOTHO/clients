@@ -43,9 +43,11 @@ import org.sola.webservices.transferobjects.EntityAction;
 public class SourceListBean extends AbstractBindingBean {
 
     public static final String SELECTED_SOURCE_PROPERTY = "selectedSource";
+    public static final String SELECTED_SOURCES_PROPERTY = "selectedSources";
     public static final String SOURCE_LIST_PROPERTY = "sourceBeanList";
     private SolaList<SourceBean> sourceBeanList;
     private SourceBean selectedSource;
+    private ArrayList<SourceBean> selectedSources;
 
     /** Creates new instance of object and initializes {@link SourceBean} list.*/
     public SourceListBean() {
@@ -76,11 +78,29 @@ public class SourceListBean extends AbstractBindingBean {
         propertySupport.firePropertyChange(SELECTED_SOURCE_PROPERTY, null, value);
     }
 
+    public ArrayList<SourceBean> getSelectedSources() {
+        return selectedSources;
+    }
+
+    public void setSelectedSources(ArrayList<SourceBean> selectedSources) {
+        this.selectedSources = selectedSources;
+        propertySupport.firePropertyChange(SELECTED_SOURCES_PROPERTY, null, this.selectedSources);
+    }
+
     // Methods
     /** Safely removes selected source. */
     public void safeRemoveSelectedSource() {
         if (selectedSource != null) {
             sourceBeanList.safeRemove(selectedSource, EntityAction.DISASSOCIATE);
+        }
+    }
+    
+    /** Safely removes selected sources. */
+    public void safeRemoveSelectedSources() {
+        if (selectedSources != null) {
+            for(SourceBean source : selectedSources){
+                sourceBeanList.safeRemove(source, EntityAction.DISASSOCIATE);
+            }
         }
     }
 

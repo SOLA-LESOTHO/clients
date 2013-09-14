@@ -33,6 +33,7 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import javax.swing.DefaultRowSorter;
 import javax.swing.JPopupMenu;
+import javax.swing.ListSelectionModel;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.source.SourceBean;
@@ -116,6 +117,7 @@ public class DocumentsPanel extends javax.swing.JPanel {
      * Makes post initialization tasks to bind listener on {@link SourceListBean}.
      */
     private void postInit() {
+        tableDocuments.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         InternalNumberComparator comp = new InternalNumberComparator();
         DefaultRowSorter rowSorter= (DefaultRowSorter) this.tableDocuments.getRowSorter();
         rowSorter.setComparator(3, comp);
@@ -190,10 +192,10 @@ public class DocumentsPanel extends javax.swing.JPanel {
      * Removes selected document.
      */
     public void removeSelectedDocument() {
-        if (sourceListBean.getSelectedSource() != null) {
+        if (sourceListBean.getSelectedSources() != null) {
             if (MessageUtility.displayMessage(ClientMessage.CONFIRM_REMOVE_RECORD)
                     == MessageUtility.BUTTON_ONE) {
-                sourceListBean.safeRemoveSelectedSource();
+                sourceListBean.safeRemoveSelectedSources();
             }
         }
     }
@@ -250,6 +252,8 @@ public class DocumentsPanel extends javax.swing.JPanel {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, sourceListBean, org.jdesktop.beansbinding.ELProperty.create("${selectedSource}"), tableDocuments, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, sourceListBean, org.jdesktop.beansbinding.ELProperty.create("${selectedSources}"), tableDocuments, org.jdesktop.beansbinding.BeanProperty.create("selectedElements"), "");
         bindingGroup.addBinding(binding);
 
         tableDocuments.addMouseListener(new java.awt.event.MouseAdapter() {
