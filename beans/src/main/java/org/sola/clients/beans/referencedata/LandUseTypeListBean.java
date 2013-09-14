@@ -57,6 +57,8 @@
 */
 package org.sola.clients.beans.referencedata;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractBindingListBean;
 import org.sola.clients.beans.cache.CacheManager;
@@ -121,5 +123,29 @@ public class LandUseTypeListBean extends AbstractBindingListBean {
     public void setSelectedLandUseType(LandUseTypeBean selectedLandUseType) {
         this.selectedLandUseType = selectedLandUseType;
         propertySupport.firePropertyChange(SELECTED_LAND_USE_TYPE_PROPERTY, null, selectedLandUseType);
+    }
+    
+    public ArrayList<String> getDisplayValues() {
+       
+        ListIterator<LandUseTypeBean> iterator =  landUseTypeList.listIterator();
+        
+        ArrayList<String> displayVls = new ArrayList();
+        while(iterator.hasNext()){
+            displayVls.add( iterator.next().getDisplayValue());
+        }
+        
+        return displayVls;
+    }
+    
+    public ArrayList<String> getCodeValues() {
+       
+        ListIterator<LandUseTypeBean> iterator =  landUseTypeList.listIterator();
+        
+        ArrayList<String> codeValues = new ArrayList();
+        while(iterator.hasNext()){
+            codeValues.add( iterator.next().getCode());
+        }
+        
+        return codeValues;
     }
 }

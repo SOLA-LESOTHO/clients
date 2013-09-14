@@ -47,6 +47,7 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     public static final String REGISTRATION_NUMBER_PROPERTY = "registrationNumber";
     public static final String REGISTRATION_DATE_PROPERTY = "registrationDate";
     public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
+    public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
     
     private String id;
     private String nameFirstPart;
@@ -57,9 +58,20 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     private Date registrationDate;
     private Date originalRegistrationDate;
     private String leaseNumber;
+    private String landUseCode;
     
     public BaUnitSearchResultBean(){
         super();
+    }
+
+    public String getLandUseCode() {
+        return landUseCode.toUpperCase();
+    }
+
+    public void setLandUseCode(String landUseCode) {
+        String oldValue = this.landUseCode;
+        this.landUseCode = landUseCode;
+        propertySupport.firePropertyChange(LAND_USE_CODE_PROPERTY, oldValue, this.landUseCode);
     }
 
     public String getId() {

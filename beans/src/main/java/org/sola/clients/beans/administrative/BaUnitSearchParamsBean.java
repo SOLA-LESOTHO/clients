@@ -38,11 +38,13 @@ public class BaUnitSearchParamsBean extends AbstractBindingBean {
     public static final String NAME_LAST_PART_PROPERTY = "nameLastPart";
     public static final String OWNER_NAME_PROPERTY = "ownerName";
     public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
+    public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
     
     private String nameFirstPart;
     private String nameLastPart;
     private String ownerName;
     private String leaseNumber;
+    private String landUseCode;
     
     public BaUnitSearchParamsBean(){
         super();
@@ -50,6 +52,16 @@ public class BaUnitSearchParamsBean extends AbstractBindingBean {
 
     public String getNameFirstPart() {
         return nameFirstPart;
+    }
+
+    public String getLandUseCode() {
+        return landUseCode;
+    }
+
+    public void setLandUseCode(String landUseCode) {
+        String oldValue = this.landUseCode;
+        this.landUseCode = landUseCode;
+        propertySupport.firePropertyChange(LAND_USE_CODE_PROPERTY, oldValue, this.landUseCode);
     }
 
     public void setNameFirstPart(String nameFirstPart) {
