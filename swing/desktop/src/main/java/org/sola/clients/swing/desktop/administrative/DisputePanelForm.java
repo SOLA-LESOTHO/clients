@@ -450,6 +450,8 @@ public class DisputePanelForm extends ContentPanel {
     }
 
     private void cleanDisputeScreen() {
+        disputeID = null;
+        disputeBean1.setId(disputeID);
         disputeBean1.setNr(null);
         disputeBean1.setLodgementDate(null);
         disputeBean1.setStatusCode(null);
@@ -465,6 +467,7 @@ public class DisputePanelForm extends ContentPanel {
         disputeBean1.getDisputePartyList().clear();
         partySearchResult.getPartySearchResults().clear();
         disputeBean1.getSourceList().clear();
+        disputeBean1.resetVersion();
 
     }
 
