@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 /*
@@ -55,8 +57,8 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
 
     /**
      * This constructor must be used to initialize the bean.
-     * 
-     * @param listBean 
+     *
+     * @param listBean
      */
     public SurveyPointListPanel(SurveyPointListBean listBean, CadastreChangeNewSurveyPointLayer layer) {
         this.theBean = listBean;
@@ -66,13 +68,14 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
                 optionRural.isSelected()
                 ? this.getAcceptanceShift(true).toString()
                 : this.getAcceptanceShift(false).toString());
-        
+
         // Add a listner to the bean property of selected bean
         theBean.addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals(AbstractListSpatialBean.SELECTED_BEAN_PROPERTY)) {
-                    customizeButtons((SpatialBean) evt.getNewValue());
+                    customizeControls((SpatialBean) evt.getNewValue());
                 }
             }
         });
@@ -80,10 +83,17 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
 
     /**
      * It changes the availability of buttons based in the selected bean
-     * @param selectedSource 
+     *
+     * @param selectedSource
      */
-    private void customizeButtons(SpatialBean selectedSource) {
+    private void customizeControls(SpatialBean selectedSource) {
         cmdRemove.setEnabled(selectedSource != null);
+        cmdModify.setEnabled(selectedSource != null);
+
+        if (theBean.getSelectedBean() != null) {
+            txtX.setText(((SurveyPointBean) theBean.getSelectedBean()).getX().toString());
+            txtY.setText(((SurveyPointBean) theBean.getSelectedBean()).getY().toString());
+        }
     }
 
     /**
@@ -95,7 +105,8 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
 
     /**
      * It creates the bean. It is called from the generated code.
-     * @return 
+     *
+     * @return
      */
     private SurveyPointListBean createBean() {
         if (this.theBean == null) {
@@ -105,7 +116,8 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
     }
 
     /**
-     * Gets the accepted shift for survey points shifts from their original position
+     * Gets the accepted shift for survey points shifts from their original
+     * position
      *
      * @param forRuralArea
      * @return
@@ -117,9 +129,32 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
         return PojoDataAccess.getInstance().getMapDefinition().getSurveyPointShiftUrbanArea();
     }
 
+    private void modifyPoint() {
+        if (theBean.getSelectedBean() != null) {
+            try {
+                String id = ((SurveyPointBean) theBean.getSelectedBean()).getId();
+
+                Double x = Double.valueOf(this.txtX.getText());
+                Double y = Double.valueOf(this.txtY.getText());
+                SurveyPointBean bean = new SurveyPointBean();
+                bean.setId(id);
+                bean.setX(x);
+                bean.setY(y);
+                this.theBean.getBeanList().add(bean);
+
+                theBean.getBeanList().remove((SurveyPointBean) theBean.getSelectedBean());
+                theBean.setSelectedBean(null);
+
+            } catch (NumberFormatException ex) {
+                Messaging.getInstance().show(GisMessage.CADASTRE_SURVEY_ADD_POINT);
+            }
+        }
+    }
+
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT
-     * modify this code. The content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -133,6 +168,7 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
         optionUrban = new javax.swing.JRadioButton();
         cmdAdd = new javax.swing.JButton();
         cmdRemove = new javax.swing.JButton();
+        cmdModify = new javax.swing.JButton();
         txtAcceptableShift = new javax.swing.JTextField();
         txtStandardDeviation = new javax.swing.JTextField();
         txtMeanShift = new javax.swing.JTextField();
@@ -175,6 +211,14 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
         cmdRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmdRemoveActionPerformed(evt);
+            }
+        });
+
+        cmdModify.setText(bundle.getString("SurveyPointListPanel.cmdModify.text")); // NOI18N
+        cmdModify.setEnabled(false);
+        cmdModify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdModifyActionPerformed(evt);
             }
         });
 
@@ -249,36 +293,43 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMeanShift, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtStandardDeviation, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(optionUrban, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(optionRural)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtAcceptableShift, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtX, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtY, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmdAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmdRemove)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMeanShift, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtStandardDeviation, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(optionUrban, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(optionRural)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtAcceptableShift, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtX)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addGap(2, 2, 2)
+                                .addComponent(txtY, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmdAdd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmdRemove)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmdModify)
+                                .addGap(4, 4, 4)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -301,8 +352,9 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
                     .addComponent(cmdAdd)
                     .addComponent(cmdRemove)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(6, 6, 6)
+                    .addComponent(jLabel4)
+                    .addComponent(cmdModify))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -334,14 +386,18 @@ public class SurveyPointListPanel extends javax.swing.JPanel {
 
     private void cmdRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRemoveActionPerformed
         if (theBean.getSelectedBean() != null) {
-            theBean.getBeanList().remove((SurveyPointBean)theBean.getSelectedBean());
+            theBean.getBeanList().remove((SurveyPointBean) theBean.getSelectedBean());
             theBean.setSelectedBean(null);
         }
-        
+
     }//GEN-LAST:event_cmdRemoveActionPerformed
 
+    private void cmdModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdModifyActionPerformed
+        modifyPoint();
+    }//GEN-LAST:event_cmdModifyActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdAdd;
+    private javax.swing.JButton cmdModify;
     private javax.swing.JButton cmdRemove;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
