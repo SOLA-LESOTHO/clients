@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Locale;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.sola.clients.beans.administrative.*;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.LeaseReportBean;
@@ -463,19 +464,14 @@ public class ReportManager {
      *
      * @param appNumber Application number
      */
-    public static JasperPrint getConsentReport(ConsentBean consentBean, 
-            String conditionText,
-            String expirationDate,
-            String amount,
-            String transactionType
-            ) {
+    public static JasperPrint getConsentReport(ConsentBean consentBean) {
 
         HashMap inputParameters = new HashMap();
                 
-        inputParameters.put("DUE_DATE", expirationDate);
-        inputParameters.put("CONDITION_TEXT", conditionText);
-        inputParameters.put("CONSIDERATION_AMOUNT", amount);
-        inputParameters.put("TRANSACTION_TYPE", transactionType);
+        inputParameters.put("DUE_DATE", DateFormatUtils.format(consentBean.getExpirationDate(), "d MMMMM yyyy"));
+        inputParameters.put("CONDITION_TEXT", consentBean.getSpecialConditions());
+        inputParameters.put("CONSIDERATION_AMOUNT", consentBean.getAmountInWords());
+        inputParameters.put("TRANSACTION_TYPE", consentBean.getTransactionTypeName());
 
         ConsentBean[] beans = new ConsentBean[1];        
         beans[0] = consentBean;
@@ -498,12 +494,13 @@ public class ReportManager {
      * @param consentBean RRR report bean containing all required information to
      * build the report.
      */
-    public static JasperPrint getConsentRejectionReport(ConsentBean consentBean, ApplicationBean appBean) {
+    public static JasperPrint getConsentRejectionReport(ConsentBean consentBean, ApplicationBean appBean, String freeText) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName()); 
         inputParameters.put("APPLICANT_NAME", appBean.getContactPerson().getFullName());
         inputParameters.put("APPLICATION_NUMBER", appBean.getApplicationNumberFormatted());
+        inputParameters.put("FREE_TEXT", freeText);
         
         ConsentBean[] beans = new ConsentBean[1];        
         beans[0] = consentBean;

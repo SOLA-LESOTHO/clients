@@ -2,19 +2,17 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="c4f5e391-9db4-4c23-a642-15bbd05b6a89">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="374"/>
+	<property name="ireport.y" value="118"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="APPLICANT_NAME" class="java.lang.String"/>
 	<parameter name="APPLICATION_NUMBER" class="java.lang.String"/>
 	<parameter name="APPLICATION_DATE" class="java.lang.String"/>
 	<parameter name="TRANSACTION_TYPE" class="java.lang.String"/>
 	<parameter name="PARCEL_ADDRESS" class="java.lang.String"/>
+	<parameter name="FREE_TEXT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="freeText" class="java.lang.String">
-		<fieldDescription><![CDATA[freeText]]></fieldDescription>
-	</field>
 	<field name="rightHolders" class="java.lang.String">
 		<fieldDescription><![CDATA[rightHolders]]></fieldDescription>
 	</field>
@@ -108,7 +106,7 @@ Fax: +266 2231 0905]]></text>
 "<p></p>" +
 "<i>%s</i>",
 $P{APPLICANT_NAME}, $P{APPLICATION_NUMBER}, $F{lodgingDate}, $F{serviceName}, 
-$F{leaseNumber}, $F{parcelAddress}, $F{freeText}
+$F{leaseNumber}, $F{parcelAddress}, $P{FREE_TEXT}
 )]]></textFieldExpression>
 			</textField>
 			<staticText>

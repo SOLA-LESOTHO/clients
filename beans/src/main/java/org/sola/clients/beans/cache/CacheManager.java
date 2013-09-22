@@ -230,6 +230,11 @@ public final class CacheManager {
      * Cache key of the {@link DisputeReportsBean} collection.
      */
     public static final String DISPUTE_REPORTS_CODES_KEY = DisputeReportsBean.class.getName() + LIST_POSTFIX;
+    
+    /*
+     * Cache key of the {@link TransactionTypeBean} collection.
+     */
+    public static final String TRANSACTION_TYPE_CODES_KEY = TransactionTypeBean.class.getName() + LIST_POSTFIX;
 
     
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
@@ -274,7 +279,8 @@ public final class CacheManager {
     private static final String GET_APPLICATION_FORMS = "getApplicationForms";
     private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
     private static final String GET_ROAD_CLASS_TYPE = "getRoadClassType";
-
+    private static final String GET_TRANSACTION_TYPES = "getTransactionTypes";
+    
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -552,6 +558,12 @@ public final class CacheManager {
                 GET_DISPUTE_REPORTS, DISPUTE_REPORTS_CODES_KEY);
     }
 
+    public static List<TransactionTypeBean> getTransactionTypes() {
+        return getCachedBeanList(TransactionTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_TRANSACTION_TYPES, TRANSACTION_TYPE_CODES_KEY);
+    }
+    
     /**
      * Generic method to create cached list of the beans, representing reference
      * table data. The list holds full object, transfered from the server. If

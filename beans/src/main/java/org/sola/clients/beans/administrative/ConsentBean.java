@@ -33,73 +33,56 @@ package org.sola.clients.beans.administrative;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractTransactionedBean;
-import org.sola.clients.beans.administrative.validation.ConsentBeanCheck;
 import org.sola.clients.beans.administrative.validation.MortgageValidationGroup;
+import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaList;
+import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.party.PartyBean;
 import org.sola.clients.beans.party.PartySummaryBean;
+import org.sola.clients.beans.referencedata.TransactionTypeBean;
 import org.sola.clients.beans.validation.Localized;
+import org.sola.common.NumberToWords;
 import org.sola.common.messaging.ClientMessage;
+import org.sola.webservices.transferobjects.administrative.ConsentTO;
+import org.sola.services.boundary.wsclients.WSManager;
 
-/**
- *
- * @author Tokelo
- */
-@ConsentBeanCheck
 public final class ConsentBean extends AbstractTransactionedBean {
 
     public static final String REGISTRATION_DATE_PROPERTY = "registrationDate";
     public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
     public static final String PARCEL_LOCATION_PROPERTY = "parcelAddress";
+    
     private BaUnitBean baUnit;
     private RrrBean rightholderRrr;
-    private String conditionText;
     private SolaList<PartyBean> rightHolderList;
-    private SolaList<PartyBean> recipientList;
     private String leaseNumber;
     private BigDecimal serviceFee;
     private String receiptNumber;
     private Date receiptDate;
-    private String recipients;
-    private String recipientsMaritalStatus;
-    private String rightholders;
-    private String rightholdersMaritalStatus;
-    private String freeText;
-    private String transactionType;
     private String lodgingDate;
     private String serviceName;
     private String parcelAddress;
-    private Date consentDate;
-    private String registrationDate;
-    private String registrationDay;
-    private String expirationDate;
-
+    @NotNull(message=ClientMessage.CONSENT_SELECT_TRANSACTION_TYPE, payload = Localized.class)
+    private TransactionTypeBean transactionType;
+    @NotNull(message=ClientMessage.CONSENT_PROVIDE_REGDATE, payload = Localized.class)
+    private Date registrationDate;
+    @NotNull(message=ClientMessage.CONSENT_PROVIDE_EXPIRATION, payload = Localized.class)
+    private Date expirationDate;
+    private BigDecimal amount;
+    private String specialConditions;
+    private SolaList<PartyBean> transfereeList;
+    
     public ConsentBean() {
         super();
-        rightHolderList = new SolaList();
+        rightHolderList = new SolaList<PartyBean>();
+        transfereeList = new SolaList<PartyBean>();
         baUnit = new BaUnitBean();
         rightholderRrr = new RrrBean();
-        consentDate = new Date();
-        this.setExpirationDate(consentDate);
-        expirationDate = getExpirationDate();
-    }
-
-    public void setConditionText(String conditionText) {
-        if (conditionText == null) {
-            conditionText = "";
-        }
-        this.conditionText = conditionText;
-    }
-
-    public String getConditionText() {
-        if (conditionText == null) {
-            conditionText = "";
-        }
-        return conditionText;
     }
 
     public BaUnitBean getBaUnit() {
@@ -116,7 +99,7 @@ public final class ConsentBean extends AbstractTransactionedBean {
         this.baUnit = baUnit;
     }
 
-    @Size(min = 1, groups = {MortgageValidationGroup.class}, message = ClientMessage.CHECK_SIZE_RIGHTHOLDERLIST, payload = Localized.class)
+    @Size(min = 1, message = ClientMessage.CHECK_SIZE_RIGHTHOLDERLIST, payload = Localized.class)
     public ObservableList<PartyBean> getFilteredRightHolderList() {
         return rightHolderList.getFilteredList();
     }
@@ -137,12 +120,68 @@ public final class ConsentBean extends AbstractTransactionedBean {
         this.rightholderRrr = rightholderRrr;
     }
 
-    public SolaList<PartyBean> getRecipientList() {
-        return recipientList;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setRecipientList(SolaList<PartyBean> recipientList) {
-        this.recipientList = recipientList;
+    public String getAmountInWords(){
+        return NumberToWords.getFullAmountString(getAmount());
+    }
+    
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public String getSpecialConditions() {
+        return specialConditions;
+    }
+
+    public void setSpecialConditions(String specialConditions) {
+        this.specialConditions = specialConditions;
+    }
+
+    public void setTransactionTypeCode(String transactionTypeCode){
+        String oldValue = null;
+        if (transactionType != null) {
+            oldValue = transactionType.getCode();
+        }
+        setTransactionType(CacheManager.getBeanByCode(
+                CacheManager.getTransactionTypes(), transactionTypeCode));
+    }
+    
+    public String getTransactionTypeCode(){
+        if(getTransactionType()!=null){
+            return getTransactionType().getCode();
+        } 
+        return null;
+    }
+    
+    public String getTransactionTypeName(){
+        if(getTransactionType()!=null){
+            return getTransactionType().getDisplayValue();
+        } 
+        return "";
+    }
+    
+    public TransactionTypeBean getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionTypeBean transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    @Size(min = 1, message = ClientMessage.CONSENT_PROVIDE_RECIPIENT, payload = Localized.class)
+    public ObservableList<PartyBean> getTransfereeListFiltered() {
+        return transfereeList.getFilteredList();
+    }
+    
+    public SolaList<PartyBean> getTransfereeList() {
+        return transfereeList;
+    }
+
+    public void setTransfereeList(SolaList<PartyBean> transfereeList) {
+        this.transfereeList = transfereeList;
     }
 
     public String getLeaseNumber() {
@@ -190,8 +229,8 @@ public final class ConsentBean extends AbstractTransactionedBean {
 
     public String getRecipients() {
         String lessess = "";
-        if (this.getRecipientList() != null && this.getRecipientList().size() > 0) {
-            for (PartySummaryBean party : this.getRecipientList()) {
+        if (getTransfereeListFiltered() != null && getTransfereeListFiltered().size() > 0) {
+            for (PartySummaryBean party : this.getTransfereeListFiltered()) {
                 if (lessess.equals("")) {
                     lessess = party.getFullName().toUpperCase();
                 } else {
@@ -200,13 +239,6 @@ public final class ConsentBean extends AbstractTransactionedBean {
             }
         }
         return lessess;
-    }
-
-    public void setRecipients(String recipients) {
-        if (recipients == null) {
-            recipients = "";
-        }
-        this.recipients = recipients;
     }
 
     public String getRightHolders() {
@@ -223,30 +255,16 @@ public final class ConsentBean extends AbstractTransactionedBean {
         return lessors;
     }
 
-    public void setRightholders(String rightholders) {
-        if (rightholders == null) {
-            rightholders = "";
-        }
-        this.rightholders = rightholders;
-    }
-
     public String getRecipientsMaritalStatus() {
         String maritalStatus = "";
-        if (this.getRecipientList() != null && this.getRecipientList().size() > 0) {
-            for (PartySummaryBean party : this.getRecipientList()) {
+        if (getTransfereeListFiltered() != null && getTransfereeListFiltered().size() > 0) {
+            for (PartySummaryBean party : getTransfereeListFiltered()) {
                 if (maritalStatus.equals("")) {
                     maritalStatus = party.getPartyBean().getLegalType();
                 }
             }
         }
         return maritalStatus.toUpperCase();
-    }
-
-    public void setRecipientsMaritalStatus(String recipientsMaritalStatus) {
-        if (recipientsMaritalStatus == null) {
-            recipientsMaritalStatus = "";
-        }
-        this.recipientsMaritalStatus = recipientsMaritalStatus;
     }
 
     public String getRightholdersMaritalStatus() {
@@ -259,35 +277,6 @@ public final class ConsentBean extends AbstractTransactionedBean {
             }
         }
         return maritalStatus.toUpperCase();
-    }
-
-    public void setRightholdersMaritalStatus(String rightholdersMaritalStatus) {
-        if (rightholdersMaritalStatus == null) {
-            rightholdersMaritalStatus = "";
-        }
-        this.rightholdersMaritalStatus = rightholdersMaritalStatus;
-    }
-
-    public String getFreeText() {
-        return freeText;
-    }
-
-    public void setFreeText(String freeText) {
-        if (freeText == null) {
-            freeText = "";
-        }
-        this.freeText = freeText;
-    }
-
-    public String getTransactionType() {
-        return transactionType;
-    }
-
-    public void setTransactionType(String transactionType) {
-        if (transactionType == null) {
-            transactionType = "";
-        }
-        this.transactionType = transactionType;
     }
 
     public String getLodgingDate() {
@@ -325,50 +314,68 @@ public final class ConsentBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(PARCEL_LOCATION_PROPERTY, old, this.parcelAddress);
     }
 
-    public String getRegistrationDate() {
+    public Date getRegistrationDate() {
         return registrationDate;
     }
 
     public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = DateFormatUtils.format(registrationDate, "MMMMM yyyy");
+        this.registrationDate = registrationDate;
     }
 
     public String getRegistrationDay() {
-        return registrationDay;
+        if(getRegistrationDate()!=null){
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(getRegistrationDate());
+            return String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+        }
+        return "";
     }
 
-    public void setRegistrationDay(Date registrationDay) {
-        this.registrationDay = DateFormatUtils.format(registrationDay, "dd");
-    }
-
-    public Date getConsentDate() {
-        return consentDate;
-    }
-
-    public void setConsentDay(Date consentDate) {
-        this.consentDate = consentDate;
-    }
-
-    public String getExpirationDate() {
+    public Date getExpirationDate() {
         return expirationDate;
     }
 
-    /*
-     * Expiration date for Consent Application is always the next 31st of March
-     */
     public void setExpirationDate(Date expirationDate) {
-        Integer currentYear = Integer.parseInt(DateFormatUtils.format(expirationDate, "yyyy"));
-        Integer currentMonth = Integer.parseInt(DateFormatUtils.format(expirationDate, "M"));
+        this.expirationDate = expirationDate;
+    }
+    
+    /*
+     * Calculates expiration date starting from the given date. Consent Application is always the next 31st of March
+     */
+    public void calculateExpirationDate(Date startDate) {
+        if(startDate == null){
+            return;
+        }
+        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDate);
+        
+        int currentYear = cal.get(Calendar.YEAR);
 
-        if (currentMonth > 3) {
-            currentYear = currentYear + 1;
+        if (cal.get(Calendar.MONTH) > 3) {
+            currentYear += 1;
         }
 
-        Calendar oldExpirationDate = Calendar.getInstance();
-        oldExpirationDate.set(currentYear, 2, 31);
-
-        Date newExpirationDate = oldExpirationDate.getTime();
-        this.expirationDate = DateFormatUtils.format(newExpirationDate, "d MMMMM yyyy");
-
+        cal.set(currentYear, 2, 31);
+        setExpirationDate(cal.getTime());
+    }
+    
+    /** 
+     * Saves consent letter. 
+     * @param serviceId ID of the service, triggered consent saving.
+     */    
+    public void save(String serviceId){
+        ConsentTO consentTO = TypeConverters.BeanToTrasferObject(this, ConsentTO.class);
+        consentTO = WSManager.getInstance().getAdministrative().saveConsent(serviceId, consentTO);
+        TypeConverters.TransferObjectToBean(consentTO, ConsentBean.class, this);
+    }
+    
+    /** 
+     * Returns consent letter by service ID. 
+     * @param serviceId ID of the service under which consent was saved.
+     */    
+    public static ConsentBean getConsentByServiceId(String serviceId){
+        ConsentTO consentTO = WSManager.getInstance().getAdministrative().getConsentByServiceId(serviceId);
+        return TypeConverters.TransferObjectToBean(consentTO, ConsentBean.class, null);
     }
 }
