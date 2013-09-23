@@ -28,6 +28,7 @@
  */
 package org.sola.clients.swing.desktop.application;
 
+import java.util.Iterator;
 import java.util.List;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationSearchResultBean;
@@ -84,8 +85,8 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
             MessageUtility.displayMessage(ClientMessage.APPLICATION_NOSEL_USER);
             return;
         }
-
-        for (ApplicationSearchResultBean app : applications) {
+        for (Iterator<ApplicationSearchResultBean> it = applications.iterator(); it.hasNext();) {
+            ApplicationSearchResultBean app = it.next();
             ApplicationBean.assignUser(app, usersList.getSelectedUser().getId());
         }
 
@@ -152,6 +153,8 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
                 .addComponent(cbxUsers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 20, Short.MAX_VALUE))
         );
+
+        cbxDepartments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
 
         jLabel2.setText(bundle.getString("ApplicationAssignmentDialog.jLabel2.text")); // NOI18N
 
