@@ -533,7 +533,9 @@ public class ReportManager {
             beans[i] = brList.getBrBeanList().get(i);
             if (beans[i].getFeedback() != null) {
                 String feedback = beans[i].getFeedback();
-                feedback = feedback.substring(0, feedback.indexOf("::::"));
+                if(feedback.indexOf("::::")>-1){
+                    feedback = feedback.substring(0, feedback.indexOf("::::"));
+                }
                 beans[i].setFeedback(feedback);
             }
 
