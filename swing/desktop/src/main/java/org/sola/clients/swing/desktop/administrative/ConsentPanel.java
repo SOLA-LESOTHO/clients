@@ -32,7 +32,10 @@ package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.administrative.BaUnitBean;
@@ -71,17 +74,17 @@ public class ConsentPanel extends ContentPanel {
         }
     }
 
-    private ConsentBean createConsentBean(){
-        if(consentBean1 == null){
+    private ConsentBean createConsentBean() {
+        if (consentBean1 == null) {
             return new ConsentBean();
         }
         return consentBean1;
     }
-    
+
     /**
      * Creates new form ConsentPanel
      */
-    public ConsentPanel(ConsentBean consentBean, BaUnitBean baUnitBean, 
+    public ConsentPanel(ConsentBean consentBean, BaUnitBean baUnitBean,
             ApplicationBean appBean, ApplicationServiceBean appService) {
         this.appBean = appBean;
         this.appService = appService;
@@ -97,7 +100,7 @@ public class ConsentPanel extends ContentPanel {
     }
 
     private void customizeForm() {
-        headerPanel2.setTitleText(appService.getRequestType().getDisplayValue() 
+        headerPanel2.setTitleText(appService.getRequestType().getDisplayValue()
                 + ": " + consentBean1.getLeaseNumber());
         boolean enabled = false;
         if (consentBean1.getParcelAddress() == null || consentBean1.getParcelAddress().trim().isEmpty()) {
@@ -114,7 +117,7 @@ public class ConsentPanel extends ContentPanel {
         } else {
             consentBean1 = consentBean;
         }
-        
+
         consentBean1.setBaUnit(baUnit);
         consentBean1.setLeaseNumber(baUnit.getName());
 
@@ -141,6 +144,7 @@ public class ConsentPanel extends ContentPanel {
     }
 
     private void printConsentCertificate() {
+        commitChanges();
         if (consentBean1.validate(true).size() > 0) {
             return;
         }
@@ -148,6 +152,7 @@ public class ConsentPanel extends ContentPanel {
     }
 
     private void printConsentRejectionLetter() {
+        commitChanges();
         if (consentBean1 != null) {
             // Show free text form
             FreeTextDialog form = new FreeTextDialog(
@@ -166,7 +171,7 @@ public class ConsentPanel extends ContentPanel {
                 }
             });
             form.setVisible(true);
-            if(freeText[0] == null || freeText[0] == ""){
+            if (freeText[0] == null || freeText[0] == "") {
                 freeText[0] = "[NONE]";
             }
             showReport(ReportManager.getConsentRejectionReport(consentBean1, appBean, freeText[0]));
@@ -191,11 +196,27 @@ public class ConsentPanel extends ContentPanel {
         return true;
     }
 
+    private void commitChanges() {
+        try {
+            if (txtRent.isEnabled()) {
+                txtRent.commitEdit();
+            }
+            if(txtRegistrationDate.isEnabled()){
+                txtRegistrationDate.commitEdit();
+            }
+            if(txtExpirationDate.isEnabled()){
+                txtExpirationDate.commitEdit();
+            }
+        } catch (ParseException ex) {
+        }
+    }
+
     private void save(final boolean close) {
+        commitChanges();
         if (consentBean1.validate(true).size() > 0) {
             return;
         }
-        
+
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
 
             @Override
@@ -617,7 +638,6 @@ public class ConsentPanel extends ContentPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         save(false);
     }//GEN-LAST:event_btnSaveActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnPrintRejection;
