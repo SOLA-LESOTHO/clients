@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="c4f5e391-9db4-4c23-a642-15bbd05b6a89">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="118"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="USER_NAME" class="java.lang.String"/>
 	<parameter name="APPLICANT_NAME" class="java.lang.String"/>
 	<parameter name="APPLICATION_NUMBER" class="java.lang.String"/>
@@ -34,6 +34,9 @@
 	<field name="parcelAddress" class="java.lang.String">
 		<fieldDescription><![CDATA[parcelAddress]]></fieldDescription>
 	</field>
+	<field name="transactionTypeName" class="java.lang.String">
+		<fieldDescription><![CDATA[transactionTypeName]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -46,15 +49,15 @@
 				</textElement>
 				<text><![CDATA[CONSENT REJECTION LETTER]]></text>
 			</staticText>
-			<textField pattern="dd MMMMM yyyy HH:mm">
-				<reportElement uuid="eb489c4a-4752-4e29-87c9-6ebc079921b7" x="10" y="39" width="105" height="19"/>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="eb489c4a-4752-4e29-87c9-6ebc079921b7" x="41" y="39" width="125" height="19"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="f5d1dee6-ce65-4b4a-8aa7-005981567da9" x="10" y="58" width="95" height="19"/>
+				<reportElement uuid="f5d1dee6-ce65-4b4a-8aa7-005981567da9" x="10" y="58" width="69" height="19"/>
 				<textElement/>
 				<text><![CDATA[Ref. number:]]></text>
 			</staticText>
@@ -88,6 +91,18 @@ Email: info@laa.org.ls
 Tel: +266 2232 2376
 Fax: +266 2231 0905]]></text>
 			</staticText>
+			<textField pattern="dd MMMMM yyyy HH:mm">
+				<reportElement uuid="eb489c4a-4752-4e29-87c9-6ebc079921b7" x="79" y="58" width="125" height="19"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{APPLICATION_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f5d1dee6-ce65-4b4a-8aa7-005981567da9" x="10" y="39" width="31" height="19"/>
+				<textElement/>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<detail>
@@ -105,7 +120,7 @@ Fax: +266 2231 0905]]></text>
 "for the parcel <b>%s</b>, located at %s, was rejected because of the following reason:" +
 "<p></p>" +
 "<i>%s</i>",
-$P{APPLICANT_NAME}, $P{APPLICATION_NUMBER}, $F{lodgingDate}, $F{serviceName}, 
+$P{APPLICANT_NAME}, $P{APPLICATION_NUMBER}, $F{lodgingDate}, $F{transactionTypeName}, 
 $F{leaseNumber}, $F{parcelAddress}, $P{FREE_TEXT}
 )]]></textFieldExpression>
 			</textField>

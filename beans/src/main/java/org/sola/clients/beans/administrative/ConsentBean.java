@@ -56,7 +56,6 @@ public final class ConsentBean extends AbstractTransactionedBean {
     public static final String REGISTRATION_DATE_PROPERTY = "registrationDate";
     public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
     public static final String PARCEL_LOCATION_PROPERTY = "parcelAddress";
-    
     private BaUnitBean baUnit;
     private RrrBean rightholderRrr;
     private SolaList<PartyBean> rightHolderList;
@@ -67,16 +66,17 @@ public final class ConsentBean extends AbstractTransactionedBean {
     private String lodgingDate;
     private String serviceName;
     private String parcelAddress;
-    @NotNull(message=ClientMessage.CONSENT_SELECT_TRANSACTION_TYPE, payload = Localized.class)
+    @NotNull(message = ClientMessage.CONSENT_SELECT_TRANSACTION_TYPE, payload = Localized.class)
     private TransactionTypeBean transactionType;
-    @NotNull(message=ClientMessage.CONSENT_PROVIDE_REGDATE, payload = Localized.class)
+    @NotNull(message = ClientMessage.CONSENT_PROVIDE_REGDATE, payload = Localized.class)
     private Date registrationDate;
-    @NotNull(message=ClientMessage.CONSENT_PROVIDE_EXPIRATION, payload = Localized.class)
+    @NotNull(message = ClientMessage.CONSENT_PROVIDE_EXPIRATION, payload = Localized.class)
     private Date expirationDate;
     private BigDecimal amount;
     private String specialConditions;
     private SolaList<PartyBean> transfereeList;
-    
+    private String applicationNumber;
+
     public ConsentBean() {
         super();
         rightHolderList = new SolaList<PartyBean>();
@@ -124,10 +124,10 @@ public final class ConsentBean extends AbstractTransactionedBean {
         return amount;
     }
 
-    public String getAmountInWords(){
+    public String getAmountInWords() {
         return NumberToWords.getFullAmountString(getAmount());
     }
-    
+
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
@@ -137,10 +137,13 @@ public final class ConsentBean extends AbstractTransactionedBean {
     }
 
     public void setSpecialConditions(String specialConditions) {
+        if (specialConditions == null){
+            specialConditions = "";
+        }
         this.specialConditions = specialConditions;
     }
 
-    public void setTransactionTypeCode(String transactionTypeCode){
+    public void setTransactionTypeCode(String transactionTypeCode) {
         String oldValue = null;
         if (transactionType != null) {
             oldValue = transactionType.getCode();
@@ -148,21 +151,21 @@ public final class ConsentBean extends AbstractTransactionedBean {
         setTransactionType(CacheManager.getBeanByCode(
                 CacheManager.getTransactionTypes(), transactionTypeCode));
     }
-    
-    public String getTransactionTypeCode(){
-        if(getTransactionType()!=null){
+
+    public String getTransactionTypeCode() {
+        if (getTransactionType() != null) {
             return getTransactionType().getCode();
-        } 
+        }
         return null;
     }
-    
-    public String getTransactionTypeName(){
-        if(getTransactionType()!=null){
+
+    public String getTransactionTypeName() {
+        if (getTransactionType() != null) {
             return getTransactionType().getDisplayValue();
-        } 
+        }
         return "";
     }
-    
+
     public TransactionTypeBean getTransactionType() {
         return transactionType;
     }
@@ -175,7 +178,7 @@ public final class ConsentBean extends AbstractTransactionedBean {
     public ObservableList<PartyBean> getTransfereeListFiltered() {
         return transfereeList.getFilteredList();
     }
-    
+
     public SolaList<PartyBean> getTransfereeList() {
         return transfereeList;
     }
@@ -323,7 +326,7 @@ public final class ConsentBean extends AbstractTransactionedBean {
     }
 
     public String getRegistrationDay() {
-        if(getRegistrationDate()!=null){
+        if (getRegistrationDate() != null) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(getRegistrationDate());
             return String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
@@ -338,18 +341,19 @@ public final class ConsentBean extends AbstractTransactionedBean {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
-    
+
     /*
-     * Calculates expiration date starting from the given date. Consent Application is always the next 31st of March
+     * Calculates expiration date starting from the given date. Consent
+     * Application is always the next 31st of March
      */
     public void calculateExpirationDate(Date startDate) {
-        if(startDate == null){
+        if (startDate == null) {
             return;
         }
-        
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(startDate);
-        
+
         int currentYear = cal.get(Calendar.YEAR);
 
         if (cal.get(Calendar.MONTH) > 3) {
@@ -359,22 +363,24 @@ public final class ConsentBean extends AbstractTransactionedBean {
         cal.set(currentYear, 2, 31);
         setExpirationDate(cal.getTime());
     }
-    
-    /** 
-     * Saves consent letter. 
+
+    /**
+     * Saves consent letter.
+     *
      * @param serviceId ID of the service, triggered consent saving.
-     */    
-    public void save(String serviceId){
+     */
+    public void save(String serviceId) {
         ConsentTO consentTO = TypeConverters.BeanToTrasferObject(this, ConsentTO.class);
         consentTO = WSManager.getInstance().getAdministrative().saveConsent(serviceId, consentTO);
         TypeConverters.TransferObjectToBean(consentTO, ConsentBean.class, this);
     }
-    
-    /** 
-     * Returns consent letter by service ID. 
+
+    /**
+     * Returns consent letter by service ID.
+     *
      * @param serviceId ID of the service under which consent was saved.
-     */    
-    public static ConsentBean getConsentByServiceId(String serviceId){
+     */
+    public static ConsentBean getConsentByServiceId(String serviceId) {
         ConsentTO consentTO = WSManager.getInstance().getAdministrative().getConsentByServiceId(serviceId);
         return TypeConverters.TransferObjectToBean(consentTO, ConsentBean.class, null);
     }
