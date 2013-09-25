@@ -500,6 +500,7 @@ public class ReportManager {
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName()); 
         inputParameters.put("APPLICANT_NAME", appBean.getContactPerson().getFullName());
         inputParameters.put("APPLICATION_NUMBER", appBean.getApplicationNumberFormatted());
+        inputParameters.put("TRANSACTION_TYPE", consentBean.getTransactionTypeName());
         inputParameters.put("FREE_TEXT", freeText);
         
         ConsentBean[] beans = new ConsentBean[1];        
