@@ -94,6 +94,7 @@ public class MainForm extends javax.swing.JFrame {
         btnRoles = new javax.swing.JButton();
         btnGroups = new javax.swing.JButton();
         btnUsers = new javax.swing.JButton();
+        btnDepartments = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnBr = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
@@ -189,6 +190,20 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         mainToolbar.add(btnUsers);
+
+        btnDepartments.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/folder-open-document-text.png"))); // NOI18N
+        btnDepartments.setText(bundle.getString("MainForm.btnDepartments.text")); // NOI18N
+        btnDepartments.setFocusable(false);
+        btnDepartments.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDepartments.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnDepartments.setName(bundle.getString("MainForm.btnDepartments.name")); // NOI18N
+        btnDepartments.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDepartments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepartmentsActionPerformed(evt);
+            }
+        });
+        mainToolbar.add(btnDepartments);
 
         jSeparator3.setName("jSeparator3"); // NOI18N
         mainToolbar.add(jSeparator3);
@@ -735,6 +750,10 @@ public class MainForm extends javax.swing.JFrame {
         manageLegalTypes();
     }//GEN-LAST:event_menuItmLegalTypeActionPerformed
 
+    private void btnDepartmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartmentsActionPerformed
+        manageDepartments();
+    }//GEN-LAST:event_btnDepartmentsActionPerformed
+
     /** Opens application form management panel. */
     private void manageApplicationForms() {
         openReferenceDataPanel(ApplicationFormBean.class, menuAppForm.getText());
@@ -756,6 +775,16 @@ public class MainForm extends javax.swing.JFrame {
         }else{
             GroupsManagementPanel groupManagementPanel = new GroupsManagementPanel();
             mainContentPanel.addPanel(groupManagementPanel, MainContentPanel.CARD_ADMIN_GROUP_MANAGE, true);
+        }
+    }
+    
+    /** Opens departments management panel. */
+    private void manageDepartments() {
+        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE)){
+            mainContentPanel.showPanel(MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE);
+        }else{
+            GroupsManagementPanel groupManagementPanel = new GroupsManagementPanel();
+            mainContentPanel.addPanel(groupManagementPanel, MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE, true);
         }
     }
 
@@ -857,6 +886,7 @@ public class MainForm extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBr;
+    private javax.swing.JButton btnDepartments;
     private javax.swing.JButton btnGroups;
     private javax.swing.JButton btnRoles;
     private javax.swing.JButton btnUsers;
