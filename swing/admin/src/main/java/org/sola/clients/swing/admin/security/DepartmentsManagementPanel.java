@@ -22,6 +22,8 @@ import org.sola.clients.beans.security.DepartmentSummaryBean;
 import org.sola.clients.beans.security.DepartmentSummaryListBean;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
+import org.sola.common.messaging.ClientMessage;
+import org.sola.common.messaging.MessageUtility;
 
 /**
  *
@@ -52,7 +54,7 @@ public class DepartmentsManagementPanel extends ContentPanel {
     private void customizeDepartmentButtons(DepartmentSummaryBean departmentSummaryBean) {
         btnRemoveDepartment.setEnabled(departmentSummaryBean != null);
         btnEditDepartment.setEnabled(departmentSummaryBean != null);
-       // menuEdit.setEnabled(btnEditDepartment.isEnabled());
+        //menuEdit.setEnabled(btnEditDepartment.isEnabled());
         //menuRemove.setEnabled(btnRemoveDepartment.isEnabled());
     }
 
@@ -210,7 +212,12 @@ public class DepartmentsManagementPanel extends ContentPanel {
     // End of variables declaration//GEN-END:variables
 
     private void removeDepartment() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        if (departmentSummaryList.getSelectedDepartment() != null
+                && MessageUtility.displayMessage(ClientMessage.ADMIN_CONFIRM_DELETE_DEPARTMENT)
+                == MessageUtility.BUTTON_ONE) {
+            DepartmentBean.removeDepartment(departmentSummaryList.getSelectedDepartment().getId());
+            departmentSummaryList.loadDepartments(false);
+        }
     }
 
     private void addDepartment() {
