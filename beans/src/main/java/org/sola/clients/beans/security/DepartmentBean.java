@@ -20,10 +20,9 @@ import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
-import org.sola.webservices.transferobjects.security.DepartmentTO;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.EntityAction;
-
+import org.sola.webservices.transferobjects.security.DepartmentTO;
 /**
  *
  * @author Charlizza
