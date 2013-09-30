@@ -76,7 +76,9 @@ public class MainContentPanel extends javax.swing.JPanel {
     public final static String CARD_ADMIN_ROLES_MANAGE = "rolesManagementPanel";
     public final static String CARD_ADMIN_ROLE = "rolePanel";
     public final static String CARD_ADMIN_GROUP_MANAGE = "groupManagementPanel";
+    public final static String CARD_ADMIN_DEPARTMENT_MANAGE = "departmentManagementPanel";
     public final static String CARD_ADMIN_GROUP = "groupPanel";
+    public final static String CARD_ADMIN_DEPARTMENT = "departmentPanel";
     public final static String CARD_ADMIN_USER_MANAGE = "usersManagementPanel";
     public final static String CARD_ADMIN_USER = "userPanel";
     public final static String CARD_ADMIN_USER_PASSWORD = "userPasswordPanel";

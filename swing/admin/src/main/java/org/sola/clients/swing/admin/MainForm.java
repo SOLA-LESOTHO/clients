@@ -36,6 +36,7 @@ import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.reports.ReportManager;
 import org.sola.clients.swing.admin.referencedata.ReferenceDataManagementPanel;
+import org.sola.clients.swing.admin.security.DepartmentsManagementPanel;
 import org.sola.clients.swing.admin.security.GroupsManagementPanel;
 import org.sola.clients.swing.admin.security.RolesManagementPanel;
 import org.sola.clients.swing.admin.security.UsersManagementPanel;
@@ -94,6 +95,7 @@ public class MainForm extends javax.swing.JFrame {
         btnRoles = new javax.swing.JButton();
         btnGroups = new javax.swing.JButton();
         btnUsers = new javax.swing.JButton();
+        btnDepartments = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnBr = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
@@ -109,6 +111,7 @@ public class MainForm extends javax.swing.JFrame {
         menuRoles = new javax.swing.JMenuItem();
         menuGroups = new javax.swing.JMenuItem();
         menuUsers = new javax.swing.JMenuItem();
+        menuDepartments = new javax.swing.JMenuItem();
         menuRefData = new javax.swing.JMenu();
         menuApplications = new javax.swing.JMenu();
         menuRequestCategory = new javax.swing.JMenuItem();
@@ -189,6 +192,20 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         mainToolbar.add(btnUsers);
+
+        btnDepartments.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/folder-open-document-text.png"))); // NOI18N
+        btnDepartments.setText(bundle.getString("MainForm.btnDepartments.text")); // NOI18N
+        btnDepartments.setFocusable(false);
+        btnDepartments.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDepartments.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnDepartments.setName(bundle.getString("MainForm.btnDepartments.name")); // NOI18N
+        btnDepartments.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDepartments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepartmentsActionPerformed(evt);
+            }
+        });
+        mainToolbar.add(btnDepartments);
 
         jSeparator3.setName("jSeparator3"); // NOI18N
         mainToolbar.add(jSeparator3);
@@ -294,7 +311,21 @@ public class MainForm extends javax.swing.JFrame {
         menuUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/user.png"))); // NOI18N
         menuUsers.setText(bundle.getString("MainForm.menuUsers.text")); // NOI18N
         menuUsers.setName("menuUsers"); // NOI18N
+        menuUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuUsersActionPerformed(evt);
+            }
+        });
         menuSecurity.add(menuUsers);
+
+        menuDepartments.setText(bundle.getString("MainForm.menuDepartments.text")); // NOI18N
+        menuDepartments.setName(bundle.getString("MainForm.menuDepartments.name")); // NOI18N
+        menuDepartments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDepartmentsActionPerformed(evt);
+            }
+        });
+        menuSecurity.add(menuDepartments);
 
         mainMenu.add(menuSecurity);
 
@@ -735,6 +766,18 @@ public class MainForm extends javax.swing.JFrame {
         manageLegalTypes();
     }//GEN-LAST:event_menuItmLegalTypeActionPerformed
 
+    private void btnDepartmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartmentsActionPerformed
+        manageDepartments();
+    }//GEN-LAST:event_btnDepartmentsActionPerformed
+
+    private void menuDepartmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDepartmentsActionPerformed
+        manageDepartments();
+    }//GEN-LAST:event_menuDepartmentsActionPerformed
+
+    private void menuUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuUsersActionPerformed
+
     /** Opens application form management panel. */
     private void manageApplicationForms() {
         openReferenceDataPanel(ApplicationFormBean.class, menuAppForm.getText());
@@ -756,6 +799,16 @@ public class MainForm extends javax.swing.JFrame {
         }else{
             GroupsManagementPanel groupManagementPanel = new GroupsManagementPanel();
             mainContentPanel.addPanel(groupManagementPanel, MainContentPanel.CARD_ADMIN_GROUP_MANAGE, true);
+        }
+    }
+    
+    /** Opens departments management panel. */
+    private void manageDepartments() {
+        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE)){
+            mainContentPanel.showPanel(MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE);
+        }else{
+            DepartmentsManagementPanel groupManagementPanel = new DepartmentsManagementPanel();
+            mainContentPanel.addPanel(groupManagementPanel, MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE, true);
         }
     }
 
@@ -857,6 +910,7 @@ public class MainForm extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBr;
+    private javax.swing.JButton btnDepartments;
     private javax.swing.JButton btnGroups;
     private javax.swing.JButton btnRoles;
     private javax.swing.JButton btnUsers;
@@ -876,6 +930,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuBaUnitRelationTypes;
     private javax.swing.JMenuItem menuBaUnitType;
     private javax.swing.JMenuItem menuCommunicationType;
+    private javax.swing.JMenuItem menuDepartments;
     private javax.swing.JMenuItem menuExit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuGenders;
