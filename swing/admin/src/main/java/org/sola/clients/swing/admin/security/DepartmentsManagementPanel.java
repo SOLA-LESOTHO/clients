@@ -95,6 +95,7 @@ public class DepartmentsManagementPanel extends ContentPanel {
 
         headerPanel1.setTitleText("Departments");
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
         jToolBar1.setOpaque(false);
 
