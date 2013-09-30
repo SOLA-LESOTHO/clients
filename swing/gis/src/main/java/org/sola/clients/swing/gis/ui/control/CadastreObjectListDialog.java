@@ -36,19 +36,21 @@ import org.sola.clients.swing.gis.beans.CadastreObjectListBean;
 public class CadastreObjectListDialog extends javax.swing.JDialog {
     private CadastreObjectListBean listBean;
     private String applicationNumber;
+    private String applicantName;
     
     private CadastreObjectListPanel createListControl(){
-        return new CadastreObjectListPanel(listBean, applicationNumber);
+        return new CadastreObjectListPanel(listBean, applicationNumber, applicantName);
     }
     
     /**
      * Creates new form CadastreObjectListDialog
      */
-    public CadastreObjectListDialog(CadastreObjectListBean listBean, String applicationNumber, 
-            java.awt.Frame parent, boolean modal) {
+    public CadastreObjectListDialog(CadastreObjectListBean listBean, String applicationNumber,
+            String applicantName, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.listBean = listBean;
         this.applicationNumber = applicationNumber;
+        this.applicantName = applicantName;
         initComponents();
     }
 

@@ -438,13 +438,14 @@ public class ReportManager {
      * @param co CadastreObjectBean containing data for the report.
      * @param appNumber Application number
      */
-    public static JasperPrint getSurveyReport(CadastreObjectBean co, String appNumber) {
+    public static JasperPrint getSurveyReport(CadastreObjectBean co, String appNumber, String applicantName) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("APP_NUMBER", appNumber);
         inputParameters.put("ROAD_CLASS", co.getRoadClassType().getTranslatedDisplayValue());
         inputParameters.put("VALUATION_ZONE", co.getLandGradeType().getTranslatedDisplayValue());
+        inputParameters.put("APPLICANT_NAME", applicantName);
         CadastreObjectBean[] beans = new CadastreObjectBean[1];
         beans[0] = co;
         JRDataSource jds = new JRBeanArrayDataSource(beans);

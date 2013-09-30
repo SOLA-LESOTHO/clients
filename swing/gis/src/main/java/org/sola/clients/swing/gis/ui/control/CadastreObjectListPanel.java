@@ -52,13 +52,15 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
     private final String CARD_PARCEL = "CARD_PARCEL";
     private final String CARD_LIST = "CARD_LIST";
     private String applicationNumber;
+    private String applicantName;
     
     /**
      * This constructor must be used to initialize the bean.
      */
-    public CadastreObjectListPanel(CadastreObjectListBean bean, String applicationNumber) {
+    public CadastreObjectListPanel(CadastreObjectListBean bean, String applicationNumber, String applicantName) {
         this.theBean = bean;
         this.applicationNumber = applicationNumber;
+        this.applicantName = applicantName;
         initComponents();
         // Add a listner to the bean property of selected bean
         theBean.addPropertyChangeListener(new PropertyChangeListener() {
@@ -145,7 +147,7 @@ public class CadastreObjectListPanel extends javax.swing.JPanel {
             return;
         }
         ReportViewerForm form = new ReportViewerForm(
-                ReportManager.getSurveyReport(co, applicationNumber));
+                ReportManager.getSurveyReport(co, applicationNumber, applicantName));
         form.setLocationRelativeTo(this);
         form.setVisible(true);
     }
