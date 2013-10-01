@@ -194,7 +194,7 @@ public final class ControlsBundleForCadastreChange extends ControlsBundleForTran
         this.targetParcelsLayer = new CadastreChangeTargetCadastreObjectLayer();
         this.getMap().addLayer(targetParcelsLayer);
 
-        this.newCadastreObjectLayer = new CadastreChangeNewCadastreObjectLayer(applicationBean.getNr());
+        this.newCadastreObjectLayer = new CadastreChangeNewCadastreObjectLayer(applicationBean.getNr(), applicationBean.getContactPerson().getFullName());
         this.getMap().addLayer(newCadastreObjectLayer);
 
         this.newPointsLayer = new CadastreChangeNewSurveyPointLayer(this.newCadastreObjectLayer);

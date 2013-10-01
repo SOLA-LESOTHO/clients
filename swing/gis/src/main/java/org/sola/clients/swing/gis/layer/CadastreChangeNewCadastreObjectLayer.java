@@ -78,7 +78,7 @@ public class CadastreChangeNewCadastreObjectLayer
      * where the layer is used. This number is used in the definition of new parcel number
      * @throws InitializeLayerException
      */
-    public CadastreChangeNewCadastreObjectLayer(String applicationNumber)
+    public CadastreChangeNewCadastreObjectLayer(String applicationNumber, String applicantName)
             throws InitializeLayerException {
         super(LAYER_NAME, Geometries.POLYGON,
                 LAYER_STYLE_RESOURCE, LAYER_ATTRIBUTE_DEFINITION, CadastreObjectBean.class);
@@ -87,7 +87,7 @@ public class CadastreChangeNewCadastreObjectLayer
         //This is called after the listBean is initialized
         initializeListBeanEvents();
         spatialObjectDisplayPanel = new CadastreObjectListDialog(
-                (CadastreObjectListBean) this.listBean, applicationNumber, null, true);
+                (CadastreObjectListBean) this.listBean, applicationNumber, applicantName, null, true);
         WindowUtility.centerForm(spatialObjectDisplayPanel);
         initializeFormHosting(spatialObjectDisplayPanel);
     }
