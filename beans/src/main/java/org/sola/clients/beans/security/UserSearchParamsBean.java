@@ -38,21 +38,50 @@ import org.sola.webservices.transferobjects.search.UserSearchParamsTO;
 public class UserSearchParamsBean extends AbstractBindingBean {
     
     public static final String GROUP_ID_PROPERTY = "groupId";
+    public static final String DEPARTMENT_ID_PROPERTY = "departmentId";
     public static final String USER_NAME_PROPERTY = "userName";
     public static final String FIRST_NAME_PROPERTY = "firstName";
     public static final String LAST_NAME_PROPERTY = "lastName";
     public static final String GROUP_BEAN_PROPERTY = "groupBean";
+    public static final String DEPARTMENT_BEAN_PROPERTY = "deaprtmentBean";
     
     private String groupId;
+    private String departmentId;
     private String userName;
     private String firstName;
     private String lastName;
     private GroupSummaryBean groupBean;
+    private DepartmentSummaryBean departmentBean;
     
     public UserSearchParamsBean(){
         super();
     }
 
+    public DepartmentSummaryBean getDepartmentBean() {
+        return departmentBean;
+    }
+
+    public void setDepartmentBean(DepartmentSummaryBean departmentBean) {
+        this.departmentBean = departmentBean;
+        propertySupport.firePropertyChange(DEPARTMENT_BEAN_PROPERTY, null, this.departmentBean);
+        if(departmentBean!=null){
+            setDepartmentId(departmentBean.getId());
+        }else{
+            setDepartmentId(null);
+        }
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        String oldValue = this.departmentId;
+        this.departmentId = departmentId;
+        propertySupport.firePropertyChange(DEPARTMENT_ID_PROPERTY, oldValue, this.departmentId);
+    }
+
+    
     public String getFirstName() {
         return firstName;
     }

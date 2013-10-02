@@ -32,7 +32,9 @@ import java.util.Iterator;
 import java.util.List;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationSearchResultBean;
+import org.sola.clients.beans.security.DepartmentSummaryBean;
 import org.sola.clients.beans.security.SecurityBean;
+import org.sola.clients.beans.security.DepartmentSummaryListBean;
 import org.sola.common.RolesConstants;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -57,6 +59,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         this.applications = applications;
         initComponents();
         customizeForm();
+        departmentsList.loadDepartments(true);
     }
 
     private void customizeForm() {
@@ -85,6 +88,9 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
             MessageUtility.displayMessage(ClientMessage.APPLICATION_NOSEL_USER);
             return;
         }
+        
+        DepartmentSummaryBean department = departmentsList.getSelectedDepartment();
+        
         for (Iterator<ApplicationSearchResultBean> it = applications.iterator(); it.hasNext();) {
             ApplicationSearchResultBean app = it.next();
             ApplicationBean.assignUser(app, usersList.getSelectedUser().getId());
@@ -101,11 +107,15 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         usersList = new org.sola.clients.beans.security.UserSearchResultListBean();
+        departmentsList = new org.sola.clients.beans.security.DepartmentSummaryListBean();
         jToolBar1 = new javax.swing.JToolBar();
         btnAssign = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbxUsers = new javax.swing.JComboBox();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        cbxDepartments = new javax.swing.JComboBox();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle"); // NOI18N
         setTitle(bundle.getString("ApplicationAssignmentDialog.title")); // NOI18N
@@ -126,6 +136,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         jLabel1.setText(bundle.getString("ApplicationAssignmentDialog.jLabel1.text")); // NOI18N
 
         cbxUsers.setEnabled(false);
+        cbxUsers.setName(bundle.getString("ApplicationAssignmentDialog.cbxUsers.name")); // NOI18N
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${users}");
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, usersList, eLProperty, cbxUsers);
@@ -148,7 +159,37 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxUsers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 36, Short.MAX_VALUE))
+        );
+
+        cbxUsers.getAccessibleContext().setAccessibleName(bundle.getString("ApplicationAssignmentDialog.cbxUsers.AccessibleContext.accessibleName")); // NOI18N
+
+        jLabel2.setText(bundle.getString("ApplicationAssignmentDialog.jLabel2.text")); // NOI18N
+
+        cbxDepartments.setName(bundle.getString("ApplicationAssignmentDialog.cbxDepartments.name")); // NOI18N
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${departmentSummaryList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, departmentsList, eLProperty, cbxDepartments);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, departmentsList, org.jdesktop.beansbinding.ELProperty.create("${selectedDepartment}"), cbxDepartments, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(cbxDepartments, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxDepartments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,15 +199,20 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         bindingGroup.bind();
@@ -179,9 +225,13 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAssignActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
+    private javax.swing.JComboBox cbxDepartments;
     private javax.swing.JComboBox cbxUsers;
+    private org.sola.clients.beans.security.DepartmentSummaryListBean departmentsList;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JToolBar jToolBar1;
     private org.sola.clients.beans.security.UserSearchResultListBean usersList;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
