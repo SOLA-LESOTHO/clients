@@ -28,6 +28,7 @@
  */
 package org.sola.clients.beans.security;
 
+import java.util.Iterator;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractBindingBean;
@@ -36,6 +37,7 @@ import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.search.UserSearchAdvancedResultTO;
 import org.sola.webservices.transferobjects.search.UserSearchParamsTO;
+import org.sola.webservices.transferobjects.search.UserSearchResultTO;
 
 /**
  * Holds the list of {@link UserSearchAdvancedResultBean} objects and used to 
@@ -66,7 +68,13 @@ public class UserSearchAdvancedResultListBean extends AbstractBindingBean {
         return usersList;
     }
     
-    // Methods
+    /** Populates the list of users with active users. */
+    private void loadActiveUsers() {
+        if (WSManager.getInstance().getSearchService() != null) {
+            List<UserSearchResultTO> userListTO = WSManager.getInstance().getSearchService().getActiveUsers();
+            TypeConverters.TransferObjectListToBeanList(userListTO, UserSearchResultBean.class, (List) usersList);
+        }
+    }
     
     /** 
      * Searches users by the given parameters and populates list. 
@@ -81,5 +89,18 @@ public class UserSearchAdvancedResultListBean extends AbstractBindingBean {
             TypeConverters.TransferObjectListToBeanList(userListTO, 
                     UserSearchAdvancedResultBean.class, (List) usersList);
         }
+    }
+    
+    public void setSelectedUserById(String userId) {
+        if (usersList != null) {
+            for (Iterator<UserSearchAdvancedResultBean> it = usersList.iterator(); it.hasNext();) {
+                UserSearchAdvancedResultBean user = it.next();
+                if (user.getId().equals(userId)) {
+                    selectedUser = user;
+                    break;
+                }
+            }
+        }
+        propertySupport.firePropertyChange(SELECTED_USER_PROPERTY, null, selectedUser);
     }
 }

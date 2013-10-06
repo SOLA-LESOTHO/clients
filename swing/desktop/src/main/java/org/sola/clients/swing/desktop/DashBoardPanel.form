@@ -214,7 +214,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="tbUnassignedApplications" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="unassignedScrollPanel" pref="138" max="32767" attributes="0"/>
+                      <Component id="unassignedScrollPanel" pref="137" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -486,7 +486,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="tbAssignedApplications" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="inprogressScrollPanel" pref="138" max="32767" attributes="0"/>
+                      <Component id="inprogressScrollPanel" pref="137" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

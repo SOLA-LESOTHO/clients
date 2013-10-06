@@ -35,6 +35,7 @@ public class DepartmentSummaryListBean extends AbstractBindingBean {
     public DepartmentSummaryListBean() {
         super();
         departmentSummaryList = new SolaObservableList<DepartmentSummaryBean>();
+        int size = departmentSummaryList.size();
     }
 
     public final void loadDepartments(boolean createDummyDepartment){

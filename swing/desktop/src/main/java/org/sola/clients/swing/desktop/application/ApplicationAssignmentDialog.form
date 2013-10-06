@@ -2,7 +2,11 @@
 
 <Form version="1.5" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
-    <Component class="org.sola.clients.beans.security.UserSearchResultListBean" name="usersList">
+    <Component class="org.sola.clients.beans.security.GroupSummaryListBean" name="groupsList">
+    </Component>
+    <Component class="org.sola.clients.beans.security.UserSearchParamsBean" name="userSearchParams">
+    </Component>
+    <Component class="org.sola.clients.beans.security.UserSearchAdvancedResultListBean" name="usersList">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -29,9 +33,12 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jToolBar1" alignment="0" pref="318" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="jPanel2" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -40,8 +47,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -89,7 +99,7 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="cbxUsers" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -105,11 +115,69 @@
         <Component class="javax.swing.JComboBox" name="cbxUsers">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationAssignmentDialog.cbxUsers.name" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationAssignmentDialog.cbxUsers.AccessibleContext.accessibleName" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+          </AccessibilityProperties>
           <BindingProperties>
-            <BindingProperty name="elements" source="usersList" sourcePath="${users}" target="cbxUsers" targetPath="elements" updateStrategy="0" immediately="false"/>
+            <BindingProperty name="elements" source="usersList" sourcePath="${usersList}" target="cbxUsers" targetPath="elements" updateStrategy="0" immediately="false"/>
             <BindingProperty name="selectedItem" source="usersList" sourcePath="${selectedUser}" target="cbxUsers" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
           </BindingProperties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="227" max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Component id="cbxGroups" alignment="1" pref="179" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="55" max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                      <Component id="cbxGroups" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/sola/clients/swing/desktop/application/Bundle.properties" key="ApplicationAssignmentDialog.jLabel2.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbxGroups">
+          <BindingProperties>
+            <BindingProperty name="elements" source="groupsList" sourcePath="${groupSummaryList}" target="cbxGroups" targetPath="elements" updateStrategy="0" immediately="false"/>
+            <BindingProperty name="selectedItem" source="userSearchParams" sourcePath="${groupBean}" target="cbxGroups" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxGroupsActionPerformed"/>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="cbxGroupsPropertyChange"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
