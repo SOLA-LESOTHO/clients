@@ -95,7 +95,6 @@ public class MainForm extends javax.swing.JFrame {
         btnRoles = new javax.swing.JButton();
         btnGroups = new javax.swing.JButton();
         btnUsers = new javax.swing.JButton();
-        btnDepartments = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnBr = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
@@ -192,20 +191,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         mainToolbar.add(btnUsers);
-
-        btnDepartments.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/folder-open-document-text.png"))); // NOI18N
-        btnDepartments.setText(bundle.getString("MainForm.btnDepartments.text")); // NOI18N
-        btnDepartments.setFocusable(false);
-        btnDepartments.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnDepartments.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnDepartments.setName(bundle.getString("MainForm.btnDepartments.name")); // NOI18N
-        btnDepartments.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnDepartments.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDepartmentsActionPerformed(evt);
-            }
-        });
-        mainToolbar.add(btnDepartments);
 
         jSeparator3.setName("jSeparator3"); // NOI18N
         mainToolbar.add(jSeparator3);
@@ -766,12 +751,8 @@ public class MainForm extends javax.swing.JFrame {
         manageLegalTypes();
     }//GEN-LAST:event_menuItmLegalTypeActionPerformed
 
-    private void btnDepartmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartmentsActionPerformed
-        manageDepartments();
-    }//GEN-LAST:event_btnDepartmentsActionPerformed
-
     private void menuDepartmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDepartmentsActionPerformed
-        manageDepartments();
+        //manageDepartments();
     }//GEN-LAST:event_menuDepartmentsActionPerformed
 
     private void menuUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsersActionPerformed
@@ -910,7 +891,6 @@ public class MainForm extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBr;
-    private javax.swing.JButton btnDepartments;
     private javax.swing.JButton btnGroups;
     private javax.swing.JButton btnRoles;
     private javax.swing.JButton btnUsers;

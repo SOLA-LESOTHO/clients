@@ -59,7 +59,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         this.applications = applications;
         initComponents();
         groupsList.loadGroups(true);
-        cbxGroups.setSelectedIndex(2);
+        cbxGroups.setSelectedIndex(0);
         usersList.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -202,11 +202,6 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
                 cbxGroupsActionPerformed(evt);
             }
         });
-        cbxGroups.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                cbxGroupsPropertyChange(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -214,15 +209,15 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addGap(0, 227, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(cbxGroups, javax.swing.GroupLayout.Alignment.TRAILING, 0, 179, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 55, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                     .addContainerGap(24, Short.MAX_VALUE)
@@ -265,10 +260,6 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
     private void cbxGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupsActionPerformed
         searchUsers();
     }//GEN-LAST:event_cbxGroupsActionPerformed
-
-    private void cbxGroupsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cbxGroupsPropertyChange
-        
-    }//GEN-LAST:event_cbxGroupsPropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;

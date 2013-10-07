@@ -76,4 +76,6 @@ public class GroupSummaryListBean extends AbstractBindingBean {
         this.selectedGroup = selectedGroup;
         propertySupport.firePropertyChange(SELECTED_GROUP_PROPERTY, oldValue, this.selectedGroup);
     }
+    
+    
 }
