@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -50,6 +51,7 @@ import org.sola.clients.beans.system.BrReportBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.system.BrListBean;
 import org.sola.clients.beans.systematicregistration.*;
+import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 
@@ -603,7 +605,37 @@ public class ReportManager {
      *
      * @param appBean Application bean containing data for the report.
      */
-    public static JasperPrint getLodgementReport(LodgementBean lodgementBean, Date dateFrom, Date dateTo) {
+    public static JasperPrint getLodgementReport(ServiceReportBean lodgementBean, Date dateFrom, Date dateTo) {
+        HashMap inputParameters = new HashMap();
+        Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+
+        inputParameters.put("CURRENT_DATE", currentdate);
+
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("FROMDATE", dateFrom);
+        inputParameters.put("TODATE", dateTo);
+        ServiceReportBean[] beans = new ServiceReportBean[1];
+        beans[0] = lodgementBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/LodgementReport.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            LogUtility.log(LogUtility.getStackTraceAsString(ex), Level.SEVERE);
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }
+    
+    /**
+     * Generates and displays <b>BA Unit</b> report.
+     *
+     * @param appBean Application bean containing data for the report.
+     */
+    public static JasperPrint getLodgementReport2(LodgementBean lodgementBean, Date dateFrom, Date dateTo) {
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
