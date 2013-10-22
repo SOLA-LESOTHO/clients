@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.admin;
@@ -41,6 +43,7 @@ import org.sola.clients.swing.admin.security.GroupsManagementPanel;
 import org.sola.clients.swing.admin.security.RolesManagementPanel;
 import org.sola.clients.swing.admin.security.UsersManagementPanel;
 import org.sola.clients.swing.admin.system.BrManagementPanel;
+import org.sola.clients.swing.admin.system.SlrMigrationForm;
 import org.sola.clients.swing.common.LafManager;
 import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.ui.reports.ReportViewerForm;
@@ -51,42 +54,50 @@ import org.sola.common.RolesConstants;
  */
 public class MainForm extends javax.swing.JFrame {
 
-    /** Creates new form MainForm */
+    /**
+     * Creates new form MainForm
+     */
     public MainForm() {
         initComponents();
-        
+
         URL imgURL = this.getClass().getResource("/images/common/admin.png");
         this.setIconImage(new ImageIcon(imgURL).getImage());
         lblUserName.setText(SecurityBean.getCurrentUser().getUserName());
         customizeForm();
     }
 
-    /** Customizes main form regarding user access rights. */
-    private void customizeForm(){
+    /**
+     * Customizes main form regarding user access rights.
+     */
+    private void customizeForm() {
         boolean hasSecurityRole = SecurityBean.isInRole(RolesConstants.ADMIN_MANAGE_SECURITY);
         boolean hasRefdataRole = SecurityBean.isInRole(RolesConstants.ADMIN_MANAGE_REFDATA);
         boolean hasSettingsRole = SecurityBean.isInRole(RolesConstants.ADMIN_MANAGE_SETTINGS);
         boolean hasBRRole = SecurityBean.isInRole(RolesConstants.ADMIN_MANAGE_BR);
-        
+
         btnRoles.setEnabled(hasSecurityRole);
         btnUsers.setEnabled(hasSecurityRole);
         btnGroups.setEnabled(hasSecurityRole);
         menuRoles.setEnabled(btnRoles.isEnabled());
         menuUsers.setEnabled(btnUsers.isEnabled());
         menuGroups.setEnabled(btnGroups.isEnabled());
-        
+
         btnBr.setEnabled(hasBRRole);
-        
+
         menuRefData.setEnabled(hasRefdataRole);
+        boolean hasSlrMigrationRole = SecurityBean.isInRole(RolesConstants.SLR_MIGRATION);
+        btnSlrMigration.setEnabled(hasSlrMigrationRole);
     }
-    
-    /** Opens reference data management panel for different reference data type.*/
+
+    /**
+     * Opens reference data management panel for different reference data type.
+     */
     private <T extends AbstractCodeBean> void openReferenceDataPanel(
-            Class<T> refDataClass, String headerTitle){
+            Class<T> refDataClass, String headerTitle) {
         ReferenceDataManagementPanel panel = new ReferenceDataManagementPanel(refDataClass, headerTitle);
         mainContentPanel.addPanel(panel, MainContentPanel.CARD_ADMIN_REFDATA_MANAGE, true);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -97,6 +108,8 @@ public class MainForm extends javax.swing.JFrame {
         btnUsers = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnBr = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btnSlrMigration = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
         taskPanel1 = new org.sola.clients.swing.common.tasks.TaskPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -207,6 +220,21 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         mainToolbar.add(btnBr);
+
+        jSeparator1.setName("jSeparator1"); // NOI18N
+        mainToolbar.add(jSeparator1);
+
+        btnSlrMigration.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/slr-migration.png"))); // NOI18N
+        btnSlrMigration.setText(bundle.getString("MainForm.btnSlrMigration.text")); // NOI18N
+        btnSlrMigration.setFocusable(false);
+        btnSlrMigration.setName("btnSlrMigration"); // NOI18N
+        btnSlrMigration.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSlrMigration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSlrMigrationActionPerformed(evt);
+            }
+        });
+        mainToolbar.add(btnSlrMigration);
 
         statusPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         statusPanel.setName("statusPanel"); // NOI18N
@@ -618,7 +646,10 @@ public class MainForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- /** Opens {@link ReportViewerForm} to display report.*/
+
+    /**
+     * Opens {@link ReportViewerForm} to display report.
+     */
     private void showReport(JasperPrint report) {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setVisible(true);
@@ -759,52 +790,76 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuUsersActionPerformed
 
-    /** Opens application form management panel. */
+    private void btnSlrMigrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSlrMigrationActionPerformed
+        openSlrMigrationForm();
+    }//GEN-LAST:event_btnSlrMigrationActionPerformed
+
+    private void openSlrMigrationForm() {
+        if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_SLR_MIGRATION)) {
+            mainContentPanel.showPanel(MainContentPanel.CARD_SLR_MIGRATION);
+        } else {
+            SlrMigrationForm form = new SlrMigrationForm();
+            mainContentPanel.addPanel(form, MainContentPanel.CARD_SLR_MIGRATION, true);
+        }
+    }
+
+    /**
+     * Opens application form management panel.
+     */
     private void manageApplicationForms() {
         openReferenceDataPanel(ApplicationFormBean.class, menuAppForm.getText());
     }
-    /** Opens roles management panel. */
+
+    /**
+     * Opens roles management panel.
+     */
     private void manageRoles() {
-        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_ROLES_MANAGE)){
+        if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_ROLES_MANAGE)) {
             mainContentPanel.showPanel(MainContentPanel.CARD_ADMIN_ROLES_MANAGE);
-        }else{
+        } else {
             RolesManagementPanel panel = new RolesManagementPanel();
             mainContentPanel.addPanel(panel, MainContentPanel.CARD_ADMIN_ROLES_MANAGE, true);
         }
     }
 
-    /** Opens groups management panel. */
+    /**
+     * Opens groups management panel.
+     */
     private void manageGroups() {
-        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_GROUP_MANAGE)){
+        if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_GROUP_MANAGE)) {
             mainContentPanel.showPanel(MainContentPanel.CARD_ADMIN_GROUP_MANAGE);
-        }else{
+        } else {
             GroupsManagementPanel groupManagementPanel = new GroupsManagementPanel();
             mainContentPanel.addPanel(groupManagementPanel, MainContentPanel.CARD_ADMIN_GROUP_MANAGE, true);
         }
     }
-    
-    /** Opens departments management panel. */
+
+    /**
+     * Opens departments management panel.
+     */
     private void manageDepartments() {
-        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE)){
+        if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE)) {
             mainContentPanel.showPanel(MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE);
-        }else{
+        } else {
             DepartmentsManagementPanel groupManagementPanel = new DepartmentsManagementPanel();
             mainContentPanel.addPanel(groupManagementPanel, MainContentPanel.CARD_ADMIN_DEPARTMENT_MANAGE, true);
         }
     }
 
-    /** Opens users management panel. */
+    /**
+     * Opens users management panel.
+     */
     private void manageUsers() {
-        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_USER_MANAGE)){
+        if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_USER_MANAGE)) {
             mainContentPanel.showPanel(MainContentPanel.CARD_ADMIN_USER_MANAGE);
-        }else{
+        } else {
             UsersManagementPanel panel = new UsersManagementPanel();
             mainContentPanel.addPanel(panel, MainContentPanel.CARD_ADMIN_USER_MANAGE, true);
         }
     }
 
     private void manageCommunicationTypes() {
-        openReferenceDataPanel(CommunicationTypeBean.class, 
+        openReferenceDataPanel(CommunicationTypeBean.class,
                 menuCommunicationType.getText());
     }
 
@@ -881,21 +936,22 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void manageBr() {
-        if(mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_BR_MANAGE)){
+        if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_BR_MANAGE)) {
             mainContentPanel.showPanel(MainContentPanel.CARD_ADMIN_BR_MANAGE);
-        }else{
+        } else {
             BrManagementPanel panel = new BrManagementPanel();
             mainContentPanel.addPanel(panel, MainContentPanel.CARD_ADMIN_BR_MANAGE, true);
         }
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBr;
     private javax.swing.JButton btnGroups;
     private javax.swing.JButton btnRoles;
+    private javax.swing.JButton btnSlrMigration;
     private javax.swing.JButton btnUsers;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JLabel lblUserName;
     private org.sola.clients.swing.ui.MainContentPanel mainContentPanel;
@@ -948,5 +1004,4 @@ public class MainForm extends javax.swing.JFrame {
     private void manageLegalTypes() {
         openReferenceDataPanel(LegalTypeBean.class, menuItmLegalType.getText());
     }
-
 }

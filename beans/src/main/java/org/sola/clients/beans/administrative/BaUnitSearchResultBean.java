@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.beans.administrative;
@@ -38,6 +40,7 @@ import org.sola.common.StringUtility;
  * Represents BA unit search result.
  */
 public class BaUnitSearchResultBean extends AbstractBindingBean {
+
     public static final String ID_PROPERTY = "id";
     public static final String NAME_FIRST_PART_PROPERTY = "nameFirstPart";
     public static final String NAME_LAST_PART_PROPERTY = "nameLastPart";
@@ -48,7 +51,6 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     public static final String REGISTRATION_DATE_PROPERTY = "registrationDate";
     public static final String LEASE_NUMBER_PROPERTY = "leaseNumber";
     public static final String LAND_USE_CODE_PROPERTY = "landUseCode";
-    
     private String id;
     private String nameFirstPart;
     private String nameLastPart;
@@ -59,13 +61,17 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     private Date originalRegistrationDate;
     private String leaseNumber;
     private String landUseCode;
-    
-    public BaUnitSearchResultBean(){
+
+    public BaUnitSearchResultBean() {
         super();
     }
 
     public String getLandUseCode() {
-        return landUseCode.toUpperCase();
+        String result = null;
+        if (landUseCode != null) {
+            result = landUseCode.toUpperCase();
+        }
+        return result;
     }
 
     public void setLandUseCode(String landUseCode) {
@@ -125,7 +131,7 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
     }
 
     public RegistrationStatusTypeBean getRegistrationStatus() {
-        if(registrationStatus == null){
+        if (registrationStatus == null) {
             registrationStatus = new RegistrationStatusTypeBean();
         }
         return registrationStatus;
@@ -162,12 +168,12 @@ public class BaUnitSearchResultBean extends AbstractBindingBean {
         this.registrationNumber = registrationNumber;
         propertySupport.firePropertyChange(REGISTRATION_NUMBER_PROPERTY, oldValue, this.registrationNumber);
     }
-    
-    public String getBaUnitNumber(){
+
+    public String getBaUnitNumber() {
         String number = getNameFirstPart();
-        if(StringUtility.isEmpty(number)){
+        if (StringUtility.isEmpty(number)) {
             number = getNameLastPart();
-        } else if(!StringUtility.isEmpty(getNameLastPart())) {
+        } else if (!StringUtility.isEmpty(getNameLastPart())) {
             number = number + " - " + getNameLastPart();
         }
         return number;
