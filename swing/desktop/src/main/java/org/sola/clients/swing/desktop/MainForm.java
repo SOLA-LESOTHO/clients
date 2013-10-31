@@ -53,7 +53,6 @@ import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.desktop.administrative.BaUnitSearchForm;
 import org.sola.clients.swing.desktop.administrative.DisputePanelForm;
-import org.sola.clients.swing.desktop.administrative.DisputeSearchDialog;
 import org.sola.clients.swing.desktop.administrative.RightsExportForm;
 import org.sola.clients.swing.desktop.application.ApplicationFormsDialog;
 import org.sola.clients.swing.desktop.application.ApplicationPanel;
@@ -61,6 +60,7 @@ import org.sola.clients.swing.desktop.application.ApplicationSearchPanel;
 import org.sola.clients.swing.desktop.cadastre.MapPanelForm;
 import org.sola.clients.swing.desktop.party.PartySearchPanelForm;
 import org.sola.clients.swing.desktop.reports.LodgementReportParamsForm;
+import org.sola.clients.swing.desktop.reports.ResponseTimeReportParamsForm;
 import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
@@ -628,6 +628,11 @@ public class MainForm extends javax.swing.JFrame {
         };
         TaskManager.getInstance().runTask(t);
     }
+    
+    private void openResponseTimeParamsForm() {
+        ResponseTimeReportParamsForm reportDateChooser = new ResponseTimeReportParamsForm(this, true);
+        reportDateChooser.setVisible(true);
+    }    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -675,6 +680,7 @@ public class MainForm extends javax.swing.JFrame {
         menuShowMap = new javax.swing.JMenuItem();
         menuReportsDesktop = new javax.swing.JMenu();
         menuLodgementReport = new javax.swing.JMenuItem();
+        menuResponseTimeReport = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         jmiContextHelp = new javax.swing.JMenuItem();
@@ -991,6 +997,14 @@ public class MainForm extends javax.swing.JFrame {
         menuReportsDesktop.add(menuLodgementReport);
         menuLodgementReport.getAccessibleContext().setAccessibleName(bundle.getString("MainForm.menuLodgementReport.AccessibleContext.accessibleName")); // NOI18N
 
+        menuResponseTimeReport.setText(bundle.getString("MainForm.menuResponseTimeReport.text")); // NOI18N
+        menuResponseTimeReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuResponseTimeReportActionPerformed(evt);
+            }
+        });
+        menuReportsDesktop.add(menuResponseTimeReport);
+
         menuBar.add(menuReportsDesktop);
 
         helpMenu.setText(bundle.getString("MainForm.helpMenu.text")); // NOI18N
@@ -1142,6 +1156,10 @@ public class MainForm extends javax.swing.JFrame {
         HelpUtility.getInstance().showTopic(HelpUtility.DEFAULT_HELP_TOPIC);
     }//GEN-LAST:event_jmiContextHelpActionPerformed
 
+    private void menuResponseTimeReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuResponseTimeReportActionPerformed
+        openResponseTimeParamsForm();
+    }//GEN-LAST:event_menuResponseTimeReportActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1215,6 +1233,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuOffLogLevel;
     private javax.swing.JMenuItem menuPersons;
     private javax.swing.JMenu menuReportsDesktop;
+    private javax.swing.JMenuItem menuResponseTimeReport;
     private javax.swing.JMenu menuSearch;
     private javax.swing.JMenuItem menuSearchApplication;
     private javax.swing.JMenuItem menuShowMap;
