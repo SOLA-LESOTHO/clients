@@ -46,7 +46,7 @@ public class ResponseBean extends AbstractIdBean {
         return averageTime;
     }
 
-    public void setAverageTime(float averageTime) {
+    public void setAverageTime(double averageTime) {
         this.averageTime = averageTime;
     }
 
