@@ -1002,6 +1002,31 @@ public class ReportManager {
                     new Object[]{ex.getLocalizedMessage()});
             return null;
         }
-    }    
+    }  
+    
+    public static JasperPrint getMortgageStatsReport(MortgageStatsListBean mortgageBean, Date dateFrom, Date dateTo) {
+        HashMap inputParameters = new HashMap();
+        Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+
+        inputParameters.put("CURRENT_DATE", currentdate);
+
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("FROMDATE", dateFrom);
+        inputParameters.put("TODATE", dateTo);
+        MortgageStatsListBean[] beans = new MortgageStatsListBean[1];
+        beans[0] = mortgageBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/MortgageStatsReport.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            LogUtility.log(LogUtility.getStackTraceAsString(ex), Level.SEVERE);
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    } 
     
 }

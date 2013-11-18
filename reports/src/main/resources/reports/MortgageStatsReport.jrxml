@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mortgage Statistics" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="da0895d8-932f-4b23-a1a6-443b3b62553c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="MortgageStats" uuid="520fa5f7-949e-4872-830d-4179eb820b49">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="mortgages" class="java.lang.Integer">
+			<fieldDescription><![CDATA[mortgages]]></fieldDescription>
+		</field>
+		<field name="amount" class="java.lang.Double">
+			<fieldDescription><![CDATA[amount]]></fieldDescription>
+		</field>
+		<field name="averageAmount" class="java.lang.Double">
+			<fieldDescription><![CDATA[averageAmount]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="FROMDATE" class="java.util.Date"/>
+	<parameter name="TODATE" class="java.util.Date"/>
+	<parameter name="CURRENT_DATE" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="mortgageStats" class="org.sola.clients.beans.controls.SolaObservableList">
+		<fieldDescription><![CDATA[mortgageStats]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="210" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d68eac69-cc25-4af9-aaea-477835121442" x="450" y="68" width="105" height="34"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Lerotholi Road
+PO Box 11856, 
+Maseru 100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="179fa8bd-022a-49b2-bdb8-504ba998ba06" mode="Opaque" x="450" y="114" width="105" height="34"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Web: www.laa.org.ls
+Email: info@laa.org.ls
+Tel: +266 2232 2376
+Fax: +266 2231 0905
+]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="160" y="0" width="216" height="84"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="2eeaaff6-f1f8-4d12-a098-ac23c49a6941" x="450" y="102" width="105" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lesotho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="956d1a3a-583f-4d12-9d2e-614508791537" x="10" y="165" width="36" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="752593e0-9074-4671-b90c-43c09c97379e" mode="Transparent" x="10" y="134" width="36" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[On:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e03580a-8c0a-4715-ac35-6cbc05e6a88f" x="160" y="165" width="21" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="85df0a0d-a6ee-4c5a-97dc-343c54d2b6ca" mode="Transparent" x="10" y="94" width="76" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Requested by:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="9024df5c-c613-429d-9b79-5a6ec8e3a97c" mode="Transparent" x="86" y="94" width="95" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(" + $P{USER} + ")"]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement uuid="9024df5c-c613-429d-9b79-5a6ec8e3a97c" mode="Transparent" x="46" y="165" width="114" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FROMDATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement uuid="9024df5c-c613-429d-9b79-5a6ec8e3a97c" mode="Transparent" x="46" y="134" width="114" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CURRENT_DATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement uuid="9024df5c-c613-429d-9b79-5a6ec8e3a97c" mode="Transparent" x="181" y="165" width="114" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TODATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7ff1445a-fbc0-4308-9a4d-d6c79dd043c3" x="0" y="12" width="555" height="25" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPLETED MORTGAGES STATISTICS]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="9d9cc64e-1010-4947-a94d-efcb31e1c99a" x="0" y="37" width="555" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="b149f083-b6d3-4502-ae65-77961bb02183" key="table" style="table" x="0" y="0" width="555" height="50"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="MortgageStats" uuid="5fc5ebcb-8ef5-4928-80be-97b1277d8353">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{mortgageStats}.toArray())]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column uuid="5ddacfc0-3f2d-4472-9696-e540376e3ba5" width="169">
+						<jr:columnHeader style="table_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="c140190f-a39b-4769-9ba1-8381b1555697" x="0" y="0" width="169" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Number of Mortgages]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="2b25e3f5-11d5-4383-8062-1a0f79d8bdf1" x="0" y="0" width="169" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+									<paragraph firstLineIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{mortgages}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="295f69ca-6495-453d-8989-c1818a7418c2" width="185">
+						<jr:columnHeader style="table_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="e355f334-ff53-41f8-bdd2-b66f966ccbf4" x="0" y="0" width="185" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Amount (M)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="b0599028-4348-4328-aca1-e6ff3fb5e38c" x="0" y="0" width="185" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true" isUnderline="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="6b424731-8e76-49d1-8f83-83a9834caee2" width="200">
+						<jr:columnHeader style="table_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="268b6395-0eca-426a-aaf4-476220199466" x="0" y="1" width="199" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Average Amount]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="faff5d07-36b3-4055-8967-e0cd1e408e28" x="0" y="0" width="199" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{averageAmount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

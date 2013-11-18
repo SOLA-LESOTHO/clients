@@ -53,6 +53,4 @@ public class MortgageStatsBean extends AbstractIdBean{
     public void setMortgages(Integer mortgages) {
         this.mortgages = mortgages;
     }
-    
-    
 }

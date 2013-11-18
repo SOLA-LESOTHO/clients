@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db7a2a80-2f78-47f4-bc26-55acab791f5f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="32"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#999999"/>
@@ -212,12 +212,12 @@ Fax: +266 2231 0905
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="18" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
 		<band height="237" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="974d8a43-a22a-4d38-a440-7ae774badca8" key="table 2" style="table 2" x="10" y="14" width="537" height="80"/>
+				<reportElement uuid="974d8a43-a22a-4d38-a440-7ae774badca8" key="table 2" style="table 2" x="10" y="0" width="537" height="80"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
 					<datasetRun subDataset="Response" uuid="ec5bc006-2412-4ad8-a96d-bb3163fea24c">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{responses}.toArray())]]></dataSourceExpression>
