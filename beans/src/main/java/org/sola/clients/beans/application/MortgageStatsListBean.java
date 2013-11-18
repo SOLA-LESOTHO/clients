@@ -31,25 +31,25 @@ public class MortgageStatsListBean extends AbstractBindingBean{
     
     public static final String SELECTED_MORTGAGE_STATS_PROPERTY = "selectedMortgages";
     private SolaObservableList<MortgageStatsBean> mortgagestatsList;
-    private MortgageStatsBean selectedMortgageStatss;
+    private MortgageStatsBean selectedMortgageStats;
 
     public MortgageStatsListBean() {
         super();
         mortgagestatsList = new SolaObservableList<MortgageStatsBean>();
     }
 
-    public SolaObservableList<MortgageStatsBean> getMortgageStatss() {
+    public SolaObservableList<MortgageStatsBean> getMortgageStats() {
         return mortgagestatsList;
     }
 
-    public MortgageStatsBean getSelectedMortgageStatss() {
-        return selectedMortgageStatss;
+    public MortgageStatsBean getSelectedMortgageStats() {
+        return selectedMortgageStats;
     }
     
     public void setSelectedCertificates(MortgageStatsBean selectedMortgageStatss) {
-        MortgageStatsBean oldValue = this.selectedMortgageStatss;
-        this.selectedMortgageStatss = selectedMortgageStatss;
-        propertySupport.firePropertyChange(SELECTED_MORTGAGE_STATS_PROPERTY, oldValue, this.selectedMortgageStatss);
+        MortgageStatsBean oldValue = this.selectedMortgageStats;
+        this.selectedMortgageStats = selectedMortgageStatss;
+        propertySupport.firePropertyChange(SELECTED_MORTGAGE_STATS_PROPERTY, oldValue, this.selectedMortgageStats);
     }
 
     /**
