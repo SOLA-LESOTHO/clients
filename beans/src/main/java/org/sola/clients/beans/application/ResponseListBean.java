@@ -47,7 +47,7 @@ public class ResponseListBean extends AbstractBindingBean{
         return selectedResponses;
     }
     
-    public void setSelectedCertificates(ResponseBean selectedResponses) {
+    public void setSelectedResponses(ResponseBean selectedResponses) {
         ResponseBean oldValue = this.selectedResponses;
         this.selectedResponses = selectedResponses;
         propertySupport.firePropertyChange(SELECTED_RESPONSE_PROPERTY, oldValue, this.selectedResponses);
