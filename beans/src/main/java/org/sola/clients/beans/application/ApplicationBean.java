@@ -128,7 +128,17 @@ public class ApplicationBean extends ApplicationSummaryBean {
         serviceList = new SolaObservableList<ApplicationServiceBean>();
         sourceList = new SolaList();
         appLogList = new SolaObservableList<ApplicationLogBean>();
-        cadastreObjectList = new SolaList();
+        cadastreObjectList = new SolaList();     
+    }
+    
+    public void removeCancelledServices(){
+        // remove services that have been cancelled from the service list
+        for( int i = 0; i < serviceList.size(); i++){
+            if(serviceList.get(i).getStatusCode().equalsIgnoreCase("cancelled"))
+                serviceList.remove(i);    
+        }
+        
+        renumerateServices();
     }
 
     public boolean canArchive() {
