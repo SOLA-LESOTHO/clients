@@ -154,7 +154,7 @@ Fax: +266 2231 0905
 				<textElement textAlignment="Center" markup="none">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[COMPLETED MORTGAGES STATISTICS]]></text>
+				<text><![CDATA[COMPLETED MORTGAGE APPLICATIONS]]></text>
 			</staticText>
 			<line>
 				<reportElement uuid="9d9cc64e-1010-4947-a94d-efcb31e1c99a" x="0" y="37" width="555" height="1"/>

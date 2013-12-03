@@ -184,7 +184,7 @@ public class CadastreObjectsSearchPanel extends JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(0, 15, Short.MAX_VALUE))
             .addComponent(txtNameFirstPart)
         );
         jPanel1Layout.setVerticalGroup(
@@ -208,7 +208,7 @@ public class CadastreObjectsSearchPanel extends JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGap(0, 48, Short.MAX_VALUE))
             .addComponent(txtNameLastPart)
         );
         jPanel2Layout.setVerticalGroup(
