@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Statistical Report" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2bcfb786-ac6c-4cc9-9133-e16f27a8f83e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="225"/>
+	<property name="ireport.y" value="236"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -43,7 +43,27 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="applicationStatistics" uuid="99e69c15-92e1-4a79-97dd-4190290ba483">
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Stats" uuid="3ab19a03-1bed-4d3c-966e-e9b936eef530">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
@@ -53,11 +73,11 @@
 		<field name="requestCategory" class="java.lang.String">
 			<fieldDescription><![CDATA[requestCategory]]></fieldDescription>
 		</field>
-		<field name="cancelledApplications" class="java.lang.Integer">
-			<fieldDescription><![CDATA[cancelledApplications]]></fieldDescription>
-		</field>
 		<field name="lodgedApplications" class="java.lang.Integer">
 			<fieldDescription><![CDATA[lodgedApplications]]></fieldDescription>
+		</field>
+		<field name="cancelledApplications" class="java.lang.Integer">
+			<fieldDescription><![CDATA[cancelledApplications]]></fieldDescription>
 		</field>
 		<field name="completedApplications" class="java.lang.Integer">
 			<fieldDescription><![CDATA[completedApplications]]></fieldDescription>
@@ -77,7 +97,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="263" splitType="Stretch">
+		<band height="217" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="c8b7a053-f91b-49e7-be3d-db01bfa76ae5" mode="Transparent" x="49" y="30" width="182" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
@@ -115,7 +135,7 @@
 				<text><![CDATA[On:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c9e292b1-a060-4fe5-8b35-c38948c5b088" x="146" y="215" width="283" height="34" forecolor="#000000"/>
+				<reportElement uuid="c9e292b1-a060-4fe5-8b35-c38948c5b088" x="146" y="168" width="283" height="34" forecolor="#000000"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="24" isBold="true"/>
 				</textElement>
@@ -156,107 +176,127 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="172" splitType="Stretch">
+		<band height="235" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="1b2b6bc6-1ece-4d2c-a7c2-061d3f74fa48" key="table 1" style="table 1" x="49" y="17" width="450" height="140"/>
+				<reportElement uuid="60ffa1d3-76ac-44f8-8b55-ed030f733001" key="table 2" style="table 2" x="34" y="13" width="494" height="205"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="applicationStatistics" uuid="1fb85253-66e5-4786-84f0-9750b1b2f458">
+					<datasetRun subDataset="Stats" uuid="a3e4b111-467d-44a2-8024-43c27adbe39e">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{statisticsSummaryList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column uuid="ff062d84-6e43-4a88-88d8-95e689aaa258" width="90">
-						<jr:tableHeader style="table 1_TH" height="30"/>
-						<jr:tableFooter style="table 1_TH" height="30"/>
-						<jr:columnHeader style="table 1_CH" height="30">
+					<jr:column uuid="6d586cd5-4786-45a6-be00-da4bd3d59483" width="147">
+						<jr:tableHeader style="table 2_TH" height="5" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="0" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="39b4eae2-6b73-44a8-adff-143c05dc4fa9" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[requestType]]></text>
+								<reportElement uuid="7cc07e82-5132-4ead-8ade-555143253522" x="0" y="0" width="142" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[RequestType]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30"/>
-						<jr:detailCell style="table 1_TD" height="20">
+						<jr:columnFooter style="table 2_CH" height="1" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement uuid="26b70f1d-a90d-43f5-8dca-d16e3c615439" x="0" y="0" width="90" height="20"/>
-								<textElement/>
+								<reportElement uuid="cf518b7b-3ff8-447f-9155-19e43cc65442" x="0" y="0" width="142" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Tahoma"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{requestType}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="6dbcab7c-ded3-4259-ab02-f841d197cf06" width="90">
-						<jr:tableHeader style="table 1_TH" height="30"/>
-						<jr:tableFooter style="table 1_TH" height="30"/>
-						<jr:columnHeader style="table 1_CH" height="30">
+					<jr:column uuid="b583b34b-070f-456b-965e-ff2b51c31852" width="90">
+						<jr:tableHeader style="table 2_TH" height="5" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="0" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="67ad8b1d-2a17-4b55-a7e5-1ada86c689cc" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[requestCategory]]></text>
+								<reportElement uuid="d96f5014-a832-47f2-b4e2-bb36f823e211" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Request Category]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30"/>
-						<jr:detailCell style="table 1_TD" height="20">
+						<jr:columnFooter style="table 2_CH" height="1" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement uuid="e0604863-72a9-4355-b7bc-a65dc4ba10b0" x="0" y="0" width="90" height="20"/>
-								<textElement/>
+								<reportElement uuid="12a67d9e-964c-4655-9fbe-cdc5840ac74f" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font fontName="Tahoma"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{requestCategory}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="f26dffd1-6967-4a8a-9fef-3ec5370d7a99" width="90">
-						<jr:tableHeader style="table 1_TH" height="30"/>
-						<jr:tableFooter style="table 1_TH" height="30"/>
-						<jr:columnHeader style="table 1_CH" height="30">
+					<jr:column uuid="930d7e06-254e-42a9-96cb-e7fb09b506d3" width="90">
+						<jr:tableHeader style="table 2_TH" height="5" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="0" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="ecf1bb69-f848-4a04-b6af-f82dd773fa88" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[cancelledApplications]]></text>
+								<reportElement uuid="97ac7715-0a9f-4b25-b85f-2aa4f75c5752" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Lodged Applications]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30"/>
-						<jr:detailCell style="table 1_TD" height="20">
+						<jr:columnFooter style="table 2_CH" height="1" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement uuid="5d0d19c0-6ce5-48eb-bb77-2c07f6e43431" x="0" y="0" width="90" height="20"/>
-								<textElement/>
-								<textFieldExpression><![CDATA[$F{cancelledApplications}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column uuid="d2db6d81-a995-4c54-a45f-dae6fe770f11" width="90">
-						<jr:tableHeader style="table 1_TH" height="30"/>
-						<jr:tableFooter style="table 1_TH" height="30"/>
-						<jr:columnHeader style="table 1_CH" height="30">
-							<staticText>
-								<reportElement uuid="4840b1c9-5c25-4e9f-9b80-cfabb58475d3" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[lodgedApplications]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30"/>
-						<jr:detailCell style="table 1_TD" height="20">
-							<textField>
-								<reportElement uuid="2f3a02d2-fb14-4e8c-ae95-279d653eabe1" x="0" y="0" width="90" height="20"/>
-								<textElement/>
+								<reportElement uuid="99317066-d783-4838-adbf-a70490dd1a0a" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font fontName="Tahoma"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{lodgedApplications}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="a6a20cb3-754b-4c5b-987f-0370f56bdf3c" width="90">
-						<jr:tableHeader style="table 1_TH" height="30"/>
-						<jr:tableFooter style="table 1_TH" height="30"/>
-						<jr:columnHeader style="table 1_CH" height="30">
+					<jr:column uuid="8e859b3c-f5cc-45c2-adeb-417c59ad157d" width="90">
+						<jr:tableHeader style="table 2_TH" height="5" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="0" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="149abf51-3031-44e6-929c-91b78da5f493" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[completedApplications]]></text>
+								<reportElement uuid="8e9344eb-16bb-4f51-ae5a-de70927487b5" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Cancelled Applications]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="30"/>
-						<jr:detailCell style="table 1_TD" height="20">
+						<jr:columnFooter style="table 2_CH" height="1" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement uuid="5f003d66-55d8-4838-bd3e-cefa635d611a" x="0" y="0" width="90" height="20"/>
-								<textElement/>
+								<reportElement uuid="8d24ff8f-ddd0-465a-959b-9d8b340ea7f9" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font fontName="Tahoma"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cancelledApplications}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="8adbb6d9-307c-4a72-b5a3-1d1521feb58c" width="113">
+						<jr:tableHeader style="table 2_TH" height="5" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="0" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="0de5d639-dbfb-470d-96d3-adc4cf55fcf9" x="0" y="0" width="111" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Completed Applications]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="1" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="21da8e2a-30e2-45c0-ad23-70a620cb6918" x="0" y="0" width="111" height="20"/>
+								<textElement textAlignment="Center">
+									<font fontName="Tahoma"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{completedApplications}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -266,12 +306,12 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="1" splitType="Stretch"/>
 	</summary>
 </jasperReport>
