@@ -42,18 +42,6 @@ import org.sola.clients.swing.gis.beans.SpatialBean;
 import org.sola.clients.swing.gis.beans.SurveyPointBean;
 import org.sola.common.messaging.GisMessage;
 
-import org.kabeja.dxf.DXFConstants;
-import org.kabeja.dxf.DXFDocument;
-import org.kabeja.dxf.DXFLayer;
-import org.kabeja.dxf.DXFLine;
-import org.kabeja.dxf.DXFPolyline;
-import org.kabeja.dxf.DXFVertex;
-import org.kabeja.dxf.DXFConstants;
-import org.kabeja.dxf.helpers.Point;
-import org.kabeja.parser.ParseException;
-import org.kabeja.parser.Parser;
-import org.kabeja.parser.DXFParser;
-import org.kabeja.parser.ParserBuilder;
 
 /**
  * External file importer that imports points from an CSV file.
