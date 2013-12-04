@@ -62,6 +62,7 @@ import org.sola.clients.swing.desktop.party.PartySearchPanelForm;
 import org.sola.clients.swing.desktop.reports.LodgementReportParamsForm;
 import org.sola.clients.swing.desktop.reports.MortgageStatsReportParamsForm;
 import org.sola.clients.swing.desktop.reports.ResponseTimeReportParamsForm;
+import org.sola.clients.swing.desktop.reports.StatisticalReportParamsForm;
 import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
@@ -168,6 +169,11 @@ public class MainForm extends javax.swing.JFrame {
     private void openMortgageStatsParamsForm() {
         MortgageStatsReportParamsForm reportDateChooser = new MortgageStatsReportParamsForm(this, true);
         reportDateChooser.setVisible(true);
+    }
+    
+    private void openStatisticalParamsForm(){
+        StatisticalReportParamsForm statsForm = new StatisticalReportParamsForm(this,true);
+        statsForm.setVisible(true);
     }
 
     /**
@@ -688,6 +694,7 @@ public class MainForm extends javax.swing.JFrame {
         menuLodgementReport = new javax.swing.JMenuItem();
         menuResponseTimeReport = new javax.swing.JMenuItem();
         menuMortgageStatsReport = new javax.swing.JMenuItem();
+        menuStatisticalReport = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         jmiContextHelp = new javax.swing.JMenuItem();
@@ -1020,6 +1027,14 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuReportsDesktop.add(menuMortgageStatsReport);
 
+        menuStatisticalReport.setText(bundle.getString("MainForm.menuStatisticalReport.text")); // NOI18N
+        menuStatisticalReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuStatisticalReportActionPerformed(evt);
+            }
+        });
+        menuReportsDesktop.add(menuStatisticalReport);
+
         menuBar.add(menuReportsDesktop);
 
         helpMenu.setText(bundle.getString("MainForm.helpMenu.text")); // NOI18N
@@ -1179,6 +1194,10 @@ public class MainForm extends javax.swing.JFrame {
         openMortgageStatsParamsForm();
     }//GEN-LAST:event_menuMortgageStatsReportActionPerformed
 
+    private void menuStatisticalReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStatisticalReportActionPerformed
+        openStatisticalParamsForm();
+    }//GEN-LAST:event_menuStatisticalReportActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1257,6 +1276,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuSearch;
     private javax.swing.JMenuItem menuSearchApplication;
     private javax.swing.JMenuItem menuShowMap;
+    private javax.swing.JMenuItem menuStatisticalReport;
     private javax.swing.JMenu menuView;
     private org.sola.clients.swing.ui.MainContentPanel pnlContent;
     private javax.swing.JPanel statusPanel;

@@ -22,7 +22,7 @@ import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractIdBean;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.webservices.transferobjects.casemanagement.LodgementViewParamsTO;
-import org.sola.webservices.transferobjects.casemanagement.StatisticsSummaryTO;
+import org.sola.webservices.transferobjects.casemanagement.StatisticalSummaryTO;
 import org.sola.services.boundary.wsclients.WSManager;
 
 /**
@@ -31,27 +31,27 @@ import org.sola.services.boundary.wsclients.WSManager;
  */
 public class StatisticalReportBean  extends AbstractIdBean {
     
-    private ObservableList<StatisticsSummaryBean> statisticsSummaryList;
+    private ObservableList<StatisticalSummaryBean> statisticsSummaryList;
 
     public StatisticalReportBean() {
-         statisticsSummaryList = ObservableCollections.observableList(new LinkedList<StatisticsSummaryBean>());
+         statisticsSummaryList = ObservableCollections.observableList(new LinkedList<StatisticalSummaryBean>());
     }
     
-    public void loadStatisticSummary(LodgementViewParamsBean params){
+    public void loadStatisticalSummary(LodgementViewParamsBean params){
                 LodgementViewParamsTO paramsTO = TypeConverters.BeanToTrasferObject(params,
                 LodgementViewParamsTO.class);
-        List<StatisticsSummaryTO> statisticsSummaryTOList =
-                WSManager.getInstance().getCaseManagementService().getStatisticsSummary(paramsTO);
+        List<StatisticalSummaryTO> statisticalSummaryTOList =
+                WSManager.getInstance().getCaseManagementService().getStatisticalSummary(paramsTO);
 
-        TypeConverters.TransferObjectListToBeanList(statisticsSummaryTOList,
-                StatisticsSummaryBean.class, (List) statisticsSummaryList);
+        TypeConverters.TransferObjectListToBeanList(statisticalSummaryTOList,
+                StatisticalSummaryBean.class, (List) statisticsSummaryList);
     }
     
-    public ObservableList<StatisticsSummaryBean> getStatisticsSummaryList() {
+    public ObservableList<StatisticalSummaryBean> getStatisticsSummaryList() {
         return statisticsSummaryList;
     }
 
-    public void setStatisticsSummaryList(ObservableList<StatisticsSummaryBean> statisticsSummaryList) {
+    public void setStatisticsSummaryList(ObservableList<StatisticalSummaryBean> statisticsSummaryList) {
         this.statisticsSummaryList = statisticsSummaryList;
     }
     

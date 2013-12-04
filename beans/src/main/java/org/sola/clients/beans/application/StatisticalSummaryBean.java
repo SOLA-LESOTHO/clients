@@ -21,9 +21,9 @@ import org.sola.clients.beans.AbstractBindingBean;
  *
  * @author ntsane
  */
-public class StatisticsSummaryBean extends AbstractBindingBean{
+public class StatisticalSummaryBean extends AbstractBindingBean{
 
-    public StatisticsSummaryBean(){
+    public StatisticalSummaryBean(){
         super();
     }
     
@@ -90,7 +90,7 @@ public class StatisticsSummaryBean extends AbstractBindingBean{
      */
     public static java.util.Collection generateCollection() {
         java.util.Vector collection = new java.util.Vector();
-        StatisticsSummaryBean bean = new StatisticsSummaryBean();
+        StatisticalSummaryBean bean = new StatisticalSummaryBean();
         collection.add(bean);
         return collection;
     }

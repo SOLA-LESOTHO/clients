@@ -1027,6 +1027,36 @@ public class ReportManager {
                     new Object[]{ex.getLocalizedMessage()});
             return null;
         }
+    }
+    
+        /**
+     * Generates and displays <b>Monthly Statistics</b> report.
+     *
+     * @param statistical View List bean containing data for the report.
+     */
+    public static JasperPrint getStatisticalReport(StatisticalReportBean statisticalViewListBean, Date dateFrom, Date dateTo) {
+        HashMap inputParameters = new HashMap();
+        Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+
+        inputParameters.put("CURRENT_DATE", currentdate);
+
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("FROMDATE", dateFrom);
+        inputParameters.put("TODATE", dateTo);
+        StatisticalReportBean[] beans = new StatisticalReportBean[1];
+        beans[0] = statisticalViewListBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/StatisticalReport.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            LogUtility.log(LogUtility.getStackTraceAsString(ex), Level.SEVERE);
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
     } 
     
 }
