@@ -314,8 +314,8 @@ public class LeaseReportBean extends AbstractBindingBean {
      * Shortcut for the first parcel map reference number.
      */
     public String getParcelMapRef() {
-        if (getCadastreObject() != null && getCadastreObject().getSourceReference() != null) {
-            return getCadastreObject().getSourceReference();
+        if (getCadastreObject() != null && getCadastreObject().getNameFirstpart() != null) {
+            return getCadastreObject().getNameFirstpart();
         }
         return "";
     }
