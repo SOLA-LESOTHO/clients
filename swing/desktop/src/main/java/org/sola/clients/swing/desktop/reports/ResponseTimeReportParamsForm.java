@@ -72,8 +72,10 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         responseListBean1 = new org.sola.clients.beans.application.ResponseListBean();
+        requestCategories = new org.sola.clients.beans.referencedata.RequestCategoryTypeListBean();
         searchParams = new org.sola.clients.beans.application.LodgementViewParamsBean();
         jPanel6 = new javax.swing.JPanel();
         labFrom = new javax.swing.JLabel();
@@ -88,6 +90,8 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
         btnToDate = new javax.swing.JButton();
         labTo = new javax.swing.JLabel();
         viewReport = new javax.swing.JButton();
+        cbxDepartment = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -208,6 +212,14 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
             }
         });
 
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${requestCategoryTypes}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, requestCategories, eLProperty, cbxDepartment);
+        bindingGroup.addBinding(jComboBoxBinding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, searchParams, org.jdesktop.beansbinding.ELProperty.create("${requestCategory}"), cbxDepartment, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        jLabel1.setText("Department");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -217,7 +229,9 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
                     .addComponent(labFrom)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewReport)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbxDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(140, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -228,9 +242,13 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(viewReport)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,9 +264,11 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -282,6 +302,11 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
         boolean dateFilled = false;
         Date tmpFrom;
         Date tmpTo;
+        String div = "";
+        
+        if(searchParams.getRequestCategory() != null)
+            div = searchParams.getRequestCategory().getDescription();
+                
         if (txtFromDate.getValue() == null) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_DATEFROM);
             dateFilled = false;
@@ -303,6 +328,7 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
         if (dateFilled) {
             final Date tmpFromFinal = tmpFrom;
             final Date tmpToFinal = tmpTo;
+            final String department = div;
             SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
 
                 @Override
@@ -315,7 +341,7 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
 
                 @Override
                 protected void taskDone() {
-                    showReport(ReportManager.getResponseTimeReport(responseListBean1, tmpFromFinal, tmpToFinal));
+                    showReport(ReportManager.getResponseTimeReport(responseListBean1, tmpFromFinal, tmpToFinal, department));
                 }
             };
             TaskManager.getInstance().runTask(t);
@@ -330,16 +356,20 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
     private javax.swing.JButton btnShowCalendarFrom;
     private javax.swing.JButton btnShowCalendarTo;
     private javax.swing.JButton btnToDate;
+    private javax.swing.JComboBox cbxDepartment;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel labFrom;
     private javax.swing.JLabel labTo;
+    private org.sola.clients.beans.referencedata.RequestCategoryTypeListBean requestCategories;
     private org.sola.clients.beans.application.ResponseListBean responseListBean1;
     private org.sola.clients.beans.application.LodgementViewParamsBean searchParams;
     private javax.swing.JFormattedTextField txtFromDate;
     private javax.swing.JFormattedTextField txtToDate;
     private javax.swing.JButton viewReport;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

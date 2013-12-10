@@ -979,7 +979,7 @@ public class ReportManager {
      *
      * @param appBean Application bean containing data for the report.
      */
-    public static JasperPrint getResponseTimeReport(ResponseListBean responseBean, Date dateFrom, Date dateTo) {
+    public static JasperPrint getResponseTimeReport(ResponseListBean responseBean, Date dateFrom, Date dateTo, String department) {
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -989,6 +989,7 @@ public class ReportManager {
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROMDATE", dateFrom);
         inputParameters.put("TODATE", dateTo);
+        inputParameters.put("DEPARTMENT", department);
         ResponseListBean[] beans = new ResponseListBean[1];
         beans[0] = responseBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);

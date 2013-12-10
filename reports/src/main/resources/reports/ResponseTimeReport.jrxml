@@ -91,6 +91,7 @@
 	<parameter name="CURRENT_DATE" class="java.util.Date"/>
 	<parameter name="FROMDATE" class="java.util.Date"/>
 	<parameter name="TODATE" class="java.util.Date"/>
+	<parameter name="DEPARTMENT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -101,7 +102,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="202" splitType="Stretch">
+		<band height="214" splitType="Stretch">
 			<image>
 				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="160" y="0" width="216" height="84"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
@@ -198,7 +199,7 @@ Fax: +266 2231 0905
 		</band>
 	</title>
 	<pageHeader>
-		<band height="44" splitType="Stretch">
+		<band height="61" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="8031acbd-495b-4aaa-80d7-453f5fbb3039" x="10" y="12" width="537" height="23" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" markup="none">
@@ -207,17 +208,27 @@ Fax: +266 2231 0905
 				<text><![CDATA[RESPONSE TIME REPORT]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="9d9cc64e-1010-4947-a94d-efcb31e1c99a" x="10" y="37" width="537" height="1"/>
+				<reportElement uuid="9d9cc64e-1010-4947-a94d-efcb31e1c99a" x="10" y="55" width="545" height="1"/>
 			</line>
+			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+				<reportElement uuid="9024df5c-c613-429d-9b79-5a6ec8e3a97c" mode="Transparent" x="198" y="35" width="162" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Serif" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DEPARTMENT}
+
+]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="237" splitType="Stretch">
+		<band height="98" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="974d8a43-a22a-4d38-a440-7ae774badca8" key="table 2" style="table 2" x="10" y="0" width="537" height="80"/>
+				<reportElement uuid="974d8a43-a22a-4d38-a440-7ae774badca8" key="table 2" style="table 2" x="10" y="1" width="537" height="97"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
 					<datasetRun subDataset="Response" uuid="ec5bc006-2412-4ad8-a96d-bb3163fea24c">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{responses}.toArray())]]></dataSourceExpression>

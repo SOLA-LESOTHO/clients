@@ -31,6 +31,7 @@ package org.sola.clients.beans.application;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.referencedata.RequestCategoryTypeBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.webservices.transferobjects.casemanagement.LodgementViewParamsTO;
@@ -48,6 +49,8 @@ public class LodgementViewParamsBean  extends AbstractBindingBean {
     
     public static final String FROM_DATE_PROPERTY = "fromDate";
     public static final String TO_DATE_PROPERTY = "toDate";
+    public static final String REQUEST_CATEGORY_PROPERTY = "requestCategory";
+    public static final String REQUEST_CATEGORY_CODE_PROPERTY = "requestCategoryCode";
     
   
 //    @NotNull(message = ClientMessage.CHECK_NOTNULL_EXPIRATION, payload = Localized.class)
@@ -55,16 +58,44 @@ public class LodgementViewParamsBean  extends AbstractBindingBean {
 //    @NotNull(message = ClientMessage.CHECK_NOTNULL_EXPIRATION, payload = Localized.class)
     private Date toDate;
     
+    private RequestCategoryTypeBean requestCategory;
+    
+    private String requestCategoryCode;
+    
     public LodgementViewParamsBean() {
         super();
     }
+
+    public RequestCategoryTypeBean getRequestCategory() {
+        return requestCategory;
+    }
+
+    public void setRequestCategory(RequestCategoryTypeBean requestCategory) {
+        if( requestCategory == null){
+            setRequestCategoryCode(null);
+        }
+        else{
+            RequestCategoryTypeBean old = this.requestCategory;
+            this.requestCategory = requestCategory;
+            setRequestCategoryCode(requestCategory.getCode());
+            propertySupport.firePropertyChange(REQUEST_CATEGORY_PROPERTY, old, requestCategory);
+        }     
+    }
+
+    public String getRequestCategoryCode() {
+        return requestCategoryCode;
+    }
+
+    public void setRequestCategoryCode(String requestCategoryCode) {
+        this.requestCategoryCode = requestCategoryCode;
+    }
     
-     public Date getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
 //    @NotNull(message = ClientMessage.CHECK_NOTNULL_EXPIRATION, payload = Localized.class)
-        public void setFromDate(Date value) {
+    public void setFromDate(Date value) {
         Date oldValue = fromDate;
         fromDate = value;
         propertySupport.firePropertyChange(FROM_DATE_PROPERTY, oldValue, value);
