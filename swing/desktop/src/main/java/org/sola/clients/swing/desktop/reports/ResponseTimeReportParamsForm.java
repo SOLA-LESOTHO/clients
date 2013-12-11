@@ -57,6 +57,8 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
     public ResponseTimeReportParamsForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        requestCategories.loadList(true);
+        cbxDepartment.setSelectedIndex(0);
     }
 
     private void showCalendar(JFormattedTextField dateField) {
@@ -302,7 +304,7 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
         boolean dateFilled = false;
         Date tmpFrom;
         Date tmpTo;
-        String div = "";
+        String div = null;
         
         if(searchParams.getRequestCategory() != null)
             div = searchParams.getRequestCategory().getDescription();
