@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Statistical Report" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2bcfb786-ac6c-4cc9-9133-e16f27a8f83e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="236"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -87,6 +87,7 @@
 	<parameter name="TODATE" class="java.util.Date"/>
 	<parameter name="CURRENT_DATE" class="java.util.Date"/>
 	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="DEPARTMENT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -97,8 +98,8 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="217" splitType="Stretch">
-			<textField pattern="" isBlankWhenNull="true">
+		<band height="224" splitType="Stretch">
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
 				<reportElement uuid="c8b7a053-f91b-49e7-be3d-db01bfa76ae5" mode="Transparent" x="49" y="30" width="182" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Times New Roman" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -141,11 +142,19 @@
 				</textElement>
 				<text><![CDATA[Statistical Report]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d48cf5f3-76a1-4a94-88d0-d4b5185bb31d" x="146" y="202" width="283" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DEPARTMENT}
+]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
-			<textField>
+			<textField pattern="dd MMMMM yyyy">
 				<reportElement uuid="fed2bc5b-1f6a-4c8f-a596-2e4c634ddd6f" x="329" y="8" width="100" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
@@ -166,7 +175,7 @@
 				</textElement>
 				<text><![CDATA[To:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd MMMMM yyyy">
 				<reportElement uuid="bcb855d2-8a55-423e-af08-90f4b12e6b82" x="176" y="8" width="100" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
@@ -179,9 +188,9 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="235" splitType="Stretch">
+		<band height="222" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="60ffa1d3-76ac-44f8-8b55-ed030f733001" key="table 2" style="table 2" x="34" y="13" width="494" height="205"/>
+				<reportElement uuid="60ffa1d3-76ac-44f8-8b55-ed030f733001" key="table 2" style="table 2" x="0" y="0" width="555" height="218"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Stats" uuid="a3e4b111-467d-44a2-8024-43c27adbe39e">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{statisticsSummaryList}.toArray())]]></dataSourceExpression>

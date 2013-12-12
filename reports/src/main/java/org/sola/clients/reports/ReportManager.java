@@ -1035,7 +1035,7 @@ public class ReportManager {
      *
      * @param statistical View List bean containing data for the report.
      */
-    public static JasperPrint getStatisticalReport(StatisticalReportBean statisticalViewListBean, Date dateFrom, Date dateTo) {
+    public static JasperPrint getStatisticalReport(StatisticalReportBean statisticalViewListBean, Date dateFrom, Date dateTo, String department) {
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -1045,6 +1045,7 @@ public class ReportManager {
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROMDATE", dateFrom);
         inputParameters.put("TODATE", dateTo);
+        inputParameters.put("DEPARTMENT", department);
         StatisticalReportBean[] beans = new StatisticalReportBean[1];
         beans[0] = statisticalViewListBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);

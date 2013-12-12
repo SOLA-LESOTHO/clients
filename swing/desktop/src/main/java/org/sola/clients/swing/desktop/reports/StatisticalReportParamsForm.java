@@ -42,6 +42,8 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
     public StatisticalReportParamsForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        requestCategories.loadList(true);
+        cbxDepartment.setSelectedIndex(0);
     }
     
     private void showCalendar(JFormattedTextField dateField) {
@@ -66,9 +68,11 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         searchParams = new org.sola.clients.beans.application.LodgementViewParamsBean();
         statisticalViewListBean = new org.sola.clients.beans.application.StatisticalReportBean();
+        requestCategories = new org.sola.clients.beans.referencedata.RequestCategoryTypeListBean();
         jPanel6 = new javax.swing.JPanel();
         labFrom = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -82,6 +86,8 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
         btnToDate = new javax.swing.JButton();
         labTo = new javax.swing.JLabel();
         viewReport = new javax.swing.JButton();
+        cbxDepartment = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -202,6 +208,14 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
             }
         });
 
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${requestCategoryTypes}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, requestCategories, eLProperty, cbxDepartment);
+        bindingGroup.addBinding(jComboBoxBinding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, searchParams, org.jdesktop.beansbinding.ELProperty.create("${requestCategory}"), cbxDepartment, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        jLabel1.setText("Department");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -211,8 +225,10 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
                     .addComponent(labFrom)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewReport)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,9 +238,13 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addComponent(viewReport)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,6 +263,8 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -267,6 +289,12 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
         boolean dateFilled = false;
         Date tmpFrom;
         Date tmpTo;
+        
+        String div = null;
+        
+        if( searchParams.getRequestCategory() != null)
+            div = searchParams.getRequestCategory().getDescription();
+                
         if (txtFromDate.getValue() == null) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_DATEFROM);
             dateFilled = false;
@@ -288,6 +316,8 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
         if (dateFilled) {
             final Date tmpFromFinal = tmpFrom;
             final Date tmpToFinal = tmpTo;
+            final String department = div;
+            
             SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
 
                 @Override
@@ -300,7 +330,7 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
 
                 @Override
                 protected void taskDone() {
-                    showReport(ReportManager.getStatisticalReport(statisticalViewListBean, tmpFromFinal, tmpToFinal));
+                    showReport(ReportManager.getStatisticalReport(statisticalViewListBean, tmpFromFinal, tmpToFinal, department));
                 }
             };
             TaskManager.getInstance().runTask(t);
@@ -355,16 +385,20 @@ public class StatisticalReportParamsForm extends javax.swing.JDialog {
     private javax.swing.JButton btnShowCalendarFrom;
     private javax.swing.JButton btnShowCalendarTo;
     private javax.swing.JButton btnToDate;
+    private javax.swing.JComboBox cbxDepartment;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel labFrom;
     private javax.swing.JLabel labTo;
+    private org.sola.clients.beans.referencedata.RequestCategoryTypeListBean requestCategories;
     private org.sola.clients.beans.application.LodgementViewParamsBean searchParams;
     private org.sola.clients.beans.application.StatisticalReportBean statisticalViewListBean;
     private javax.swing.JFormattedTextField txtFromDate;
     private javax.swing.JFormattedTextField txtToDate;
     private javax.swing.JButton viewReport;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
