@@ -147,8 +147,7 @@
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{DEPARTMENT}
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DEPARTMENT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -250,7 +249,7 @@
 								<textElement textAlignment="Center">
 									<font fontName="Arial" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Lodged Applications]]></text>
+								<text><![CDATA[Lodged Services]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 2_CH" height="1" rowSpan="1"/>
@@ -273,7 +272,7 @@
 								<textElement textAlignment="Center">
 									<font fontName="Arial" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Cancelled Applications]]></text>
+								<text><![CDATA[Cancelled Services]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 2_CH" height="1" rowSpan="1"/>
@@ -296,7 +295,7 @@
 								<textElement textAlignment="Center">
 									<font fontName="Arial" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Completed Applications]]></text>
+								<text><![CDATA[Completed Services]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 2_CH" height="1" rowSpan="1"/>
