@@ -57,6 +57,8 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
     public LodgementReportParamsForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        requestCategories.loadList(true);
+        cbxDepartment.setSelectedIndex(0);
     }
 
       private void showCalendar(JFormattedTextField dateField) {
@@ -67,9 +69,11 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         searchParams = new org.sola.clients.beans.application.LodgementViewParamsBean();
         serviceReportBean1 = new org.sola.clients.beans.application.ServiceReportBean();
+        requestCategories = new org.sola.clients.beans.referencedata.RequestCategoryTypeListBean();
         jPanel6 = new javax.swing.JPanel();
         labFrom = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -83,6 +87,8 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
         btnToDate = new javax.swing.JButton();
         labTo = new javax.swing.JLabel();
         viewReport = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        cbxDepartment = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/reports/Bundle"); // NOI18N
@@ -204,6 +210,14 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setText(bundle.getString("LodgementReportParamsForm.jLabel1.text")); // NOI18N
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${requestCategoryTypes}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, requestCategories, eLProperty, cbxDepartment);
+        bindingGroup.addBinding(jComboBoxBinding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, searchParams, org.jdesktop.beansbinding.ELProperty.create("${requestCategory}"), cbxDepartment, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -212,9 +226,12 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labFrom)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewReport)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cbxDepartment, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,25 +241,27 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(12, 12, 12)
+                .addComponent(cbxDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(viewReport)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -264,6 +283,12 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
          boolean dateFilled = false;
         Date tmpFrom;
         Date tmpTo;
+        
+        String div = null;
+        
+        if(searchParams.getRequestCategory() != null)
+            div = searchParams.getRequestCategory().getDescription();
+        
         if (txtFromDate.getValue() == null) {
             MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_DATEFROM);
             dateFilled = false;
@@ -285,6 +310,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
         if (dateFilled) {
             final Date tmpFromFinal = tmpFrom;
             final Date tmpToFinal = tmpTo;
+            final String department = div;
             SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
                 @Override
                 public Void doTask() {
@@ -296,7 +322,7 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
 
                 @Override
                 protected void taskDone() {
-                    showReport(ReportManager.getLodgementReport(serviceReportBean1, tmpFromFinal, tmpToFinal));
+                    showReport(ReportManager.getLodgementReport(serviceReportBean1, tmpFromFinal, tmpToFinal, department));
                 }
             };
             TaskManager.getInstance().runTask(t);
@@ -319,16 +345,20 @@ public class LodgementReportParamsForm extends javax.swing.JDialog {
     private javax.swing.JButton btnShowCalendarFrom;
     private javax.swing.JButton btnShowCalendarTo;
     private javax.swing.JButton btnToDate;
+    private javax.swing.JComboBox cbxDepartment;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel labFrom;
     private javax.swing.JLabel labTo;
+    private org.sola.clients.beans.referencedata.RequestCategoryTypeListBean requestCategories;
     private org.sola.clients.beans.application.LodgementViewParamsBean searchParams;
     private org.sola.clients.beans.application.ServiceReportBean serviceReportBean1;
     private javax.swing.JFormattedTextField txtFromDate;
     private javax.swing.JFormattedTextField txtToDate;
     private javax.swing.JButton viewReport;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

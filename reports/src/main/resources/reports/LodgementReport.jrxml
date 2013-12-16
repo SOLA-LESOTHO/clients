@@ -119,6 +119,7 @@
 	<parameter name="WORKSUMMARY" class="java.util.List">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="DEPARTMENT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -136,7 +137,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="47" splitType="Stretch">
+		<band height="71" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="734fa67f-b187-4e9b-a950-c42e35906bdb" x="188" y="0" width="431" height="40" forecolor="#000000"/>
 				<textElement verticalAlignment="Middle">
@@ -175,6 +176,13 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CURRENT_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6debce87-031d-4224-8848-089909a54162" x="188" y="37" width="431" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DEPARTMENT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

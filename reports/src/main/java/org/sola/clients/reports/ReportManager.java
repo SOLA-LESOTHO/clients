@@ -605,7 +605,7 @@ public class ReportManager {
      *
      * @param appBean Application bean containing data for the report.
      */
-    public static JasperPrint getLodgementReport(ServiceReportBean lodgementBean, Date dateFrom, Date dateTo) {
+    public static JasperPrint getLodgementReport(ServiceReportBean lodgementBean, Date dateFrom, Date dateTo, String department) {
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -615,6 +615,7 @@ public class ReportManager {
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("FROMDATE", dateFrom);
         inputParameters.put("TODATE", dateTo);
+        inputParameters.put("DEPARTMENT", department);
         ServiceReportBean[] beans = new ServiceReportBean[1];
         beans[0] = lodgementBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
