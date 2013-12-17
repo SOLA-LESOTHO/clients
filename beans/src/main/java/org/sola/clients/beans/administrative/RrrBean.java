@@ -149,7 +149,7 @@ public class RrrBean extends AbstractTransactionedBean {
     @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTGAGEAMOUNT, payload = Localized.class, groups = {MortgageValidationGroup.class})
     private BigDecimal amount;
     private Date dueDate;
-    @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTAGAETYPE, payload = Localized.class, groups = {MortgageValidationGroup.class})
+    //@NotNull(message = ClientMessage.CHECK_NOTNULL_MORTAGAETYPE, payload = Localized.class, groups = {MortgageValidationGroup.class})
     private MortgageTypeBean mortgageType;
     private BigDecimal mortgageInterestRate;
     private Integer mortgageRanking;
