@@ -1021,6 +1021,7 @@ public class ApplicationPanel extends ContentPanel {
 
     private void showCalendar(JFormattedTextField dateField) {
         CalendarForm calendar = new CalendarForm(null, true, dateField);
+        calendar.setLocationRelativeTo(this);
         calendar.setVisible(true);
     }
 
