@@ -181,11 +181,12 @@ public abstract class ControlsBundleForTransaction extends SolaControlsBundle {
     protected void zoomToInterestingArea(
             ReferencedEnvelope interestingArea,
             byte[] applicationLocation) {
+        this.getMap().setBoundsToZoom(interestingArea);
         if (interestingArea == null && applicationLocation != null) {
             try {
                 Geometry applicationLocationGeometry =
                         PojoFeatureSource.getWkbReader().read(applicationLocation);
-                interestingArea = JTS.toEnvelope(applicationLocationGeometry);
+                interestingArea = JTS.toEnvelope(applicationLocationGeometry);                
             } catch (ParseException ex) {
                 Messaging.getInstance().show(GisMessage.CADASTRE_CHANGE_ERROR_SETUP);
                 org.sola.common.logging.LogUtility.log(GisMessage.CADASTRE_CHANGE_ERROR_SETUP, ex);
