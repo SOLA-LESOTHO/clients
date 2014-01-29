@@ -38,16 +38,65 @@ import org.sola.clients.beans.AbstractIdBean;
 public class ResponseBean extends AbstractIdBean {
 
     private String requestType;
+    
     private Integer serviceCount;
+    
     private Integer totalTime;
-    private double averageTime;
+    
+    private Integer averageTime;
+    
+    private Integer frequentDay;
+    
+    private Integer stdDeviation;
+    
+    private Integer minDays;
+    
+    private Integer maxDays;
+    
+    private Integer range;
 
-    public double getAverageTime() {
+    public ResponseBean() {
+        super();
+    }
+
+    public Integer getAverageTime() {
         return averageTime;
     }
 
-    public void setAverageTime(double averageTime) {
+    public void setAverageTime(Integer averageTime) {
         this.averageTime = averageTime;
+    }
+
+    public Integer getFrequentDay() {
+        return frequentDay;
+    }
+
+    public void setFrequentDay(Integer frequentDay) {
+        this.frequentDay = frequentDay;
+    }
+
+    public Integer getMaxDays() {
+        return maxDays;
+    }
+
+    public void setMaxDays(Integer maxDays) {
+        this.maxDays = maxDays;
+    }
+
+    public Integer getMinDays() {
+        return minDays;
+    }
+
+    public void setMinDays(Integer minDays) {
+        this.minDays = minDays;
+    }
+
+    public Integer getRange() {
+        return range;
+    }
+
+    public void setRange(Integer range) {
+        this.range = range;
     }
 
     public String getRequestType() {
@@ -64,6 +113,14 @@ public class ResponseBean extends AbstractIdBean {
 
     public void setServiceCount(Integer serviceCount) {
         this.serviceCount = serviceCount;
+    }
+
+    public Integer getStdDeviation() {
+        return stdDeviation;
+    }
+
+    public void setStdDeviation(Integer stdDeviation) {
+        this.stdDeviation = stdDeviation;
     }
 
     public Integer getTotalTime() {
