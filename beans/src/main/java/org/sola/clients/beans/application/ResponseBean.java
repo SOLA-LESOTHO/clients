@@ -43,7 +43,7 @@ public class ResponseBean extends AbstractIdBean {
     
     private Integer totalTime;
     
-    private Integer averageTime;
+    private double averageTime;
     
     private Integer frequentDay;
     
@@ -59,11 +59,11 @@ public class ResponseBean extends AbstractIdBean {
         super();
     }
 
-    public Integer getAverageTime() {
+    public double getAverageTime() {
         return averageTime;
     }
 
-    public void setAverageTime(Integer averageTime) {
+    public void setAverageTime(double averageTime) {
         this.averageTime = averageTime;
     }
 

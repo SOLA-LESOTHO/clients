@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db7a2a80-2f78-47f4-bc26-55acab791f5f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db7a2a80-2f78-47f4-bc26-55acab791f5f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -69,8 +69,28 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<subDataset name="Table Dataset 1" uuid="14778e33-1c1c-4d6a-8f29-91c389536953"/>
-	<subDataset name="Response" uuid="6e713363-e794-432e-abdf-3cf75d3f6395">
+	<subDataset name="Responses" uuid="60ef55ee-9a9b-43a1-880b-883231194021">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
@@ -85,6 +105,21 @@
 		</field>
 		<field name="averageTime" class="java.lang.Double">
 			<fieldDescription><![CDATA[averageTime]]></fieldDescription>
+		</field>
+		<field name="frequentDay" class="java.lang.Integer">
+			<fieldDescription><![CDATA[frequentDay]]></fieldDescription>
+		</field>
+		<field name="stdDeviation" class="java.lang.Integer">
+			<fieldDescription><![CDATA[stdDeviation]]></fieldDescription>
+		</field>
+		<field name="minDays" class="java.lang.Integer">
+			<fieldDescription><![CDATA[minDays]]></fieldDescription>
+		</field>
+		<field name="maxDays" class="java.lang.Integer">
+			<fieldDescription><![CDATA[maxDays]]></fieldDescription>
+		</field>
+		<field name="range" class="java.lang.Integer">
+			<fieldDescription><![CDATA[range]]></fieldDescription>
 		</field>
 	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
@@ -104,11 +139,11 @@
 	<title>
 		<band height="214" splitType="Stretch">
 			<image>
-				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="160" y="0" width="216" height="84"/>
+				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="306" y="0" width="216" height="84"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement uuid="d68eac69-cc25-4af9-aaea-477835121442" x="450" y="68" width="105" height="34"/>
+				<reportElement uuid="d68eac69-cc25-4af9-aaea-477835121442" x="685" y="94" width="105" height="34"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -117,14 +152,14 @@ PO Box 11856,
 Maseru 100]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2eeaaff6-f1f8-4d12-a098-ac23c49a6941" x="450" y="102" width="105" height="12"/>
+				<reportElement uuid="2eeaaff6-f1f8-4d12-a098-ac23c49a6941" x="685" y="132" width="105" height="12"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lesotho]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="179fa8bd-022a-49b2-bdb8-504ba998ba06" x="450" y="114" width="105" height="38"/>
+				<reportElement uuid="179fa8bd-022a-49b2-bdb8-504ba998ba06" x="685" y="147" width="105" height="38"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -201,24 +236,22 @@ Fax: +266 2231 0905
 	<pageHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="8031acbd-495b-4aaa-80d7-453f5fbb3039" x="10" y="12" width="537" height="23" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="8031acbd-495b-4aaa-80d7-453f5fbb3039" x="0" y="12" width="733" height="23" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" markup="none">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[RESPONSE TIME REPORT]]></text>
+				<text><![CDATA[		SERVICES RESPONSE TIME REPORT]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="9d9cc64e-1010-4947-a94d-efcb31e1c99a" x="10" y="55" width="545" height="1"/>
+				<reportElement uuid="9d9cc64e-1010-4947-a94d-efcb31e1c99a" x="10" y="55" width="780" height="1"/>
 			</line>
 			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
-				<reportElement uuid="9024df5c-c613-429d-9b79-5a6ec8e3a97c" mode="Transparent" x="198" y="35" width="162" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="9024df5c-c613-429d-9b79-5a6ec8e3a97c" mode="Transparent" x="324" y="35" width="162" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Serif" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{DEPARTMENT}
-
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DEPARTMENT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -228,83 +261,173 @@ Fax: +266 2231 0905
 	<detail>
 		<band height="98" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="974d8a43-a22a-4d38-a440-7ae774badca8" key="table 2" style="table 2" x="10" y="1" width="537" height="97"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="Response" uuid="ec5bc006-2412-4ad8-a96d-bb3163fea24c">
+				<reportElement uuid="7b30dc3d-37ff-4dfd-932c-86d175e15a22" key="table 3" style="table 3" x="0" y="0" width="802" height="98"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Responses" uuid="538f3d2a-8fb5-4014-aaca-c06343414e24">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{responses}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column uuid="a9af604f-3748-40e3-afb0-7ea736b5c07f" width="216">
-						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+					<jr:column uuid="7be93172-f234-40a6-90c6-0398d0f6313c" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="fe119800-c95c-4b08-8f55-b1d6c5dd82b3" x="0" y="0" width="212" height="30"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="11" isBold="true"/>
+								<reportElement uuid="9ba74ce4-52b7-45db-9cb3-0cd50a7a34e9" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Monospaced" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Request Type]]></text>
+								<text><![CDATA[Service Type]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="4939507c-e081-45fa-92e4-7835a8120ff1" x="4" y="0" width="208" height="20"/>
-								<textElement verticalAlignment="Middle">
-									<font fontName="SansSerif" isBold="true"/>
-									<paragraph firstLineIndent="5"/>
+								<reportElement uuid="b390d1fe-6799-45fa-9e84-1ef4f28e35e2" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="11" isItalic="true" isUnderline="false"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{requestType}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="ca274f55-c628-4e24-87a6-7fc105e60625" width="90">
-						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+					<jr:column uuid="d438c53d-12fc-4a66-8b0b-e0044ab801ef" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="005f88a3-adae-4e7f-a340-8f2338f079a6" x="0" y="0" width="90" height="30"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="11" isBold="true"/>
+								<reportElement uuid="3d07170e-21b6-412c-b2d7-6fc41fad60d7" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Monospaced" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[# of Services]]></text>
+								<text><![CDATA[ Service Count]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="0d2dc516-76e5-47ff-a4c4-07bae55b8d7b" x="0" y="0" width="90" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement uuid="c86fc188-5f61-46d7-9837-3d8e71f09bf0" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{serviceCount}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="95a47aac-ab16-4832-9a6f-553430c4f2f6" width="108">
-						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+					<jr:column uuid="18d23ee4-6ac3-4d0f-aefb-4476b585ca08" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="47f6d18c-e0b6-4531-9b95-e02a003b30b4" x="0" y="0" width="107" height="30" isPrintWhenDetailOverflows="true"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="11" isBold="true"/>
+								<reportElement uuid="59a46477-07ee-420f-9218-96869bfd7975" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Monospaced" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Total Days]]></text>
+								<text><![CDATA[Total # of Days]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="d7e2a49a-a0e7-4667-a6a3-adb4b2d6bddd" x="0" y="0" width="108" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement uuid="f88f9cee-b6c0-413b-9783-43e4b22943ca" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{totalTime}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="acb0c086-fa8a-40b2-b5ca-9e3537e9802c" width="132">
-						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+					<jr:column uuid="cd135730-f9ff-4358-bdbb-b9ca70da54f5" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="75544830-2e19-4327-9d52-d3c4e9a24ce1" x="0" y="0" width="120" height="30"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="11" isBold="true"/>
+								<reportElement uuid="d0690378-22ca-4e7a-9ef0-234a9232c6e1" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="Monospaced" size="12" isBold="true"/>
+									<paragraph lineSpacing="Single"/>
 								</textElement>
-								<text><![CDATA[Average Processing Time (in days)]]></text>
+								<text><![CDATA[ Average # of Days]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="63e6f5f3-9fab-4a31-94ac-c0549b39a9b8" x="0" y="0" width="120" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement uuid="7f7d4cf3-8948-48d1-bb7c-2c33c16f4ea3" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{averageTime}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="ee3d77ef-4a34-4324-907e-2a1382fd18d7" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="ecf389c0-1628-4dcd-a3c9-bb3e6799ee70" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Monospaced" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Frequent # of Days]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="a2da2d91-945b-41dd-aba9-0786efee8561" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{frequentDay}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="715b850f-166f-486e-84ae-7f2956b9ab3d" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="f21508a4-84f6-479d-a2f1-98d4df9fe5d3" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Monospaced" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Std Deviation]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="02b1ef8b-dc99-45e4-926f-548e5d6d6fbb" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{stdDeviation}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="31ce4a32-4a4d-4c4a-bc65-c45a5e355ec5" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="4c63d084-3c37-441e-aac5-1691a9ecb859" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Monospaced" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Min # of Days]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="bd1bc7cb-7002-4432-a415-dd055f1e1b01" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{minDays}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="9093c95d-739e-40e6-b035-7579ed04be3a" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="d4b4b44d-7613-48c7-bfd4-3bd28dc231b7" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Monospaced" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Max # of Days]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="3c43d7e8-eb2f-45f0-b2cf-e120c1b3ce2d" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{maxDays}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="bfd54998-7654-481a-9eb8-970851c499bf" width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="11e82ac1-4ad1-4f82-9188-301f80cb8f9d" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="Monospaced" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Range]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="cf3aeff1-edac-465b-a947-bf1c1b59a54d" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{range}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
