@@ -84,6 +84,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     public static final String AGENT_PROPERTY = "agent";
     public static final String ASSIGNEE_ID_PROPERTY = "assigneeId";
     public static final String STATUS_TYPE_PROPERTY = "statusType";
+    public static final String STAGE_TYPE_PROPERTY = "stageType";
     public static final String APPLICATION_PROPERTY = "application";
     public static final String SELECTED_CADASTRE_OBJECT = "selectedCadastreObject";
     private ApplicationActionTypeBean actionBean;
@@ -106,6 +107,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
     private transient SourceBean selectedSource;    
     private String assigneeId;
     private ApplicationStatusTypeBean statusBean;
+    private ApplicationStageTypeBean stageBean;
     private SolaList<CadastreObjectSummaryBean> cadastreObjectList;
     private transient CadastreObjectSummaryBean selectedCadastreObject;
     private Date receiptDate;
@@ -122,6 +124,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         super();
         actionBean = new ApplicationActionTypeBean();
         statusBean = new ApplicationStatusTypeBean();
+        stageBean = new ApplicationStageTypeBean();
         propertyList = new SolaList();
         contactPerson = new PartyBean();
         agent = new PartyBean();
@@ -271,6 +274,25 @@ public class ApplicationBean extends ApplicationSummaryBean {
         }
     }
 
+    public ApplicationStageTypeBean getStage() {
+        return stageBean;
+    }
+    
+    public void setStage(ApplicationStageTypeBean stageBean) {
+        if (this.stageBean == null) {
+            this.stageBean = new ApplicationStageTypeBean();
+        }
+        this.setJointRefDataBean(this.stageBean, statusBean, STAGE_TYPE_PROPERTY);
+    }
+    
+    public String getStageCode() {
+        if (stageBean == null) {
+            return null;
+        } else {
+            return stageBean.getCode();
+        }
+    }
+    
     /**
      * Sets application status code and retrieves
      * {@link ApplicationStatusTypeBean} from the cache.
