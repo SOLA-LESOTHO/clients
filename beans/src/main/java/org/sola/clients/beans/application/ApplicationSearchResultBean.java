@@ -39,6 +39,7 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
     public static final String CHECKED_PROPERTY = "checked";
     
     private String status;
+    private String stage;
     private String assigneeId;
     private String assigneeName;
     private String contactPerson;
@@ -98,6 +99,14 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
     }
 
     public String getAffectedLeaseNumbers() {

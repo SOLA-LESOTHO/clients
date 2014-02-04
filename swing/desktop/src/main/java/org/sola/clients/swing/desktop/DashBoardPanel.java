@@ -420,10 +420,11 @@ public class DashBoardPanel extends ContentPanel {
         tbUnassigned.setShowVerticalLines(false);
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${applicationSearchResultsList}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unassignedAppListBean, eLProperty, tbUnassigned);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, unassignedAppListBean, eLProperty, tbUnassigned, "");
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${checked}"));
         columnBinding.setColumnName("Checked");
         columnBinding.setColumnClass(Boolean.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nr}"));
         columnBinding.setColumnName("Nr");
         columnBinding.setColumnClass(String.class);
@@ -450,6 +451,10 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status}"));
         columnBinding.setColumnName("Status");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${stage}"));
+        columnBinding.setColumnName("Stage");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${feePaid}"));
@@ -488,11 +493,12 @@ public class DashBoardPanel extends ContentPanel {
         tbUnassigned.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title4")); // NOI18N
         tbUnassigned.getColumnModel().getColumn(6).setCellRenderer(new org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer());
         tbUnassigned.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title6")); // NOI18N
-        tbUnassigned.getColumnModel().getColumn(8).setMaxWidth(80);
-        tbUnassigned.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title7")); // NOI18N
-        tbUnassigned.getColumnModel().getColumn(8).setCellRenderer(new BooleanCellRenderer());
-        tbUnassigned.getColumnModel().getColumn(9).setMinWidth(180);
-        tbUnassigned.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title9")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title10")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(9).setMaxWidth(80);
+        tbUnassigned.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title7")); // NOI18N
+        tbUnassigned.getColumnModel().getColumn(9).setCellRenderer(new BooleanCellRenderer());
+        tbUnassigned.getColumnModel().getColumn(10).setMinWidth(180);
+        tbUnassigned.getColumnModel().getColumn(10).setHeaderValue(bundle.getString("DashBoardPanel.tbUnassigned.columnModel.title9")); // NOI18N
 
         tbUnassignedApplications.setFloatable(false);
         tbUnassignedApplications.setRollover(true);
@@ -644,6 +650,7 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${checked}"));
         columnBinding.setColumnName("Checked");
         columnBinding.setColumnClass(Boolean.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nr}"));
         columnBinding.setColumnName("Nr");
         columnBinding.setColumnClass(String.class);
@@ -674,6 +681,10 @@ public class DashBoardPanel extends ContentPanel {
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${status}"));
         columnBinding.setColumnName("Status");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${stage}"));
+        columnBinding.setColumnName("Stage");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${feePaid}"));
@@ -712,11 +723,12 @@ public class DashBoardPanel extends ContentPanel {
         tbAssigned.getColumnModel().getColumn(6).setCellRenderer(new org.sola.clients.swing.ui.renderers.CellDelimitedListRenderer());
         tbAssigned.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title6")); // NOI18N
         tbAssigned.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title7")); // NOI18N
-        tbAssigned.getColumnModel().getColumn(9).setMaxWidth(80);
-        tbAssigned.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title8")); // NOI18N
-        tbAssigned.getColumnModel().getColumn(9).setCellRenderer(new BooleanCellRenderer());
-        tbAssigned.getColumnModel().getColumn(10).setMinWidth(180);
-        tbAssigned.getColumnModel().getColumn(10).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title10")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(9).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title11_1")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(10).setMaxWidth(80);
+        tbAssigned.getColumnModel().getColumn(10).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title8")); // NOI18N
+        tbAssigned.getColumnModel().getColumn(10).setCellRenderer(new BooleanCellRenderer());
+        tbAssigned.getColumnModel().getColumn(11).setMinWidth(180);
+        tbAssigned.getColumnModel().getColumn(11).setHeaderValue(bundle.getString("DashBoardPanel.tbAssigned.columnModel.title10")); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
