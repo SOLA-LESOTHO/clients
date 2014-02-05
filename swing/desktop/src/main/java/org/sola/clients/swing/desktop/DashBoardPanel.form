@@ -346,7 +346,6 @@
                       <Property name="name" type="java.lang.String" value=""/>
                       <Subbinding sourcePath="${checked}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                       <Subbinding sourcePath="${nr}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
@@ -738,7 +737,6 @@
                     <BindingProperty name="elements" source="assignedAppListBean" sourcePath="${applicationSearchResultsList}" target="tbAssigned" targetPath="elements" updateStrategy="0" immediately="true">
                       <Subbinding sourcePath="${checked}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                       <Subbinding sourcePath="${nr}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
