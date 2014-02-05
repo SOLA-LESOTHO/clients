@@ -201,6 +201,7 @@ public class RrrBean extends AbstractTransactionedBean {
     private BigDecimal transferDuty;
     private BigDecimal registrationFee;
     private BigDecimal serviceFee;
+    private BigDecimal propertyValue;
     private SolaList<LeaseSpecialConditionBean> leaseSpecialConditionList;
     private transient LeaseSpecialConditionBean selectedSpecialCondition;
     @NotNull(message = ClientMessage.LEASE_LAND_USE_IS_NULL, groups={LeaseValidationGroup.class}, payload = Localized.class)
