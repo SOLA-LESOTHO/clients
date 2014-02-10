@@ -235,6 +235,11 @@ public final class CacheManager {
      * Cache key of the {@link TransactionTypeBean} collection.
      */
     public static final String TRANSACTION_TYPE_CODES_KEY = TransactionTypeBean.class.getName() + LIST_POSTFIX;
+    
+    /*
+     * Cache key of the (@link ApplicationStageTypeBean) collection.
+     */
+    public static final String APPLICATION_STAGE_TYPE_CODES_KEY = ApplicationStageTypeBean.class.getName() + LIST_POSTFIX;
 
     
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
@@ -280,6 +285,7 @@ public final class CacheManager {
     private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
     private static final String GET_ROAD_CLASS_TYPE = "getRoadClassType";
     private static final String GET_TRANSACTION_TYPES = "getTransactionTypes";
+    private static final String GET_APPLICATION_STAGE_TYPES = "getApplicationStageTypes";
     
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
@@ -562,6 +568,12 @@ public final class CacheManager {
         return getCachedBeanList(TransactionTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_TRANSACTION_TYPES, TRANSACTION_TYPE_CODES_KEY);
+    }
+    
+    public static List<ApplicationStageTypeBean> getApplicationStageTypes() {
+        return getCachedBeanList(ApplicationStageTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_APPLICATION_STAGE_TYPES, APPLICATION_STAGE_TYPE_CODES_KEY);
     }
     
     /**
