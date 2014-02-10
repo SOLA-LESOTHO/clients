@@ -224,8 +224,11 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="appStages" sourcePath="${applicationStageTypes}" target="cbxAction" targetPath="elements" updateStrategy="0" immediately="false"/>
-            <BindingProperty name="selectedItem" source="appStages" sourcePath="${selectedApplicationStageType.description}" target="cbxAction" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+            <BindingProperty name="selectedItem" source="appStages" sourcePath="${selectedApplicationStageType.code}" target="cbxAction" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
           </BindingProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxActionActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

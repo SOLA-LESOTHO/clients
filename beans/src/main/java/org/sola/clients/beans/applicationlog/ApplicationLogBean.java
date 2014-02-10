@@ -203,6 +203,10 @@ public class ApplicationLogBean extends AbstractBindingBean {
             description = getRecordType() + " " + getNumber()
                     + ", Action: " + actType;
         }
+        
+        if (actType.equalsIgnoreCase("Assign")){
+            setNotation("Action required...");
+        }
         return description;
     }
 }

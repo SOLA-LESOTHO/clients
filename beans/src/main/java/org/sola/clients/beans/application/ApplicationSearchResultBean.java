@@ -37,6 +37,7 @@ import org.sola.webservices.transferobjects.search.ApplicationSearchResultTO;
 public class ApplicationSearchResultBean extends ApplicationSummaryBean {
     
     public static final String CHECKED_PROPERTY = "checked";
+    public static final String STAGE_PROPERTY = "stage";
     
     private String status;
     private String stage;
@@ -106,7 +107,9 @@ public class ApplicationSearchResultBean extends ApplicationSummaryBean {
     }
 
     public void setStage(String stage) {
+        String oldValue = this.stage;
         this.stage = stage;
+        propertySupport.firePropertyChange(STAGE_PROPERTY, oldValue, this.stage);
     }
 
     public String getAffectedLeaseNumbers() {

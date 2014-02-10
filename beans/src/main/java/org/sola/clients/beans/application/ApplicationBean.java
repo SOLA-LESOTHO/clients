@@ -951,7 +951,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         propertySupport.firePropertyChange(APPLICATION_PROPERTY, null, this);
         return true;
     }
-
+    
     /**
      * Reloads application from the database.
      */

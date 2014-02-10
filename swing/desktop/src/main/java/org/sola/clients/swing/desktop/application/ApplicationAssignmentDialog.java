@@ -61,7 +61,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         groupsList.loadGroups(true);
         cbxGroups.setSelectedIndex(0);
         appStages.loadList(true);
-        //cbxAction.setSelectedIndex(0);
+        cbxAction.setSelectedIndex(0);
         usersList.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -119,14 +119,16 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         }
         for (Iterator<ApplicationSearchResultBean> it = applications.iterator(); it.hasNext();) {
             ApplicationSearchResultBean app = it.next();
+            String selectedStage = cbxAction.getSelectedItem().toString();            
+            app.setStage(selectedStage);   
             ApplicationBean.assignUser(app, usersList.getSelectedUser().getId());
         }
 
         MessageUtility.displayMessage(ClientMessage.APPLICATION_ASSIGNED);
         this.firePropertyChange(ASSIGNMENT_CHANGED, false, true);
-        this.dispose();
+        this.dispose();      
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -238,8 +240,14 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${applicationStageTypes}");
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, eLProperty, cbxAction);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, org.jdesktop.beansbinding.ELProperty.create("${selectedApplicationStageType.description}"), cbxAction, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, org.jdesktop.beansbinding.ELProperty.create("${selectedApplicationStageType.code}"), cbxAction, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
+
+        cbxAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxActionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -297,6 +305,10 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
     private void cbxGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupsActionPerformed
         searchUsers();
     }//GEN-LAST:event_cbxGroupsActionPerformed
+
+    private void cbxActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxActionActionPerformed
+        //
+    }//GEN-LAST:event_cbxActionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.beans.referencedata.ApplicationStageTypeListBean appStages;
