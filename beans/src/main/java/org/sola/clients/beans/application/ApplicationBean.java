@@ -282,7 +282,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         if (this.stageBean == null) {
             this.stageBean = new ApplicationStageTypeBean();
         }
-        this.setJointRefDataBean(this.stageBean, statusBean, STAGE_TYPE_PROPERTY);
+        this.setJointRefDataBean(this.stageBean, stageBean, STAGE_TYPE_PROPERTY);
     }
     
     public String getStageCode() {
@@ -951,7 +951,7 @@ public class ApplicationBean extends ApplicationSummaryBean {
         propertySupport.firePropertyChange(APPLICATION_PROPERTY, null, this);
         return true;
     }
-
+    
     /**
      * Reloads application from the database.
      */

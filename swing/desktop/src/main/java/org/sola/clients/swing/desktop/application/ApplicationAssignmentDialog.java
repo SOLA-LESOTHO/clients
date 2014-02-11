@@ -60,6 +60,8 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         initComponents();
         groupsList.loadGroups(true);
         cbxGroups.setSelectedIndex(0);
+        appStages.loadList(true);
+        cbxAction.setSelectedIndex(0);
         usersList.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -117,14 +119,16 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         }
         for (Iterator<ApplicationSearchResultBean> it = applications.iterator(); it.hasNext();) {
             ApplicationSearchResultBean app = it.next();
+            String selectedStage = cbxAction.getSelectedItem().toString();            
+            app.setStage(selectedStage);   
             ApplicationBean.assignUser(app, usersList.getSelectedUser().getId());
         }
 
         MessageUtility.displayMessage(ClientMessage.APPLICATION_ASSIGNED);
         this.firePropertyChange(ASSIGNMENT_CHANGED, false, true);
-        this.dispose();
+        this.dispose();      
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,6 +137,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         groupsList = new org.sola.clients.beans.security.GroupSummaryListBean();
         userSearchParams = new org.sola.clients.beans.security.UserSearchParamsBean();
         usersList = new org.sola.clients.beans.security.UserSearchAdvancedResultListBean();
+        appStages = new org.sola.clients.beans.referencedata.ApplicationStageTypeListBean();
         jToolBar1 = new javax.swing.JToolBar();
         btnAssign = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -141,6 +146,9 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbxGroups = new javax.swing.JComboBox();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        cbxAction = new javax.swing.JComboBox();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/application/Bundle"); // NOI18N
         setTitle(bundle.getString("ApplicationAssignmentDialog.title")); // NOI18N
@@ -225,6 +233,40 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
                     .addContainerGap(25, Short.MAX_VALUE)))
         );
 
+        jLabel3.setText(bundle.getString("ApplicationAssignmentDialog.jLabel3.text")); // NOI18N
+
+        cbxAction.setName(bundle.getString("ApplicationAssignmentDialog.cbxAction.name")); // NOI18N
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${applicationStageTypes}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, eLProperty, cbxAction);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, org.jdesktop.beansbinding.ELProperty.create("${selectedApplicationStageType.code}"), cbxAction, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        cbxAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxActionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(0, 268, Short.MAX_VALUE))
+            .addComponent(cbxAction, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 36, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -233,19 +275,22 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -261,15 +306,23 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         searchUsers();
     }//GEN-LAST:event_cbxGroupsActionPerformed
 
+    private void cbxActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxActionActionPerformed
+        //
+    }//GEN-LAST:event_cbxActionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.sola.clients.beans.referencedata.ApplicationStageTypeListBean appStages;
     private javax.swing.JButton btnAssign;
+    private javax.swing.JComboBox cbxAction;
     private javax.swing.JComboBox cbxGroups;
     private javax.swing.JComboBox cbxUsers;
     private org.sola.clients.beans.security.GroupSummaryListBean groupsList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JToolBar jToolBar1;
     private org.sola.clients.beans.security.UserSearchParamsBean userSearchParams;
     private org.sola.clients.beans.security.UserSearchAdvancedResultListBean usersList;
