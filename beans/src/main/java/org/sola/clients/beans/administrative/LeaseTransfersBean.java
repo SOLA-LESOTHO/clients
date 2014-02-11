@@ -21,7 +21,7 @@ import org.sola.clients.beans.AbstractIdBean;
  *
  * @author Charlizza
  */
-public class TransferLeaseBean extends AbstractIdBean{
+public class LeaseTransfersBean extends AbstractIdBean{
     
     private String serviceName;
     
@@ -33,6 +33,8 @@ public class TransferLeaseBean extends AbstractIdBean{
     
     private Integer entityCount;
     
+    private Integer jointCount;
+    
     private double totalAmount;
     
     private double stampDuty;
@@ -41,11 +43,19 @@ public class TransferLeaseBean extends AbstractIdBean{
     
     private double registrationFee;
 
-    public TransferLeaseBean() {
+    public LeaseTransfersBean() {
         
         super();
     }
 
+    public Integer getJointCount() {
+        return jointCount;
+    }
+
+    public void setJointCount(Integer jointCount) {
+        this.jointCount = jointCount;
+    }
+    
     public Integer getEntityCount() {
         return entityCount;
     }
