@@ -129,7 +129,7 @@ Fax: +266 2231 0905
 				</textElement>
 				<textFieldExpression><![CDATA[$P{FROMDATE}]]></textFieldExpression>
 			</textField>
-			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+			<textField pattern="dd-MMM-yy" isBlankWhenNull="true">
 				<reportElement uuid="9024df5c-c613-429d-9b79-5a6ec8e3a97c" mode="Transparent" x="46" y="134" width="114" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Tahoma" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -150,7 +150,7 @@ Fax: +266 2231 0905
 	<pageHeader>
 		<band height="58" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="7ff1445a-fbc0-4308-9a4d-d6c79dd043c3" x="0" y="12" width="555" height="25" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="7ff1445a-fbc0-4308-9a4d-d6c79dd043c3" x="0" y="0" width="555" height="25" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" markup="none">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>

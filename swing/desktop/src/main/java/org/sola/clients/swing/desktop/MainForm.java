@@ -59,10 +59,7 @@ import org.sola.clients.swing.desktop.application.ApplicationPanel;
 import org.sola.clients.swing.desktop.application.ApplicationSearchPanel;
 import org.sola.clients.swing.desktop.cadastre.MapPanelForm;
 import org.sola.clients.swing.desktop.party.PartySearchPanelForm;
-import org.sola.clients.swing.desktop.reports.LodgementReportParamsForm;
-import org.sola.clients.swing.desktop.reports.MortgageStatsReportParamsForm;
-import org.sola.clients.swing.desktop.reports.ResponseTimeReportParamsForm;
-import org.sola.clients.swing.desktop.reports.StatisticalReportParamsForm;
+import org.sola.clients.swing.desktop.reports.*;
 import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
@@ -168,6 +165,11 @@ public class MainForm extends javax.swing.JFrame {
 
     private void openMortgageStatsParamsForm() {
         MortgageStatsReportParamsForm reportDateChooser = new MortgageStatsReportParamsForm(this, true);
+        reportDateChooser.setVisible(true);
+    }
+    
+    private void openLeaseTransfersParamsForm() {
+        LeaseTransfersReportParamForm reportDateChooser = new LeaseTransfersReportParamForm(this, true);
         reportDateChooser.setVisible(true);
     }
     
@@ -695,6 +697,7 @@ public class MainForm extends javax.swing.JFrame {
         menuResponseTimeReport = new javax.swing.JMenuItem();
         menuMortgageStatsReport = new javax.swing.JMenuItem();
         menuStatisticalReport = new javax.swing.JMenuItem();
+        menuLeaseTransferReport = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         jmiContextHelp = new javax.swing.JMenuItem();
@@ -1035,6 +1038,14 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuReportsDesktop.add(menuStatisticalReport);
 
+        menuLeaseTransferReport.setText(bundle.getString("MainForm.menuLeaseTransferReport.text")); // NOI18N
+        menuLeaseTransferReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLeaseTransferReportActionPerformed(evt);
+            }
+        });
+        menuReportsDesktop.add(menuLeaseTransferReport);
+
         menuBar.add(menuReportsDesktop);
 
         helpMenu.setText(bundle.getString("MainForm.helpMenu.text")); // NOI18N
@@ -1198,6 +1209,10 @@ public class MainForm extends javax.swing.JFrame {
         openStatisticalParamsForm();
     }//GEN-LAST:event_menuStatisticalReportActionPerformed
 
+    private void menuLeaseTransferReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLeaseTransferReportActionPerformed
+        openLeaseTransfersParamsForm();
+    }//GEN-LAST:event_menuLeaseTransferReportActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1264,6 +1279,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuExportRights;
     private javax.swing.JMenuItem menuLangEN;
     private javax.swing.JMenu menuLanguage;
+    private javax.swing.JMenuItem menuLeaseTransferReport;
     private javax.swing.JMenuItem menuLodgementReport;
     private javax.swing.JMenu menuLogLevel;
     private javax.swing.JMenu menuMap;
