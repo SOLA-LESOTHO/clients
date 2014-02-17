@@ -296,6 +296,7 @@ public class DashBoardPanel extends ContentPanel {
         menuAssignApplication2 = new javax.swing.JMenuItem();
         menuOpenAssignedApplication = new javax.swing.JMenuItem();
         menuRefreshAssignApplication = new javax.swing.JMenuItem();
+        applicationBean = new org.sola.clients.beans.application.ApplicationBean();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         unassignedScrollPanel = new javax.swing.JScrollPane();
@@ -912,6 +913,7 @@ public class DashBoardPanel extends ContentPanel {
         refreshApplications();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.sola.clients.beans.application.ApplicationBean applicationBean;
     private org.sola.clients.beans.application.ApplicationSearchResultsListBean assignedAppListBean;
     private javax.swing.JButton btnAssignApplication;
     private javax.swing.JButton btnAssignApplication2;

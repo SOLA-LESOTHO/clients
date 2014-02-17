@@ -274,6 +274,17 @@ public class ApplicationBean extends ApplicationSummaryBean {
         }
     }
 
+    /**
+     * Sets application status code and retrieves
+     * {@link ApplicationStatusTypeBean} from the cache.
+     *
+     * @param value Application status code.
+     */
+    public void setStatusCode(String value) {
+        setStatus(CacheManager.getBeanByCode(
+                CacheManager.getApplicationStatusTypes(), value));
+    }    
+    
     public ApplicationStageTypeBean getStage() {
         return stageBean;
     }
@@ -294,16 +305,16 @@ public class ApplicationBean extends ApplicationSummaryBean {
     }
     
     /**
-     * Sets application status code and retrieves
+     * Sets application stage code and retrieves
      * {@link ApplicationStatusTypeBean} from the cache.
      *
      * @param value Application status code.
      */
-    public void setStatusCode(String value) {
-        setStatus(CacheManager.getBeanByCode(
-                CacheManager.getApplicationStatusTypes(), value));
-    }
-
+    public void setStageCode(String value) {
+        setStage(CacheManager.getBeanByCode(
+                CacheManager.getApplicationStageTypes(), value));
+    }  
+    
     public String getAssigneeId() {
         return assigneeId;
     }
@@ -920,11 +931,31 @@ public class ApplicationBean extends ApplicationSummaryBean {
                     app.getId(), app.getRowVersion());
         } else {
             WSManager.getInstance().getCaseManagementService().applicationActionAssign(
-                    app.getId(), userId, app.getRowVersion());
+                    app.getId(), userId, app.getRowVersion(), " ");
 
         }
         return true;
     }
+    
+    /**
+     * Assigns or unassigns application to the user. If userId is null,
+     * application will be unassigned
+     *
+     * @param userId ID of the user.
+     * @param app Application to assign/unassign
+     * @param stageCode Code for next stage to display for assigned application.
+     */
+    public static boolean assignUser(ApplicationSummaryBean app, String userId, String stageCode) {
+        if (userId == null) {
+            WSManager.getInstance().getCaseManagementService().applicationActionUnassign(
+                    app.getId(), app.getRowVersion());
+        } else {
+            WSManager.getInstance().getCaseManagementService().applicationActionAssign(
+                    app.getId(), userId, app.getRowVersion(), stageCode);
+
+        }
+        return true;
+    }    
 
     /**
      * Creates new application in the database.

@@ -137,6 +137,8 @@
         </MenuItem>
       </SubComponents>
     </Container>
+    <Component class="org.sola.clients.beans.application.ApplicationBean" name="applicationBean">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="helpTopic" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">

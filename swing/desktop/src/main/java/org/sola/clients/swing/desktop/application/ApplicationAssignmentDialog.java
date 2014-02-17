@@ -56,7 +56,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
     public ApplicationAssignmentDialog(List<ApplicationSearchResultBean> applications,
             java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.applications = applications;
+        this.applications = applications;        
         initComponents();
         groupsList.loadGroups(true);
         cbxGroups.setSelectedIndex(0);
@@ -118,10 +118,9 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
             return;
         }
         for (Iterator<ApplicationSearchResultBean> it = applications.iterator(); it.hasNext();) {
-            ApplicationSearchResultBean app = it.next();
-            String selectedStage = cbxAction.getSelectedItem().toString();            
-            app.setStage(selectedStage);   
-            ApplicationBean.assignUser(app, usersList.getSelectedUser().getId());
+            ApplicationSearchResultBean app = it.next();   
+            String selectedStageCode = appStages.getSelectedApplicationStageType().getCode();                      
+            ApplicationBean.assignUser(app, usersList.getSelectedUser().getId(), selectedStageCode);                        
         }
 
         MessageUtility.displayMessage(ClientMessage.APPLICATION_ASSIGNED);
@@ -138,6 +137,8 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         userSearchParams = new org.sola.clients.beans.security.UserSearchParamsBean();
         usersList = new org.sola.clients.beans.security.UserSearchAdvancedResultListBean();
         appStages = new org.sola.clients.beans.referencedata.ApplicationStageTypeListBean();
+        appBean = new org.sola.clients.beans.application.ApplicationBean();
+        stageTypeBean = new org.sola.clients.beans.referencedata.ApplicationStageTypeBean();
         jToolBar1 = new javax.swing.JToolBar();
         btnAssign = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -240,7 +241,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${applicationStageTypes}");
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, eLProperty, cbxAction);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, org.jdesktop.beansbinding.ELProperty.create("${selectedApplicationStageType.code}"), cbxAction, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, org.jdesktop.beansbinding.ELProperty.create("${selectedApplicationStageType}"), cbxAction, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         cbxAction.addActionListener(new java.awt.event.ActionListener() {
@@ -311,6 +312,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cbxActionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.sola.clients.beans.application.ApplicationBean appBean;
     private org.sola.clients.beans.referencedata.ApplicationStageTypeListBean appStages;
     private javax.swing.JButton btnAssign;
     private javax.swing.JComboBox cbxAction;
@@ -324,6 +326,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JToolBar jToolBar1;
+    private org.sola.clients.beans.referencedata.ApplicationStageTypeBean stageTypeBean;
     private org.sola.clients.beans.security.UserSearchParamsBean userSearchParams;
     private org.sola.clients.beans.security.UserSearchAdvancedResultListBean usersList;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
