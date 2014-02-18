@@ -32,6 +32,7 @@ import java.util.Date;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.ApplicationActionTypeBean;
+import org.sola.clients.beans.referencedata.ApplicationStageTypeBean;
 import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.ServiceActionTypeBean;
 
@@ -175,7 +176,7 @@ public class ApplicationLogBean extends AbstractBindingBean {
     //TODO - Fix code to use localized strings and system code values. 
     public String getDescription() {
         String description = "";
-        String actType = getActionType();
+        String actType = getActionType();        
         if (getRecordGroup().equalsIgnoreCase("application")) {
             ApplicationActionTypeBean appActionTypeBean = CacheManager.getBeanByCode(
                     CacheManager.getApplicationActionTypes(), actType);
@@ -205,7 +206,14 @@ public class ApplicationLogBean extends AbstractBindingBean {
         }
         
         if (actType.equalsIgnoreCase("Assign")){
-            setNotation("Action required...");
+            String stageType = getNotation();
+            ApplicationStageTypeBean stageBean = CacheManager.getBeanByCode(
+                    CacheManager.getApplicationStageTypes(), stageType);
+            setNotation(stageBean.getDisplayValue());
+            //setNotation("Action required...");            
+        }
+        else {
+            setNotation("");
         }
         return description;
     }
