@@ -221,14 +221,12 @@ Fax: +266 2231 0905
 				<reportElement uuid="7db9ae2a-137f-47a2-958c-a89ed9d35be6" key="table 2" style="table 2" stretchType="RelativeToTallestObject" x="0" y="0" width="802" height="125"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="LeaseTransfers" uuid="b94220d8-6f1a-4a39-9201-97a53f63ea8b">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{leaseTransfers}.toArray())
-
-]]></dataSourceExpression>
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{leaseTransfers}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column uuid="31603dee-83a2-4601-98c2-d75c84641076" width="90">
+					<jr:column uuid="31603dee-83a2-4601-98c2-d75c84641076" width="132">
 						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="17a7b823-a743-4df3-b363-c60439ea6dbb" x="0" y="0" width="90" height="30"/>
+								<reportElement uuid="17a7b823-a743-4df3-b363-c60439ea6dbb" x="0" y="0" width="132" height="30"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -237,7 +235,7 @@ Fax: +266 2231 0905
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="422daaf2-c6ad-483f-970a-42c4196d392b" x="0" y="0" width="90" height="20"/>
+								<reportElement uuid="422daaf2-c6ad-483f-970a-42c4196d392b" x="0" y="0" width="132" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isItalic="true"/>
 								</textElement>
@@ -245,10 +243,10 @@ Fax: +266 2231 0905
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="067ab08c-1b7c-41ea-aef0-60e046c0bdf2" width="65">
+					<jr:column uuid="067ab08c-1b7c-41ea-aef0-60e046c0bdf2" width="69">
 						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="cf081451-ddc5-4979-aa47-cec318f00bc3" x="0" y="0" width="65" height="30"/>
+								<reportElement uuid="cf081451-ddc5-4979-aa47-cec318f00bc3" x="0" y="0" width="69" height="30"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -257,16 +255,16 @@ Fax: +266 2231 0905
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="49ccc939-96dd-4455-96b8-42277b1a9609" x="1" y="0" width="64" height="20"/>
+								<reportElement uuid="49ccc939-96dd-4455-96b8-42277b1a9609" x="1" y="0" width="68" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{serviceCount}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="7a70c82c-6f42-4e12-be5b-a8ad5f98788e" width="66">
+					<jr:column uuid="7a70c82c-6f42-4e12-be5b-a8ad5f98788e" width="48">
 						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="892307d6-245b-4b74-97b2-84c1db6d1ec5" x="0" y="0" width="66" height="30"/>
+								<reportElement uuid="892307d6-245b-4b74-97b2-84c1db6d1ec5" x="0" y="0" width="48" height="30"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -275,16 +273,16 @@ Fax: +266 2231 0905
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="20a982df-e452-46cf-8388-b4214ca96e88" x="0" y="0" width="66" height="20"/>
+								<reportElement uuid="20a982df-e452-46cf-8388-b4214ca96e88" x="0" y="0" width="48" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{maleCount}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="a2a2a207-f7aa-4ceb-b3e3-d436f65d8016" width="65">
+					<jr:column uuid="a2a2a207-f7aa-4ceb-b3e3-d436f65d8016" width="50">
 						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="5bdb47c3-1aea-4856-b86f-a6939bbd0823" x="0" y="0" width="65" height="30"/>
+								<reportElement uuid="5bdb47c3-1aea-4856-b86f-a6939bbd0823" x="0" y="0" width="50" height="30"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -293,16 +291,16 @@ Fax: +266 2231 0905
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="c49beb17-6efd-4b3c-8566-a860317edb8c" x="0" y="0" width="65" height="20"/>
+								<reportElement uuid="c49beb17-6efd-4b3c-8566-a860317edb8c" x="0" y="0" width="50" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{femaleCount}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="881eec68-679c-49ee-aff7-ba5cba0b25ed" width="62">
+					<jr:column uuid="881eec68-679c-49ee-aff7-ba5cba0b25ed" width="56">
 						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="795348b7-9976-4f67-a213-9adfb6656f23" x="0" y="0" width="62" height="30"/>
+								<reportElement uuid="795348b7-9976-4f67-a213-9adfb6656f23" x="0" y="0" width="56" height="30"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -311,16 +309,16 @@ Fax: +266 2231 0905
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="23f8cdc6-bb29-4062-8f70-5cfd22b45ebb" x="0" y="0" width="62" height="20"/>
+								<reportElement uuid="23f8cdc6-bb29-4062-8f70-5cfd22b45ebb" x="0" y="0" width="56" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{entityCount}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="3d5352de-301d-4315-b3be-dc7e7db1eaca" width="65">
+					<jr:column uuid="3d5352de-301d-4315-b3be-dc7e7db1eaca" width="51">
 						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="bddba0e5-d9ea-4507-b23b-5de3d38cc2a3" x="0" y="0" width="65" height="30"/>
+								<reportElement uuid="bddba0e5-d9ea-4507-b23b-5de3d38cc2a3" x="0" y="0" width="51" height="30"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -329,16 +327,16 @@ Fax: +266 2231 0905
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="15cbb5a7-b245-4c81-9b43-d258b1036ac7" x="0" y="0" width="65" height="20"/>
+								<reportElement uuid="15cbb5a7-b245-4c81-9b43-d258b1036ac7" x="0" y="0" width="51" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{jointCount}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="bf498c6d-354e-421c-850b-01b28afc9155" width="111">
+					<jr:column uuid="bf498c6d-354e-421c-850b-01b28afc9155" width="115">
 						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="e66cbdf8-6ca3-466d-a6c8-15bd3402a5f4" x="0" y="0" width="111" height="30"/>
+								<reportElement uuid="e66cbdf8-6ca3-466d-a6c8-15bd3402a5f4" x="0" y="0" width="115" height="30"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -347,7 +345,7 @@ Fax: +266 2231 0905
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="06c6cc46-f4df-4922-9932-3db8f07b0922" x="0" y="0" width="111" height="20"/>
+								<reportElement uuid="06c6cc46-f4df-4922-9932-3db8f07b0922" x="0" y="0" width="115" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{totalAmount}]]></textFieldExpression>
 							</textField>
@@ -371,10 +369,10 @@ Fax: +266 2231 0905
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column uuid="ddbb66dc-3004-437d-81f8-d37493cd9b27" width="90">
+					<jr:column uuid="ddbb66dc-3004-437d-81f8-d37493cd9b27" width="93">
 						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="921fa826-d5c4-4b98-b7fa-11f0b0645098" x="0" y="0" width="90" height="30"/>
+								<reportElement uuid="921fa826-d5c4-4b98-b7fa-11f0b0645098" x="0" y="0" width="93" height="30"/>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
@@ -383,7 +381,7 @@ Fax: +266 2231 0905
 						</jr:columnHeader>
 						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="9c5545d0-e161-487e-8fa8-ff0d68bb1c32" x="0" y="0" width="90" height="20"/>
+								<reportElement uuid="9c5545d0-e161-487e-8fa8-ff0d68bb1c32" x="0" y="0" width="93" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{transferDuty}]]></textFieldExpression>
 							</textField>
