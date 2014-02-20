@@ -30,6 +30,7 @@ package org.sola.clients.beans.referencedata;
 
 import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.beans.application.ApplicationBean;
+import org.sola.webservices.transferobjects.referencedata.ApplicationStageTypeTO;
 
 /** 
  * Represents reference data object of the <b>application_status_type</b> table. 

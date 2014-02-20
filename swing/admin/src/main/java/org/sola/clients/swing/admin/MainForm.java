@@ -126,12 +126,14 @@ public class MainForm extends javax.swing.JFrame {
         menuDepartments = new javax.swing.JMenuItem();
         menuRefData = new javax.swing.JMenu();
         menuApplications = new javax.swing.JMenu();
-        menuRequestCategory = new javax.swing.JMenuItem();
+        menuAppForm = new javax.swing.JMenuItem();
+        menuStatusTypes = new javax.swing.JMenuItem();
+        menuStageTypes = new javax.swing.JMenuItem();
         menuRequestTypes = new javax.swing.JMenuItem();
-        menuTypeActions = new javax.swing.JMenuItem();
+        menuRequestCategory = new javax.swing.JMenuItem();
         menuServiceActionTypes = new javax.swing.JMenuItem();
         menuServiceStatusTypes = new javax.swing.JMenuItem();
-        menuAppForm = new javax.swing.JMenuItem();
+        menuTypeActions = new javax.swing.JMenuItem();
         menuAdministrative = new javax.swing.JMenu();
         menuBaUnitType = new javax.swing.JMenuItem();
         menuBaUnitRelationTypes = new javax.swing.JMenuItem();
@@ -348,15 +350,34 @@ public class MainForm extends javax.swing.JFrame {
         menuApplications.setText(bundle.getString("MainForm.menuApplications.text")); // NOI18N
         menuApplications.setName("menuApplications"); // NOI18N
 
-        menuRequestCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
-        menuRequestCategory.setText(bundle.getString("MainForm.menuRequestCategory.text")); // NOI18N
-        menuRequestCategory.setName("menuRequestCategory"); // NOI18N
-        menuRequestCategory.addActionListener(new java.awt.event.ActionListener() {
+        menuAppForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
+        menuAppForm.setText(bundle.getString("MainForm.menuAppForm.text")); // NOI18N
+        menuAppForm.setName(bundle.getString("MainForm.menuAppForm.name")); // NOI18N
+        menuAppForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuRequestCategoryActionPerformed(evt);
+                menuAppFormActionPerformed(evt);
             }
         });
-        menuApplications.add(menuRequestCategory);
+        menuApplications.add(menuAppForm);
+
+        menuStatusTypes.setText(bundle.getString("MainForm.menuStatusTypes.text")); // NOI18N
+        menuStatusTypes.setName(bundle.getString("MainForm.menuStatusTypes.name")); // NOI18N
+        menuStatusTypes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuStatusTypesActionPerformed(evt);
+            }
+        });
+        menuApplications.add(menuStatusTypes);
+
+        menuStageTypes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
+        menuStageTypes.setText(bundle.getString("MainForm.menuStageTypes.text")); // NOI18N
+        menuStageTypes.setName(bundle.getString("MainForm.menuStageTypes.name")); // NOI18N
+        menuStageTypes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuStageTypesActionPerformed(evt);
+            }
+        });
+        menuApplications.add(menuStageTypes);
 
         menuRequestTypes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
         menuRequestTypes.setText(bundle.getString("MainForm.menuRequestTypes.text")); // NOI18N
@@ -368,15 +389,15 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuApplications.add(menuRequestTypes);
 
-        menuTypeActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
-        menuTypeActions.setText(bundle.getString("MainForm.menuTypeActions.text")); // NOI18N
-        menuTypeActions.setName("menuTypeActions"); // NOI18N
-        menuTypeActions.addActionListener(new java.awt.event.ActionListener() {
+        menuRequestCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
+        menuRequestCategory.setText(bundle.getString("MainForm.menuRequestCategory.text")); // NOI18N
+        menuRequestCategory.setName("menuRequestCategory"); // NOI18N
+        menuRequestCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuTypeActionsActionPerformed(evt);
+                menuRequestCategoryActionPerformed(evt);
             }
         });
-        menuApplications.add(menuTypeActions);
+        menuApplications.add(menuRequestCategory);
 
         menuServiceActionTypes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
         menuServiceActionTypes.setText(bundle.getString("MainForm.menuServiceActionTypes.text")); // NOI18N
@@ -398,15 +419,15 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuApplications.add(menuServiceStatusTypes);
 
-        menuAppForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
-        menuAppForm.setText(bundle.getString("MainForm.menuAppForm.text")); // NOI18N
-        menuAppForm.setName(bundle.getString("MainForm.menuAppForm.name")); // NOI18N
-        menuAppForm.addActionListener(new java.awt.event.ActionListener() {
+        menuTypeActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
+        menuTypeActions.setText(bundle.getString("MainForm.menuTypeActions.text")); // NOI18N
+        menuTypeActions.setName("menuTypeActions"); // NOI18N
+        menuTypeActions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAppFormActionPerformed(evt);
+                menuTypeActionsActionPerformed(evt);
             }
         });
-        menuApplications.add(menuAppForm);
+        menuApplications.add(menuTypeActions);
 
         menuRefData.add(menuApplications);
 
@@ -794,6 +815,14 @@ public class MainForm extends javax.swing.JFrame {
         openSlrMigrationForm();
     }//GEN-LAST:event_btnSlrMigrationActionPerformed
 
+    private void menuStageTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStageTypesActionPerformed
+        manageStageTypes();
+    }//GEN-LAST:event_menuStageTypesActionPerformed
+
+    private void menuStatusTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStatusTypesActionPerformed
+        manageStatusTypes();
+    }//GEN-LAST:event_menuStatusTypesActionPerformed
+
     private void openSlrMigrationForm() {
         if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_SLR_MIGRATION)) {
             mainContentPanel.showPanel(MainContentPanel.CARD_SLR_MIGRATION);
@@ -943,6 +972,14 @@ public class MainForm extends javax.swing.JFrame {
             mainContentPanel.addPanel(panel, MainContentPanel.CARD_ADMIN_BR_MANAGE, true);
         }
     }
+    
+    private void manageStageTypes() {
+        openReferenceDataPanel(ApplicationStageTypeBean.class, menuStageTypes.getText());
+    }
+    
+    private void manageStatusTypes() {
+        openReferenceDataPanel(ApplicationStatusTypeBean.class, menuStatusTypes.getText());
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBr;
     private javax.swing.JButton btnGroups;
@@ -992,6 +1029,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuServiceStatusTypes;
     private javax.swing.JMenuItem menuSourceTypes;
     private javax.swing.JMenu menuSources;
+    private javax.swing.JMenuItem menuStageTypes;
+    private javax.swing.JMenuItem menuStatusTypes;
     private javax.swing.JMenu menuSystem;
     private javax.swing.JMenuItem menuTimeReport;
     private javax.swing.JMenu menuTransaction;
