@@ -60,7 +60,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         initComponents();
         groupsList.loadGroups(true);
         cbxGroups.setSelectedIndex(0);
-        appStages.loadList(true);
+        appStages.loadList(false);
         cbxAction.setSelectedIndex(0);
         usersList.addPropertyChangeListener(new PropertyChangeListener() {
 
