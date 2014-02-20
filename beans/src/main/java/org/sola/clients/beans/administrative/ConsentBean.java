@@ -137,8 +137,8 @@ public final class ConsentBean extends AbstractTransactionedBean {
     }
 
     public void setSpecialConditions(String specialConditions) {
-        if (specialConditions == null){
-            specialConditions = "";
+        if (specialConditions == null || specialConditions.equals("")){
+            specialConditions = "[None]";
         }
         this.specialConditions = specialConditions;
     }
