@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
-	<property name="ireport.zoom" value="1.1289478601075549"/>
+	<property name="ireport.zoom" value="1.3660269107301417"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="105"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
+		<field name="parcelAddress" class="java.lang.String">
+			<fieldDescription><![CDATA[parcelAddress]]></fieldDescription>
+		</field>
+		<field name="leaseNumber" class="java.lang.String">
+			<fieldDescription><![CDATA[leaseNumber]]></fieldDescription>
+		</field>
+		<field name="expirationDate" class="java.util.Date">
+			<fieldDescription><![CDATA[expirationDate]]></fieldDescription>
+		</field>
+		<field name="receiptDate" class="java.util.Date">
+			<fieldDescription><![CDATA[receiptDate]]></fieldDescription>
+		</field>
+		<field name="receiptNumber" class="java.lang.String">
+			<fieldDescription><![CDATA[receiptNumber]]></fieldDescription>
+		</field>
+		<field name="recipients" class="java.lang.String">
+			<fieldDescription><![CDATA[recipients]]></fieldDescription>
+		</field>
+		<field name="recipientsMaritalStatus" class="java.lang.String">
+			<fieldDescription><![CDATA[recipientsMaritalStatus]]></fieldDescription>
+		</field>
+		<field name="registrationDate" class="java.util.Date">
+			<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
+		</field>
+		<field name="registrationDay" class="java.lang.String">
+			<fieldDescription><![CDATA[registrationDay]]></fieldDescription>
+		</field>
+		<field name="rightHolders" class="java.lang.String">
+			<fieldDescription><![CDATA[rightHolders]]></fieldDescription>
+		</field>
+		<field name="rightholdersMaritalStatus" class="java.lang.String">
+			<fieldDescription><![CDATA[rightholdersMaritalStatus]]></fieldDescription>
+		</field>
+		<field name="serviceFee" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[serviceFee]]></fieldDescription>
+		</field>
+		<field name="specialConditions" class="java.lang.String">
+			<fieldDescription><![CDATA[specialConditions]]></fieldDescription>
+		</field>
 	</subDataset>
 	<parameter name="TRANSFER_TYPE" class="java.lang.String"/>
 	<parameter name="LESSEES" class="java.lang.String"/>
@@ -15,7 +54,9 @@
 	<parameter name="RECIPIENTS_MARITAL_STATUS" class="java.lang.String"/>
 	<parameter name="CONSIDERATION_AMOUNT" class="java.lang.String"/>
 	<parameter name="DUE_DATE" class="java.lang.String"/>
-	<parameter name="CONDITION_TEXT" class="java.lang.String"/>
+	<parameter name="CONDITION_TEXT" class="java.lang.String">
+		<defaultValueExpression><![CDATA["[None]"]]></defaultValueExpression>
+	</parameter>
 	<parameter name="NAME_FIRSTPART" class="java.lang.String"/>
 	<parameter name="NAME_LASTPART" class="java.lang.String"/>
 	<parameter name="FEE" class="java.lang.String"/>
@@ -54,6 +95,7 @@
 	<field name="receiptDate" class="java.util.Date">
 		<fieldDescription><![CDATA[receiptDate]]></fieldDescription>
 	</field>
+	<field name="parcelAddress" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -114,7 +156,7 @@
 				<text><![CDATA[Lease number: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="99" y="75" width="445" height="20"/>
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="99" y="75" width="63" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
@@ -141,7 +183,7 @@
 "<p></p>" +
 "<p>Recipient(s) marital status: <b>%s</b> </p> " +
 "<p></p>" +
-"<p>Consideration, assessed value or rental: <b>%s</b> </p> " +
+"<p>Consideration, assesed value or rental: <b>%s</b></p>" +
 "<p></p>" +
 "<p>This transaction to be effected on or before: <b>%s</b> </p> " +
 "<p></p>" +
@@ -154,6 +196,13 @@ $P{CONSIDERATION_AMOUNT},
 $P{DUE_DATE},
 $P{CONDITION_TEXT}
 )]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="5ac562bf-a785-4070-86f5-8b13a1ffe0a2" isPrintRepeatedValues="false" x="162" y="75" width="382" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parcelAddress}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="247">
