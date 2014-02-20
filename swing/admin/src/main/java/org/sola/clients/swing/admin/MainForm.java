@@ -127,7 +127,6 @@ public class MainForm extends javax.swing.JFrame {
         menuRefData = new javax.swing.JMenu();
         menuApplications = new javax.swing.JMenu();
         menuAppForm = new javax.swing.JMenuItem();
-        menuStatusTypes = new javax.swing.JMenuItem();
         menuStageTypes = new javax.swing.JMenuItem();
         menuRequestTypes = new javax.swing.JMenuItem();
         menuRequestCategory = new javax.swing.JMenuItem();
@@ -359,15 +358,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         menuApplications.add(menuAppForm);
-
-        menuStatusTypes.setText(bundle.getString("MainForm.menuStatusTypes.text")); // NOI18N
-        menuStatusTypes.setName(bundle.getString("MainForm.menuStatusTypes.name")); // NOI18N
-        menuStatusTypes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuStatusTypesActionPerformed(evt);
-            }
-        });
-        menuApplications.add(menuStatusTypes);
 
         menuStageTypes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/book-open.png"))); // NOI18N
         menuStageTypes.setText(bundle.getString("MainForm.menuStageTypes.text")); // NOI18N
@@ -819,10 +809,6 @@ public class MainForm extends javax.swing.JFrame {
         manageStageTypes();
     }//GEN-LAST:event_menuStageTypesActionPerformed
 
-    private void menuStatusTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStatusTypesActionPerformed
-        manageStatusTypes();
-    }//GEN-LAST:event_menuStatusTypesActionPerformed
-
     private void openSlrMigrationForm() {
         if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_SLR_MIGRATION)) {
             mainContentPanel.showPanel(MainContentPanel.CARD_SLR_MIGRATION);
@@ -977,9 +963,7 @@ public class MainForm extends javax.swing.JFrame {
         openReferenceDataPanel(ApplicationStageTypeBean.class, menuStageTypes.getText());
     }
     
-    private void manageStatusTypes() {
-        openReferenceDataPanel(ApplicationStatusTypeBean.class, menuStatusTypes.getText());
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBr;
     private javax.swing.JButton btnGroups;
@@ -1030,7 +1014,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuSourceTypes;
     private javax.swing.JMenu menuSources;
     private javax.swing.JMenuItem menuStageTypes;
-    private javax.swing.JMenuItem menuStatusTypes;
     private javax.swing.JMenu menuSystem;
     private javax.swing.JMenuItem menuTimeReport;
     private javax.swing.JMenu menuTransaction;

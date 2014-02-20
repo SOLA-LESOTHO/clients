@@ -305,11 +305,6 @@ public class ReferenceDataManagementPanel extends ContentPanel {
                     ApplicationStageTypeBean.class, (List) refDataList);
             CacheManager.remove(CacheManager.APP_STAGE_TYPE_CODES_KEY);
             refDataTOClass = ApplicationStageTypeTO.class; 
-        } else if (refDataClass == ApplicationStatusTypeBean.class) {
-            TypeConverters.TransferObjectListToBeanList(WSManager.getInstance().getReferenceDataService().getApplicationStatusTypes(null),
-                    ApplicationStatusTypeBean.class, (List) refDataList);
-            CacheManager.remove(CacheManager.APP_STATUS_TYPE_CODES_KEY);
-            refDataTOClass = ApplicationStatusTypeTO.class;            
         }// SYSTEM
         else if (refDataClass == BrSeverityTypeBean.class) {
             TypeConverters.TransferObjectListToBeanList(WSManager.getInstance().getReferenceDataService().getBrSeverityTypes(null),
