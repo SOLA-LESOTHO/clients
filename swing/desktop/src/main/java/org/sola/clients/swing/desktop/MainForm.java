@@ -163,8 +163,13 @@ public class MainForm extends javax.swing.JFrame {
         form.setVisible(true);
     }
 
-    private void openMortgageStatsParamsForm() {
-        MortgageStatsReportParamsForm reportDateChooser = new MortgageStatsReportParamsForm(this, true);
+    private void openLeaseServicesParamsForm() {
+        LeaseServicesReportParamsForm reportDateChooser = new LeaseServicesReportParamsForm(this, true);
+        reportDateChooser.setVisible(true);
+    }
+    
+    private void openCustomerServicesParamsForm() {
+        CustomerServicesReportParamsForm reportDateChooser = new CustomerServicesReportParamsForm(this, true);
         reportDateChooser.setVisible(true);
     }
     
@@ -695,9 +700,10 @@ public class MainForm extends javax.swing.JFrame {
         menuReportsDesktop = new javax.swing.JMenu();
         menuLodgementReport = new javax.swing.JMenuItem();
         menuResponseTimeReport = new javax.swing.JMenuItem();
-        menuMortgageStatsReport = new javax.swing.JMenuItem();
+        menuLeaseServicesReport = new javax.swing.JMenuItem();
         menuStatisticalReport = new javax.swing.JMenuItem();
         menuLeaseTransferReport = new javax.swing.JMenuItem();
+        menuCustomerServicesReport = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         jmiContextHelp = new javax.swing.JMenuItem();
@@ -1022,13 +1028,13 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuReportsDesktop.add(menuResponseTimeReport);
 
-        menuMortgageStatsReport.setText(bundle.getString("MainForm.menuMortgageStatsReport.text")); // NOI18N
-        menuMortgageStatsReport.addActionListener(new java.awt.event.ActionListener() {
+        menuLeaseServicesReport.setText(bundle.getString("MainForm.menuLeaseServicesReport.text")); // NOI18N
+        menuLeaseServicesReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMortgageStatsReportActionPerformed(evt);
+                menuLeaseServicesReportActionPerformed(evt);
             }
         });
-        menuReportsDesktop.add(menuMortgageStatsReport);
+        menuReportsDesktop.add(menuLeaseServicesReport);
 
         menuStatisticalReport.setText(bundle.getString("MainForm.menuStatisticalReport.text")); // NOI18N
         menuStatisticalReport.addActionListener(new java.awt.event.ActionListener() {
@@ -1045,6 +1051,14 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         menuReportsDesktop.add(menuLeaseTransferReport);
+
+        menuCustomerServicesReport.setText(bundle.getString("MainForm.menuCustomerServicesReport.text")); // NOI18N
+        menuCustomerServicesReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCustomerServicesReportActionPerformed(evt);
+            }
+        });
+        menuReportsDesktop.add(menuCustomerServicesReport);
 
         menuBar.add(menuReportsDesktop);
 
@@ -1201,9 +1215,9 @@ public class MainForm extends javax.swing.JFrame {
         openResponseTimeParamsForm();
     }//GEN-LAST:event_menuResponseTimeReportActionPerformed
 
-    private void menuMortgageStatsReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMortgageStatsReportActionPerformed
-        openMortgageStatsParamsForm();
-    }//GEN-LAST:event_menuMortgageStatsReportActionPerformed
+    private void menuLeaseServicesReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLeaseServicesReportActionPerformed
+        openLeaseServicesParamsForm();
+    }//GEN-LAST:event_menuLeaseServicesReportActionPerformed
 
     private void menuStatisticalReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStatisticalReportActionPerformed
         openStatisticalParamsForm();
@@ -1212,6 +1226,10 @@ public class MainForm extends javax.swing.JFrame {
     private void menuLeaseTransferReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLeaseTransferReportActionPerformed
         openLeaseTransfersParamsForm();
     }//GEN-LAST:event_menuLeaseTransferReportActionPerformed
+
+    private void menuCustomerServicesReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustomerServicesReportActionPerformed
+        openCustomerServicesParamsForm();
+    }//GEN-LAST:event_menuCustomerServicesReportActionPerformed
 
     private void editPassword() {
         showPasswordPanel();
@@ -1274,16 +1292,17 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuApplications;
     private javax.swing.JMenuItem menuBaUnitSearch;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem menuCustomerServicesReport;
     private javax.swing.JMenuItem menuDefaultLogLevel;
     private javax.swing.JMenuItem menuDocumentSearch;
     private javax.swing.JMenuItem menuExportRights;
     private javax.swing.JMenuItem menuLangEN;
     private javax.swing.JMenu menuLanguage;
+    private javax.swing.JMenuItem menuLeaseServicesReport;
     private javax.swing.JMenuItem menuLeaseTransferReport;
     private javax.swing.JMenuItem menuLodgementReport;
     private javax.swing.JMenu menuLogLevel;
     private javax.swing.JMenu menuMap;
-    private javax.swing.JMenuItem menuMortgageStatsReport;
     private javax.swing.JMenuItem menuNewApplication;
     private javax.swing.JMenuItem menuOffLogLevel;
     private javax.swing.JMenuItem menuPersons;

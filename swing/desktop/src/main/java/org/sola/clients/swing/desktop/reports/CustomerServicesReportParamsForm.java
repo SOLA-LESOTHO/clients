@@ -34,12 +34,12 @@ import org.sola.common.messaging.MessageUtility;
  *
  * @author Charlizza
  */
-public class MortgageStatsReportParamsForm extends javax.swing.JDialog {
+public class CustomerServicesReportParamsForm extends javax.swing.JDialog {
 
     /**
      * Creates new form MortgageStatsReportParamsForm
      */
-    public MortgageStatsReportParamsForm(java.awt.Frame parent, boolean modal) {
+    public CustomerServicesReportParamsForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -62,8 +62,8 @@ public class MortgageStatsReportParamsForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mortgageStatsListBean1 = new org.sola.clients.beans.application.MortgageStatsListBean();
         searchParams = new org.sola.clients.beans.application.LodgementViewParamsBean();
+        customerServicesListBean = new org.sola.clients.beans.application.CustomerServicesViewListBean();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -212,13 +212,13 @@ public class MortgageStatsReportParamsForm extends javax.swing.JDialog {
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_GENERATING_REPORT));
                     // Refresh the details of the baUnit to make sure the latest details are used
-                    mortgageStatsListBean1.passParameter(searchParams);
+                    customerServicesListBean.passParameter(searchParams);
                     return null;
                 }
 
                 @Override
                 protected void taskDone() {
-                    showReport(ReportManager.getMortgageStatsReport(mortgageStatsListBean1, tmpFromFinal, tmpToFinal));
+                    showReport(ReportManager.getCustomerServicesReport(customerServicesListBean, tmpFromFinal, tmpToFinal));
                 }
             };
             TaskManager.getInstance().runTask(t);
@@ -251,13 +251,13 @@ public class MortgageStatsReportParamsForm extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MortgageStatsReportParamsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerServicesReportParamsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MortgageStatsReportParamsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerServicesReportParamsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MortgageStatsReportParamsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerServicesReportParamsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MortgageStatsReportParamsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerServicesReportParamsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -267,7 +267,7 @@ public class MortgageStatsReportParamsForm extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                MortgageStatsReportParamsForm dialog = new MortgageStatsReportParamsForm(new javax.swing.JFrame(), true);
+                CustomerServicesReportParamsForm dialog = new CustomerServicesReportParamsForm(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -282,10 +282,10 @@ public class MortgageStatsReportParamsForm extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFromDate;
     private javax.swing.JButton btnToDate;
+    private org.sola.clients.beans.application.CustomerServicesViewListBean customerServicesListBean;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private org.sola.clients.beans.application.MortgageStatsListBean mortgageStatsListBean1;
     private org.sola.clients.beans.application.LodgementViewParamsBean searchParams;
     private javax.swing.JFormattedTextField txtFromDate;
     private javax.swing.JFormattedTextField txtToDate;
