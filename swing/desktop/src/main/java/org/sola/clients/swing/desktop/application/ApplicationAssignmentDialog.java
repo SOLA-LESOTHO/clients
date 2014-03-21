@@ -28,12 +28,16 @@
  */
 package org.sola.clients.swing.desktop.application;
 
+import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JList;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationSearchResultBean;
+import org.sola.clients.beans.referencedata.ApplicationStageSearchResultBean;
+import org.sola.clients.beans.referencedata.ApplicationStageSearchResultListBean;
 import org.sola.clients.beans.security.*;
 import org.sola.common.RolesConstants;
 import org.sola.common.messaging.ClientMessage;
@@ -60,7 +64,7 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         initComponents();
         groupsList.loadGroups(true);
         cbxGroups.setSelectedIndex(0);
-        appStages.loadList(false);
+        appStages.loadList(false);        
         cbxAction.setSelectedIndex(0);
         usersList.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -71,6 +75,14 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
                 }
             }
         });
+        appStagesList.addPropertyChangeListener(new PropertyChangeListener() {
+           @Override
+           public void propertyChange(PropertyChangeEvent evt) {
+               if (evt.getPropertyName().equals(ApplicationStageSearchResultListBean.SELECTED_APPSTAGE_PROPERTY)) {
+                   customizeStagesButton((ApplicationStageSearchResultBean) evt.getNewValue());
+               }
+           }
+        });
         customizeUserButtons(null);
         customizeForm();
         
@@ -80,12 +92,24 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         cbxUsers.setEnabled(userSearchResult != null);
     }
     
+    private void customizeStagesButton(ApplicationStageSearchResultBean applicationStageSearchResult) {
+        cbxAction.setEnabled(applicationStageSearchResult != null);
+    }
+    
     /**Searches users with the given criteria.*/
     private void searchUsers() {
         usersList.searchUsers(userSearchParams);
+        appStageSearchParams.setGroupId(userSearchParams.getGroupId());
+        appStageSearchParams.setGroupBean(userSearchParams.getGroupBean());
         if (usersList.getUsersList().size() < 1) {
             MessageUtility.displayMessage(ClientMessage.ADMIN_USERS_NO_FOUND);
         }
+    }
+    
+    /** Filter Application stages given the criteria */
+    private void filterApplicationStages() {
+        appStagesList.getApplicationStages(appStageSearchParams);
+        
     }
 
     private void customizeForm() {
@@ -119,8 +143,13 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         }
         for (Iterator<ApplicationSearchResultBean> it = applications.iterator(); it.hasNext();) {
             ApplicationSearchResultBean app = it.next();   
-            String selectedStageCode = appStages.getSelectedApplicationStageType().getCode();                      
-            ApplicationBean.assignUser(app, usersList.getSelectedUser().getId(), selectedStageCode);                        
+            //String selectedStageCode = appStages.getSelectedApplicationStageType().getCode(); 
+            if (appStagesList.getSelectedApplicationStage() == null) {
+                MessageUtility.displayMessage(ClientMessage.CHECK_USER_HAS_PROCESS_ROLE);                
+                return;
+            }            
+            String selectedStage = appStagesList.getSelectedApplicationStage().getCode();
+            ApplicationBean.assignUser(app, usersList.getSelectedUser().getId(), selectedStage);                        
         }
 
         MessageUtility.displayMessage(ClientMessage.APPLICATION_ASSIGNED);
@@ -139,6 +168,8 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
         appStages = new org.sola.clients.beans.referencedata.ApplicationStageTypeListBean();
         appBean = new org.sola.clients.beans.application.ApplicationBean();
         stageTypeBean = new org.sola.clients.beans.referencedata.ApplicationStageTypeBean();
+        appStagesList = new org.sola.clients.beans.referencedata.ApplicationStageSearchResultListBean();
+        appStageSearchParams = new org.sola.clients.beans.referencedata.ApplicationStageSearchParamsBean();
         jToolBar1 = new javax.swing.JToolBar();
         btnAssign = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -238,10 +269,10 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
 
         cbxAction.setName(bundle.getString("ApplicationAssignmentDialog.cbxAction.name")); // NOI18N
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${applicationStageTypes}");
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, eLProperty, cbxAction);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${applicationStageList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStagesList, eLProperty, cbxAction);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStages, org.jdesktop.beansbinding.ELProperty.create("${selectedApplicationStageType}"), cbxAction, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appStagesList, org.jdesktop.beansbinding.ELProperty.create("${selectedApplicationStage}"), cbxAction, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         cbxAction.addActionListener(new java.awt.event.ActionListener() {
@@ -267,6 +298,19 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
                 .addComponent(cbxAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 36, Short.MAX_VALUE))
         );
+
+        cbxAction.setRenderer(new javax.swing.DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof ApplicationStageSearchResultBean) {
+                    ApplicationStageSearchResultBean appStage = (ApplicationStageSearchResultBean)value;
+                    setText(appStage.getDisplayValue());
+                }
+                return this;
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -304,7 +348,8 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void cbxGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupsActionPerformed
-        searchUsers();
+        searchUsers();        
+        filterApplicationStages();
     }//GEN-LAST:event_cbxGroupsActionPerformed
 
     private void cbxActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxActionActionPerformed
@@ -313,7 +358,9 @@ public class ApplicationAssignmentDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.sola.clients.beans.application.ApplicationBean appBean;
+    private org.sola.clients.beans.referencedata.ApplicationStageSearchParamsBean appStageSearchParams;
     private org.sola.clients.beans.referencedata.ApplicationStageTypeListBean appStages;
+    private org.sola.clients.beans.referencedata.ApplicationStageSearchResultListBean appStagesList;
     private javax.swing.JButton btnAssign;
     private javax.swing.JComboBox cbxAction;
     private javax.swing.JComboBox cbxGroups;
