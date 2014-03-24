@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="67e4242d-7a6a-4616-bf78-bdd48c29611c">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lease Services Report" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="67e4242d-7a6a-4616-bf78-bdd48c29611c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -114,7 +114,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="235" splitType="Stretch">
+		<band height="225" splitType="Stretch">
 			<image>
 				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="286" y="20" width="216" height="84"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
@@ -199,7 +199,7 @@ Fax: +266 2231 0905
 		</band>
 	</title>
 	<pageHeader>
-		<band height="46" splitType="Stretch">
+		<band height="45" splitType="Stretch">
 			<line>
 				<reportElement uuid="9d9cc64e-1010-4947-a94d-efcb31e1c99a" x="0" y="25" width="802" height="1"/>
 			</line>
@@ -218,7 +218,7 @@ Fax: +266 2231 0905
 	<detail>
 		<band height="125" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="7db9ae2a-137f-47a2-958c-a89ed9d35be6" key="table 2" style="table 2" stretchType="RelativeToTallestObject" x="0" y="0" width="802" height="125"/>
+				<reportElement uuid="7db9ae2a-137f-47a2-958c-a89ed9d35be6" key="table 2" style="table 2" x="0" y="0" width="802" height="125"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="LeaseTransfers" uuid="b94220d8-6f1a-4a39-9201-97a53f63ea8b">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{leaseTransfers}.toArray())]]></dataSourceExpression>

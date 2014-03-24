@@ -2,9 +2,9 @@
 
 <Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
-    <Component class="org.sola.clients.beans.application.MortgageStatsListBean" name="mortgageStatsListBean1">
-    </Component>
     <Component class="org.sola.clients.beans.application.LodgementViewParamsBean" name="searchParams">
+    </Component>
+    <Component class="org.sola.clients.beans.application.LeaseServicesViewListBean" name="leaseServicesListBean">
     </Component>
   </NonVisualComponents>
   <Properties>

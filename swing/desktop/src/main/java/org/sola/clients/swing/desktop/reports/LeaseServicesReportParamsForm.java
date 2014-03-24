@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Food and Agriculture Organization of the United Nations (FAO).
+ * Copyright 2013 Food and Agriculture Organization of the United Nations (FAO).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,17 +34,15 @@ import org.sola.common.messaging.MessageUtility;
  *
  * @author Charlizza
  */
-public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
+public class LeaseServicesReportParamsForm extends javax.swing.JDialog {
 
     /**
-     * Creates new form LeaseTransferReportParamForm
+     * Creates new form MortgageStatsReportParamsForm
      */
-    public LeaseTransfersReportParamForm(java.awt.Frame parent, boolean modal) {
-        
+    public LeaseServicesReportParamsForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    
     private void showReport(JasperPrint report) {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setVisible(true);
@@ -65,22 +63,32 @@ public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
     private void initComponents() {
 
         searchParams = new org.sola.clients.beans.application.LodgementViewParamsBean();
-        leaseTransfersListBean = new org.sola.clients.beans.administrative.LeaseTransfersListBean();
+        leaseServicesListBean = new org.sola.clients.beans.application.LeaseServicesViewListBean();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtFromDate = new javax.swing.JFormattedTextField();
-        btnFromDate = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        txtFromDate = new javax.swing.JFormattedTextField();
         txtToDate = new javax.swing.JFormattedTextField();
-        btnToDate = new javax.swing.JButton();
+        btnFromDate = new javax.swing.JButton();
         viewReport = new javax.swing.JButton();
+        btnToDate = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("completion date (from)");
+
+        jLabel2.setText("completion date (to)");
 
         txtFromDate.setFont(new java.awt.Font("Tahoma", 0, 12));
         txtFromDate.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/reports/Bundle"); // NOI18N
         txtFromDate.setToolTipText(bundle.getString("LodgementReportParamsForm.txtFromDate.toolTipText")); // NOI18N
+        txtFromDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+        txtFromDate.setHorizontalAlignment(JTextField.LEADING);
+
+        txtFromDate.setFont(new java.awt.Font("Tahoma", 0, 12));
+        txtToDate.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
+        txtToDate.setToolTipText(bundle.getString("LodgementReportParamsForm.txtFromDate.toolTipText")); // NOI18N
         txtFromDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
         txtFromDate.setHorizontalAlignment(JTextField.LEADING);
 
@@ -93,13 +101,12 @@ public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("completion date (to)");
-
-        txtFromDate.setFont(new java.awt.Font("Tahoma", 0, 12));
-        txtToDate.setFormatterFactory(FormattersFactory.getInstance().getDateFormatterFactory());
-        txtToDate.setToolTipText(bundle.getString("LodgementReportParamsForm.txtFromDate.toolTipText")); // NOI18N
-        txtFromDate.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-        txtFromDate.setHorizontalAlignment(JTextField.LEADING);
+        viewReport.setText(bundle.getString("LodgementReportParamsForm.viewReport.text")); // NOI18N
+        viewReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewReportActionPerformed(evt);
+            }
+        });
 
         btnToDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
         btnToDate.setText(bundle.getString("LodgementReportParamsForm.btnFromDate.text")); // NOI18N
@@ -110,54 +117,45 @@ public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
             }
         });
 
-        viewReport.setText(bundle.getString("LodgementReportParamsForm.viewReport.text")); // NOI18N
-        viewReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewReportActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnFromDate))
-                    .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnToDate))
                     .addComponent(viewReport))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addGap(0, 146, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2))
+                    .addComponent(btnFromDate))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFromDate)
-                    .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(jLabel2)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(btnToDate))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(viewReport)
-                .addGap(29, 29, 29))
+                        .addComponent(viewReport))
+                    .addComponent(btnToDate))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,8 +169,7 @@ public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -183,10 +180,6 @@ public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
     private void btnFromDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFromDateActionPerformed
         showCalendar(txtFromDate);
     }//GEN-LAST:event_btnFromDateActionPerformed
-
-    private void btnToDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToDateActionPerformed
-        showCalendar(txtToDate);
-    }//GEN-LAST:event_btnToDateActionPerformed
 
     private void viewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReportActionPerformed
         boolean dateFilled = false;
@@ -219,19 +212,23 @@ public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_GENERATING_REPORT));
                     // Refresh the details of the baUnit to make sure the latest details are used
-                    leaseTransfersListBean.passParameter(searchParams);
+                    leaseServicesListBean.passParameter(searchParams);
                     return null;
                 }
 
                 @Override
                 protected void taskDone() {
-                    showReport(ReportManager.getLeaseTransfersReport(leaseTransfersListBean, tmpFromFinal, tmpToFinal));
+                    showReport(ReportManager.getLeaseServicesReport(leaseServicesListBean, tmpFromFinal, tmpToFinal));
                 }
             };
             TaskManager.getInstance().runTask(t);
         }
         this.dispose();
     }//GEN-LAST:event_viewReportActionPerformed
+
+    private void btnToDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToDateActionPerformed
+        showCalendar(txtToDate);
+    }//GEN-LAST:event_btnToDateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,7 +267,7 @@ public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                LeaseTransfersReportParamForm dialog = new LeaseTransfersReportParamForm(new javax.swing.JFrame(), true);
+                LeaseServicesReportParamsForm dialog = new LeaseServicesReportParamsForm(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -288,7 +285,7 @@ public class LeaseTransfersReportParamForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private org.sola.clients.beans.administrative.LeaseTransfersListBean leaseTransfersListBean;
+    private org.sola.clients.beans.application.LeaseServicesViewListBean leaseServicesListBean;
     private org.sola.clients.beans.application.LodgementViewParamsBean searchParams;
     private javax.swing.JFormattedTextField txtFromDate;
     private javax.swing.JFormattedTextField txtToDate;

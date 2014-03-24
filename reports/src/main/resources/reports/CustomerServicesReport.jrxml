@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Customer Services Report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2fa62235-4ced-4d87-8287-3f7048242dc4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="CustomerServices" uuid="bf9bd470-7801-463f-b693-c3e39eedc77d">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="application" class="java.lang.String">
+			<fieldDescription><![CDATA[application]]></fieldDescription>
+		</field>
+		<field name="lodged" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lodged]]></fieldDescription>
+		</field>
+		<field name="queried" class="java.lang.Integer">
+			<fieldDescription><![CDATA[queried]]></fieldDescription>
+		</field>
+		<field name="awaitingcollection" class="java.lang.Integer">
+			<fieldDescription><![CDATA[awaitingcollection]]></fieldDescription>
+		</field>
+		<field name="collected" class="java.lang.Integer">
+			<fieldDescription><![CDATA[collected]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="FROMDATE" class="java.util.Date"/>
+	<parameter name="TODATE" class="java.util.Date"/>
+	<parameter name="CURRENT_DATE" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="customerServices" class="org.sola.clients.beans.controls.SolaObservableList">
+		<fieldDescription><![CDATA[customerServices]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="192" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0e03580a-8c0a-4715-ac35-6cbc05e6a88f" x="244" y="160" width="21" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="752593e0-9074-4671-b90c-43c09c97379e" mode="Transparent" x="10" y="129" width="36" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[On:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d68eac69-cc25-4af9-aaea-477835121442" x="437" y="84" width="105" height="34"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Lerotholi Road
+PO Box 11856, 
+Maseru 100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="179fa8bd-022a-49b2-bdb8-504ba998ba06" mode="Opaque" x="437" y="129" width="105" height="34"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Web: www.laa.org.ls
+Email: info@laa.org.ls
+Tel: +266 2232 2376
+Fax: +266 2231 0905
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="85df0a0d-a6ee-4c5a-97dc-343c54d2b6ca" mode="Transparent" x="10" y="97" width="76" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Requested by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="956d1a3a-583f-4d12-9d2e-614508791537" x="10" y="160" width="36" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From:]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="c42f3a43-07a3-4896-a507-2e84edd341a8" x="192" y="0" width="216" height="84"/>
+				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="2eeaaff6-f1f8-4d12-a098-ac23c49a6941" x="437" y="117" width="105" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lesotho]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9d50596d-c60b-4db8-8d9c-95931c44219f" x="114" y="98" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["(" + $P{USER} + ")"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="966c7633-a5b1-4dc9-82ce-0026738ac731" x="114" y="163" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{FROMDATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="da825954-7845-45ae-a1d9-ebc65791ff36" x="114" y="129" width="118" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{CURRENT_DATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="d0c8ad44-41ee-41ab-9bb2-810f58fb4d33" x="308" y="160" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{TODATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7ff1445a-fbc0-4308-9a4d-d6c79dd043c3" x="0" y="0" width="555" height="25" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUSTOMER SERVICES REPORT]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="9d9cc64e-1010-4947-a94d-efcb31e1c99a" x="0" y="24" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="219" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="1d69bfa8-c202-4427-ae57-2ffe89be815c" key="table" style="table" x="0" y="0" width="555" height="219"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="CustomerServices" uuid="ddc9a96e-6b32-436e-bf19-ef1b70b33b5c">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{customerServices}.toArray())]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column uuid="166e58b3-874b-48c9-a42f-1df362c28f3b" width="166">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="ea2006bf-8c76-4c73-8e21-4361a3fba2c2" x="0" y="0" width="166" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[application]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="91f7f2df-adfa-449a-82c0-7cb990a07f61" x="0" y="0" width="166" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isItalic="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{application}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="b7c04ffe-7359-4117-a265-5505b7c6771a" width="90">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a50a0609-69d9-4b73-b419-ef8fc989b696" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[lodged]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="7982409d-2b3a-423e-a25b-07ed3e612f7e" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{lodged}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="77d5c0ee-2316-4df2-9d1f-cf8623195a03" width="90">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="293cae26-4b69-4757-8900-eedac2f2d770" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[queried]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="755c898e-cee4-4c18-affe-fcc15b48e2eb" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{queried}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="dd19bfb9-5561-4ab4-8d5e-b649d388a87b" width="100">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="ebc68b8e-93e3-4f28-8685-b33a311b191f" x="0" y="0" width="100" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[awaitingcollection]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="00a0a696-582f-468c-bd79-e67004c31d66" x="0" y="0" width="100" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{awaitingcollection}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="c35f50de-c22d-430a-bf4e-fc1d69d3a592" width="104">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="72325b23-fe17-4d5f-85a9-ef18ced18faf" x="0" y="0" width="104" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[collected]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="230543ee-ff2a-4ed8-a5ea-58a6ace0dac1" x="0" y="0" width="104" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{collected}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
