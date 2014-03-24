@@ -46,6 +46,7 @@ public class ApplicationStageSummaryBean extends AbstractIdBean {
     public final static String CODE_PROPERTY = "code";
     public final static String DISPLAY_VALUE_PROPERTY = "displayValue";
     public final static String DEPARTMENT_PROPERTY = "department";
+    public final static String GROUP_LIST_PROPERTY = "groupList";
     
     private String description;
     @NotEmpty(message= ClientMessage.CHECK_NOTNULL_CODE, payload=Localized.class)
@@ -54,6 +55,7 @@ public class ApplicationStageSummaryBean extends AbstractIdBean {
     private String displayValue;
     
     private String department;
+    private String groupList;
 
     public ApplicationStageSummaryBean() {
         super();
@@ -97,6 +99,17 @@ public class ApplicationStageSummaryBean extends AbstractIdBean {
         String oldValue = department;
         department = value;
         propertySupport.firePropertyChange(DEPARTMENT_PROPERTY, oldValue, value);
-    }    
+    }
+
+    public String getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(String value) {
+        String oldValue = groupList;
+        groupList = value;
+        propertySupport.firePropertyChange(GROUP_LIST_PROPERTY, oldValue, value);
+    }
+    
     
 }

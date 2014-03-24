@@ -37,6 +37,7 @@ import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.reports.ReportManager;
+import org.sola.clients.swing.admin.referencedata.ApplicationStagesManagementPanel;
 import org.sola.clients.swing.admin.referencedata.ReferenceDataManagementPanel;
 import org.sola.clients.swing.admin.security.DepartmentsManagementPanel;
 import org.sola.clients.swing.admin.security.GroupsManagementPanel;
@@ -97,7 +98,7 @@ public class MainForm extends javax.swing.JFrame {
         ReferenceDataManagementPanel panel = new ReferenceDataManagementPanel(refDataClass, headerTitle);
         mainContentPanel.addPanel(panel, MainContentPanel.CARD_ADMIN_REFDATA_MANAGE, true);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -960,8 +961,15 @@ public class MainForm extends javax.swing.JFrame {
     }
     
     private void manageStageTypes() {
-        openReferenceDataPanel(ApplicationStageTypeBean.class, menuStageTypes.getText());
-    }
+        //openReferenceDataPanel(ApplicationStageTypeBean.class, menuStageTypes.getText());
+        
+        if (mainContentPanel.isPanelOpened(MainContentPanel.CARD_ADMIN_USER_MANAGE)) {
+            mainContentPanel.showPanel(MainContentPanel.CARD_ADMIN_USER_MANAGE);
+        } else {
+            ApplicationStagesManagementPanel panel = new ApplicationStagesManagementPanel();
+            mainContentPanel.addPanel(panel, MainContentPanel.CARD_ADMIN_REFDATA_MANAGE, true);
+        }        
+    }    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
