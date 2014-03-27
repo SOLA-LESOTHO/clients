@@ -202,7 +202,7 @@ Maseru 100]]></text>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[To_be_processed]]></text>
+								<text><![CDATA[To be processed]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
@@ -220,7 +220,7 @@ Maseru 100]]></text>
 								<textElement textAlignment="Center">
 									<font size="11" isBold="true"/>
 								</textElement>
-								<text><![CDATA[In_progress]]></text>
+								<text><![CDATA[In progress]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
@@ -329,7 +329,28 @@ Maseru 100]]></text>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="38" splitType="Stretch"/>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ac810391-365f-4472-92fc-742ca13f4db9" x="0" y="0" width="802" height="20"/>
+				<textElement/>
+				<text><![CDATA[To Be Processed: These are applications that have been assigned to lease services manager for processing by coordinators (or persons responsible for that task).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dba8a7d3-d0e6-43c1-9582-bf40e60cf536" x="0" y="20" width="802" height="20"/>
+				<textElement/>
+				<text><![CDATA[In Progress: These are applications whose services have been started and not yet completed. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eb49a215-a0ed-4cb1-b6f8-b34b006d4cba" x="0" y="40" width="802" height="20"/>
+				<textElement/>
+				<text><![CDATA[Queried: These are applications which processed but were queried by the leasing serices manager (or the person responsible for verifying) for various reseasons]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f316cacb-af97-4c72-9d43-550804136189" x="0" y="62" width="802" height="20"/>
+				<textElement/>
+				<text><![CDATA[Overdue: Applications not approved (or been approved) beyond their expected date of completion begining from  the reporting period to the current date.]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
