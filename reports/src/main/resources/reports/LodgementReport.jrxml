@@ -271,7 +271,7 @@
 								<text><![CDATA[Type]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement uuid="bf70d5cc-8b43-4c05-8b92-574924fcc2f0" stretchType="RelativeToBandHeight" x="12" y="0" width="148" height="20"/>
 								<textElement verticalAlignment="Middle">
@@ -305,7 +305,7 @@
 								<text><![CDATA[In Progress]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement uuid="25d98a1e-2761-40f2-979a-f3ab4f86e5b0" stretchType="RelativeToBandHeight" x="0" y="0" width="42" height="20"/>
 								<box>
@@ -353,7 +353,7 @@
 								<text><![CDATA[On Requisition]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<box>
 								<rightPen lineWidth="3.0"/>
 							</box>
@@ -400,7 +400,7 @@
 								<text><![CDATA[Lodged]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement uuid="460187d4-54d8-4384-9c3c-1a0c8070498c" stretchType="RelativeToBandHeight" x="0" y="0" width="42" height="20"/>
 								<box>
@@ -444,7 +444,7 @@
 								<text><![CDATA[Registered]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement uuid="56ad100d-8a39-4b4b-b057-4ec8dea801de" stretchType="RelativeToBandHeight" x="0" y="0" width="42" height="20"/>
 								<box>
@@ -488,7 +488,7 @@
 								<text><![CDATA[Cancelled]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement uuid="b3b19eff-b4f8-48c9-8c5a-2e7f6bf94f18" stretchType="RelativeToBandHeight" x="0" y="0" width="42" height="20"/>
 								<box>
@@ -536,7 +536,7 @@
 								<text><![CDATA[Withdrawn]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<box>
 								<rightPen lineWidth="3.0"/>
 							</box>
@@ -590,7 +590,7 @@
 								<text><![CDATA[In Progress]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement uuid="9ede8d27-ac52-43da-976f-27afa1cf91a0" stretchType="RelativeToBandHeight" x="0" y="0" width="42" height="20"/>
 								<box>
@@ -634,7 +634,7 @@
 								<text><![CDATA[On Requisition]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 8_TD" height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement uuid="955b389d-a49f-4695-9828-e13ced8ebd80" stretchType="RelativeToBandHeight" x="0" y="0" width="42" height="20"/>
 								<box>

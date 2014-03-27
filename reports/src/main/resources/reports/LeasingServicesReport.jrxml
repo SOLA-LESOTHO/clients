@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="17bbce39-ff7b-4148-8e7d-87f6b3fd47db">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lease Services Report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="17bbce39-ff7b-4148-8e7d-87f6b3fd47db">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -24,6 +24,7 @@
 		</box>
 	</style>
 	<subDataset name="LeaseServices" uuid="24fee449-29f6-43b0-90f6-2ac8f6819f8c">
+		<parameter name="totals" class="java.util.Map"/>
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
@@ -51,6 +52,27 @@
 		<field name="overdue" class="java.lang.Integer">
 			<fieldDescription><![CDATA[overdue]]></fieldDescription>
 		</field>
+		<variable name="total_tobeprocessed" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{tobeprocessed}]]></variableExpression>
+		</variable>
+		<variable name="total_inprogress" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{inprogress}]]></variableExpression>
+		</variable>
+		<variable name="total_queried" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{queried}]]></variableExpression>
+		</variable>
+		<variable name="total_cancelled" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{cancelled}]]></variableExpression>
+		</variable>
+		<variable name="total_processed" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{processed}]]></variableExpression>
+		</variable>
+		<variable name="total_approved" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{approved}]]></variableExpression>
+		</variable>
+		<variable name="total_overdue" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{overdue}]]></variableExpression>
+		</variable>
 	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="CURRENT_DATE" class="java.util.Date"/>
@@ -185,6 +207,15 @@ Maseru 100]]></text>
 								<text><![CDATA[Application]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5b53c235-bcdb-4134-8409-cbadbc4d1112" x="0" y="0" width="159" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement uuid="d73acb42-9782-4aad-9586-a943e0100237" x="0" y="0" width="159" height="20"/>
@@ -205,6 +236,15 @@ Maseru 100]]></text>
 								<text><![CDATA[To be processed]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="38c3b98c-98d4-43b7-9e82-1fe14d766709" x="0" y="0" width="103" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_tobeprocessed}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement uuid="49a57c72-f9b2-43ba-8893-eafc6b8a3cc0" x="0" y="0" width="103" height="20"/>
@@ -223,6 +263,15 @@ Maseru 100]]></text>
 								<text><![CDATA[In progress]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="f1c66a66-01b5-4d74-8a02-84febe5d9026" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_inprogress}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement uuid="c0a9b195-cf92-480a-ab6f-740ba0cdb53e" x="0" y="0" width="90" height="20"/>
@@ -241,6 +290,15 @@ Maseru 100]]></text>
 								<text><![CDATA[Queried]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="89073d62-ca57-40e1-91db-82978b6f8a68" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_queried}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement uuid="6047e3e7-2346-4a25-ad03-5f5ee9739885" x="0" y="0" width="90" height="20"/>
@@ -259,6 +317,15 @@ Maseru 100]]></text>
 								<text><![CDATA[Cancelled]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="603a65be-8e24-4054-9aa8-16dc3f91ab53" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_cancelled}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement uuid="c8e73efe-7e35-41c2-ac6e-981841a3bad2" x="0" y="0" width="90" height="20"/>
@@ -277,6 +344,15 @@ Maseru 100]]></text>
 								<text><![CDATA[Processed]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="e8917a0b-8db7-47f1-884e-4f68f02e2c08" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_processed}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement uuid="e1ffef31-7ab4-4179-9fb6-a0a8aa3f49c5" x="0" y="0" width="90" height="20"/>
@@ -295,6 +371,15 @@ Maseru 100]]></text>
 								<text><![CDATA[Approved]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="a4ad9687-a7d2-41d3-a0d7-5ac8ad6e5cbc" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_approved}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement uuid="f0866b66-4ce3-4bd7-a6ac-a49e41471c33" x="0" y="0" width="90" height="20"/>
@@ -313,6 +398,15 @@ Maseru 100]]></text>
 								<text><![CDATA[Overdue]]></text>
 							</staticText>
 						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="1e61cc38-494a-4f20-b7b1-427fdd3d953e" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_overdue}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement uuid="8af7de88-1c03-4dff-bcfb-ba7e60c4bff9" x="0" y="0" width="90" height="20"/>

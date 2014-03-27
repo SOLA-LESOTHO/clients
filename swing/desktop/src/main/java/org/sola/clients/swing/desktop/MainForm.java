@@ -259,7 +259,7 @@ public class MainForm extends javax.swing.JFrame {
         menuBaUnitSearch.setEnabled(btnOpenBaUnitSearch.isEnabled());
         menuPersons.setEnabled(btnManageParties.isEnabled());
         menuShowMap.setEnabled(btnOpenMap.isEnabled());
-        menuLodgementReport.setEnabled(SecurityBean.isInRole(RolesConstants.REPORTS_VIEW));
+        //menuLodgementReport.setEnabled(SecurityBean.isInRole(RolesConstants.REPORTS_VIEW));
         menuDocumentSearch.setEnabled(btnDocumentSearch.isEnabled());
 
         // Load dashboard
@@ -698,7 +698,6 @@ public class MainForm extends javax.swing.JFrame {
         menuMap = new javax.swing.JMenu();
         menuShowMap = new javax.swing.JMenuItem();
         menuReportsDesktop = new javax.swing.JMenu();
-        menuLodgementReport = new javax.swing.JMenuItem();
         menuResponseTimeReport = new javax.swing.JMenuItem();
         menuLeaseServicesReport = new javax.swing.JMenuItem();
         menuStatisticalReport = new javax.swing.JMenuItem();
@@ -1011,15 +1010,6 @@ public class MainForm extends javax.swing.JFrame {
 
         menuReportsDesktop.setText(bundle.getString("MainForm.menuReportsDesktop.text_1")); // NOI18N
 
-        menuLodgementReport.setText(bundle.getString("MainForm.menuLodgementReportDesktop.text_1")); // NOI18N
-        menuLodgementReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLodgementReportActionPerformed(evt);
-            }
-        });
-        menuReportsDesktop.add(menuLodgementReport);
-        menuLodgementReport.getAccessibleContext().setAccessibleName(bundle.getString("MainForm.menuLodgementReport.AccessibleContext.accessibleName")); // NOI18N
-
         menuResponseTimeReport.setText(bundle.getString("MainForm.menuResponseTimeReport.text")); // NOI18N
         menuResponseTimeReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1183,10 +1173,6 @@ public class MainForm extends javax.swing.JFrame {
         reportDateChooser.setVisible(true);
     }
 
-    private void menuLodgementReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLodgementReportActionPerformed
-        openLodgementReportParamsForm();
-    }//GEN-LAST:event_menuLodgementReportActionPerformed
-
     private void menuPersonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPersonsActionPerformed
         openSearchParties();
     }//GEN-LAST:event_menuPersonsActionPerformed
@@ -1300,7 +1286,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuLanguage;
     private javax.swing.JMenuItem menuLeaseServicesReport;
     private javax.swing.JMenuItem menuLeaseTransferReport;
-    private javax.swing.JMenuItem menuLodgementReport;
     private javax.swing.JMenu menuLogLevel;
     private javax.swing.JMenu menuMap;
     private javax.swing.JMenuItem menuNewApplication;

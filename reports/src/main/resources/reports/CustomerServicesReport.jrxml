@@ -42,6 +42,18 @@
 		<field name="collected" class="java.lang.Integer">
 			<fieldDescription><![CDATA[collected]]></fieldDescription>
 		</field>
+		<variable name="total_lodged" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{lodged}]]></variableExpression>
+		</variable>
+		<variable name="total_queried" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{queried}]]></variableExpression>
+		</variable>
+		<variable name="total_tobecollected" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{awaitingcollection}]]></variableExpression>
+		</variable>
+		<variable name="total_collected" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{collected}]]></variableExpression>
+		</variable>
 	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
 	<parameter name="FROMDATE" class="java.util.Date"/>
@@ -59,7 +71,7 @@
 	<title>
 		<band height="192" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="0e03580a-8c0a-4715-ac35-6cbc05e6a88f" x="244" y="160" width="21" height="20"/>
+				<reportElement uuid="0e03580a-8c0a-4715-ac35-6cbc05e6a88f" x="250" y="160" width="21" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Tahoma" size="10" isBold="true"/>
 				</textElement>
@@ -135,7 +147,7 @@ Fax: +266 2231 0905
 				<textFieldExpression><![CDATA[$P{CURRENT_DATE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement uuid="d0c8ad44-41ee-41ab-9bb2-810f58fb4d33" x="308" y="160" width="100" height="20"/>
+				<reportElement uuid="d0c8ad44-41ee-41ab-9bb2-810f58fb4d33" x="320" y="163" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{TODATE}]]></textFieldExpression>
 			</textField>
@@ -145,7 +157,7 @@ Fax: +266 2231 0905
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="38" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="7ff1445a-fbc0-4308-9a4d-d6c79dd043c3" x="0" y="0" width="555" height="25" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" markup="none">
@@ -159,14 +171,23 @@ Fax: +266 2231 0905
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="219" splitType="Stretch">
+		<band height="155" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="1d69bfa8-c202-4427-ae57-2ffe89be815c" key="table" style="table" x="0" y="0" width="555" height="219"/>
+				<reportElement uuid="1d69bfa8-c202-4427-ae57-2ffe89be815c" key="table" style="table" x="0" y="0" width="555" height="155"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="CustomerServices" uuid="ddc9a96e-6b32-436e-bf19-ef1b70b33b5c">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{customerServices}.toArray())]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column uuid="166e58b3-874b-48c9-a42f-1df362c28f3b" width="166">
+						<jr:tableFooter height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="46d91e80-ec18-4b71-8b50-6edd79f6402e" x="0" y="0" width="166" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:tableFooter>
 						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement uuid="ea2006bf-8c76-4c73-8e21-4361a3fba2c2" x="0" y="0" width="166" height="30"/>
@@ -187,6 +208,15 @@ Fax: +266 2231 0905
 						</jr:detailCell>
 					</jr:column>
 					<jr:column uuid="b7c04ffe-7359-4117-a265-5505b7c6771a" width="90">
+						<jr:tableFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="8b97b7cd-7ad9-4227-8b48-23166f6858a3" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_lodged}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
 						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement uuid="a50a0609-69d9-4b73-b419-ef8fc989b696" x="0" y="0" width="90" height="30"/>
@@ -205,6 +235,15 @@ Fax: +266 2231 0905
 						</jr:detailCell>
 					</jr:column>
 					<jr:column uuid="77d5c0ee-2316-4df2-9d1f-cf8623195a03" width="90">
+						<jr:tableFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="7ea8cffe-1b6c-4433-9b8c-422b932ace42" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_queried}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
 						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement uuid="293cae26-4b69-4757-8900-eedac2f2d770" x="0" y="0" width="90" height="30"/>
@@ -223,6 +262,15 @@ Fax: +266 2231 0905
 						</jr:detailCell>
 					</jr:column>
 					<jr:column uuid="dd19bfb9-5561-4ab4-8d5e-b649d388a87b" width="100">
+						<jr:tableFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="5f8b0310-d6d9-4a66-a163-410bc74691e5" x="0" y="0" width="100" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_tobecollected}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
 						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement uuid="ebc68b8e-93e3-4f28-8685-b33a311b191f" x="0" y="0" width="100" height="30"/>
@@ -241,6 +289,15 @@ Fax: +266 2231 0905
 						</jr:detailCell>
 					</jr:column>
 					<jr:column uuid="c35f50de-c22d-430a-bf4e-fc1d69d3a592" width="104">
+						<jr:tableFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="ef4013b3-3285-4200-9701-8b164b7f2c6a" x="0" y="0" width="104" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{total_collected}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
 						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement uuid="72325b23-fe17-4d5f-85a9-ef18ced18faf" x="0" y="0" width="104" height="30"/>
