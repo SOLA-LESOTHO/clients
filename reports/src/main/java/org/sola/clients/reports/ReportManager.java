@@ -1006,6 +1006,37 @@ public class ReportManager {
         }
     }  
     
+    /**
+     * Generates and displays <b>BA Unit</b> report.
+     *
+     * @param appBean Application bean containing data for the report.
+     */
+    public static JasperPrint getApplicationStagesReport(ApplicationStagesViewListBean appStagesBean, Date dateFrom, Date dateTo, String department) {
+        HashMap inputParameters = new HashMap();
+        Date currentdate = new Date(System.currentTimeMillis());
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+
+        inputParameters.put("CURRENT_DATE", currentdate);
+
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("FROMDATE", dateFrom);
+        inputParameters.put("TODATE", dateTo);
+        inputParameters.put("DEPARTMENT", department);
+        ApplicationStagesViewListBean[] beans = new ApplicationStagesViewListBean[1];
+        beans[0] = appStagesBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream("/reports/ApplicationStagesReport.jasper"),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            LogUtility.log(LogUtility.getStackTraceAsString(ex), Level.SEVERE);
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+    }  
+    
     public static JasperPrint getLeaseServicesReport(LeaseServicesViewListBean mortgageBean, Date dateFrom, Date dateTo) {
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());

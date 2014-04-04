@@ -703,6 +703,7 @@ public class MainForm extends javax.swing.JFrame {
         menuStatisticalReport = new javax.swing.JMenuItem();
         menuLeaseTransferReport = new javax.swing.JMenuItem();
         menuCustomerServicesReport = new javax.swing.JMenuItem();
+        appStagesMenu = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         jmiContextHelp = new javax.swing.JMenuItem();
@@ -1050,6 +1051,14 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuReportsDesktop.add(menuCustomerServicesReport);
 
+        appStagesMenu.setText(bundle.getString("MainForm.appStagesMenu.text")); // NOI18N
+        appStagesMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appStagesMenuActionPerformed(evt);
+            }
+        });
+        menuReportsDesktop.add(appStagesMenu);
+
         menuBar.add(menuReportsDesktop);
 
         helpMenu.setText(bundle.getString("MainForm.helpMenu.text")); // NOI18N
@@ -1169,7 +1178,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOpenBaUnitSearchActionPerformed
 
     private void openLodgementReportParamsForm() {
-        LodgementReportParamsForm reportDateChooser = new LodgementReportParamsForm(this, true);
+        ApplicationStagesReportParamsForm reportDateChooser = new ApplicationStagesReportParamsForm(this, true);
         reportDateChooser.setVisible(true);
     }
 
@@ -1217,6 +1226,10 @@ public class MainForm extends javax.swing.JFrame {
         openCustomerServicesParamsForm();
     }//GEN-LAST:event_menuCustomerServicesReportActionPerformed
 
+    private void appStagesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appStagesMenuActionPerformed
+        openLodgementReportParamsForm();
+    }//GEN-LAST:event_appStagesMenuActionPerformed
+
     private void editPassword() {
         showPasswordPanel();
     }
@@ -1256,6 +1269,7 @@ public class MainForm extends javax.swing.JFrame {
         TaskManager.getInstance().runTask(t);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem appStagesMenu;
     private javax.swing.JToolBar applicationsMain;
     private javax.swing.JButton btnAccessDisputeForm;
     private javax.swing.JButton btnAppForms;

@@ -2,11 +2,11 @@
 
 <Form version="1.5" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
-    <Component class="org.sola.clients.beans.application.ResponseListBean" name="responseListBean1">
-    </Component>
     <Component class="org.sola.clients.beans.referencedata.RequestCategoryTypeListBean" name="requestCategories">
     </Component>
     <Component class="org.sola.clients.beans.application.LodgementViewParamsBean" name="searchParams">
+    </Component>
+    <Component class="org.sola.clients.beans.application.ApplicationStagesViewListBean" name="applicationStages">
     </Component>
   </NonVisualComponents>
   <Properties>

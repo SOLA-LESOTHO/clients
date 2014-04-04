@@ -49,12 +49,12 @@ import org.sola.common.messaging.MessageUtility;
  *
  * @author Phyrbt
  */
-public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
+public class ApplicationStagesReportParamsForm extends javax.swing.JDialog {
 
     /**
      * Creates new form ResponseTimeReportParamsForm
      */
-    public ResponseTimeReportParamsForm(java.awt.Frame parent, boolean modal) {
+    public ApplicationStagesReportParamsForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         requestCategories.loadList(true);
@@ -76,9 +76,9 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        responseListBean1 = new org.sola.clients.beans.application.ResponseListBean();
         requestCategories = new org.sola.clients.beans.referencedata.RequestCategoryTypeListBean();
         searchParams = new org.sola.clients.beans.application.LodgementViewParamsBean();
+        applicationStages = new org.sola.clients.beans.application.ApplicationStagesViewListBean();
         jPanel1 = new javax.swing.JPanel();
         viewReport = new javax.swing.JButton();
         cbxDepartment = new javax.swing.JComboBox();
@@ -251,13 +251,13 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
                 public Void doTask() {
                     setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_GENERATING_REPORT));
                     // Refresh the details of the baUnit to make sure the latest details are used
-                    responseListBean1.passParameter(searchParams);
+                    applicationStages.passParameter(searchParams);
                     return null;
                 }
 
                 @Override
                 protected void taskDone() {
-                    showReport(ReportManager.getResponseTimeReport(responseListBean1, tmpFromFinal, tmpToFinal, department));
+                    showReport(ReportManager.getApplicationStagesReport(applicationStages, tmpFromFinal, tmpToFinal, department));
                 }
             };
             TaskManager.getInstance().runTask(t);
@@ -277,6 +277,7 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.sola.clients.beans.application.ApplicationStagesViewListBean applicationStages;
     private javax.swing.JButton btnFromDate;
     private javax.swing.JButton btnToDate;
     private javax.swing.JComboBox cbxDepartment;
@@ -285,7 +286,6 @@ public class ResponseTimeReportParamsForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private org.sola.clients.beans.referencedata.RequestCategoryTypeListBean requestCategories;
-    private org.sola.clients.beans.application.ResponseListBean responseListBean1;
     private org.sola.clients.beans.application.LodgementViewParamsBean searchParams;
     private javax.swing.JFormattedTextField txtFromDate;
     private javax.swing.JFormattedTextField txtToDate;

@@ -145,7 +145,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="headerPanel" max="32767" attributes="0"/>
+          <Component id="headerPanel" pref="849" max="32767" attributes="0"/>
           <Component id="jToolBar1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -161,7 +161,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" pref="615" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -270,10 +270,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel1" max="32767" attributes="0"/>
+                          <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jPanel21" min="-2" pref="713" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -286,7 +286,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jPanel1" max="32767" attributes="0"/>
+                      <Component id="jPanel1" pref="436" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -306,8 +306,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="groupPanel1" alignment="0" pref="802" max="32767" attributes="0"/>
-                          <Component id="partyList" alignment="1" pref="802" max="32767" attributes="0"/>
+                          <Component id="groupPanel1" alignment="0" pref="796" max="32767" attributes="0"/>
+                          <Component id="partyList" alignment="1" pref="796" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -343,8 +343,8 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="groupPanel2" pref="802" max="32767" attributes="0"/>
-                          <Component id="documentsManagementPanel" alignment="0" pref="802" max="32767" attributes="0"/>
+                          <Component id="groupPanel2" pref="796" max="32767" attributes="0"/>
+                          <Component id="documentsManagementPanel" alignment="0" pref="796" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -920,8 +920,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jToolBar3" max="32767" attributes="0"/>
-                          <Component id="jScrollPane3" pref="802" max="32767" attributes="0"/>
+                          <Component id="jToolBar3" pref="796" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="796" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1057,7 +1057,7 @@
                           <Component id="jPanel9" min="-2" pref="572" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="78" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1302,6 +1302,9 @@
                       <BindingProperties>
                         <BindingProperty name="value" source="rrrBean" sourcePath="${amount}" target="txtPropertyValue" targetPath="value" updateStrategy="0" immediately="false"/>
                       </BindingProperties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPropertyValueActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1448,7 +1451,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="351" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtNotationText" max="32767" attributes="0"/>
                       </Group>
@@ -1504,8 +1507,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="parcelPanel1" pref="802" max="32767" attributes="0"/>
-                          <Component id="jToolBar2" alignment="1" max="32767" attributes="0"/>
+                          <Component id="parcelPanel1" pref="796" max="32767" attributes="0"/>
+                          <Component id="jToolBar2" alignment="1" pref="796" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1580,7 +1583,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="826" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="820" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
