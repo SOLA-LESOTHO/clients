@@ -28,27 +28,51 @@
  */
 package org.sola.clients.beans.referencedata;
 
-import org.sola.clients.beans.controls.SolaList;
-import org.sola.services.boundary.transferobjects.search.ApplicationStageSearchResultTO;
+import org.sola.clients.beans.security.*;
+import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.services.boundary.transferobjects.referencedata.ApplicationStageGroupTO;
 
-/**
- * Represents search result of application stages. Could be populated 
- * from the {@link ApplicationStageSearchResultTO} object.<br /> 
+/** 
+ * Holds group code of application stages, related to the application stage ({@link ApplicationStageBean}). 
+ * Could be populated from the {@link ApplicationStageGroupTO} object.<br />
+ * For more information on the groups, related to application stage 
+ * see in the data dictionary <b>System</b> schema.
  */
-public class ApplicationStageSearchResultBean extends ApplicationStageSummaryBean {
+public class ApplicationStageGroupBean extends AbstractBindingBean {
+    public static final String GROUP_ID_PROPERTY = "groupId";
+    public static final String CODE_PROPERTY = "code";
+
+    private String groupId;
+    private String code;
     
-    private SolaList<ApplicationStageGroupBean> appStageGroups;
-    
-    public ApplicationStageSearchResultBean(){
+    public ApplicationStageGroupBean() {
         super();
     }
-
-    public SolaList<ApplicationStageGroupBean> getApplicationStageGroups() {
-        return appStageGroups;
+    
+    public ApplicationStageGroupBean(String groupId) {
+        super();
+        this.groupId = groupId;
     }
 
-    public void setAppStageGroups(SolaList<ApplicationStageGroupBean> appStageGroups) {
-        this.appStageGroups = appStageGroups;
+    public String getGroupId() {
+        return groupId;
     }
-                
+
+    public void setGroupId(String groupId) {
+        String oldValue = this.groupId;
+        this.groupId = groupId;
+        propertySupport.firePropertyChange(GROUP_ID_PROPERTY, oldValue, this.groupId);
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        String oldValue = this.code;
+        this.code = code;
+        propertySupport.firePropertyChange(CODE_PROPERTY, oldValue, this.code);
+    }
+
+    
 }

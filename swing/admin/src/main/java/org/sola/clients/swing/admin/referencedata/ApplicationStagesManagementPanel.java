@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.swing.admin.referencedata;
@@ -48,7 +50,9 @@ import org.sola.common.messaging.MessageUtility;
  */
 public class ApplicationStagesManagementPanel extends ContentPanel {
 
-    /** Creates new form UsersManagementPanel */
+    /**
+     * Creates new form UsersManagementPanel
+     */
     public ApplicationStagesManagementPanel() {
         initComponents();
         groupsList.loadGroups(true);
@@ -64,19 +68,27 @@ public class ApplicationStagesManagementPanel extends ContentPanel {
         });
         customizeUserButtons(null);
     }
-    
-    /** 
-     * Enables or disables application stages management buttons, depending on selection in 
-     * the groups table and application stages rights. 
+
+    /**
+     * Enables or disables application stages management buttons, depending on
+     * selection in the groups table and application stages rights.
      */
     private void customizeUserButtons(ApplicationStageSearchResultBean applicationStageSearchResult) {
-        btnEditStage.setEnabled(applicationStageSearchResult != null);
-        btnRemoveStage.setEnabled(applicationStageSearchResult != null);
-        menuEditUser.setEnabled(btnEditStage.isEnabled());
-        menuRemoveUser.setEnabled(btnRemoveStage.isEnabled());
+        //btnEditStage.setEnabled(applicationStageSearchResult != null);
+        //btnRemoveStage.setEnabled(applicationStageSearchResult != null);
+        //menuEditUser.setEnabled(btnEditStage.isEnabled());
+        //menuRemoveUser.setEnabled(btnRemoveStage.isEnabled());
+        
+        btnEditStage.setEnabled(false);
+        btnRemoveStage.setEnabled(false);
+        menuEditUser.setEnabled(false);
+        menuRemoveUser.setEnabled(false);
+        btnAddStage.setEnabled(false);
     }
 
-    /** Shows user panel. */
+    /**
+     * Shows user panel.
+     */
     private void showUser(final UserBean userBean) {
         UserPanelForm panel = new UserPanelForm(userBean, true, userBean != null, false);
         panel.addPropertyChangeListener(new PropertyChangeListener() {
@@ -95,17 +107,21 @@ public class ApplicationStagesManagementPanel extends ContentPanel {
         getMainContentPanel().addPanel(panel, MainContentPanel.CARD_ADMIN_USER, true);
     }
 
-    /** Shows password panel. */
+    /**
+     * Shows password panel.
+     */
     private void showPasswordPanel(String userName) {
         UserPasswordPanelForm panel = new UserPasswordPanelForm(userName);
         getMainContentPanel().addPanel(panel, MainContentPanel.CARD_ADMIN_USER_PASSWORD, true);
     }
 
-    /** Searches application stages with the given criteria. */
+    /**
+     * Searches application stages with the given criteria.
+     */
     private void searchAppStages() {
         applicationStageSearchResultList.getApplicationStages(applicationStageSearchParams);
         if (applicationStageSearchResultList.getApplicationStageList().size() < 1) {
-            MessageUtility.displayMessage(ClientMessage.ADMIN_USERS_NO_FOUND);
+            MessageUtility.displayMessage(ClientMessage.ADMIN_APPLICATION_STAGE_NOT_FOUND);
         }
     }
 
@@ -407,18 +423,15 @@ public class ApplicationStagesManagementPanel extends ContentPanel {
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${code}"));
         columnBinding.setColumnName("Code");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${displayValue}"));
         columnBinding.setColumnName("Display Value");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${description}"));
         columnBinding.setColumnName("Description");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${groupList}"));
         columnBinding.setColumnName("Group List");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, applicationStageSearchResultList, org.jdesktop.beansbinding.ELProperty.create("${selectedApplicationStage}"), tableAppStages, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -478,7 +491,7 @@ public class ApplicationStagesManagementPanel extends ContentPanel {
     }//GEN-LAST:event_btnEditStageActionPerformed
 
     private void btnRemoveStageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveStageActionPerformed
-        removeUser();
+        removeAppStage();
     }//GEN-LAST:event_btnRemoveStageActionPerformed
 
     private void menuAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddUserActionPerformed
@@ -494,7 +507,7 @@ public class ApplicationStagesManagementPanel extends ContentPanel {
     }//GEN-LAST:event_menuSetPasswordActionPerformed
 
     private void menuRemoveUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveUserActionPerformed
-        removeUser();
+        removeAppStage();
     }//GEN-LAST:event_menuRemoveUserActionPerformed
 
     private void addUser() {
@@ -513,9 +526,9 @@ public class ApplicationStagesManagementPanel extends ContentPanel {
         }
     }
 
-    public void removeUser() {
+    public void removeAppStage() {
         if (userSearchResultList.getSelectedUser() != null) {
-            if(userSearchResultList.getSelectedUser().getUserName().equals(SecurityBean.getCurrentUser().getUserName())){
+            if (userSearchResultList.getSelectedUser().getUserName().equals(SecurityBean.getCurrentUser().getUserName())) {
                 MessageUtility.displayMessage(ClientMessage.ADMIN_CURRENT_USER_DELETE_ERROR);
                 return;
             }
