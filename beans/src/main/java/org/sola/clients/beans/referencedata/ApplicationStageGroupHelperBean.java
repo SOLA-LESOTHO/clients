@@ -28,27 +28,39 @@
  */
 package org.sola.clients.beans.referencedata;
 
-import org.sola.clients.beans.controls.SolaList;
-import org.sola.services.boundary.transferobjects.search.ApplicationStageSearchResultTO;
+import org.sola.clients.beans.security.*;
+import org.sola.clients.beans.AbstractBindingBean;
 
-/**
- * Represents search result of application stages. Could be populated 
- * from the {@link ApplicationStageSearchResultTO} object.<br /> 
+/** 
+ * Helps to manage groups for the {@link ApplicationStageBean}.
  */
-public class ApplicationStageSearchResultBean extends ApplicationStageSummaryBean {
+public class ApplicationStageGroupHelperBean extends AbstractBindingBean {
+    public static final String IS_IN_APPLICATION_STAGE_GROUPS_PROPERTY = "inApplicationStageGroups";
     
-    private SolaList<ApplicationStageGroupBean> appStageGroups;
+    private GroupSummaryBean groupSummary;
+    private boolean inApplicationStageGroups;
     
-    public ApplicationStageSearchResultBean(){
+    public ApplicationStageGroupHelperBean(){
         super();
     }
-
-    public SolaList<ApplicationStageGroupBean> getApplicationStageGroups() {
-        return appStageGroups;
+    
+    public ApplicationStageGroupHelperBean(boolean inApplicationStageGroups, GroupSummaryBean groupSummary){
+        super();
+        this.inApplicationStageGroups = inApplicationStageGroups;
+        this.groupSummary = groupSummary;
     }
 
-    public void setAppStageGroups(SolaList<ApplicationStageGroupBean> appStageGroups) {
-        this.appStageGroups = appStageGroups;
+    public boolean isInApplicationStageGroups() {
+        return inApplicationStageGroups;
     }
-                
+
+    public void setInApplicationStageGroups(boolean inApplicationStageGroups) {
+        boolean oldValue = this.inApplicationStageGroups;
+        this.inApplicationStageGroups = inApplicationStageGroups;
+        propertySupport.firePropertyChange(IS_IN_APPLICATION_STAGE_GROUPS_PROPERTY, oldValue, this.inApplicationStageGroups);
+    }
+
+    public GroupSummaryBean getGroupSummary() {
+        return groupSummary;
+    }
 }
