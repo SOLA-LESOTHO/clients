@@ -58,6 +58,7 @@ import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.RrrTO;
 import org.sola.webservices.transferobjects.EntityAction;
 import org.sola.webservices.transferobjects.cadastre.CadastreObjectTO;
+import sun.security.jca.GetInstance;
 
 /**
  * Contains properties and methods to manage <b>RRR</b> object of the domain
@@ -147,7 +148,7 @@ public class RrrBean extends AbstractTransactionedBean {
             groups = {MortgageValidationGroup.class, LeaseValidationGroup.class})
     private Date expirationDate;
     @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTGAGEAMOUNT, payload = Localized.class, groups = {MortgageValidationGroup.class
-            ,LeaseValidationGroup.class})
+            ,RrrValidationGroup.class})
     private BigDecimal amount;
     private Date dueDate;
     //@NotNull(message = ClientMessage.CHECK_NOTNULL_MORTAGAETYPE, payload = Localized.class, groups = {MortgageValidationGroup.class})
@@ -559,7 +560,10 @@ public class RrrBean extends AbstractTransactionedBean {
     public double getGroundRentRemaining() {
         double rent = 0;
         if (getGroundRent() != null && getGroundRent().compareTo(BigDecimal.ZERO) > 0) {
-            double remainingMonths = 12 - Calendar.getInstance().get(Calendar.MONTH) + 4;
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(getStartDate());
+            int curMonth = cal.get(Calendar.MONTH);
+            double remainingMonths = 12 - curMonth + 4;
             rent = NumberUtility.roundDouble((remainingMonths/12)*getGroundRent().doubleValue(), 2);
         } 
         return rent;
