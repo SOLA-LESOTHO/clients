@@ -215,9 +215,10 @@ public class LeasePanel extends ContentPanel {
         txtNotationText.setEnabled(regEnabled);
         txtRegDatetime.setEnabled(regEnabled);
         txtRegistrationNumber.setEnabled(regEnabled);
-        txtServiceFee.setEnabled(enabled);
-        txtRegistrationFee.setEnabled(enabled);
-        txtTransferDuty.setEnabled(enabled);
+        txtServiceFee.setEnabled(regEnabled);
+        txtRegistrationFee.setEnabled(regEnabled);
+        txtTransferDuty.setEnabled(regEnabled);
+        txtPropertyValue.setEnabled(regEnabled);
         btnRegistrationDate.setEnabled(regEnabled);
 
         // Lease management part
