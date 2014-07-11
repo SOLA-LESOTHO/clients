@@ -51,6 +51,7 @@ public class ParcelPanel extends javax.swing.JPanel {
     private CadastreObjectBean cadastreObjectBean;
     private boolean readOnly = false;
     private boolean lockCadastreFields = false;
+    private boolean enableForLeaseProcess = false;
     
     private RoadClassTypeListBean createRoadClassList(){
         return new RoadClassTypeListBean();
@@ -101,6 +102,10 @@ public class ParcelPanel extends javax.swing.JPanel {
         customizeForm();
     }
     
+    public void enableLeaseProcessValues(){
+        this.enableForLeaseProcess = true;
+    }
+    
     private void postInit(){
         cadastreObjectBean.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -130,7 +135,8 @@ public class ParcelPanel extends javax.swing.JPanel {
         cbxLandGrade.setEnabled(enabled);
         cbxRoadClass.setEnabled(enabled);
         txtValuationAmount.setEnabled(enabled);
-        txtLastPart.setEnabled(enabledAll && !cadastreObjectBean.isNew());
+        txtLastPart.setEnabled(enabledAll && !cadastreObjectBean.isNew() || enableForLeaseProcess);
+        txtFirstPart.setEnabled(enableForLeaseProcess);
         
         customizeAddressButtons();
     }
@@ -365,7 +371,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jLabel7)
-                .add(0, 86, Short.MAX_VALUE))
+                .add(0, 113, Short.MAX_VALUE))
             .add(txtLastPart)
         );
         jPanel3Layout.setVerticalGroup(
@@ -400,7 +406,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(jLabel10)
-                .add(0, 105, Short.MAX_VALUE))
+                .add(0, 146, Short.MAX_VALUE))
             .add(cbxEstateType, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
@@ -433,7 +439,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
                 .add(jLabel1)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
             .add(txtArea)
         );
         jPanel7Layout.setVerticalGroup(
@@ -462,7 +468,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
                 .add(jLabel9)
-                .add(0, 90, Short.MAX_VALUE))
+                .add(0, 131, Short.MAX_VALUE))
             .add(txtParcelSurveyRef)
         );
         jPanel5Layout.setVerticalGroup(
@@ -494,7 +500,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel3)
-                .add(0, 99, Short.MAX_VALUE))
+                .add(0, 140, Short.MAX_VALUE))
             .add(cbxSurveyor, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
@@ -540,7 +546,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel10Layout.createSequentialGroup()
                 .add(jLabel4)
-                .add(0, 83, Short.MAX_VALUE))
+                .add(0, 124, Short.MAX_VALUE))
             .add(jPanel10Layout.createSequentialGroup()
                 .add(txtSurveyDate)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
@@ -576,7 +582,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel11Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel11Layout.createSequentialGroup()
                 .add(jLabel5)
-                .add(0, 88, Short.MAX_VALUE))
+                .add(0, 129, Short.MAX_VALUE))
             .add(txtSurveyFee)
         );
         jPanel11Layout.setVerticalGroup(
@@ -609,7 +615,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel6Layout.createSequentialGroup()
                 .add(labLandUse)
-                .add(0, 76, Short.MAX_VALUE))
+                .add(0, 117, Short.MAX_VALUE))
             .add(cbxRoadClass, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
@@ -643,7 +649,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel14Layout.createSequentialGroup()
                 .add(labLandUse1)
-                .add(0, 105, Short.MAX_VALUE))
+                .add(0, 146, Short.MAX_VALUE))
             .add(cbxLandGrade, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
@@ -675,7 +681,7 @@ public class ParcelPanel extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel8Layout.createSequentialGroup()
                 .add(jLabel2)
-                .add(0, 59, Short.MAX_VALUE))
+                .add(0, 100, Short.MAX_VALUE))
             .add(txtValuationAmount)
         );
         jPanel8Layout.setVerticalGroup(

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="757a9111-60e2-4019-9050-5bca15097a54">
-	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1661"/>
+	<property name="ireport.y" value="1171"/>
 	<subDataset name="SpecialConditions" uuid="b34b4205-264c-42c6-b1fa-9a686e749301">
 		<queryString>
 			<![CDATA[]]>
@@ -120,25 +120,25 @@
 	<title>
 		<band height="152">
 			<staticText>
-				<reportElement uuid="8c26e2b5-817d-4c6d-a6a4-e435239b2ac2" x="0" y="99" width="511" height="22"/>
+				<reportElement x="0" y="99" width="511" height="22" uuid="8c26e2b5-817d-4c6d-a6a4-e435239b2ac2"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="16" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[LEASE]]></text>
 			</staticText>
 			<image>
-				<reportElement uuid="1ac7c12b-1de3-492e-a263-41b325ca9829" x="186" y="0" width="133" height="42"/>
+				<reportElement x="186" y="0" width="133" height="42" uuid="1ac7c12b-1de3-492e-a263-41b325ca9829"/>
 				<imageExpression><![CDATA["images/sola/laa_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement uuid="8f3dbd44-b766-4c6d-85f8-d3f89daec75b" x="0" y="121" width="511" height="22"/>
+				<reportElement x="0" y="121" width="511" height="22" uuid="8f3dbd44-b766-4c6d-85f8-d3f89daec75b"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[(In terms of The Land Act 2010)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2bc05a44-4feb-44b6-ac07-bd76ad376694" x="0" y="57" width="87" height="20"/>
+				<reportElement x="0" y="57" width="87" height="20" uuid="2bc05a44-4feb-44b6-ac07-bd76ad376694"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Double"/>
@@ -146,7 +146,7 @@
 				<text><![CDATA[Lease Number:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1" x="102" y="57" width="153" height="20"/>
+				<reportElement x="102" y="57" width="153" height="20" uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
@@ -157,7 +157,7 @@
 	<detail>
 		<band height="472">
 			<staticText>
-				<reportElement uuid="0b4be9cc-61a6-4127-a841-66bfab1f8ed2" positionType="Float" x="0" y="17" width="172" height="17"/>
+				<reportElement positionType="Float" x="0" y="17" width="172" height="17" uuid="0b4be9cc-61a6-4127-a841-66bfab1f8ed2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Double"/>
@@ -165,7 +165,7 @@
 				<text><![CDATA[TO WHOM IT MAY CONCERN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d99eff97-b3c6-44ba-ac74-add7470724ab" positionType="Float" x="0" y="45" width="49" height="20"/>
+				<reportElement positionType="Float" x="0" y="45" width="49" height="20" uuid="d99eff97-b3c6-44ba-ac74-add7470724ab"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Double"/>
@@ -173,14 +173,14 @@
 				<text><![CDATA[THAT:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="78e68a7e-42cc-497d-b155-f3c46c7d95fb" positionType="Float" x="49" y="45" width="459" height="20"/>
+				<reportElement positionType="Float" x="49" y="45" width="459" height="20" uuid="78e68a7e-42cc-497d-b155-f3c46c7d95fb"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lesseesAndMaritalStatus}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="d99eff97-b3c6-44ba-ac74-add7470724ab" positionType="Float" x="1" y="67" width="49" height="20"/>
+				<reportElement positionType="Float" x="1" y="67" width="49" height="20" uuid="d99eff97-b3c6-44ba-ac74-add7470724ab"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Double"/>
@@ -188,14 +188,14 @@
 				<text><![CDATA[OF:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="78e68a7e-42cc-497d-b155-f3c46c7d95fb" positionType="Float" x="50" y="67" width="458" height="20"/>
+				<reportElement positionType="Float" x="50" y="67" width="458" height="20" uuid="78e68a7e-42cc-497d-b155-f3c46c7d95fb"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lesseeAddress}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="0b4be9cc-61a6-4127-a841-66bfab1f8ed2" positionType="Float" x="2" y="306" width="511" height="24"/>
+				<reportElement positionType="Float" x="2" y="306" width="511" height="24" uuid="0b4be9cc-61a6-4127-a841-66bfab1f8ed2"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Double"/>
@@ -203,56 +203,56 @@
 				<text><![CDATA[HIS MAJESTY THE KING]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="5" y="372" width="37" height="23"/>
+				<reportElement positionType="Float" x="5" y="372" width="37" height="23" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[1.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="42" y="372" width="471" height="23"/>
+				<reportElement positionType="Float" x="42" y="372" width="471" height="23" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Ground rent:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="42" y="419" width="471" height="23"/>
+				<reportElement positionType="Float" x="42" y="419" width="471" height="23" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Duration:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="5" y="419" width="37" height="20"/>
+				<reportElement positionType="Float" x="5" y="419" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[2.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="5" y="443" width="37" height="20"/>
+				<reportElement positionType="Float" x="5" y="443" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[2.01]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="5" y="396" width="37" height="22"/>
+				<reportElement positionType="Float" x="5" y="396" width="37" height="22" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[1.01]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="82632cf5-3b2b-46cd-89d5-bd72dbeae617" positionType="Float" x="42" y="396" width="471" height="22"/>
+				<reportElement positionType="Float" x="42" y="396" width="471" height="22" uuid="82632cf5-3b2b-46cd-89d5-bd72dbeae617"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("Annual ground rent shall mean <b>%s</b> per year or such other amount as may be reassessed.", $F{groundRent})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="41" y="443" width="472" height="20"/>
+				<reportElement positionType="Float" x="41" y="443" width="472" height="20" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
@@ -263,63 +263,63 @@
 $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="3" y="332" width="509" height="39"/>
+				<reportElement positionType="Float" x="3" y="332" width="509" height="39" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("Subject to the statutory conditions as prescribed in the Land Regulations and any and all of the following terms and special conditions and general provisions:")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="2" y="118" width="506" height="35"/>
+				<reportElement positionType="Float" x="2" y="118" width="506" height="35" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("Hereinafter referred to as the <b>Lessee,</b> has been granted, accepts and holds title in land known as:")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="153" width="84" height="20"/>
+				<reportElement positionType="Float" x="2" y="153" width="84" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Plot Number: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="183" width="84" height="20"/>
+				<reportElement positionType="Float" x="2" y="183" width="84" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Situated at:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="42ea3b2d-dbfe-49e2-a98f-5ba8b17d815a" positionType="Float" x="87" y="153" width="421" height="30"/>
+				<reportElement positionType="Float" x="87" y="153" width="421" height="30" uuid="42ea3b2d-dbfe-49e2-a98f-5ba8b17d815a"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelCode}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="42ea3b2d-dbfe-49e2-a98f-5ba8b17d815a" positionType="Float" x="86" y="183" width="422" height="32"/>
+				<reportElement positionType="Float" x="86" y="183" width="422" height="32" uuid="42ea3b2d-dbfe-49e2-a98f-5ba8b17d815a"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelAddress}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="2" y="215" width="505" height="25"/>
+				<reportElement positionType="Float" x="2" y="215" width="505" height="25" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("Approximate area: <b>%s</b> Square metres more or less", $F{parcelOfficialArea})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="2" y="241" width="505" height="26"/>
+				<reportElement positionType="Float" x="2" y="241" width="505" height="26" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("As shown on plan number <b>%s</b> as held by the Chief Surveyor.", $F{parcelMapRef})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="1" y="267" width="505" height="36"/>
+				<reportElement positionType="Float" x="1" y="267" width="505" height="36" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
@@ -328,19 +328,19 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 		</band>
 		<band height="60">
 			<staticText>
-				<reportElement uuid="682a9358-9f84-4710-9ee5-4765b626eac6" x="0" y="14" width="508" height="20"/>
+				<reportElement x="0" y="14" width="508" height="20" uuid="682a9358-9f84-4710-9ee5-4765b626eac6"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[[This page intentionally left blank]]]></text>
 			</staticText>
 			<break>
-				<reportElement uuid="c900619a-809f-410b-b162-498c031d9cab" x="0" y="11" width="100" height="1"/>
+				<reportElement x="0" y="11" width="100" height="1" uuid="c900619a-809f-410b-b162-498c031d9cab"/>
 			</break>
 		</band>
-		<band height="253">
+		<band height="272">
 			<componentElement>
-				<reportElement uuid="1d13bc14-dbef-4299-8330-b5abf8acaa0e" positionType="Float" x="-1" y="77" width="511" height="1">
+				<reportElement positionType="Float" x="-1" y="77" width="511" height="1" uuid="1d13bc14-dbef-4299-8330-b5abf8acaa0e">
 					<printWhenExpression><![CDATA[$F{lease}.getLeaseSpecialConditionList().size() > 0]]></printWhenExpression>
 				</reportElement>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
@@ -349,7 +349,7 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 					</datasetRun>
 					<jr:listContents height="1" width="511">
 						<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-							<reportElement uuid="e3b22669-7fad-4b30-a121-69bbccda3c9d" positionType="Float" mode="Transparent" x="3" y="0" width="64" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
+							<reportElement positionType="Float" mode="Transparent" x="3" y="0" width="64" height="1" forecolor="#000000" backcolor="#FFFFFF" uuid="e3b22669-7fad-4b30-a121-69bbccda3c9d"/>
 							<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 								<font fontName="Times New Roman" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 								<paragraph lineSpacing="Single"/>
@@ -357,7 +357,7 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 							<textFieldExpression><![CDATA["3.02." + $V{REPORT_COUNT}.toString()]]></textFieldExpression>
 						</textField>
 						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement uuid="803b4693-1abe-4610-891b-10b9b1552494" positionType="Float" x="67" y="0" width="442" height="1" isPrintWhenDetailOverflows="true"/>
+							<reportElement positionType="Float" x="67" y="0" width="442" height="1" isPrintWhenDetailOverflows="true" uuid="803b4693-1abe-4610-891b-10b9b1552494"/>
 							<textElement>
 								<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 							</textElement>
@@ -367,80 +367,73 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 				</jr:list>
 			</componentElement>
 			<line>
-				<reportElement uuid="3713e858-33d1-49f0-90d0-06ae7820dbf2" positionType="Float" x="3" y="250" width="510" height="1"/>
+				<reportElement positionType="Float" x="3" y="266" width="510" height="1" uuid="3713e858-33d1-49f0-90d0-06ae7820dbf2"/>
 			</line>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="35" width="37" height="20"/>
+				<reportElement positionType="Float" x="2" y="35" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[3.01]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="39" y="10" width="471" height="20"/>
+				<reportElement positionType="Float" x="39" y="10" width="471" height="20" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Special Conditions:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="10" width="37" height="20"/>
+				<reportElement positionType="Float" x="2" y="10" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[3.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="55" width="37" height="20"/>
+				<reportElement positionType="Float" x="2" y="55" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[3.02]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="1" y="82" width="37" height="20"/>
+				<reportElement positionType="Float" x="1" y="82" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[4.	]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="38" y="82" width="471" height="20"/>
+				<reportElement positionType="Float" x="38" y="82" width="471" height="20" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[General provisions]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="1" y="108" width="37" height="20"/>
+				<reportElement positionType="Float" x="1" y="108" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[4.01]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="38" y="108" width="471" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[That this title is inheritable subject to the provisions of Section 35 of the Act and any other law which may be applicable.	]]></text>
-			</staticText>
 			<textField>
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="39" y="35" width="472" height="20"/>
+				<reportElement positionType="Float" x="39" y="35" width="472" height="20" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("The permitted use in respect of which this lease is granted or issued is: <b>%s</b>", $F{parcelLandUse})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="39" y="55" width="472" height="20"/>
+				<reportElement positionType="Float" x="39" y="55" width="472" height="20" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format("Other special conditions: <b>%s</b>",$F{specialConditions})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="37" y="129" width="471" height="59"/>
+				<reportElement positionType="Float" x="37" y="145" width="471" height="59" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -450,50 +443,57 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 (iii)  its determination pursuant to the provisions of the Act.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="0" y="129" width="37" height="20"/>
+				<reportElement positionType="Float" x="0" y="145" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[4.02]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="38" y="188" width="471" height="20"/>
+				<reportElement positionType="Float" x="38" y="204" width="471" height="20" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[The Act shall mean the Land Act 2010 and all regulations made there under.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="1" y="188" width="37" height="20"/>
+				<reportElement positionType="Float" x="1" y="204" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[4.03]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="38" y="209" width="471" height="34"/>
+				<reportElement positionType="Float" x="38" y="225" width="471" height="34" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[This lease shall be governed by revisions of the Act and all Acts and Regulations now or hereafter applicable to the land. ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="1" y="210" width="37" height="20"/>
+				<reportElement positionType="Float" x="1" y="226" width="37" height="20" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[4.04]]></text>
 			</staticText>
 			<break>
-				<reportElement uuid="41f9cf16-f997-4509-b7ba-07878f78d95b" x="0" y="7" width="100" height="1"/>
+				<reportElement x="0" y="7" width="100" height="1" uuid="41f9cf16-f997-4509-b7ba-07878f78d95b"/>
 			</break>
+			<staticText>
+				<reportElement positionType="Float" x="37" y="108" width="471" height="37" uuid="6f41af01-9a90-4504-b5da-6ddd3a293219"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[That this title is inheritable subject to the provisions of Section 35 of the Act and any other law which may be applicable.]]></text>
+			</staticText>
 		</band>
 		<band height="249">
 			<line>
-				<reportElement uuid="3713e858-33d1-49f0-90d0-06ae7820dbf2" positionType="Float" x="1" y="229" width="510" height="1"/>
+				<reportElement positionType="Float" x="1" y="229" width="510" height="1" uuid="3713e858-33d1-49f0-90d0-06ae7820dbf2"/>
 			</line>
 			<staticText>
-				<reportElement uuid="9f5b2d22-24a7-4b62-a5e1-9313833b2ca5" positionType="Float" x="2" y="85" width="172" height="36"/>
+				<reportElement positionType="Float" x="2" y="85" width="172" height="36" uuid="9f5b2d22-24a7-4b62-a5e1-9313833b2ca5"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -501,52 +501,52 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 Land Administration Authority]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="322b05f4-b6df-4025-9f5c-11df6f121f4a" positionType="Float" x="2" y="79" width="172" height="1"/>
+				<reportElement positionType="Float" x="2" y="79" width="172" height="1" uuid="322b05f4-b6df-4025-9f5c-11df6f121f4a"/>
 				<graphicElement>
 					<pen lineWidth="1.25" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="306" y="85" width="202" height="36"/>
+				<reportElement positionType="Float" x="306" y="85" width="202" height="36" uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Lessee       (signature)]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae" positionType="Float" x="306" y="78" width="202" height="1"/>
+				<reportElement positionType="Float" x="306" y="78" width="202" height="1" uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae"/>
 				<graphicElement>
 					<pen lineWidth="1.25" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="306" y="145" width="202" height="23"/>
+				<reportElement positionType="Float" x="306" y="145" width="202" height="23" uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Witness       (signature)]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae" positionType="Float" x="306" y="138" width="202" height="1"/>
+				<reportElement positionType="Float" x="306" y="138" width="202" height="1" uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae"/>
 				<graphicElement>
 					<pen lineWidth="1.25" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="306" y="178" width="39" height="18"/>
+				<reportElement positionType="Float" x="306" y="178" width="39" height="18" uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Name:]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae" positionType="Float" x="345" y="190" width="163" height="1"/>
+				<reportElement positionType="Float" x="345" y="190" width="163" height="1" uuid="944c3a6a-54e9-404a-80f9-9bf1155eb9ae"/>
 				<graphicElement>
 					<pen lineWidth="1.25" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b0781255-e41a-4e77-9210-7dbb5472b22a" positionType="Float" x="2" y="205" width="506" height="18">
+				<reportElement positionType="Float" x="2" y="205" width="506" height="18" uuid="b0781255-e41a-4e77-9210-7dbb5472b22a">
 					<printWhenExpression><![CDATA[$F{lesseePrivate} == false]]></printWhenExpression>
 				</reportElement>
 				<textElement markup="html">
@@ -559,7 +559,7 @@ Land Administration Authority]]></text>
 "Seal affixed in the presence of the witness."]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3" positionType="Float" x="1" y="16" width="509" height="20"/>
+				<reportElement positionType="Float" x="1" y="16" width="509" height="20" uuid="3c46bb39-dea9-40aa-95de-14acf4e1c7e3"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
@@ -568,73 +568,73 @@ Land Administration Authority]]></text>
 		</band>
 		<band height="136">
 			<break>
-				<reportElement uuid="81256b3d-9aab-41df-86eb-a9bd735424cb" positionType="Float" x="0" y="134" width="511" height="1"/>
+				<reportElement positionType="Float" x="0" y="134" width="511" height="1" uuid="81256b3d-9aab-41df-86eb-a9bd735424cb"/>
 			</break>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="1" y="11" width="121" height="18"/>
+				<reportElement positionType="Float" x="1" y="11" width="121" height="18" uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Lease number:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="0" y="36" width="122" height="18"/>
+				<reportElement positionType="Float" x="0" y="36" width="122" height="18" uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Registration number:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="1" y="61" width="122" height="18"/>
+				<reportElement positionType="Float" x="1" y="61" width="122" height="18" uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Registration date:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="0" y="86" width="122" height="18"/>
+				<reportElement positionType="Float" x="0" y="86" width="122" height="18" uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Registration fee:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2" positionType="Float" x="0" y="111" width="122" height="18"/>
+				<reportElement positionType="Float" x="0" y="111" width="122" height="18" uuid="f1d6e399-3e81-4fb0-abe6-f5dc2e88c2e2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Stamp duty:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1" positionType="Float" x="122" y="11" width="198" height="18"/>
+				<reportElement positionType="Float" x="122" y="11" width="198" height="18" uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{leaseRegistrationNumber}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1" positionType="Float" x="123" y="111" width="197" height="18"/>
+				<reportElement positionType="Float" x="123" y="111" width="197" height="18" uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{stampDuty}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1" positionType="Float" x="123" y="86" width="197" height="18"/>
+				<reportElement positionType="Float" x="123" y="86" width="197" height="18" uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{registrationFee}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1" positionType="Float" x="122" y="36" width="198" height="18"/>
+				<reportElement positionType="Float" x="122" y="36" width="198" height="18" uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lease}.getRegistrationNumber()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1" positionType="Float" x="123" y="61" width="198" height="18"/>
+				<reportElement positionType="Float" x="123" y="61" width="198" height="18" uuid="04f97f3f-885b-425d-bea9-37d94ded3ce1"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
@@ -643,98 +643,98 @@ Land Administration Authority]]></text>
 		</band>
 		<band height="712">
 			<staticText>
-				<reportElement uuid="255c704a-cab4-41c7-a359-b255e88169b5" x="0" y="16" width="511" height="15"/>
+				<reportElement x="0" y="16" width="511" height="15" uuid="255c704a-cab4-41c7-a359-b255e88169b5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Statutory conditions]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="-1" y="0" width="256" height="18"/>
+				<reportElement positionType="Float" x="-1" y="0" width="256" height="18" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Land Regulations 2011]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="256" y="0" width="254" height="18"/>
+				<reportElement positionType="Float" x="256" y="0" width="254" height="18" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="10" isBold="false" isStrikeThrough="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Regulation 10]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="23" y="40" width="484" height="25"/>
+				<reportElement positionType="Float" x="23" y="40" width="484" height="25" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Unless the Minister directs otherwise the Lessee shall fence the boundaries of the land within 6 (six) months of the date of the grant and the Lessee shall maintain the fence to the satisfaction of the Commissioner.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="-1" y="40" width="25" height="14"/>
+				<reportElement positionType="Float" x="-1" y="40" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[1.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="0" y="64" width="25" height="14"/>
+				<reportElement positionType="Float" x="0" y="64" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[2.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="24" y="64" width="483" height="37"/>
+				<reportElement positionType="Float" x="24" y="64" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Unless special written authority is given by the Commissioner, the Lessee shall commence development of the land within 5 years of the date of the granting of a lease. This shall also apply to further development of the land held under a lease during the term of the lease.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="0" y="100" width="25" height="14"/>
+				<reportElement positionType="Float" x="0" y="100" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[3.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="24" y="100" width="483" height="25"/>
+				<reportElement positionType="Float" x="24" y="100" width="483" height="25" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Within a period of the time to be fixed by the planning authority, the Lessee shall provide at his own expense main drainage or main sewerage connections from the building erected on the land as the planning authority may require.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="24" y="125" width="483" height="37"/>
+				<reportElement positionType="Float" x="24" y="125" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[In the event of any main building erected on the land being dismantled, destroyed, demolished or removed, the Lessee shall replace the building within a period specified by the planning authority and sub-regulations (2) and (3) of the Land Regulations 2011 shall apply where applicable.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="0" y="125" width="25" height="14"/>
+				<reportElement positionType="Float" x="0" y="125" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[4.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="0" y="162" width="25" height="14"/>
+				<reportElement positionType="Float" x="0" y="162" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[5.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="24" y="162" width="483" height="25"/>
+				<reportElement positionType="Float" x="24" y="162" width="483" height="25" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[The Lessee shall use the land comprised in the lease only for the purpose specified in the lease or in any variation made to the original lease.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="25" y="186" width="483" height="72"/>
+				<reportElement positionType="Float" x="25" y="186" width="483" height="72" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -745,84 +745,84 @@ Land Administration Authority]]></text>
           services.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="0" y="186" width="25" height="14"/>
+				<reportElement positionType="Float" x="0" y="186" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[6.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="25" y="257" width="483" height="50"/>
+				<reportElement positionType="Float" x="25" y="257" width="483" height="50" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Save with the written authority of the planning authority, no electrical power or telephone pole or line or water, drainage or sewer pipe being upon or passing through, over or under the land and no replacement thereof, shall be moved or in any way be interfered with and reasonable access thereto shall be preserved to allow for inspection, maintenance, repair, renewal and replacement.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="1" y="257" width="25" height="14"/>
+				<reportElement positionType="Float" x="1" y="257" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[7.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="25" y="306" width="483" height="62"/>
+				<reportElement positionType="Float" x="25" y="306" width="483" height="62" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Full right and liberty reserved unto the Government of Lesotho freely to exercise or have, or unto the Minister to grant to a statutory corporation or parastatal organisation, the right freely to exercise or have a public servitude over the land for the purpose of providing and maintaining public utility services and more particularly for the purpose of erecting telephone or electric power poles, installing electric or telephone wires and cables, laying down drains, sewers or water pipes and maintaining the same.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="1" y="306" width="25" height="14"/>
+				<reportElement positionType="Float" x="1" y="306" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[8.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="26" y="367" width="483" height="37"/>
+				<reportElement positionType="Float" x="26" y="367" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[The interior and exterior of any building erected on the land and all building additions thereto and all other buildings at any time erected or standing on the land and walls, drains and other appurtenances, shall be kept by the Lessee in good repair and tenantable condition to the satisfaction of the planning authority.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="367" width="25" height="14"/>
+				<reportElement positionType="Float" x="2" y="367" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[9.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="26" y="403" width="483" height="50"/>
+				<reportElement positionType="Float" x="26" y="403" width="483" height="50" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[No act, matter or thing, whatever, shall be done or permitted to be done upon the land or any part of such land which may cause or lead to pollution of the environment or result in the creation of any hazard to the health of other persons, or become a nuisance or annoyance to or damage or in any way interfere with the peace and comfort of adjoining Lessees or the occupiers of adjoining or other land in the neighbourhood.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="1" y="403" width="25" height="14"/>
+				<reportElement positionType="Float" x="1" y="403" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[10.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="26" y="452" width="484" height="25"/>
+				<reportElement positionType="Float" x="26" y="452" width="484" height="25" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[The Lessee shall not subdivide the land or part with the possession of any part thereof without the written prior approval of the planning authority.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="1" y="452" width="25" height="14"/>
+				<reportElement positionType="Float" x="1" y="452" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[11.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="27" y="477" width="483" height="87"/>
+				<reportElement positionType="Float" x="27" y="477" width="483" height="87" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -833,35 +833,35 @@ Land Administration Authority]]></text>
         year that has elapsed prior to the date of the grant.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="476" width="25" height="14"/>
+				<reportElement positionType="Float" x="2" y="476" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[12.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="27" y="561" width="483" height="37"/>
+				<reportElement positionType="Float" x="27" y="561" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Annual ground rent reserved in the lease shall be subject to revision every three (3) years of the term of the lease and consequent upon any revision, the amount shall be fair and reasonable having regard to general values and no account shall be taken of any improvements made by the Lessee to or on the land subsequent to the date of such revision.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="561" width="25" height="14"/>
+				<reportElement positionType="Float" x="2" y="561" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[13.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="27" y="597" width="483" height="37"/>
+				<reportElement positionType="Float" x="27" y="597" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Upon application by the Lessee made not later than 6 (six) months before expiry of the term of the lease the Lessee shall be entitled to the grant of a new lease of the land on terms set by the Commissioner provided the land or part thereof is not required for any public purpose.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="598" width="25" height="14"/>
+				<reportElement positionType="Float" x="2" y="598" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -872,31 +872,31 @@ Land Administration Authority]]></text>
 	<pageFooter>
 		<band height="32" splitType="Stretch">
 			<line>
-				<reportElement uuid="a9b9dcdb-80b0-47f5-8951-d99a97105909" x="0" y="10" width="511" height="1"/>
+				<reportElement x="0" y="10" width="511" height="1" uuid="a9b9dcdb-80b0-47f5-8951-d99a97105909"/>
 			</line>
 			<staticText>
-				<reportElement uuid="7e2b0bf8-da57-42fb-ac7b-3e205c7259ec" x="0" y="11" width="150" height="20"/>
+				<reportElement x="0" y="11" width="150" height="20" uuid="7e2b0bf8-da57-42fb-ac7b-3e205c7259ec"/>
 				<textElement verticalAlignment="Middle">
 					<font size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Land Administration Authority]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="afc93c93-edbf-487e-bd70-3499e24d192e" x="186" y="11" width="80" height="20"/>
+				<reportElement x="186" y="11" width="80" height="20" uuid="afc93c93-edbf-487e-bd70-3499e24d192e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="d08b4fa9-b75d-4f81-bfea-df55b626824a" x="266" y="11" width="40" height="20"/>
+				<reportElement x="266" y="11" width="40" height="20" uuid="d08b4fa9-b75d-4f81-bfea-df55b626824a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="06063e18-a1c5-4ed4-868b-a6bf11379ade" x="320" y="11" width="191" height="20"/>
+				<reportElement x="320" y="11" width="191" height="20" uuid="06063e18-a1c5-4ed4-868b-a6bf11379ade"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isPdfEmbedded="true"/>
 				</textElement>

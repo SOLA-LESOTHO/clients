@@ -158,8 +158,14 @@ public class PropertyPanel extends ContentPanel {
     private void customizeForm() {
         setFormHeader();
         btnSave.setEnabled(!readOnly);
-        cadastreObject.setReadOnly(readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE));
-        cadastreObject.setLockCadastreFields(true);
+        //cadastreObject.setReadOnly(readOnly || !SecurityBean.isInRole(RolesConstants.ADMINISTRATIVE_MANAGE_LEASE));
+        //cadastreObject.setLockCadastreFields(true);
+        if (baUnitBean1.getCadastreObject() == null){
+            baUnitBean1.setCadastreObject(new CadastreObjectBean());
+        }
+        cadastreObject.enableLeaseProcessValues();
+        cadastreObject.setReadOnly(false);
+        cadastreObject.setLockCadastreFields(false);
 
         if (!SecurityBean.isInRole(RolesConstants.GIS_VIEW_MAP)) {
             // User does not have rights to view the Map 
