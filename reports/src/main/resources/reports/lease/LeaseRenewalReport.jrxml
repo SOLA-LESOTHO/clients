@@ -262,7 +262,7 @@ $F{parcelCode}
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="11" isBold="false" isItalic="false" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[COMMISSIONER OF LANDS]]></text>
+				<text><![CDATA[DIRECTOR GENERAL]]></text>
 			</staticText>
 			<line>
 				<reportElement uuid="9a496f59-7dc7-4ed9-a0cc-d7f72e9824e6" x="14" y="308" width="528" height="1"/>

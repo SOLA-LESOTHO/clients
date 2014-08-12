@@ -325,7 +325,7 @@ When returning the signed lease drafts payment must be made. This payment is cal
 				<textElement textAlignment="Justified">
 					<font fontName="Arial" size="11" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[On the return of the attached lease drafts they will be signed by the Commissioner of Lands and forwarded to the Land Registrar for registration. After signing and registration, which should take no more than two weeks or 10 working days, a copy of the registered lease will be ready for your collection.  If the lease is ready earlier, Customer Services will contact you. When collecting your lease please bring with you the lease application receipt and a personal identification document such as a passport.]]></text>
+				<text><![CDATA[On the return of the attached lease drafts they will be signed by the Director General and forwarded to the Land Registrar for registration. After signing and registration, which should take no more than two weeks or 10 working days, a copy of the registered lease will be ready for your collection.  If the lease is ready earlier, Customer Services will contact you. When collecting your lease please bring with you the lease application receipt and a personal identification document such as a passport.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="2613db55-59e1-4e86-98e2-23a8ca8dcde0" positionType="Float" x="10" y="363" width="488" height="17"/>

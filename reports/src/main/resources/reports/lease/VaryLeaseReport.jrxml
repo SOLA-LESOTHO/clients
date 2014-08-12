@@ -175,7 +175,7 @@
 "<p></p>" +
 "Of: <b>%s</b>" +
 "<p></p>" +
-"Hereinafter referred to as the <b>Lessee</b>, of the one part, and the <b>Commissioner of Lands</b>, of the other " +
+"Hereinafter referred to as the <b>Lessee</b>, of the one part, and the <b>Director General</b>, of the other " +
 "part, hereby covenants to vary lease number: <b>%s</b>" +
 "<p></p>" +
 "<b>WHEREAS</b>: this deed is supplemental to lease number: <b>%s</b>",
@@ -189,7 +189,7 @@ $F{lesseesAndMaritalStatus}, $F{lesseeAddress}, $F{leaseRegistrationNumber}, $F{
 				<textElement>
 					<font fontName="Arial" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[The Commissioner of Lands has agreed pursuant to section 42 of the Land Act 2010:]]></text>
+				<text><![CDATA[The Director General has agreed pursuant to section 42 of the Land Act 2010:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="0c85f4ea-dd05-40b8-82b4-954a8186a8e5" positionType="Float" x="47" y="30" width="495" height="20"/>
@@ -261,7 +261,7 @@ $F{leaseExpirationDate}, $F{leaseTermWord}, $F{leaseTerm}
 				<textElement>
 					<font fontName="Arial" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Commissioner of Lands
+				<text><![CDATA[Director General
 Land Administration Authority]]></text>
 			</staticText>
 			<staticText>

@@ -140,7 +140,7 @@
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[The Commissioner of Lands hereby consents to the following lease transaction:]]></text>
+				<text><![CDATA[The Director General hereby consents to the following lease transaction:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="27" y="55" width="58" height="20"/>
@@ -234,7 +234,7 @@ $P{CONDITION_TEXT}
 				<textElement>
 					<font fontName="Times New Roman" size="12" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[For Commissioner of Lands]]></text>
+				<text><![CDATA[For Director General]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="306" y="140" width="182" height="20"/>

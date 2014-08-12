@@ -497,7 +497,7 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Commissioner of Lands
+				<text><![CDATA[Director General
 Land Administration Authority]]></text>
 			</staticText>
 			<line>
