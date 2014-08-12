@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
 	<property name="ireport.zoom" value="1.3660269107301417"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="296"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
@@ -62,6 +62,7 @@
 	<parameter name="FEE" class="java.lang.String"/>
 	<parameter name="RECEIPT_NUMBER" class="java.lang.String"/>
 	<parameter name="TRANSACTION_TYPE" class="java.lang.String"/>
+	<parameter name="SUBLEASE_RATE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -183,7 +184,7 @@
 "<p></p>" +
 "<p>Recipient(s) marital status: <b>%s</b> </p> " +
 "<p></p>" +
-"<p>Consideration, assesed value or rental: <b>%s</b></p>" +
+"<p>Consideration, assesed value or rental: <b>%s</b><b>%s</b></p>" +
 "<p></p>" +
 "<p>This transaction to be effected on or before: <b>%s</b> </p> " +
 "<p></p>" +
@@ -193,6 +194,7 @@ $F{rightholdersMaritalStatus},
 $F{recipients},
 $F{recipientsMaritalStatus},
 $P{CONSIDERATION_AMOUNT},
+$P{SUBLEASE_RATE},
 $P{DUE_DATE},
 $P{CONDITION_TEXT}
 )]]></textFieldExpression>

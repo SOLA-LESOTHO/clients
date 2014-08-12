@@ -2,7 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5ec07a5-2423-4ec6-92b7-61d1440c1b25">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="149"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cal" class="java.util.Calendar" isForPrompting="false">
+		<defaultValueExpression><![CDATA[Calendar.getInstance()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="month" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.util.Date($P{cal}.getTimeInMillis())]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -117,6 +123,15 @@
 	<field name="serviceName" class="java.lang.String">
 		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
 	</field>
+	<field name="registrationFee" class="java.lang.String">
+		<fieldDescription><![CDATA[registrationFee]]></fieldDescription>
+	</field>
+	<variable name="regFee" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{landUse}.equalsIgnoreCase("commercial") ? 100.00 : 25.00)]]></variableExpression>
+	</variable>
+	<variable name="landUse" class="java.lang.String">
+		<variableExpression><![CDATA[$F{lease}.getLandUseCode()]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -164,7 +179,7 @@
 	</columnHeader>
 	<detail>
 		<band height="75" splitType="Stretch">
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2" positionType="Float" x="12" y="0" width="529" height="20"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
@@ -196,23 +211,24 @@ $F{lesseeAddress}
 "<b>WHEREAS:</b>" +
 "<p></p>" +
 "1.	This deed is supplemental to a registered lease number: <b>%s</b> for a plot located at <b>%s</b>" +
+" issued by the <b>Commissioner of Lands</b>." +
 "<p></p>" +
-"2.	  issued by the <b>Commissioner of Lands</b>." +
+"2.	At the expiration of the term of the said lease the right of reversion is vested in the State." +
 "<p></p>" +
-"3.	At the expiration of the term of the said lease the right of reversion is vested in the State." +
-"<p></p>" +
-"4.	The lessee has agreed as from the date of the execution of this deed and with no consideration " +
+"3.	The lessee has agreed as from the date of the execution of this deed and with no consideration " +
 "passing between the parties to surrender the said lease to the State." +
 "<p></p>" +
 "<b>NOW THIS DEED WITNESSETH AS FOLLOWS:</b>" +
 "<p></p>" +
-"5.	The lessee as holder of the said lease hereby assigns and surrenders to the State all the property " +
+"4.	The lessee as holder of the said lease hereby assigns and surrenders to the State all the property " +
 "demised by the said lease to the intent that the term of years deemed to be granted by the lease may merge and be extinguished." +
 "<p></p>" +
-"6.	The State hereby releases the lessee from all liabilities, claims and demands arising from the said lease." +
-"<p></p>",
-$F{parcelCode}, $F{parcelAddress}
-)]]></textFieldExpression>
+"5.	The State hereby releases the lessee from all liabilities, claims and demands arising from the said lease." +
+"<p></p>" +
+"<b>Thus done, signed and executed</b> on this <b>%s</b> day of <b>%s</b> <b>%s</b> at Maseru, and lessee acknowledges that he/she" +
+" knows and understands the contents herein",
+$F{parcelCode}, $F{parcelAddress}, $P{cal}.get(Calendar.DAY_OF_MONTH),((String)new SimpleDateFormat("MMMM").format($P{month})).toUpperCase()
+, $P{cal}.get(Calendar.YEAR))]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -322,15 +338,9 @@ Land Administration Authority]]></text>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[String.format(
-"Registration number:" +
-"<p></p>" +
-"Registration date:" +
-"<p></p>" +
-"Registration fee: <b>M</b>" +
-"<p></p>" +
-"Stamp duty: <b>M</b>"
-)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format( "Registration number:" + "<p></p>" + "Registration date:" + "<p></p>" + 
+"Registration fee: <b>"+$F{registrationFee}+ "</b><p></p></b>"+ 
+"Stamp duty: <b>NIL</b>" )]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
