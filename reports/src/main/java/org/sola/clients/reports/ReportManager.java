@@ -470,9 +470,15 @@ public class ReportManager {
     public static JasperPrint getConsentReport(ConsentBean consentBean) {
 
         HashMap inputParameters = new HashMap();
+        
+        if(consentBean.getSubleaseRate() == null || consentBean.getSubleaseRate().equals("")) 
+            inputParameters.put("SUBLEASE_RATE", "");
+        else
+            inputParameters.put("SUBLEASE_RATE", consentBean.getSubleaseRate());
                 
         inputParameters.put("DUE_DATE", DateFormatUtils.format(consentBean.getExpirationDate(), "d MMMMM yyyy"));
         inputParameters.put("CONDITION_TEXT", consentBean.getSpecialConditions());
+        
         inputParameters.put("CONSIDERATION_AMOUNT", consentBean.getAmountInWords());
         inputParameters.put("TRANSACTION_TYPE", consentBean.getTransactionTypeName());
 

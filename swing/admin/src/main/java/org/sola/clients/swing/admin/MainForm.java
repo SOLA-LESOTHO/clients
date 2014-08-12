@@ -87,7 +87,7 @@ public class MainForm extends javax.swing.JFrame {
 
         menuRefData.setEnabled(hasRefdataRole);
         boolean hasSlrMigrationRole = SecurityBean.isInRole(RolesConstants.SLR_MIGRATION);
-        btnSlrMigration.setEnabled(hasSlrMigrationRole);
+        btnSlrMigration.setEnabled( hasSlrMigrationRole);
     }
 
     /**

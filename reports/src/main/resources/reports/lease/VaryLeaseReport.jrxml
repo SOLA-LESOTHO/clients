@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54d24e81-cfe2-4298-8e0a-d893d22644a4">
 	<property name="ireport.zoom" value="1.0000000000000022"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="335"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -314,33 +314,19 @@ Land Administration Authority]]></text>
 				<text><![CDATA[Name: ..........................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="402" width="100" height="20"/>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="391" width="100" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Registration number:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="422" width="87" height="20"/>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="431" width="87" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Registration date:]]></text>
+				<text><![CDATA[Registration fee:]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="125" y="402" width="341" height="20"/>
-				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="10" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{applicationNumber}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" pattern="dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement uuid="61a180ea-5caf-4731-914f-d6c6236511b0" positionType="Float" x="112" y="422" width="356" height="20"/>
-				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="10" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
-			</textField>
 			<rectangle>
 				<reportElement uuid="9bef5a94-0647-45ba-8356-f5fc46948cb2" x="25" y="14" width="10" height="10"/>
 			</rectangle>
@@ -350,6 +336,34 @@ Land Administration Authority]]></text>
 			<rectangle>
 				<reportElement uuid="9bef5a94-0647-45ba-8356-f5fc46948cb2" x="25" y="169" width="10" height="10"/>
 			</rectangle>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="411" width="87" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Registration date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="451" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Stamp duty:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="112" y="431" width="87" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Nil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="92" y="451" width="87" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Nil]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>

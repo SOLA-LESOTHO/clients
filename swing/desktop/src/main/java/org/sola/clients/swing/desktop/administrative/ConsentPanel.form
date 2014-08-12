@@ -9,6 +9,21 @@
     </Component>
     <Component class="org.sola.clients.beans.referencedata.TransactionTypeListBean" name="transactionTypeListBean1">
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="headerPanel" type="org.sola.clients.swing.ui.HeaderPanel" editor="org.netbeans.modules.form.ComponentChooserEditor">
@@ -32,16 +47,17 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="headerPanel2" max="32767" attributes="0"/>
           <Component id="jToolBar1" alignment="1" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel7" pref="684" max="32767" attributes="0"/>
+                  <Component id="jPanel7" pref="807" max="32767" attributes="0"/>
+                  <Component id="jPanel1" alignment="1" pref="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel14" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jPanel1" alignment="1" pref="0" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -55,7 +71,9 @@
               <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel2" min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel13" max="32767" attributes="0"/>
                   <Component id="jPanel14" max="32767" attributes="0"/>
@@ -135,7 +153,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="rightHolderListPanel" pref="0" max="32767" attributes="0"/>
-                  <Component id="groupPanel3" alignment="1" pref="334" max="32767" attributes="0"/>
+                  <Component id="groupPanel3" alignment="1" pref="396" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -143,7 +161,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="groupPanel3" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="rightHolderListPanel" pref="197" max="32767" attributes="0"/>
+                      <Component id="rightHolderListPanel" pref="191" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -171,7 +189,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="groupPanel2" alignment="0" pref="334" max="32767" attributes="0"/>
+                  <Component id="groupPanel2" alignment="0" pref="396" max="32767" attributes="0"/>
                   <Component id="recipientListPanel" alignment="1" pref="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -180,7 +198,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="groupPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="recipientListPanel" pref="195" max="32767" attributes="0"/>
+                      <Component id="recipientListPanel" pref="189" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -217,7 +235,7 @@
                   <Component id="txtLeaseNumber" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="67" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -262,7 +280,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="37" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -318,7 +336,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" max="32767" attributes="0"/>
+                          <Component id="jLabel4" pref="125" max="32767" attributes="0"/>
                           <Component id="txtExpirationDate" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -378,7 +396,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtTransactionType" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -417,7 +435,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
                   </Group>
                   <Component id="txtRent" max="32767" attributes="0"/>
               </Group>
@@ -519,7 +537,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="103" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -544,6 +562,52 @@
               </Properties>
               <BindingProperties>
                 <BindingProperty name="text" source="consentBean1" sourcePath="${parcelAddress}" target="txtPropertyLocation" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane4" alignment="0" pref="807" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane4" pref="27" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="txtSubleaseRate">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="consentBean1" sourcePath="${subleaseRate}" target="txtSubleaseRate" targetPath="text" updateStrategy="0" immediately="false">
                   <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
                 </BindingProperty>
               </BindingProperties>

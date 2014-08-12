@@ -74,6 +74,17 @@ public final class ConsentBean extends AbstractTransactionedBean {
     private Date expirationDate;
     private BigDecimal amount;
     private String specialConditions;
+    private String subleaseRate;
+
+    public String getSubleaseRate() {
+        return subleaseRate;
+    }
+
+    public void setSubleaseRate(String subleaseRate) {
+        if (subleaseRate == null)
+            this.subleaseRate = "";
+        this.subleaseRate = subleaseRate;
+    }
     private SolaList<PartyBean> transfereeList;
     private String applicationNumber;
 
