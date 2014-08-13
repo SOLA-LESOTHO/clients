@@ -117,6 +117,12 @@
 	<field name="serviceName" class="java.lang.String">
 		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
 	</field>
+	<field name="stampDuty" class="java.lang.String">
+		<fieldDescription><![CDATA[stampDuty]]></fieldDescription>
+	</field>
+	<field name="registrationFee" class="java.lang.String">
+		<fieldDescription><![CDATA[registrationFee]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -320,13 +326,6 @@ Land Administration Authority]]></text>
 				</textElement>
 				<text><![CDATA[Registration number:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="431" width="87" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Registration fee:]]></text>
-			</staticText>
 			<rectangle>
 				<reportElement uuid="9bef5a94-0647-45ba-8356-f5fc46948cb2" x="25" y="14" width="10" height="10"/>
 			</rectangle>
@@ -344,26 +343,27 @@ Land Administration Authority]]></text>
 				<text><![CDATA[Registration date:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="25" y="451" width="67" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Stamp duty:]]></text>
+				<reportElement uuid="1d036cf8-a38c-476c-9d42-2f258b73ea91" x="25" y="449" width="63" height="20"/>
+				<textElement/>
+				<text><![CDATA[Stamp duty]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="7c85408e-01a2-47c8-9db2-d8b69dc4dbda" x="88" y="449" width="87" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{stampDuty}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="112" y="431" width="87" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true" isPdfEmbedded="true"/>
+				<reportElement uuid="001faeb7-1ef9-44d2-a54c-3214fdfd54cb" x="25" y="429" width="89" height="20"/>
+				<textElement>
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nil]]></text>
+				<text><![CDATA[Registration fee]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="92" y="451" width="87" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Nil]]></text>
-			</staticText>
+			<textField>
+				<reportElement uuid="e3eb481c-38f4-4922-a8cf-25f4296c369c" x="114" y="429" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{registrationFee}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
