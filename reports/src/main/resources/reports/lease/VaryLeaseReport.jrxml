@@ -148,7 +148,7 @@
 			</staticText>
 			<textField>
 				<reportElement uuid="4aeafddb-7975-4c21-8af3-e38a005a7de4" x="453" y="0" width="81" height="20"/>
-				<textElement verticalAlignment="Bottom">
+				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{leaseRegistrationNumber}]]></textFieldExpression>
@@ -189,7 +189,7 @@ $F{lesseesAndMaritalStatus}, $F{lesseeAddress}, $F{leaseRegistrationNumber}, $F{
 )]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="480">
+		<band height="479">
 			<staticText>
 				<reportElement uuid="c91e9de0-355b-4375-a4fe-93d271a10e1e" x="47" y="10" width="495" height="20"/>
 				<textElement>
@@ -343,25 +343,29 @@ Land Administration Authority]]></text>
 				<text><![CDATA[Registration date:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1d036cf8-a38c-476c-9d42-2f258b73ea91" x="25" y="449" width="63" height="20"/>
-				<textElement/>
-				<text><![CDATA[Stamp duty]]></text>
+				<reportElement uuid="1d036cf8-a38c-476c-9d42-2f258b73ea91" x="25" y="451" width="64" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Stamp duty:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="7c85408e-01a2-47c8-9db2-d8b69dc4dbda" x="88" y="449" width="87" height="20"/>
-				<textElement/>
+				<reportElement uuid="7c85408e-01a2-47c8-9db2-d8b69dc4dbda" x="89" y="451" width="87" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{stampDuty}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="001faeb7-1ef9-44d2-a54c-3214fdfd54cb" x="25" y="429" width="89" height="20"/>
-				<textElement>
-					<font isBold="true"/>
+				<reportElement uuid="001faeb7-1ef9-44d2-a54c-3214fdfd54cb" x="25" y="431" width="87" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Registration fee]]></text>
+				<text><![CDATA[Registration fee:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="e3eb481c-38f4-4922-a8cf-25f4296c369c" x="114" y="429" width="100" height="20"/>
-				<textElement/>
+				<reportElement uuid="e3eb481c-38f4-4922-a8cf-25f4296c369c" x="112" y="431" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{registrationFee}]]></textFieldExpression>
 			</textField>
 		</band>
