@@ -205,13 +205,13 @@ $F{lesseeAddress}
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format(
-"Hereinafter referred to as the <b>Lessee</b>, of the one part, and the <b>Commissioner of Lands</b>, hereinafter " +
+"Hereinafter referred to as the <b>Lessee</b>, of the one part, and the <b>Director General</b>, hereinafter " +
 "referred to as “the State” of the other part." +
 "<p></p>" +
 "<b>WHEREAS:</b>" +
 "<p></p>" +
 "1.	This deed is supplemental to a registered lease number: <b>%s</b> for a plot located at <b>%s</b>" +
-" issued by the <b>Commissioner of Lands</b>." +
+" issued by the <b>Director General</b>." +
 "<p></p>" +
 "2.	At the expiration of the term of the said lease the right of reversion is vested in the State." +
 "<p></p>" +
@@ -274,7 +274,7 @@ $F{parcelCode}, $F{parcelAddress}, $P{cal}.get(Calendar.DAY_OF_MONTH),((String)n
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Commissioner of Lands
+				<text><![CDATA[Director General
 Land Administration Authority]]></text>
 			</staticText>
 			<staticText>
