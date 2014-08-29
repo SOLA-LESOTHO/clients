@@ -397,7 +397,7 @@ Land Administration Authority]]></text>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="6609df17-3274-4e8d-aead-6af799738e75" x="305" y="8" width="40" height="20"/>
+				<reportElement uuid="6609df17-3274-4e8d-aead-6af799738e75" x="305" y="8" width="65" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isPdfEmbedded="true"/>
 				</textElement>

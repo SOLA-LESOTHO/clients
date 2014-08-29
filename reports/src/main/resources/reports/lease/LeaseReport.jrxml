@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="757a9111-60e2-4019-9050-5bca15097a54">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1363"/>
+	<property name="ireport.y" value="2148"/>
 	<subDataset name="SpecialConditions" uuid="b34b4205-264c-42c6-b1fa-9a686e749301">
 		<queryString>
 			<![CDATA[]]>
@@ -668,7 +668,7 @@ Land Administration Authority]]></text>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Unless the Minister directs otherwise the Lessee shall fence the boundaries of the land within 6 (six) months of the date of the grant and the Lessee shall maintain the fence to the satisfaction of the Commissioner.]]></text>
+				<text><![CDATA[Unless the Minister directs otherwise the Lessee shall fence the boundaries of the land within 6 (six) months of the date of the grant and the Lessee shall maintain the fence to the satisfaction of the Director General.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="-1" y="40" width="25" height="14"/>
@@ -689,7 +689,7 @@ Land Administration Authority]]></text>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Unless special written authority is given by the Commissioner, the Lessee shall commence development of the land within 5 years of the date of the granting of a lease. This shall also apply to further development of the land held under a lease during the term of the lease.]]></text>
+				<text><![CDATA[Unless special written authority is given by the Commissioner of Lands, the Lessee shall commence development of the land within 5 years of the date of the granting of a lease. This shall also apply to further development of the land held under a lease during the term of the lease.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="0" y="100" width="25" height="14"/>
@@ -858,7 +858,7 @@ Land Administration Authority]]></text>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Upon application by the Lessee made not later than 6 (six) months before expiry of the term of the lease the Lessee shall be entitled to the grant of a new lease of the land on terms set by the Commissioner provided the land or part thereof is not required for any public purpose.]]></text>
+				<text><![CDATA[Upon application by the Lessee made not later than 6 (six) months before expiry of the term of the lease the Lessee shall be entitled to the grant of a new lease of the land on terms set by the Director General provided the land or part thereof is not required for any public purpose.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c" positionType="Float" x="2" y="598" width="25" height="14"/>

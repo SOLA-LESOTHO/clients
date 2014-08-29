@@ -45,7 +45,7 @@ public class LocalizationManager {
     private static final String WEB_START_HOST_PROP = "SOLA_WEB_START_HOST";
     private static final String PRODUCTION_HOST_NAME = "gismain";
     private static final String PRODUCTION_HOST_IP = "192.168.0.10";
-    private static final String SOLA_VERSION = "2.1.9";
+    private static final String SOLA_VERSION = "2.2.0";
 
     /**
      * Loads default language and country codes and sets {@link Locale} settings

@@ -260,7 +260,7 @@ $F{parcelCode}, $F{parcelAddress}, $P{cal}.get(Calendar.DAY_OF_MONTH),((String)n
 				<textElement>
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[PO. Box 11856 Maseru 100, Lesotho]]></text>
+				<text><![CDATA[Land Administration Authority]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea" x="12" y="6" width="227" height="20"/>

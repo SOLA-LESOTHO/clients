@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dafc317-a769-4dd8-86c3-0537dfdbb509">
 	<property name="ireport.zoom" value="1.3660269107301417"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="515"/>
+	<property name="ireport.y" value="296"/>
 	<subDataset name="dataset1" uuid="97dae905-a7c1-4410-9d4a-702e59272552">
 		<queryString>
 			<![CDATA[]]>
@@ -194,7 +194,7 @@
 				<text><![CDATA[This consent is not assignable or transferrable in any way and is personal to the parties named herein.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="9" y="42" width="58" height="20"/>
+				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="9" y="42" width="48" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -229,7 +229,7 @@
 				<text><![CDATA[Consent fee: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="200" width="82" height="20"/>
+				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="200" width="88" height="20"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -243,21 +243,21 @@
 				<text><![CDATA[Prepared in triplicate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="83" y="42" width="41" height="20"/>
+				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="73" y="42" width="37" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[day of]]></text>
 			</staticText>
 			<textField pattern="dd" isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="67" y="42" width="16" height="20"/>
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="57" y="42" width="16" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{registrationDay}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM, yyyy" isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="127" y="42" width="141" height="20"/>
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="110" y="42" width="141" height="20"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
@@ -275,21 +275,21 @@ $F{serviceFee}
 )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="92" y="200" width="134" height="20"/>
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="98" y="200" width="134" height="20"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{receiptNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="220" width="82" height="20"/>
+				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="10" y="220" width="73" height="20"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Receipt date:  ]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
-				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="92" y="220" width="134" height="20"/>
+				<reportElement uuid="88835486-9a19-47fd-be99-7ef72a1e627e" x="83" y="220" width="114" height="20"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="11" isBold="true" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -318,7 +318,7 @@ $F{serviceFee}
 				<textElement>
 					<font fontName="SansSerif" size="9" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[PO. Box 11856 Maseru 100, Lesotho]]></text>
+				<text><![CDATA[Land Administration Authority]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="ba71335e-2350-4713-bb24-fd8aa6905a07" x="0" y="10" width="555" height="20" forecolor="#666666"/>
