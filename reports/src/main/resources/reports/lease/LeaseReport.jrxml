@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="757a9111-60e2-4019-9050-5bca15097a54">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="2148"/>
+	<property name="ireport.y" value="479"/>
 	<subDataset name="SpecialConditions" uuid="b34b4205-264c-42c6-b1fa-9a686e749301">
 		<queryString>
 			<![CDATA[]]>
@@ -323,7 +323,7 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[String.format("Under a Lease issued by the <b>Land Administration Authority</b> pursuant to the Land Administration Authority Act 2010 and the Land Act 2010, on behalf of and with the authority of:")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("Under a Lease issued by the <b>Director General</b> pursuant to the Land Administration Authority Act 2010 and the Land Act 2010, on behalf of and with the authority of:")]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="60">
@@ -433,7 +433,7 @@ $F{leaseExpirationDay}, $F{leaseExpirationMonthAndYear})]]></textFieldExpression
 				<textFieldExpression><![CDATA[String.format("Other special conditions: <b>%s</b>",$F{specialConditions})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="37" y="145" width="471" height="59"/>
+				<reportElement uuid="70c683a1-3136-417e-a735-34873c5f8747" positionType="Float" x="41" y="145" width="471" height="59"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
