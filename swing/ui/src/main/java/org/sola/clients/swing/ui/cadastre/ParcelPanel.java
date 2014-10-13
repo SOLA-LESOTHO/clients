@@ -84,6 +84,7 @@ public class ParcelPanel extends javax.swing.JPanel {
         CadastreObjectBean oldValue = this.cadastreObjectBean;
         if (cadastreObjectBean == null) {
             this.cadastreObjectBean = new CadastreObjectBean();
+            this.cadastreObjectBean.setNameLastpart(this.txtLastPart.getText());
         } else {
             this.cadastreObjectBean = cadastreObjectBean;
         }
@@ -225,6 +226,10 @@ public class ParcelPanel extends javax.swing.JPanel {
         PartySummaryListBean surveyorList = new PartySummaryListBean();
         surveyorList.FillSurveyors(true);
         return surveyorList;
+    }
+    
+    public String getTextLastPartString(){
+        return txtLastPart.getText();
     }
     
     

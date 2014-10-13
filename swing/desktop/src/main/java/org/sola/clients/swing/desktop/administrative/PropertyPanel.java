@@ -643,7 +643,11 @@ public class PropertyPanel extends ContentPanel {
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_SAVING));
 
-                if (baUnitID != null && !baUnitID.equals("")) {
+                if (baUnitID != null && !baUnitID.equals("")) {                    
+                    baUnitBean1.saveBaUnit(applicationService.getId());
+                    // Following 2 lines to bypass the new cadastre object trigger that creates a plot number
+                    // based on the highest last part in a grid;
+                    baUnitBean1.getCadastreObject().setNameLastpart(cadastreObject.getTextLastPartString());
                     baUnitBean1.saveBaUnit(applicationService.getId());
                 } else {
                     baUnitBean1.createBaUnit(applicationService.getId());
