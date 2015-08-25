@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.beans.administrative;
@@ -65,7 +67,7 @@ import sun.security.jca.GetInstance;
  * model. Could be populated from the {@link RrrTO} object.
  */
 @RrrBeanCheck
-@LeaseBeanCheck(groups={LeaseValidationGroup.class})
+@LeaseBeanCheck(groups = {LeaseValidationGroup.class})
 public class RrrBean extends AbstractTransactionedBean {
 
     public enum RRR_ACTION {
@@ -134,7 +136,13 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String PERSONAL_LEVY_PROPERTY = "personalLevy";
     public static final String MORTGAGE_TERM_PROPERTY = "mortgageTerm";
     public static final String SERVICE_FEE_PROPERTY = "serviceFee";
-    
+    public static final String IS_EXEMPT_PROPERTY = "exempt";
+    public static final String IS_SPORADIC_PROPERTY = "sporadic";
+    public static final String IS_LSPP_TRANSACTION_PROPERTY = "lsppTransaction";
+    public static final String APPLICATION_DATE_PROPERTY = "applicationDate";
+    public static final String PARCEL_JURISDICTION_TYPE_PROPERTY = "parcelJurisdictionType";
+    public static final String PARCEL_JURISDICTION_CODE_PROPERTY = "ParcelJurisdictionCode";
+
     private String baUnitId;
     private String nr;
     @Past(message = ClientMessage.CHECK_REGISTRATION_DATE, payload = Localized.class)
@@ -147,8 +155,7 @@ public class RrrBean extends AbstractTransactionedBean {
     @Future(message = ClientMessage.CHECK_FUTURE_EXPIRATION, payload = Localized.class,
             groups = {MortgageValidationGroup.class, LeaseValidationGroup.class})
     private Date expirationDate;
-    @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTGAGEAMOUNT, payload = Localized.class, groups = {MortgageValidationGroup.class
-            ,RrrValidationGroup.class})
+    @NotNull(message = ClientMessage.CHECK_NOTNULL_MORTGAGEAMOUNT, payload = Localized.class, groups = {MortgageValidationGroup.class, RrrValidationGroup.class})
     private BigDecimal amount;
     private Date dueDate;
     //@NotNull(message = ClientMessage.CHECK_NOTNULL_MORTAGAETYPE, payload = Localized.class, groups = {MortgageValidationGroup.class})
@@ -167,8 +174,8 @@ public class RrrBean extends AbstractTransactionedBean {
     private transient RrrShareBean selectedShare;
     private transient boolean selected;
     private transient PartyBean selectedRightholder;
-    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_REGNUMBER, 
-            groups={RrrValidationGroup.class}, payload = Localized.class)
+    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_REGNUMBER,
+            groups = {RrrValidationGroup.class}, payload = Localized.class)
     private String registrationNumber;
     private Date statusChangeDate;
     private CadastreObjectBean cadastreObject;
@@ -178,27 +185,27 @@ public class RrrBean extends AbstractTransactionedBean {
     // Used to indicate if the subplot is vithin the area of the lease plot. 
     private transient boolean subplotValid = true;
 
-    @NotNull(message = ClientMessage.LEASE_START_DATE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    @NotNull(message = ClientMessage.LEASE_START_DATE_IS_IMPTY, groups = {LeaseValidationGroup.class}, payload = Localized.class)
     private Date startDate;
 
     //@NotNull(message = ClientMessage.LEASE_EXECUTION_DATE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
     //@Past(message = ClientMessage.LEASE_EXECUTION_DATE_IS_IN_FUTURE, groups={LeaseValidationGroup.class}, payload = Localized.class)
     private Date executionDate;
-    
-    @NotEmpty(message=ClientMessage.LEASE_LEASE_NUMBER_IS_IMPTY, groups={LeaseValidationGroup.class}, payload=Localized.class)
+
+    @NotEmpty(message = ClientMessage.LEASE_LEASE_NUMBER_IS_IMPTY, groups = {LeaseValidationGroup.class}, payload = Localized.class)
     private String leaseNumber;
-    
-    @NotNull(message = ClientMessage.LEASE_GROUND_RENT_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+
+    @NotNull(message = ClientMessage.LEASE_GROUND_RENT_IS_IMPTY, groups = {LeaseValidationGroup.class}, payload = Localized.class)
     private BigDecimal groundRent;
-    
-    @NotNull(message = ClientMessage.LEASE_LAND_USABLE_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
-    @Range(min=1, max=100, message=ClientMessage.LEASE_LAND_USABLE_ERROR, 
-            groups={LeaseValidationGroup.class}, payload = Localized.class)
+
+    @NotNull(message = ClientMessage.LEASE_LAND_USABLE_IS_IMPTY, groups = {LeaseValidationGroup.class}, payload = Localized.class)
+    @Range(min = 1, max = 100, message = ClientMessage.LEASE_LAND_USABLE_ERROR,
+            groups = {LeaseValidationGroup.class}, payload = Localized.class)
     private BigDecimal landUsable = BigDecimal.valueOf(100L);
-    
-    @NotNull(message = ClientMessage.LEASE_PERSONAL_LEVY_IS_IMPTY, groups={LeaseValidationGroup.class}, payload = Localized.class)
+
+    @NotNull(message = ClientMessage.LEASE_PERSONAL_LEVY_IS_IMPTY, groups = {LeaseValidationGroup.class}, payload = Localized.class)
     private BigDecimal personalLevy = BigDecimal.ONE;
-    
+
     private BigDecimal stampDuty;
     private BigDecimal transferDuty;
     private BigDecimal registrationFee;
@@ -206,9 +213,15 @@ public class RrrBean extends AbstractTransactionedBean {
     private BigDecimal propertyValue;
     private SolaList<LeaseSpecialConditionBean> leaseSpecialConditionList;
     private transient LeaseSpecialConditionBean selectedSpecialCondition;
-    @NotNull(message = ClientMessage.LEASE_LAND_USE_IS_NULL, groups={LeaseValidationGroup.class}, payload = Localized.class)
+    @NotNull(message = ClientMessage.LEASE_LAND_USE_IS_NULL, groups = {LeaseValidationGroup.class}, payload = Localized.class)
     private LandUseTypeBean landUseType;
     private Integer mortgageTerm = Integer.valueOf(0);
+    private boolean exempt = false;
+    private boolean sporadic = false;
+    private boolean lsppTransaction = false;
+    private Date applicationDate;
+    private ParcelJurisdictionTypeBean parcelJurisdictionType;
+
     public RrrBean() {
         super();
         sourceList = new SolaList();
@@ -235,20 +248,20 @@ public class RrrBean extends AbstractTransactionedBean {
                 CacheManager.getLandUseTypes(), landUseCode));
         propertySupport.firePropertyChange(LAND_USE_CODE_PROPERTY, oldValue, landUseCode);
     }
-    
+
     public LandUseTypeBean getLandUseType() {
         return landUseType;
     }
 
     public void setLandUseType(LandUseTypeBean landUseType) {
-        if(landUseType==null){
+        if (landUseType == null) {
             this.landUseType = new LandUseTypeBean();
-        }else{
+        } else {
             this.landUseType = landUseType;
         }
         propertySupport.firePropertyChange(LAND_USE_TYPE_PROPERTY, null, this.landUseType);
     }
-    
+
     public void setFirstRightholder(PartyBean rightholder) {
         if (rightHolderList.size() > 0) {
             rightHolderList.set(0, rightholder);
@@ -276,14 +289,14 @@ public class RrrBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(IS_PRIMARY_PROPERTY, oldValue, primary);
     }
 
-    @Length(max = 1000, message =  ClientMessage.CHECK_FIELD_INVALID_LENGTH_NOTATION, 
-            groups = {RrrValidationGroup.class}, payload=Localized.class)
-    @NotEmpty(message= ClientMessage.CHECK_NOTNULL_NOTATION, 
-            groups = {RrrValidationGroup.class}, payload=Localized.class)
-    public String getNotationText(){
+    @Length(max = 1000, message = ClientMessage.CHECK_FIELD_INVALID_LENGTH_NOTATION,
+            groups = {RrrValidationGroup.class}, payload = Localized.class)
+    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_NOTATION,
+            groups = {RrrValidationGroup.class}, payload = Localized.class)
+    public String getNotationText() {
         return getNotation().getNotationText();
     }
-    
+
     public BaUnitNotationBean getNotation() {
         return notation;
     }
@@ -378,10 +391,12 @@ public class RrrBean extends AbstractTransactionedBean {
         }
         return result;
     }
-    
-    /** Calculates lease expiration date based on provided lease terms in years. */
-    public void setLeaseTerm(int years){
-        if(getStartDate()!=null){
+
+    /**
+     * Calculates lease expiration date based on provided lease terms in years.
+     */
+    public void setLeaseTerm(int years) {
+        if (getStartDate() != null) {
             Calendar startDateCal = Calendar.getInstance();
             startDateCal.setTime(getStartDate());
             startDateCal.add(Calendar.YEAR, years);
@@ -389,7 +404,7 @@ public class RrrBean extends AbstractTransactionedBean {
             setExpirationDate(startDateCal.getTime());
         }
     }
-    
+
     public Date getExpirationDate() {
         return expirationDate;
     }
@@ -501,10 +516,10 @@ public class RrrBean extends AbstractTransactionedBean {
         return sourceList;
     }
 
-    @Size(min = 1, message = ClientMessage.CHECK_SIZE_SOURCELIST, 
-            groups={RrrValidationGroup.class}, payload = Localized.class)
-    @NoDuplicates(message = ClientMessage.CHECK_NODUPLICATED_SOURCELIST, 
-            groups={RrrValidationGroup.class}, payload = Localized.class)
+    @Size(min = 1, message = ClientMessage.CHECK_SIZE_SOURCELIST,
+            groups = {RrrValidationGroup.class}, payload = Localized.class)
+    @NoDuplicates(message = ClientMessage.CHECK_NODUPLICATED_SOURCELIST,
+            groups = {RrrValidationGroup.class}, payload = Localized.class)
     public ObservableList<SourceBean> getFilteredSourceList() {
         return sourceList.getFilteredList();
     }
@@ -564,11 +579,11 @@ public class RrrBean extends AbstractTransactionedBean {
             cal.setTime(getStartDate());
             int curMonth = cal.get(Calendar.MONTH);
             double remainingMonths = 12 - curMonth + 4;
-            rent = NumberUtility.roundDouble((remainingMonths/12)*getGroundRent().doubleValue(), 2);
-        } 
+            rent = NumberUtility.roundDouble((remainingMonths / 12) * getGroundRent().doubleValue(), 2);
+        }
         return rent;
     }
-    
+
     public void setGroundRent(BigDecimal groundRent) {
         BigDecimal oldValue = this.groundRent;
         this.groundRent = groundRent;
@@ -584,7 +599,7 @@ public class RrrBean extends AbstractTransactionedBean {
         this.leaseNumber = leaseNumber;
         propertySupport.firePropertyChange(LEASE_NUMBER_PROPERTY, oldValue, this.leaseNumber);
     }
-    
+
     public ObservableList<LeaseSpecialConditionBean> getFilteredLeaseSpecialConditionList() {
         return leaseSpecialConditionList.getFilteredList();
     }
@@ -614,7 +629,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public void setServiceFee(BigDecimal serviceFee) {
         BigDecimal oldValue = this.serviceFee;
         this.serviceFee = serviceFee;
-         propertySupport.firePropertyChange(SERVICE_FEE_PROPERTY, oldValue, this.serviceFee);
+        propertySupport.firePropertyChange(SERVICE_FEE_PROPERTY, oldValue, this.serviceFee);
     }
 
     public LeaseSpecialConditionBean getSelectedSpecialCondition() {
@@ -691,7 +706,7 @@ public class RrrBean extends AbstractTransactionedBean {
         }
         return rightholders;
     }
-    
+
     @Size(min = 1, groups = {SimpleOwnershipValidationGroup.class, LeaseValidationGroup.class},
             message = ClientMessage.CHECK_SIZE_OWNERSLIST, payload = Localized.class)
     private ObservableList<PartyBean> getFilteredOwnersList() {
@@ -773,6 +788,77 @@ public class RrrBean extends AbstractTransactionedBean {
         this.subplotValid = subplotValid;
     }
 
+    public boolean isExempt() {
+        return exempt;
+    }
+
+    public void setExempt(boolean exempt) {
+        boolean oldValue = this.exempt;
+        this.exempt = exempt;
+        propertySupport.firePropertyChange(IS_EXEMPT_PROPERTY, oldValue, this.exempt);
+    }
+
+    public boolean isSporadic() {
+        return sporadic;
+    }
+
+    public void setSporadic(boolean sporadic) {
+        boolean oldValue = this.sporadic;
+        this.sporadic = sporadic;
+        propertySupport.firePropertyChange(IS_SPORADIC_PROPERTY, oldValue, this.sporadic);
+    }
+
+    public boolean isLsppTransaction() {
+        return lsppTransaction;
+    }
+
+    public void setLsppTransaction(boolean lsppTransaction) {
+        boolean oldValue = this.lsppTransaction;
+        this.lsppTransaction = lsppTransaction;
+        propertySupport.firePropertyChange(IS_LSPP_TRANSACTION_PROPERTY, oldValue, this.lsppTransaction);
+    }
+
+    public Date getApplicationDate() {
+        return applicationDate;
+    }
+
+    public void setApplicationDate(Date applicationDate) {
+        Date oldValue = this.applicationDate;
+        this.applicationDate = applicationDate;
+        propertySupport.firePropertyChange(APPLICATION_DATE_PROPERTY, oldValue, this.applicationDate);
+    }
+
+    public String getParcelJurisdictionCode() {
+        if (parcelJurisdictionType != null) {
+            return parcelJurisdictionType.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public void setParcelJurisdictionCode(String parcelJurisdictionCode) {
+        String oldValue = null;
+        if (parcelJurisdictionType != null) {
+            oldValue = parcelJurisdictionType.getCode();
+        }
+        setParcelJurisdictionType(CacheManager.getBeanByCode(
+                CacheManager.getParcelJurisdictionTypes(), parcelJurisdictionCode));
+        propertySupport.firePropertyChange(PARCEL_JURISDICTION_CODE_PROPERTY, oldValue, parcelJurisdictionCode);
+    }
+
+    public ParcelJurisdictionTypeBean getParcelJurisdictionType() {
+        return parcelJurisdictionType;
+    }
+
+    public void setParcelJurisdictionType(ParcelJurisdictionTypeBean parcelJurisdictionType) {
+        if (parcelJurisdictionType == null) {
+            this.parcelJurisdictionType = new ParcelJurisdictionTypeBean();
+        } else {
+            this.parcelJurisdictionType = parcelJurisdictionType;
+        }
+        propertySupport.firePropertyChange(PARCEL_JURISDICTION_TYPE_PROPERTY, null, this.parcelJurisdictionType);
+    }
+
     public Integer getMortgageTerm() {
         return mortgageTerm;
     }
@@ -781,7 +867,7 @@ public class RrrBean extends AbstractTransactionedBean {
         Integer oldValue = this.mortgageTerm;
         this.mortgageTerm = mortgageTerm;
         propertySupport.firePropertyChange(MORTGAGE_TERM_PROPERTY, oldValue, this.mortgageTerm);
-       if((getRegistrationDate() != null) && (mortgageTerm.compareTo(Integer.valueOf(0)) > 0)){
+        if ((getRegistrationDate() != null) && (mortgageTerm.compareTo(Integer.valueOf(0)) > 0)) {
             Calendar startDateCal = Calendar.getInstance();
             startDateCal.setTime(getRegistrationDate());
             startDateCal.add(Calendar.YEAR, mortgageTerm);
@@ -827,45 +913,49 @@ public class RrrBean extends AbstractTransactionedBean {
         return copy;
     }
 
-    /** Removes selected lease condition. */
-    public void removeSelectedCondition(){
-        if(selectedSpecialCondition!=null){
+    /**
+     * Removes selected lease condition.
+     */
+    public void removeSelectedCondition() {
+        if (selectedSpecialCondition != null) {
             getLeaseSpecialConditionList().safeRemove(selectedSpecialCondition, EntityAction.DELETE);
         }
     }
-    
-    /** Calculates lease fees for attached CadastreObject. */
-    public void calculateLeaseFees(CadastreObjectBean cadastreObject){
-        
-         LeaseFeeBean leaseFee;
-         
-         leaseFee = calcLeaseFees(cadastreObject, this);
-         
-         setGroundRent(leaseFee.getGroundRent());
-         
-         setRegistrationFee(leaseFee.getRegistrationFee());
-         
-         setServiceFee(leaseFee.getServiceFee());
-         
-         setStampDuty(leaseFee.getStampDuty());
-        
+
+    /**
+     * Calculates lease fees for attached CadastreObject.
+     */
+    public void calculateLeaseFees(CadastreObjectBean cadastreObject) {
+
+        LeaseFeeBean leaseFee;
+
+        leaseFee = calcLeaseFees(cadastreObject, this);
+
+        setGroundRent(leaseFee.getGroundRent());
+
+        setRegistrationFee(leaseFee.getRegistrationFee());
+
+        setServiceFee(leaseFee.getServiceFee());
+
+        setStampDuty(leaseFee.getStampDuty());
+
     }
-    
-    public static LeaseFeeBean calcLeaseFees(CadastreObjectBean co, RrrBean rrr){
-        
+
+    public static LeaseFeeBean calcLeaseFees(CadastreObjectBean co, RrrBean rrr) {
+
         LeaseFeeTO leaseFee = null;
-        
+
         LeaseFeeBean leaseFeeBean = new LeaseFeeBean();
-        
-        leaseFee =  WSManager.getInstance().getAdministrative().calculateLeaseFees(
-                        TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class),
-                        TypeConverters.BeanToTrasferObject(rrr, RrrTO.class));
-        
+
+        leaseFee = WSManager.getInstance().getAdministrative().calculateLeaseFees(
+                TypeConverters.BeanToTrasferObject(co, CadastreObjectTO.class),
+                TypeConverters.BeanToTrasferObject(rrr, RrrTO.class));
+
         TypeConverters.TransferObjectToBean(leaseFee, LeaseFeeBean.class, leaseFeeBean);
-        
+
         return leaseFeeBean;
     }
-    
+
     /**
      * Generates new ID, RowVerion and RowID.
      *

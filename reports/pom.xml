@@ -42,28 +42,6 @@
             <artifactId>spring-beans</artifactId>
             <version>3.2.4.RELEASE</version>
         </dependency>
-            
-        <dependency>
-            <groupId>net.sf.jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
-            <version>4.7.1</version>
-            <exclusions>
-                <exclusion>
-                    <!-- Duplicate of org.bouncycastle:bcmail-jdk14
-                    Excluded as Web Start tries to download both copies
-                    of the dependency to the same location and fails. -->
-                    <artifactId>bcmail-jdk14</artifactId>
-                    <groupId>bouncycastle</groupId>
-                </exclusion>
-                <exclusion>
-                    <!-- Duplicate of org.bouncycastle:bcprov-jdk14
-                    Excluded as Web Start tries to download both copies
-                    of the dependency to the same location and fails. -->
-                    <artifactId>bcprov-jdk14</artifactId>
-                    <groupId>bouncycastle</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <dependency>
             <groupId>net.sourceforge.barbecue</groupId>
             <artifactId>barbecue</artifactId>
@@ -75,6 +53,11 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>4.7.1</version>
         </dependency>
     </dependencies>
     <repositories>
