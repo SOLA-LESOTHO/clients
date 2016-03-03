@@ -59,17 +59,21 @@
 
                             String desktopJnlp = "/webstart/sola-desktop-test.jnlp";
                             String adminJnlp = "/webstart/sola-admin-test.jnlp";
+                            String bulkJnlp = "/webstart/sola-bulk-operations-test.jnlp";
                             if (hostName.equalsIgnoreCase("gismain")) {
                                 // This is the production host so use the production
                                 // JNLP files
                                 desktopJnlp = "/webstart/sola-desktop.jnlp";
                                 adminJnlp = "/webstart/sola-admin.jnlp";
+                                bulkJnlp = "/webstart/sola-bulk-operations.jnlp";
                             }
                             String desktopLocation = request.getContextPath() + desktopJnlp;
                             String adminLocation = request.getContextPath() + adminJnlp;
+                            String bulkLocation = request.getContextPath() + bulkJnlp;
                         %> 
                         <li>To install the <b>SOLA Lesotho Desktop</b> web start application, right click this link <a href=" <%=desktopLocation%> " target=_blank>SOLA Lesotho Desktop</a> and choose Save link as... and save the sola-desktop.jnlp file to a known location on your local file system.</li>
                         <li>To install the <b>SOLA Lesotho Admin</b> web start, right click this link <a href=" <%=adminLocation%> " target=_blank>SOLA Lesotho Admin</a> and choose Save link as... and save the sola-admin.jnlp file to a known location on your local file system.</li>
+                        <li>To install the <b>SOLA Lesotho Bulk Operations</b> web start, right click this link <a href=" <%=bulkLocation%> " target=_blank>SOLA Lesotho Bulk Operation</a> and choose Save link as... and save the sola-bulk-operations.jnlp file to a known location on your local file system.</li>
                         <li>Once one or both of the files have been saved on your file system, locate the appropriate jnlp file using Windows Explorer or equivalent and double click the file. You should see a Java 7 splash displayed followed by the Starting application... dialog. </li>
                         <li>When prompted with the digital signature security warning, tick Always trust content from this publisher and choose Run. </li>
                         <li>The web start application you have selected will start automatically. At the login screen, enter your SOLA username and password. </li>

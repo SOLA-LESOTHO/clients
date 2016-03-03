@@ -1,29 +1,31 @@
 /**
  * ******************************************************************************************
- * Copyright (c) 2013 Food and Agriculture Organization of the United Nations (FAO)
- * and the Lesotho Land Administration Authority (LAA). All rights reserved.
+ * Copyright (c) 2013 Food and Agriculture Organization of the United Nations
+ * (FAO) and the Lesotho Land Administration Authority (LAA). All rights
+ * reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the names of FAO, the LAA nor the names of its contributors may be used to
- *       endorse or promote products derived from this software without specific prior
- * 	  written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the names of FAO, the LAA nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.beans.cache;
@@ -72,8 +74,8 @@ public final class CacheManager {
      */
     public static final String COMMUNICATION_TYPES_KEY = CommunicationTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the code/displayValue map based on {@link CommunicationTypeBean}
-     * collection.
+     * Cache key of the code/displayValue map based on
+     * {@link CommunicationTypeBean} collection.
      */
     public static final String COMMUNICATION_TYPES_MAP_KEY = CommunicationTypeBean.class.getName() + MAP_POSTFIX;
     /**
@@ -99,10 +101,10 @@ public final class CacheManager {
      */
     public static final String APP_STATUS_TYPE_CODES_KEY = ApplicationStatusTypeBean.class.getName() + LIST_POSTFIX;
     /**
-     * Cache key of the code/displayValue map based on {@link ApplicationStatusTypeBean}
-     * collection.
+     * Cache key of the code/displayValue map based on
+     * {@link ApplicationStatusTypeBean} collection.
      */
-    public static final String APP_STATUS_TYPE_CODES_MAP_KEY = ApplicationStatusTypeBean.class.getName() + MAP_POSTFIX;    
+    public static final String APP_STATUS_TYPE_CODES_MAP_KEY = ApplicationStatusTypeBean.class.getName() + MAP_POSTFIX;
     /**
      * Cache key of the {@link ApplicationActionTypeBean} collection.
      */
@@ -230,21 +232,29 @@ public final class CacheManager {
      * Cache key of the {@link DisputeReportsBean} collection.
      */
     public static final String DISPUTE_REPORTS_CODES_KEY = DisputeReportsBean.class.getName() + LIST_POSTFIX;
-    
+
     /*
      * Cache key of the {@link TransactionTypeBean} collection.
      */
-    public static final String TRANSACTION_TYPE_CODES_KEY = TransactionTypeBean.class.getName() + LIST_POSTFIX;    
+    public static final String TRANSACTION_TYPE_CODES_KEY = TransactionTypeBean.class.getName() + LIST_POSTFIX;
     /*
      * Cache key of the (@link ApplicationStageTypeBean) collection.
      */
     public static final String APP_STAGE_TYPE_CODES_KEY = ApplicationStageTypeBean.class.getName() + LIST_POSTFIX;
-    
+
     public static final String LAND_GRADE_TYPE_CODES_KEY = LandGradeTypeBean.class.getName() + LIST_POSTFIX;
+
     public static final String APPLICATION_FORM_PREFIX_KEY = ApplicationFormWithBinaryBean.class.getName() + "_CODE_";
+
     public static final String ROAD_CLASS_TYPE_CODES_KEY = RoadClassTypeBean.class.getName() + LIST_POSTFIX;
+
+    /**
+     * Cache key of the {@link ParcelJurisdictionTypeBean} collection.
+     */
+    public static final String PARCEL_JURISDICTION_TYPE_CODES_KEY = ParcelJurisdictionTypeBean.class.getName() + LIST_POSTFIX;
+
     private static final String GET_LEGAL_TYPES = "getLegalTypes";
-    private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";    
+    private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
     private static final String GET_GENDER_TYPES = "getGenderTypes";
@@ -282,9 +292,10 @@ public final class CacheManager {
     private static final String GET_APPLICATION_FORMS = "getApplicationForms";
     private static final String GET_LAND_GRADE_TYPES = "getLandGradeTypes";
     private static final String GET_ROAD_CLASS_TYPE = "getRoadClassType";
-    private static final String GET_TRANSACTION_TYPES = "getTransactionTypes";  
+    private static final String GET_TRANSACTION_TYPES = "getTransactionTypes";
     private static final String GET_APPLICATION_STAGE_TYPES = "getApplicationStageTypes";
-    
+    private static final String GET_PARCEL_JURISDICTION_TYPES = "getParcelJurisdictionTypes";
+
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -444,8 +455,8 @@ public final class CacheManager {
     public static Map getApplicationStatusTypesMap() {
         return getCachedMap(
                 getCachedBeanList(ApplicationStatusTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_APPLICATION_STATUS_TYPES, APP_STATUS_TYPE_CODES_KEY),
+                        WSManager.getInstance().getReferenceDataService(),
+                        GET_APPLICATION_STATUS_TYPES, APP_STATUS_TYPE_CODES_KEY),
                 APP_STATUS_TYPE_CODES_MAP_KEY);
     }
 
@@ -458,8 +469,8 @@ public final class CacheManager {
     public static Map getSourceTypesMap() {
         return getCachedMap(
                 getCachedBeanList(SourceTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_SOURCE_TYPES, SOURCE_TYPES_KEY),
+                        WSManager.getInstance().getReferenceDataService(),
+                        GET_SOURCE_TYPES, SOURCE_TYPES_KEY),
                 SOURCE_TYPES_MAP_KEY);
     }
 
@@ -472,8 +483,8 @@ public final class CacheManager {
     public static Map getCommunicationTypesMap() {
         return getCachedMap(
                 getCachedBeanList(CommunicationTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_COMMUNICATION_TYPES, COMMUNICATION_TYPES_KEY),
+                        WSManager.getInstance().getReferenceDataService(),
+                        GET_COMMUNICATION_TYPES, COMMUNICATION_TYPES_KEY),
                 COMMUNICATION_TYPES_MAP_KEY);
     }
 
@@ -486,8 +497,8 @@ public final class CacheManager {
     public static Map getGenderTypesMap() {
         return getCachedMap(
                 getCachedBeanList(GenderTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_GENDER_TYPES, GENDER_TYPES_KEY),
+                        WSManager.getInstance().getReferenceDataService(),
+                        GET_GENDER_TYPES, GENDER_TYPES_KEY),
                 GENDER_TYPES_MAP_KEY);
     }
 
@@ -500,8 +511,8 @@ public final class CacheManager {
     public static Map getRequestTypesMap() {
         return getCachedMap(
                 getCachedBeanList(RequestTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_REQUEST_TYPES, REQUEST_TYPES_KEY),
+                        WSManager.getInstance().getReferenceDataService(),
+                        GET_REQUEST_TYPES, REQUEST_TYPES_KEY),
                 REQUEST_TYPES_MAP_KEY);
     }
 
@@ -555,7 +566,7 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_LAND_USE_TYPES, LAND_USE_TYPE_CODES_KEY);
     }
-    
+
     public static List<DisputeReportsBean> getDisputeReports() {
         return getCachedBeanList(DisputeReportsBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -567,13 +578,19 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_TRANSACTION_TYPES, TRANSACTION_TYPE_CODES_KEY);
     }
-    
+
     public static List<ApplicationStageTypeBean> getApplicationStageTypes() {
         return getCachedBeanList(ApplicationStageTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_APPLICATION_STAGE_TYPES, APP_STAGE_TYPE_CODES_KEY);
     }
-    
+
+    public static List<ParcelJurisdictionTypeBean> getParcelJurisdictionTypes() {
+        return getCachedBeanList(ParcelJurisdictionTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_PARCEL_JURISDICTION_TYPES, PARCEL_JURISDICTION_TYPE_CODES_KEY);
+    }
+
     /**
      * Generic method to create cached list of the beans, representing reference
      * table data. The list holds full object, transfered from the server. If
