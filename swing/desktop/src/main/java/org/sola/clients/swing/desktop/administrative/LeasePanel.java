@@ -53,6 +53,7 @@ import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.cadastre.CadastreObjectSummaryBean;
+import org.sola.clients.beans.referencedata.LandUseTypeBean;
 import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.security.SecurityBean;
@@ -421,9 +422,14 @@ public class LeasePanel extends ContentPanel {
     private void printLease() {
         if (rrrBean.validate(true, Default.class, LeaseValidationGroup.class).size() < 1) {
             final LeaseReportBean reportBean = prepareReportBean();
+            LandUseTypeBean landUseBean = new LandUseTypeBean();
             if (reportBean != null) {
                 //#79 - Plot diagram is not required (by law)
-                showReport(ReportManager.getLeaseReport(reportBean, null));
+                if(landUseBean.isAgriculturalUse(rrrBean.getLandUseCode())){
+                    showReport(ReportManager.getLeaseReport(reportBean, null, "LeaseReportAgric.jasper"));
+                }else{
+                    showReport(ReportManager.getLeaseReport(reportBean, null,"LeaseReport.jasper"));
+                }
             }
         }
     }

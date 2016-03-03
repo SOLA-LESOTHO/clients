@@ -317,7 +317,7 @@ public class ReportManager {
      * @param reportBean RRR report bean containing all required information to
      * build the report.
      */
-    public static JasperPrint getLeaseReport(LeaseReportBean reportBean, String mapImageFileName) {
+    public static JasperPrint getLeaseReport(LeaseReportBean reportBean, String mapImageFileName, String reportName) {
         HashMap inputParameters = new HashMap();
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER_NAME", SecurityBean.getCurrentUser().getFullUserName());
@@ -325,9 +325,10 @@ public class ReportManager {
         LeaseReportBean[] beans = new LeaseReportBean[1];
         beans[0] = reportBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
+        String reportPath ="/reports/lease/" + reportName;
         try {
             return JasperFillManager.fillReport(
-                    ReportManager.class.getResourceAsStream("/reports/lease/LeaseReport.jasper"),
+                    ReportManager.class.getResourceAsStream(reportPath),
                     inputParameters, jds);
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,

@@ -263,9 +263,9 @@ public class MainForm extends javax.swing.JFrame {
         menuDocumentSearch.setEnabled(btnDocumentSearch.isEnabled());
 
         // Load dashboard
-        if (btnShowDashboard.isEnabled()) {
-            openDashBoard(true);
-        }
+//        if (btnShowDashboard.isEnabled()) {
+//            openDashBoard(true);
+//        }
 
         txtUserName.setText(SecurityBean.getCurrentUser().getUserName());
     }
