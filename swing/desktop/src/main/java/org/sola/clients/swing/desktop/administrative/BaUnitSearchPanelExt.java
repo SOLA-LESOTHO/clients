@@ -80,8 +80,8 @@ public class BaUnitSearchPanelExt extends BaUnitSearchPanel {
                 
                 MainForm.getInstance().openDashBoard(false);
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_DASHBOARD_REFRESH));
-                ((DashBoardPanel)MainForm.getInstance().getMainContentPanel()
-                        .getPanel(MainContentPanel.CARD_DASHBOARD)).refreshAssignedApplicationsList();
+//                ((DashBoardPanel)MainForm.getInstance().getMainContentPanel()
+//                        .getPanel(MainContentPanel.CARD_DASHBOARD)).refreshAssignedApplicationsList();
                 
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_OPEN_APP));
                 ApplicationPanel form = new ApplicationPanel(newApp);
