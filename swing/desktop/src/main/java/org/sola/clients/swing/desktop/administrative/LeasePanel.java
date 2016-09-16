@@ -283,6 +283,11 @@ public class LeasePanel extends ContentPanel {
             this.rrrBean.setStatusCode(StatusConstants.PENDING);
         } else {
             this.rrrBean = rrrBean.makeCopyByAction(rrrAction);
+             if (rrrAction == RrrBean.RRR_ACTION.VARY || rrrAction == RrrBean.RRR_ACTION.CANCEL){
+                 if (baUnit.getCadastreObject() != null){
+                     this.rrrBean.calculateLeaseFees(baUnit.getCadastreObject());
+                 }
+             }
         }
 
         if (isSublease()) {
@@ -2149,4 +2154,5 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JFormattedTextField txtUsableLand;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -43,8 +43,8 @@ public class LocalizationManager {
     private static final String LANGUAGE = "language";
     private static final String COUNTRY = "country";
     private static final String WEB_START_HOST_PROP = "SOLA_WEB_START_HOST";
-    private static final String PRODUCTION_HOST_NAME = "gismain";
-    private static final String PRODUCTION_HOST_IP = "192.168.0.7";
+    private static final String PRODUCTION_HOST_NAME = "dbmsmain";
+    private static final String PRODUCTION_HOST_IP = "192.168.0.6";
     private static final String SOLA_VERSION = "2.2.6";
 
     /**
