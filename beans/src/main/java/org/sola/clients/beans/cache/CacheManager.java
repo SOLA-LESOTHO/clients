@@ -252,6 +252,8 @@ public final class CacheManager {
      * Cache key of the {@link ParcelJurisdictionTypeBean} collection.
      */
     public static final String PARCEL_JURISDICTION_TYPE_CODES_KEY = ParcelJurisdictionTypeBean.class.getName() + LIST_POSTFIX;
+    
+    public static final String LEASE_TYPE_CODES_KEY = LeaseTypeBean.class.getName() + LIST_POSTFIX;
 
     private static final String GET_LEGAL_TYPES = "getLegalTypes";
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
@@ -295,6 +297,7 @@ public final class CacheManager {
     private static final String GET_TRANSACTION_TYPES = "getTransactionTypes";
     private static final String GET_APPLICATION_STAGE_TYPES = "getApplicationStageTypes";
     private static final String GET_PARCEL_JURISDICTION_TYPES = "getParcelJurisdictionTypes";
+    private static final String GET_LEASE_TYPES = "getLeaseTypes";
 
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
@@ -589,6 +592,12 @@ public final class CacheManager {
         return getCachedBeanList(ParcelJurisdictionTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_PARCEL_JURISDICTION_TYPES, PARCEL_JURISDICTION_TYPE_CODES_KEY);
+    }
+    
+    public static List<LeaseTypeBean> getLeaseTypes(){
+        return getCachedBeanList(LeaseTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_LEASE_TYPES, LEASE_TYPE_CODES_KEY);
     }
 
     /**

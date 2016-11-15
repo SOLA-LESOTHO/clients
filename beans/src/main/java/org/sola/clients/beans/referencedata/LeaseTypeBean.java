@@ -32,14 +32,11 @@ package org.sola.clients.beans.referencedata;
 
 import org.sola.clients.beans.AbstractCodeBean;
 
-/**
- * Represents reference data object of the <b>administrative_type</b> table.
- * Could be populated from the {@link ParcelJurisdictionTypeTO} object.<br />
- * For more information see data dictionary <b>Administrative</b> schema.
- */
-public class ParcelJurisdictionTypeBean extends AbstractCodeBean {
-
-    public ParcelJurisdictionTypeBean() {
+public class LeaseTypeBean extends AbstractCodeBean{
+    
+    public LeaseTypeBean()
+    {
         super();
     }
+    
 }

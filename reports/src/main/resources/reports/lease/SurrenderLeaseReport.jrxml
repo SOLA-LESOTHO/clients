@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5ec07a5-2423-4ec6-92b7-61d1440c1b25">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="168"/>
 	<parameter name="cal" class="java.util.Calendar" isForPrompting="false">
 		<defaultValueExpression><![CDATA[Calendar.getInstance()]]></defaultValueExpression>
 	</parameter>
@@ -270,7 +270,7 @@ $F{parcelCode}, $F{parcelAddress}, $P{cal}.get(Calendar.DAY_OF_MONTH),((String)n
 				<text><![CDATA[..................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="26" width="227" height="20" uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea"/>
+				<reportElement x="12" y="26" width="227" height="58" uuid="8b8f214b-6663-4997-b300-6ef9b060a2ea"/>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -331,7 +331,7 @@ Land Administration Authority]]></text>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isItalic="true" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Prepared in triplicate]]></text>
+				<text><![CDATA[Prepared in duplicate]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="12" y="132" width="317" height="20" uuid="3217d587-0ea1-4c7b-a18d-7b973015f6d2"/>
@@ -340,7 +340,7 @@ Land Administration Authority]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[String.format( "Registration number:" + "<p></p>" + "Registration date:" + "<p></p>" + 
 "Registration fee: <b>"+$F{registrationFee}+ "</b><p></p></b>"+ 
-"Stamp duty: <b>$F{lease}.getStampDuty()</b>" )]]></textFieldExpression>
+"Stamp duty:" )]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

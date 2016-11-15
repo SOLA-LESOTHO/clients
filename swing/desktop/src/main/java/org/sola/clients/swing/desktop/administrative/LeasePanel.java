@@ -730,6 +730,7 @@ public class LeasePanel extends ContentPanel {
         menuLeaseVary = new javax.swing.JMenuItem();
         menuEndorseSuccession = new javax.swing.JMenuItem();
         parcelJurisdictionTypes = new org.sola.clients.beans.referencedata.ParcelJurisdictionTypeListBean();
+        leaseTypes = new org.sola.clients.beans.referencedata.LeaseTypeListBean();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
@@ -794,6 +795,8 @@ public class LeasePanel extends ContentPanel {
         jLabel23 = new javax.swing.JLabel();
         cbxParcelJurisdiction = new javax.swing.JComboBox();
         jPanel33 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        cbxLeaseType = new javax.swing.JComboBox();
         jPanel11 = new javax.swing.JPanel();
         jToolBar3 = new javax.swing.JToolBar();
         btnAddCodition = new org.sola.clients.swing.common.buttons.BtnAdd();
@@ -1444,15 +1447,30 @@ public class LeasePanel extends ContentPanel {
 
         jPanel21.add(jPanel32);
 
+        jLabel10.setText(bundle.getString("LeasePanel.jLabel10.text")); // NOI18N
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${leaseTypeList}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, leaseTypes, eLProperty, cbxLeaseType);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${leaseType}"), cbxLeaseType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 139, Short.MAX_VALUE)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(cbxLeaseType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cbxLeaseType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel21.add(jPanel33);
@@ -2047,6 +2065,7 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JCheckBox cboLsppTransaction;
     private javax.swing.JCheckBox cboSporadic;
     private javax.swing.JComboBox cbxLandUse;
+    private javax.swing.JComboBox cbxLeaseType;
     private javax.swing.JComboBox cbxParcelJurisdiction;
     private org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel documentsManagementPanel;
     private org.sola.clients.swing.common.controls.DropDownButton dropDownButton2;
@@ -2056,6 +2075,7 @@ public class LeasePanel extends ContentPanel {
     private org.sola.clients.swing.ui.GroupPanel groupPanel3;
     private org.sola.clients.swing.ui.HeaderPanel headerPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -2118,6 +2138,7 @@ public class LeasePanel extends ContentPanel {
     private javax.swing.JToolBar jToolBar3;
     private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypes;
     private javax.swing.JLabel lblStatus;
+    private org.sola.clients.beans.referencedata.LeaseTypeListBean leaseTypes;
     private javax.swing.JPanel mapTabPanel;
     private org.sola.clients.swing.common.menuitems.MenuAdd menuAddCondition;
     private org.sola.clients.swing.common.menuitems.MenuEdit menuEditCondition;

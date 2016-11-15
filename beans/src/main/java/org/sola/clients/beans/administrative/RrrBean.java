@@ -141,7 +141,9 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String IS_LSPP_TRANSACTION_PROPERTY = "lsppTransaction";
     public static final String APPLICATION_DATE_PROPERTY = "applicationDate";
     public static final String PARCEL_JURISDICTION_TYPE_PROPERTY = "parcelJurisdictionType";
-    public static final String PARCEL_JURISDICTION_CODE_PROPERTY = "ParcelJurisdictionCode";
+    public static final String PARCEL_JURISDICTION_CODE_PROPERTY = "parcelJurisdictionCode";
+    public static final String LEASE_TYPE_PROPERTY = "leaseType";
+    public static final String LEASE_CODE_PROPERTY = "leaseCode";
 
     private String baUnitId;
     private String nr;
@@ -221,6 +223,7 @@ public class RrrBean extends AbstractTransactionedBean {
     private boolean lsppTransaction = false;
     private Date applicationDate;
     private ParcelJurisdictionTypeBean parcelJurisdictionType;
+    private LeaseTypeBean leaseType;
 
     public RrrBean() {
         super();
@@ -857,6 +860,37 @@ public class RrrBean extends AbstractTransactionedBean {
             this.parcelJurisdictionType = parcelJurisdictionType;
         }
         propertySupport.firePropertyChange(PARCEL_JURISDICTION_TYPE_PROPERTY, null, this.parcelJurisdictionType);
+    }
+
+    public String getLeaseCode() {
+        if (leaseType != null) {
+            return leaseType.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public void setLeaseCode(String leaseCode) {
+        String oldValue = null;
+        if (leaseType != null) {
+            oldValue = leaseType.getCode();
+        }
+        setLeaseType(CacheManager.getBeanByCode(
+                CacheManager.getLeaseTypes(), leaseCode));
+        propertySupport.firePropertyChange(LEASE_CODE_PROPERTY, oldValue, leaseCode);
+    }
+
+    public LeaseTypeBean getLeaseType() {
+        return leaseType;
+    }
+
+    public void setLeaseType(LeaseTypeBean leaseType) {
+        if (leaseType == null) {
+            this.leaseType = new LeaseTypeBean();
+        } else {
+            this.leaseType = leaseType;
+        }
+        propertySupport.firePropertyChange(LEASE_TYPE_PROPERTY, null, this.leaseType);
     }
 
     public Integer getMortgageTerm() {

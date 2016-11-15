@@ -28,7 +28,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
-
 package org.sola.clients.beans.referencedata;
 
 import java.util.ArrayList;
@@ -39,19 +38,16 @@ import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
- * Holds the list of {@link RrrTypeBean} objects.
+ *
+ * @author nmafereka
  */
-public class ParcelJurisdictionTypeListBean extends AbstractBindingListBean {
+public class LeaseTypeListBean extends AbstractBindingListBean {
 
-    public static final String SELECTED_PARCEL_JURISDICTION_TYPE_PROPERTY = "selectedParcelJurisdictionType";
-    private SolaCodeList<ParcelJurisdictionTypeBean> ParcelJurisdictionTypeList;
-    private ParcelJurisdictionTypeBean selectedParcelJurisdictionType;
+    public static final String SELECTED_LEASE_TYPE_PROPERTY = "selectedLeaseType";
+    private SolaCodeList<LeaseTypeBean> leaseTypeList;
+    private LeaseTypeBean selectedLeaseType;
 
-    /**
-     * Initializes object's instance and populates {@link ObservableList}&lt;
-     * {@link ParcelJurisdictionTypeBean} &gt; with values from the cache.
-     */
-    public ParcelJurisdictionTypeListBean() {
+    public LeaseTypeListBean() {
         this(false);
     }
 
@@ -60,7 +56,7 @@ public class ParcelJurisdictionTypeListBean extends AbstractBindingListBean {
      *
      * @param createDummy Indicates whether to add empty object on the list.
      */
-    public ParcelJurisdictionTypeListBean(boolean createDummy) {
+    public LeaseTypeListBean(boolean createDummy) {
         this(createDummy, (String) null);
     }
 
@@ -70,9 +66,9 @@ public class ParcelJurisdictionTypeListBean extends AbstractBindingListBean {
      * @param createDummy Indicates whether to add empty object on the list.
      * @param excludedCodes Codes, which should be skipped while filtering.
      */
-    public ParcelJurisdictionTypeListBean(boolean createDummy, String... excludedCodes) {
+    public LeaseTypeListBean(boolean createDummy, String... excludedCodes) {
         super();
-        ParcelJurisdictionTypeList = new SolaCodeList<ParcelJurisdictionTypeBean>(excludedCodes);
+        leaseTypeList = new SolaCodeList<LeaseTypeBean>(excludedCodes);
         loadList(createDummy);
     }
 
@@ -82,24 +78,24 @@ public class ParcelJurisdictionTypeListBean extends AbstractBindingListBean {
      * @param createDummy Indicates whether to add empty object on the list.
      */
     public final void loadList(boolean createDummy) {
-        loadCodeList(ParcelJurisdictionTypeBean.class, ParcelJurisdictionTypeList, CacheManager.getParcelJurisdictionTypes(), createDummy);
+        loadCodeList(LeaseTypeBean.class, leaseTypeList, CacheManager.getLeaseTypes(), createDummy);
     }
 
     public void setExcludedCodes(String... codes) {
-        ParcelJurisdictionTypeList.setExcludedCodes(codes);
+        leaseTypeList.setExcludedCodes(codes);
     }
 
-    public ObservableList<ParcelJurisdictionTypeBean> getParcelJurisdictionTypeList() {
-        return ParcelJurisdictionTypeList.getFilteredList();
+    public ObservableList<LeaseTypeBean> getleaseTypeList() {
+        return leaseTypeList.getFilteredList();
     }
 
-    public ParcelJurisdictionTypeBean getSelectedParcelJurisdictionType() {
-        return selectedParcelJurisdictionType;
+    public LeaseTypeBean getSelectedParcelJurisdictionType() {
+        return selectedLeaseType;
     }
 
-    public void setSelectedParcelJurisdictionType(ParcelJurisdictionTypeBean selectedParcelJurisdictionType) {
-        this.selectedParcelJurisdictionType = selectedParcelJurisdictionType;
-        propertySupport.firePropertyChange(SELECTED_PARCEL_JURISDICTION_TYPE_PROPERTY, null, selectedParcelJurisdictionType);
+    public void setSelectedParcelJurisdictionType(LeaseTypeBean selectedLeaseType) {
+        this.selectedLeaseType = selectedLeaseType;
+        propertySupport.firePropertyChange(SELECTED_LEASE_TYPE_PROPERTY, null, selectedLeaseType);
     }
 
 }

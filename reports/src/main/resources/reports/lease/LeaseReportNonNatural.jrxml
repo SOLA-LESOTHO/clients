@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="42" uuid="757a9111-60e2-4019-9050-5bca15097a54">
 	<property name="ireport.zoom" value="1.6500000000000001"/>
-	<property name="ireport.x" value="42"/>
-	<property name="ireport.y" value="1977"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1697"/>
 	<subDataset name="SpecialConditions" uuid="b34b4205-264c-42c6-b1fa-9a686e749301">
 		<queryString>
 			<![CDATA[]]>
@@ -638,6 +638,7 @@ Land Administration Authority]]></text>
 				<textElement>
 					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{lease}.getRegistrationDate()]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="712">
@@ -663,11 +664,11 @@ Land Administration Authority]]></text>
 				<text><![CDATA[Regulation 10]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="23" y="40" width="484" height="54" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="23" y="40" width="484" height="25" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Unless special written authority is given by the Minister responsible for Agriculture, the lessee shall commence operation of the leased land consistent with the land use purpose specified in this lease within 12 months of the date of grant or issue of this lease and subject to the provisions of the Land Husbandry Act 1969 and subsequent regulations promulgated under that Act which apply to the agricultural land use purpose contained in the lease]]></text>
+				<text><![CDATA[Unless the Minister directs otherwise the Lessee shall fence the boundaries of the land within 6 (six) months of the date of the grant and the Lessee shall maintain the fence to the satisfaction of the Director General.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="-1" y="40" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
@@ -677,181 +678,194 @@ Land Administration Authority]]></text>
 				<text><![CDATA[1.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="94" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="0" y="64" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[2.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="24" y="94" width="483" height="24" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="24" y="64" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[A lessee shall use the land under this lease only for the purpose specified in the lease or any variation or change of use as to the agricultural land use which may be made under section 42 of the Act.]]></text>
+				<text><![CDATA[Unless special written authority is given by the Commissioner of Lands, the Lessee shall commence development of the land within 5 years of the date of the granting of a lease. This shall also apply to further development of the land held under a lease during the term of the lease.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="118" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="0" y="100" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[3.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="24" y="118" width="483" height="49" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="24" y="100" width="483" height="25" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[The lease shall permit entry on the land under the lease at any reasonable period of the day by a duly empowered:
-a. officer, employee, servant or agent of the Government of Lesotho;
-b. employee, servant or agent of any statuary corporation or parastatal organisation established to provide and maintain public utility services.  
-]]></text>
+				<text><![CDATA[Within a period of the time to be fixed by the planning authority, the Lessee shall provide at his own expense main drainage or main sewerage connections from the building erected on the land as the planning authority may require.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="24" y="167" width="483" height="47" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="24" y="125" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Save with the authority of the Minister, no electrical power or telephone pole or line or water, drainage or sewer pipe being upon or passing through over or under the land under this lease, and no replacement thereof, shall be moved or in any way be interfered with and reasonable access thereto shall be preserved to allow for inspection, maintenance, repair, renewal and replacement thereof.]]></text>
+				<text><![CDATA[In the event of any main building erected on the land being dismantled, destroyed, demolished or removed, the Lessee shall replace the building within a period specified by the planning authority and sub-regulations (2) and (3) of the Land Regulations 2011 shall apply where applicable.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="167" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="0" y="125" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[4.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="214" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="0" y="162" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[5.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="24" y="214" width="483" height="61" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="24" y="162" width="483" height="25" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Full right and liberty is reserved unto the Government of Lesotho freely to exercise or have, or unto the Minister to grant to a statutory corporation or parastatal organization, the right freely to exercise or have a public servitude over the land for the purpose of providing and maintaining public utility services and more particularly for the purpose of erecting telephone or electric power poles, installing electric or telephone wires and cables, laying down drains, sewers or water pipes and maintaining the same.]]></text>
+				<text><![CDATA[The Lessee shall use the land comprised in the lease only for the purpose specified in the lease or in any variation made to the original lease.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="275" width="482" height="59" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="25" y="186" width="483" height="72" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[The lessee shall:
-a. not cause or allow the land to be overgrazed.
-b. combat soil erosion and adopt sound land husbandry practices to the satisfaction of the District Agricultural Officer.
-c. use and cultivate arable land.
-]]></text>
+				<text><![CDATA[The Lessee shall permit entry on land at any reasonable period of the day by any duly empowered employee, officer or agent of the:
+ (i)     Land Administration Authority;
+ (ii)    Government of Lesotho; or
+ (iii)   any statutory corporation or parastatal organisation established to provide and maintain public utility
+          services.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="276" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="0" y="186" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[6.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="336" width="483" height="35" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="25" y="257" width="483" height="50" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[The interior and exterior of any building erected on the land and all building additions thereto and all other buildings at walls, drains and other appurtenances shall be kept by the lessee in good repair and tenantable conditions to the satisfaction of the Minister.]]></text>
+				<text><![CDATA[Save with the written authority of the planning authority, no electrical power or telephone pole or line or water, drainage or sewer pipe being upon or passing through, over or under the land and no replacement thereof, shall be moved or in any way be interfered with and reasonable access thereto shall be preserved to allow for inspection, maintenance, repair, renewal and replacement.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="1" y="336" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="1" y="257" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[7.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="25" y="371" width="483" height="47" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="25" y="306" width="483" height="62" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[No act, matter or thing, whatsoever, shall be done or permitted to be done upon the land or any part of such land which may cause or lead to pollution of the environment or result in the creation of any hazard to the health or other persons, or become a nuisance or annoyance to or damage or in any way interfere with the peace and comfort of adjoining lessees or the occupiers of adjoining or other lands in the neighbourhood.]]></text>
+				<text><![CDATA[Full right and liberty reserved unto the Government of Lesotho freely to exercise or have, or unto the Minister to grant to a statutory corporation or parastatal organisation, the right freely to exercise or have a public servitude over the land for the purpose of providing and maintaining public utility services and more particularly for the purpose of erecting telephone or electric power poles, installing electric or telephone wires and cables, laying down drains, sewers or water pipes and maintaining the same.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="1" y="371" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="1" y="306" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[8.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="26" y="419" width="483" height="26" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="26" y="367" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[The lessee shall not part with the possession of the leased land or part thereof in contravention section 35 and 36 of the Act.]]></text>
+				<text><![CDATA[The interior and exterior of any building erected on the land and all building additions thereto and all other buildings at any time erected or standing on the land and walls, drains and other appurtenances, shall be kept by the Lessee in good repair and tenantable condition to the satisfaction of the planning authority.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="2" y="419" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="2" y="367" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[9.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="26" y="445" width="483" height="60" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="26" y="403" width="483" height="50" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[A lessee shall, unless exempted in terms of section 77(1), pay the ground rent reserved under this lease in advance not later than the 31 day of March in each year provided that on exemption of the lease, the lessee shall pay ground rent due for the period ending the 31 day of March next which shall be calculated as follows:
-a.  when the lease subsists on any day in the month of April, one whole year’s rent;
-b.  in any other case, one whole year’s rent less one twelfth thereof for each complete month of that year that has elapsed prior to the date of the grant or issue of the lease.]]></text>
+				<text><![CDATA[No act, matter or thing, whatever, shall be done or permitted to be done upon the land or any part of such land which may cause or lead to pollution of the environment or result in the creation of any hazard to the health of other persons, or become a nuisance or annoyance to or damage or in any way interfere with the peace and comfort of adjoining Lessees or the occupiers of adjoining or other land in the neighbourhood.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="1" y="445" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="1" y="403" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[10.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="26" y="505" width="484" height="14" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="26" y="452" width="484" height="25" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Annual ground rent revision reserved in this lease shall be subject to revision every three years of the lease.]]></text>
+				<text><![CDATA[The Lessee shall not subdivide the land or part with the possession of any part thereof without the written prior approval of the planning authority.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="1" y="505" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="1" y="452" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[11.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="27" y="519" width="483" height="36" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="27" y="477" width="483" height="87" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Upon application by the lessee made not later than 6 months before expiry of this lease, the lessee shall be entitled to the grant of a new lease of the land on terms set by the Minister following consultation with the Minister responsible for agriculture, provided the land or part thereof is not required for a public purpose.]]></text>
+				<text><![CDATA[A Lessee shall, unless exempted under Section 77(1) or qualifies under Section 77(5), pay a prescribed annual ground rent in advance not later than the 31st day of March in each year provided that on execution of the lease, the Lessee shall pay any ground rent due for the period ending the 31st day of March which shall be calculated as follows:
+(i)    where the lease begins to subsist on any day in the month of April in any calendar year, one whole 
+        year's rent;
+(ii)   in any other case, one whole year's rent less one- twelfth thereof for each complete month of that rental
+        year that has elapsed prior to the date of the grant.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="1" y="519" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="2" y="476" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[12.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="27" y="558" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<reportElement positionType="Float" x="27" y="561" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[The lessee shall forfeit his lease in the event of any breach of any statutory conditions in accordance with the provisions of section 37 of the Act.]]></text>
+				<text><![CDATA[Annual ground rent reserved in the lease shall be subject to revision every three (3) years of the term of the lease and consequent upon any revision, the amount shall be fair and reasonable having regard to general values and no account shall be taken of any improvements made by the Lessee to or on the land subsequent to the date of such revision.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="2" y="558" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<reportElement positionType="Float" x="2" y="561" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[13.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="27" y="597" width="483" height="37" uuid="70c683a1-3136-417e-a735-34873c5f8747"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Upon application by the Lessee made not later than 6 (six) months before expiry of the term of the lease the Lessee shall be entitled to the grant of a new lease of the land on terms set by the Director General provided the land or part thereof is not required for any public purpose.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="598" width="25" height="14" uuid="cf1d13c9-fdd6-4783-ae2a-4afaf0f86a2c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[14.]]></text>
 			</staticText>
 		</band>
 	</detail>
